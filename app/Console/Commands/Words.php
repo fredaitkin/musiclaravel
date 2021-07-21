@@ -99,6 +99,9 @@ class Words extends Command {
         $this->countries[] = 'Belgians';
         $this->countries[] = 'Bolivia'; // API returns this as "Bolivia (Plurinational State of)"
         $this->countries[] = 'Bolivian';
+        $this->countries[] = 'Britain';
+        $this->countries[] = 'Britannia';
+        $this->countries[] = 'British';
         $this->countries[] = 'Europe';
         $this->countries[] = 'Russian';
         $this->countries[] = 'Zulu';
@@ -181,13 +184,22 @@ class Words extends Command {
             'Brazilia',
             'Braziliana',
             'Brighton',
+            'Brixton',
             'Brooklyn',
             'Bronx',
+            'Brussels',
+            'Buenos',
             'Calgary',
+            'Cali',
             'California',
+            'Californication',
+            'Campbell', // also a name
+            'Canaan',
+            'Cannes',
             'Cebu',
             'Cerro',
             'Chicago',
+            'Copmanhurst',
             'Detroit',
             'Dien',
             'Dohini',
@@ -361,8 +373,22 @@ class Words extends Command {
             'Bretty',
             'Brezhnev',
             'Brian',
+            'Bruce',
+            'Brucie',
+            'Brummel',
+            'Brynner',
+            'Bugsy',
+            'Bunyan',
+            'Burdett',
+            'Burke',
             'Busby',
+            'Caesar',
+            'Cain',
+            'Caligula',
+            'Callas',
+            'Cameron',
             'Camilla',
+            'Camille',
             'Capone',
             'Carla',
             'Charles',
@@ -449,7 +475,7 @@ class Words extends Command {
     }
 
     private function setBrands() {
-        // Things
+        // Things, No Doz
         $this->names = [
             'ABC',
             'Adidas',
@@ -459,15 +485,21 @@ class Words extends Command {
             'Bacardi',
             'Baileys',
             'Batego',
+            'BBC',
             'Beatlemania',
             'Benz',
             'Benzie',
             'Blackstrap',
-            'BBC',
             'BLS',
+            'Bundeburg',
+            'Cadi',
+            'Cadillac',
+            'Cadillacs',
+            'Chrysler',
             'CBS',
             'Coca',
             'Coke',
+            'Doz',
             'Guici',
             'JFK',
             'Mercedes',
@@ -495,12 +527,10 @@ class Words extends Command {
         $query = Song::select('songs.id', 'title', 'lyrics')
             ->join('artist_song', 'songs.id', '=', 'artist_song.song_id')
             ->whereNotIn('songs.id', [
-                404, 712, 819, 908, 911, 1273, 1293, 1314, 1425, 1477, 1758, 1825, 2051, 2133, 2206, 2225, 2344, 2524, 2601, 3156, 3165, 3198, 3427, 3965, 3966, 3968, 3994, 4145, 4146, 4261, 4389, 4732, 4892, 5325, 5621, 5709, 5727, 5728, 5737, 6053, 6218, 6502, 6912, 8036, 8587, 8993, 9143, 9159, 9183, 9473, 9550, 9741, 9762,
+                404, 491, 712, 819, 908, 911, 1273, 1293, 1314, 1425, 1477, 1582, 1758, 1825, 2051, 2133, 2206, 2225, 2344, 2524, 2601, 3156, 3165, 3198, 3427, 3965, 3966, 3968, 3994, 4145, 4146, 4261, 4389, 4732, 4892, 5325, 5621, 5709, 5727, 5728, 5737, 6053, 6218, 6502, 6912, 8036, 8587, 8993, 9143, 9159, 9183, 9473, 9550, 9741, 9762,
             ])
-            // this shouldn't be returning anyway
-            // ->whereNotIn('songs.id', [3053])
             ->whereNotIn('artist_song.artist_id', [
-                23, 84, 107, 197, 209, 211, 248, 280, 469, 510, 607, 611, 763, 802, 821, 838, 841, 846, 1317, 1453,
+                23, 84, 107, 197, 209, 211, 248, 280, 469, 510, 607, 611, 763, 802, 821, 838, 841, 846, 1317, 1453, 1516,
             ])
             ->whereNotIn('album', [
                 'Turkish Groove', 'African Women', 'Bocelli Greatest Hits', 'Buena Vista Social Club', 'Everything Is Possible!',
