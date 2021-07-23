@@ -102,6 +102,7 @@ class Words extends Command {
         $this->countries[] = 'Britain';
         $this->countries[] = 'Britannia';
         $this->countries[] = 'British';
+        $this->countries[] = 'Chinese';
         $this->countries[] = 'Europe';
         $this->countries[] = 'Russian';
         $this->countries[] = 'Zulu';
@@ -116,7 +117,7 @@ class Words extends Command {
     }
 
     private function setPlaces() {
-        // Cannot handle West Memphis or New York City Great Britain, Lake Charles, Los Angeles, Buenos Aires, Tel Aviv, Baton Rouge, Las Vegas, Dien Bien Phu, Lower East side
+        // Cannot handle West Memphis or New York City Great Britain, Lake Charles, Los Angeles, Buenos Aires, Tel Aviv, Baton Rouge, Las Vegas, Dien Bien Phu, Lower East side, Carson City
         $this->places = [
             'Aberdeen',
             'Aberdine',
@@ -196,9 +197,17 @@ class Words extends Command {
             'Campbell', // also a name
             'Canaan',
             'Cannes',
+            'Caribbean',
+            'Carlisle',
+            'Carson', // also a name
             'Cebu',
             'Cerro',
+            'Chattanooga',
+            'Chelsea', // also a name
+            'Chernobyl',
+            'Chesapeake',
             'Chicago',
+            'Chicano',
             'Copmanhurst',
             'Detroit',
             'Dien',
@@ -279,6 +288,7 @@ class Words extends Command {
     }
 
     private function setNames() {
+        //Ho Chi Minh
         $this->names = [
             'Aaliyah',
             'Abdul',
@@ -391,10 +401,27 @@ class Words extends Command {
             'Camille',
             'Capone',
             'Carla',
+            'Carol',
+            'Carolina',  // also a place
+            'Caroline',
+            'Cary',
+            'Casey',
+            'Cass',
+            'Castro',
+            'Cecilia',
+            'Chandra',
             'Charles',
+            'Charlie',
+            'Charlotte',
+            'Charo',
+            'Che',  // also just a sound
+            'Cheeba',
+            'Cheney',
+            'Chi',
             'Chino',
             'Coltrane',
             'Confusious',
+            'Charybdis',
             'Cronkite',
             'Darwin',
             'Dave',
@@ -403,6 +430,7 @@ class Words extends Command {
             'Dickins',
             'Disney',
             'Dooler',
+            'Earle',
             'Edison',
             'Elvis',
             'Erin',
@@ -410,10 +438,12 @@ class Words extends Command {
             'Galileo',
             'Gavrilo',
             'Geronimo',
-            'Grace',
+            'Giuseppe',
             'God',
             'Goodman',
-            'Giuseppe',
+            'Grace',
+            'Guevara',
+            'Gwar',
             'Hayworth',
             'Hoople',
             'Horner',
@@ -424,6 +454,7 @@ class Words extends Command {
             'Johnson',
             'Kafka',
             'Katherine',
+            'Katie',
             'Kaufman',
             'Kelly',
             'Kevin',
@@ -458,6 +489,7 @@ class Words extends Command {
             'Sally',
             'Samantha',
             'Samson',
+            'Scylla',
             'Seavers',
             'Shaggy',
             'Sophia',
@@ -475,7 +507,7 @@ class Words extends Command {
     }
 
     private function setBrands() {
-        // Things, No Doz
+        // Things, No Doz, Cracker Jack
         $this->names = [
             'ABC',
             'Adidas',
@@ -495,8 +527,16 @@ class Words extends Command {
             'Cadi',
             'Cadillac',
             'Cadillacs',
-            'Chrysler',
+            'Cartier',
+            'Casio',
+            'CB', // thing etc
             'CBS',
+            'CD',
+            'CEO',
+            'Chablis', // also a place
+            'Chevrolet',
+            'Chevy',
+            'Chrysler',
             'Coca',
             'Coke',
             'Doz',
@@ -510,6 +550,7 @@ class Words extends Command {
             'Reebok',
             // 'TAB',
             'Vanetto',
+            'VP',
             'Woody',
         ];
     }
@@ -527,7 +568,7 @@ class Words extends Command {
         $query = Song::select('songs.id', 'title', 'lyrics')
             ->join('artist_song', 'songs.id', '=', 'artist_song.song_id')
             ->whereNotIn('songs.id', [
-                404, 491, 712, 819, 908, 911, 1273, 1293, 1314, 1425, 1477, 1582, 1758, 1825, 2051, 2133, 2206, 2225, 2344, 2524, 2601, 3156, 3165, 3198, 3427, 3965, 3966, 3968, 3994, 4145, 4146, 4261, 4389, 4732, 4892, 5325, 5621, 5709, 5727, 5728, 5737, 6053, 6218, 6502, 6912, 8036, 8587, 8993, 9143, 9159, 9183, 9473, 9550, 9741, 9762,
+                299, 404, 491, 712, 819, 908, 911, 1273, 1293, 1314, 1425, 1477, 1582, 1758, 1825, 1828, 2051, 2133, 2206, 2225, 2344, 2524, 2601, 3156, 3165, 3198, 3427, 3965, 3966, 3968, 3994, 4145, 4146, 4261, 4389, 4624, 4732, 4892, 5325, 5621, 5709, 5727, 5728, 5737, 6053, 6218, 6502, 6912, 8036, 8456, 8532, 8587, 8993, 9143, 9146, 9159, 9164, 9183, 9473, 9550, 9741, 9762,
             ])
             ->whereNotIn('artist_song.artist_id', [
                 23, 84, 107, 197, 209, 211, 248, 280, 469, 510, 607, 611, 763, 802, 821, 838, 841, 846, 1317, 1453, 1516,
