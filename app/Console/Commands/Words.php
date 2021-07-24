@@ -104,6 +104,7 @@ class Words extends Command {
         $this->countries[] = 'British';
         $this->countries[] = 'Chinese';
         $this->countries[] = 'Colombian';
+        $this->countries[] = 'Cuban';
         $this->countries[] = 'Europe';
         $this->countries[] = 'Russian';
         $this->countries[] = 'Zulu';
@@ -169,6 +170,7 @@ class Words extends Command {
             'Barstow',
             'Baton',
             'Beale',
+            'Beaumont',
             'Beijing',
             'Beirut',
             'Belfast',
@@ -219,7 +221,12 @@ class Words extends Command {
             'Collingwood',
             'Colorado',
             'Coney',
+            'Constantinople',
             'Copmanhurst',
+            'Corning',
+            'Costa',
+            'Cronkite',
+            'Cuyahoga',
             'Detroit',
             'Dien',
             'Dohini',
@@ -234,6 +241,8 @@ class Words extends Command {
             'Hobart',
             'Hoovre',
             'Huntington',
+            'Istanbul',
+            'Jackson', // Also a name 
             'Khartoum',
             'L.A',
             'Laguna',
@@ -242,6 +251,7 @@ class Words extends Command {
             'Macquarie',
             'Madison',
             'Malibu',
+            'Malvinas',
             'Melbourne',
             'Memphis',
             'Michigan',
@@ -301,7 +311,7 @@ class Words extends Command {
     }
 
     private function setNames() {
-        //Ho Chi Minh, Chou En-Lai, Christina Applegate, Clarence Thomas, Santa Claus, Kurt Cobain, Leonard Cohen, John Coltrane, Perry Como
+        //Ho Chi Minh, Chou En-Lai, Christina Applegate, Clarence Thomas, Santa Claus, Kurt Cobain, Leonard Cohen, John Coltrane, Perry Como, Billy Connolly, Sean Connery, Don Corleone etc
         $this->names = [
             'Aaliyah',
             'Abdul',
@@ -379,6 +389,7 @@ class Words extends Command {
             'Betty',
             'Beyonce',
             'Billie',
+            'Billy',
             'Bizkit',
             'Blassie',
             'Bledsoe',
@@ -452,17 +463,29 @@ class Words extends Command {
             'Coltrane',
             'Columbine',
             'Como',
-            'Confusious',
+            'Confucius',
+            'Connolly',
+            'Connery',
+            'Copernicus',
+            'Corleone',
+            'Coronel',
+            'Cosell',
+            'Courtney',
             'Cronkite',
+            'Crowter',
+            'Cyrano',
+            'D', // Bobby D, D from RunDMC
             'Darwin',
             'Dave',
             'David',
             'Davis',
             'Dickins',
             'Disney',
+            'Don',
             'Dooler',
             'Earle',
             'Edison',
+            'Einstein',
             'Elvis',
             'Erin',
             'Fred',
@@ -476,6 +499,7 @@ class Words extends Command {
             'Guevara',
             'Gwar',
             'Hayworth',
+            'Hercules',
             'Hoople',
             'Horner',
             'Hugh',
@@ -483,6 +507,7 @@ class Words extends Command {
             'Joe',
             'John',
             'Johnson',
+            'Juanita',
             'Kafka',
             'Katherine',
             'Katie',
@@ -527,9 +552,12 @@ class Words extends Command {
             'Samantha',
             'Samson',
             'Scylla',
+            'Sean',
             'Seavers',
             'Shaggy',
             'Sophia',
+            'Sylvia',
+            'Teresa',
             'Tartanella',
             'Thatcher',
             'Thomas',
@@ -577,9 +605,13 @@ class Words extends Command {
             'CNN',
             'Coca',
             'Coke',
+            'Corona',
+            'Corvette',
+            'Crayola',
             'Doz',
             'Guici',
             'JFK',
+            'Khus',
             'Mercedes',
             'Moschino',
             'MTV',
