@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Music\Song\Song;
+use App\Words\Word;
 use Exception;
 use Illuminate\Console\Command;
 use Log;
@@ -723,7 +724,13 @@ class Words extends Command {
 
         endforeach;
         ksort($this->word_cloud);
-        Log::info($this->word_cloud);
+        foreach($this->word_cloud as $w => $v) {
+            if (!Word::isWord($w)) {
+                Log::info($w);
+                Log::info($v);
+            }
+
+        }
     }
 
     /**

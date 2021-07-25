@@ -4,14 +4,21 @@
 
 Displays songs and artists, enables a user to create and play playlists.
 
-It demonstrates my ability to:
-- work with frameworks
-- create a web application in PHP
-- work with MySQL and Redis databases
-- write javascript
-- work with Bootstrap and scss to style a website
-- work with node to pull jquery-ui and fontawesome packages into the application
-- cache data
-- create REST api functionality
-- serve up an application via Valet, WampServer and Docker
-- add application test coverage via Codeception
+This predicates you have composer and a web server running on your machine.
+
+Then clone this repository, cd into the root directory, and run composer install.
+
+Create a mysql database.
+
+Copy env.example to .env and update:
+
+APP_KEY - the value of php artisan key:generate --show
+Set DB credentials and other credentials
+Run database migrate scripts - php artisan migrate
+
+Update database with existing data - storage/backups/mysql.sql
+
+For Word component:
+Unzip storage/backups/wordnet20-from-prolog-all-3.zip
+Edit the sql file changing all ITEM=MyISAM to ENGINE=MyISAM
+Load the sql into your mysql database.
