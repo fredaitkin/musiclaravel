@@ -83,36 +83,41 @@ class Words extends Command {
     }
 
     public function setCountries() {
-        $this->countries = getCountryNames();
-        $this->countries[] = 'U.S';
-        $this->countries[] = 'USA';
-        $this->countries[] = 'America';
-        $this->countries[] = 'American';
-        $this->countries[] = 'Americana';
-        $this->countries[] = 'Africa';
-        $this->countries[] = 'Afrika';
-        $this->countries[] = 'Arab';
-        $this->countries[] = 'Arabs';
-        $this->countries[] = 'Argentines';
-        $this->countries[] = 'Asia';
-        $this->countries[] = 'Asian';
-        $this->countries[] = 'Asiatic';
-        $this->countries[] = 'Belgians';
-        $this->countries[] = 'Bolivia'; // API returns this as "Bolivia (Plurinational State of)"
-        $this->countries[] = 'Bolivian';
-        $this->countries[] = 'Britain';
-        $this->countries[] = 'Britannia';
-        $this->countries[] = 'British';
-        $this->countries[] = 'Chinese';
-        $this->countries[] = 'Colombian';
-        $this->countries[] = 'Cuban';
-        $this->countries[] = 'Dominican';
-        $this->countries[] = 'Europe';
-        $this->countries[] = 'Russian';
-        $this->countries[] = 'Zulu';
-        $this->countries[] = 'Zulus';
-        unset($this->countries['Multipe']);
-        unset($this->countries['Unknown']);
+        try {
+            $this->countries = getCountryNames();
+            $this->countries[] = 'U.S';
+            $this->countries[] = 'USA';
+            $this->countries[] = 'America';
+            $this->countries[] = 'American';
+            $this->countries[] = 'Americana';
+            $this->countries[] = 'Africa';
+            $this->countries[] = 'Afrika';
+            $this->countries[] = 'Arab';
+            $this->countries[] = 'Arabs';
+            $this->countries[] = 'Argentines';
+            $this->countries[] = 'Asia';
+            $this->countries[] = 'Asian';
+            $this->countries[] = 'Asiatic';
+            $this->countries[] = 'Belgians';
+            $this->countries[] = 'Bolivia'; // API returns this as "Bolivia (Plurinational State of)"
+            $this->countries[] = 'Bolivian';
+            $this->countries[] = 'Britain';
+            $this->countries[] = 'Britannia';
+            $this->countries[] = 'British';
+            $this->countries[] = 'Chinese';
+            $this->countries[] = 'Colombian';
+            $this->countries[] = 'Cuban';
+            $this->countries[] = 'Dominican';
+            $this->countries[] = 'Europe';
+            $this->countries[] = 'Russian';
+            $this->countries[] = 'Zulu';
+            $this->countries[] = 'Zulus';
+            unset($this->countries['Multipe']);
+            unset($this->countries['Unknown']);
+        } catch (Exception $e) {
+            Log::error("Redis is not connected");
+            $this->countries = [];
+        }
 
     }
 
@@ -617,7 +622,7 @@ class Words extends Command {
 
     private function setBrands() {
         // Things, No Doz, Cracker Jack
-        $this->names = [
+        $this->brands = [
             'ABC',
             'Adidas',
             'Amtracks',
@@ -761,10 +766,27 @@ class Words extends Command {
 
     public function setCase($word) {
         $tmp_word = ucfirst(strtolower($word));
-        if ($this->isCountry($tmp_word) || $this->isPlace($tmp_word) || $this->isMonth($tmp_word) || $this->isName($tmp_word) || $this->isBrand($tmp_word)):
+
+        if ($this->isCountry($tmp_word)) {
             return $tmp_word;
-        else:
-            return strtolower($word);
-        endif;
+        }
+
+        if ($this->isPlace($tmp_word)) {
+            return $tmp_word;
+        }
+
+        if ($this->isMonth($tmp_word)) {
+            return $tmp_word;
+        }
+
+        if ($this->isName($tmp_word)) {
+            return $tmp_word;
+        }
+
+        if ($this->isBrand($tmp_word)) {
+            return $tmp_word;
+        }
+
+        return strtolower($word);
     }
 }

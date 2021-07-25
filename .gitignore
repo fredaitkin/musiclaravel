@@ -23,5 +23,4 @@ tests/_support/UnitTester.php
 tests/_support/FunctionalTester.php
 tests/_support/UnitTester.php
 tests/functional*
-tests/unit*
 *.csv
