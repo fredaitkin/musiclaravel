@@ -40,6 +40,8 @@ class Words extends Command {
 
     protected $months = [];
 
+    protected $days = [];
+
     protected $names = [];
 
     protected $brands = [];
@@ -53,6 +55,7 @@ class Words extends Command {
         $this->setCountries();
         $this->setPlaces();
         $this->setMonths();
+        $this->setDays();
         $this->setNames();
         $this->setBrands();
         parent::__construct();
@@ -211,6 +214,7 @@ class Words extends Command {
             'Caribbean',
             'Carlisle',
             'Carson', // also a name
+            'Cauldrum',
             'Cebu',
             'Cerro',
             'Chattanooga',
@@ -252,12 +256,24 @@ class Words extends Command {
             'Finnoe',
             'Fitzroy',
             'FLA',
+            'Francisco',
+            'Frisco',
+            'Frenchmen',
+            'Fulsom',
             'Galveston',
             'Galilee',
+            'Geneva',
+            'Ginza',
             'Glenaveigh',
+            'Gower',
+            'Graceland', // like Disneyland, not really a place?
+            'Grasmeres',
+            'Greeks',
             'Greenpoint',
             'Greenville',
             'Guantanamo',
+            'Guernica',
+            'Haight', //street
             'Hobart',
             'Hoovre',
             'Huntington',
@@ -301,6 +317,7 @@ class Words extends Command {
             'Tiree',
             'Trenton',
             'Tucson',
+            'Walla',
             'Winnemucca',
             'Zelda',
         ];
@@ -332,6 +349,24 @@ class Words extends Command {
         return in_array($word, $this->months);
     }
 
+    private function setDays() {
+        $this->days = [
+            'Sunday',
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Fridays',
+            'Saturday',
+        ];
+    }
+
+    private function isDay($word) {
+        // May is complex, will often be a word
+        return in_array($word, $this->days);
+    }
+
     private function setNames() {
         //Ho Chi Minh, Chou En-Lai, Christina Applegate, Clarence Thomas, Santa Claus, Kurt Cobain, Leonard Cohen, John Coltrane, Perry Como, Billy Connolly, Sean Connery, Don Corleone etc
         $this->names = [
@@ -341,6 +376,7 @@ class Words extends Command {
             'Abel',
             'Abigail',
             'Abraham',
+            'Achad',
             'Adam',
             'Agamemnon',
             'Ajax',
@@ -488,6 +524,7 @@ class Words extends Command {
             'Confucius',
             'Connolly',
             'Connery',
+            'Copelia',
             'Copernicus',
             'Corleone',
             'Coronel',
@@ -532,6 +569,7 @@ class Words extends Command {
             'Doris',
             'Douglas',
             'Dozier',
+            'Dr', // generic person
             'Dre',
             'Dredd',
             'Dwight',
@@ -563,21 +601,41 @@ class Words extends Command {
             'Evan',
             'Ezekial',
             'Fairbanks',
+            'Fergie',
+            'Ferdinand',
+            'Fernando',
             'Flo',
             'Flynn',
+            'Francis',
+            'Frankie',
+            'Franklin',
+            'Frater', // generic person
             'Fred',
             'Fuegos',
+            'Funderburk',
+            'Gable',
             'Galileo',
             'Garbo',
             'Gavrilo',
+            'Georgie',
+            'Georgy',
             'Geronimo',
+            'Gina',
+            'Giuliani',
             'Giuseppe',
             'God',
+            'Goode',
             'Goodman',
+            'Gordon',
             'Grace',
+            'Gregg',
+            'Gregor',
             'Greta',
             'Guevara',
+            'Gus',
             'Gwar',
+            'Hailey',
+            'Hailie',
             'Hayworth',
             'Hercules',
             'Hoople',
@@ -591,6 +649,7 @@ class Words extends Command {
             'Johnson',
             'Juanita',
             'Juliana',
+            'Julianus',
             'Kafka',
             'Katherine',
             'Katie',
@@ -609,6 +668,7 @@ class Words extends Command {
             'Louis',
             'Lovett',
             'Lucy',
+            'Ludacris',
             'Luther',
             'Lyle',
             'Macey',
@@ -619,7 +679,9 @@ class Words extends Command {
             'Mary',
             'Mathilde',
             'Matt',
+            'Medusa',
             'Milena',
+            'Miroslaw',
             'Mohamed',
             'Monroe',
             'Moses',
@@ -656,6 +718,8 @@ class Words extends Command {
             'Tartanella',
             'Thatcher',
             'Thomas',
+            'Velouria',
+            'Vladimir',
             'Wagner',
             'Whitfield',
             'William',
@@ -711,7 +775,6 @@ class Words extends Command {
             'Darjeeling',
             'Datsuns',
             'DNA',
-            'Dr',
             'Dolce',
             'Dorado',
             'Dow',
@@ -720,15 +783,16 @@ class Words extends Command {
             'Edsel',
             'Fedex',
             'Fendi',
-            'Fergie',
-            'Ferdinand',
-            'Fernando',
+            'Fu',
             'Gabbana',
-            'Guici',
+            'Gideon',
+            'Glock',
+            'Gucci',
             'Hoover',
             'JFK',
             'Karan',
             'Khus',
+            'Kung',
             'Mercedes',
             'Moschino',
             'MTV',
@@ -737,6 +801,7 @@ class Words extends Command {
             'Reebok',
             'Revelaires',
             // 'TAB',
+            'Tylenol',
             'Vanetto',
             'VP',
             'Walmart',
@@ -834,6 +899,10 @@ class Words extends Command {
         }
 
         if ($this->isMonth($tmp_word)) {
+            return $tmp_word;
+        }
+
+        if ($this->isDay($tmp_word)) {
             return $tmp_word;
         }
 
