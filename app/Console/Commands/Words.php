@@ -85,54 +85,45 @@ class Words extends Command {
         endif;
     }
 
-// MISC I, Im
     public function setCountries() {
-        try {
-            $this->countries = getCountryNames();
-            $this->countries[] = 'U.S';
-            $this->countries[] = 'USA';
-            $this->countries[] = 'America';
-            $this->countries[] = 'American';
-            $this->countries[] = 'Americana';
-            $this->countries[] = 'Africa';
-            $this->countries[] = 'Afrika';
-            $this->countries[] = 'Arab';
-            $this->countries[] = 'Arabs';
-            $this->countries[] = 'Argentines';
-            $this->countries[] = 'Asia';
-            $this->countries[] = 'Asian';
-            $this->countries[] = 'Asiatic';
-            $this->countries[] = 'Belgians';
-            $this->countries[] = 'Bolivia'; // API returns this as "Bolivia (Plurinational State of)"
-            $this->countries[] = 'Bolivian';
-            $this->countries[] = 'Britain';
-            $this->countries[] = 'Britannia';
-            $this->countries[] = 'British';
-            $this->countries[] = 'Chinese';
-            $this->countries[] = 'Colombian';
-            $this->countries[] = 'Cuban';
-            $this->countries[] = 'Dominican';
-            $this->countries[] = 'Europe';
-            $this->countries[] = 'European';
-            $this->countries[] = 'Indians';
-            $this->countries[] = 'Indochinan';
-            $this->countries[] = 'Mandinka';
-            $this->countries[] = 'Mexicans';
-            $this->countries[] = 'Puerto';
-            $this->countries[] = 'Russian';
-            $this->countries[] = 'Russians';
-            $this->countries[] = 'Rican';
-            $this->countries[] = 'Turkish';
-            $this->countries[] = 'Turks';
-            $this->countries[] = 'Zulu';
-            $this->countries[] = 'Zulus';
-            unset($this->countries['Multipe']);
-            unset($this->countries['Unknown']);
-        } catch (Exception $e) {
-            Log::error("Redis is not connected");
-            $this->countries = [];
-        }
-
+        $this->countries = config('countries');
+        $this->countries[] = 'U.S';
+        $this->countries[] = 'USA';
+        $this->countries[] = 'America';
+        $this->countries[] = 'American';
+        $this->countries[] = 'Americana';
+        $this->countries[] = 'Africa';
+        $this->countries[] = 'Afrika';
+        $this->countries[] = 'Arab';
+        $this->countries[] = 'Arabs';
+        $this->countries[] = 'Argentines';
+        $this->countries[] = 'Asia';
+        $this->countries[] = 'Asian';
+        $this->countries[] = 'Asiatic';
+        $this->countries[] = 'Belgians';
+        $this->countries[] = 'Bolivia'; // API returns this as "Bolivia (Plurinational State of)"
+        $this->countries[] = 'Bolivian';
+        $this->countries[] = 'Britain';
+        $this->countries[] = 'Britannia';
+        $this->countries[] = 'British';
+        $this->countries[] = 'Chinese';
+        $this->countries[] = 'Colombian';
+        $this->countries[] = 'Cuban';
+        $this->countries[] = 'Dominican';
+        $this->countries[] = 'Europe';
+        $this->countries[] = 'European';
+        $this->countries[] = 'Indians';
+        $this->countries[] = 'Indochinan';
+        $this->countries[] = 'Mandinka';
+        $this->countries[] = 'Mexicans';
+        $this->countries[] = 'Puerto';
+        $this->countries[] = 'Russian';
+        $this->countries[] = 'Russians';
+        $this->countries[] = 'Rican';
+        $this->countries[] = 'Turkish';
+        $this->countries[] = 'Turks';
+        $this->countries[] = 'Zulu';
+        $this->countries[] = 'Zulus';
     }
 
     private function isCountry($word) {
