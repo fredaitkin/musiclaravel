@@ -393,6 +393,9 @@ class Words extends Command {
 
         endforeach;
         ksort($this->word_cloud);
+
+        // TODO don't include song_ids from common words
+        // $common_words = ['the', 'at', 'where'];
         foreach($this->word_cloud as $w => $v) {
             Log::info($w);
             $v['is_word'] = Word::isWord($w);

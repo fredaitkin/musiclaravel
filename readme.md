@@ -16,9 +16,7 @@ APP_KEY - the value of php artisan key:generate --show
 Set DB credentials and other credentials
 Run database migrate scripts - php artisan migrate
 
-Update database with existing data - storage/backups/mysql.sql
+Update database with existing data - storage/backups/mymusic.sql
 
 For Word component:
-Unzip storage/backups/wordnet20-from-prolog-all-3.zip
-Edit the sql file changing all ITEM=MyISAM to ENGINE=MyISAM
-Load the sql into your mysql database.
+Create database with https://sourceforge.net/projects/mysqlenglishdictionary/ dictory - storage/backups/englishdictionary.sql
