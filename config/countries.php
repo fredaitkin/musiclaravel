@@ -26,7 +26,7 @@ return [
     'Benin',
     'Bermuda',
     'Bhutan',
-    'Bolivia (Plurinational State of)',
+    'Bolivia',
     'Bonaire, Sint Eustatius and Saba',
     'Bosnia and Herzegovina',
     'Botswana',
