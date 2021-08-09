@@ -194,7 +194,6 @@ return [
     'Diana',
     'Diane',
     'Dickins',
-    'Dimaggio',
     'Dinah',
     'Disney',
     'Don',

@@ -5,7 +5,7 @@ return [
     'Amazon',
     'Amazonians',
     'Andalusia',
-    'Annan',
+    'Annan', // Annan Waters, river
     'Antarctic',
     'Appalachia',
     'Appel',
@@ -14,36 +14,44 @@ return [
     'Atlantis',
     'Bali',
     'Balie',
-    'Bally',
     'Baltic',
+    'Bergere', // Folies Bergere
     'Bondi',
     'Brixton',
     'Brooklyn',
     'Bronx',
+    'Canaan',
     'Chelsea', // also a name
     'Chesapeake',
+    'Chicano', // Chicano City park
+    'Cicero', // Chicago suburb, also a name
     'Clapham',
     'Coeur', // Sacre Couer
     'Collingwood',
     'Coney', // Coney Island
+    'Costa', //  Costa del Malvinas
     'Cuyahoga',
-    'Diagonalia',
     'Disneyland',
     'Disneyworld',
     'Doheny',
-    'Elaine', // bar in NYC as building/establishme!
+    'Eden',
+    'Elaine', // bar in NYC
     'Euston',
     'Fitzroy',
     'Galilee',
+    'Ginza', // Ginza line
+    'Gower', // peninsula
     'Graceland', // like Disneyland, not really a place?
     'Greeks',
     'Greenpoint',
     'Guernica',
     'Hampstead',
+    'Hindu',
     'Hollywood',
     'Hong', // Hong Kong
-    'Hoovre',
+    'Inisfree', // island
     'Itchycoo',
+    'Kent',
     'Khe', // Khe Sanh
     'Khyber',
     'Kilda', // St Kilda
@@ -51,8 +59,9 @@ return [
     'Kintyre',
     'Kong', // Hong Kong
     'Kowloon',
-    'Kush',
+    'Kush', // Hindu Kush, mountain range
     'Largo', // Key Largo
+    'Leeds',
     'Leith',
     'Louvre',
     'Macquarie',
@@ -64,11 +73,13 @@ return [
     'Mississippi',
     'Monserrat',
     'Montego',
+    'Morningside', // suburb of Edinburgh
     'Ngall',
     'Parris',
     'Ponchartrain',
     'Ramblas',
     'Rockaway',
+    'Rotherhide',
     'Rouge',
     'Rubicon',
     'Sacre', // Sacre Coeur
@@ -87,7 +98,9 @@ return [
     'Tropez',
     'Tyne',
     'Ventura',
+    'Westwood', // part of East Kilbride
     'Whitehouse',
     'Xanadu',
+    'Xenia',
 
 ];

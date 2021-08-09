@@ -19,4 +19,4 @@ Run database migrate scripts - php artisan migrate
 Update database with existing data - storage/backups/mymusic.sql
 
 For Word component:
-Create database with https://sourceforge.net/projects/mysqlenglishdictionary/ dictory - storage/backups/englishdictionary.sql
+Create database with https://sourceforge.net/projects/mysqlenglishdictionary/ dictionary - storage/backups/englishdictionary.sql

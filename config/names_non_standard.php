@@ -2,6 +2,7 @@
 
 return [
 
+    'Dimaggio'      => 'DiMaggio',
     'Dmc'           => 'DMC',
     'Maclennane'    => 'MacLennane',
     'Mccoy'         => 'McCoy',

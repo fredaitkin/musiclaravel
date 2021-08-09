@@ -23,18 +23,15 @@ return [
     'Baltimore',
     'Bangkok',
     'Barcelona',
-    'Barrington',
     'Barstow',
     'Baton', // Baton Rouge
     'Beaumont',
     'Beijing',
     'Beirut',
     'Belfast',
-    'Belmont',
-    'Bergere',
     'Berlin',
     'Bethlehem',
-    'Beverly', // also a name
+    'Beverly', // Beverly Hills, also a name
     'Bien', // Dien Bien Phu
     'Birmingham',
     'Bissau',
@@ -44,27 +41,18 @@ return [
     'Brussels',
     'Buenos', // Buenos Aires
     'Calgary',
-    'Campbell', // also a name
-    'Canaan',
     'Cannes',
     'Carlisle',
     'Carson', // also a name
-    'Cauldrum',
     'Cebu',
-    'Cerro',
+    'Cerro', // Cerro Azul
     'Chattanooga',
     'Chernobyl',
     'Chicago',
-    'Chicano',
-    'Cicero', // also a name
-    'Cienega',
     'Cleveland',
     'Constantinople',
     'Copmanhurst',
     'Corning',
-    'Costa',
-    'Cronkite',
-    'Danforth',
     'Detroit',
     'Dharamsala',
     'Diego', // San Diego 
@@ -73,7 +61,6 @@ return [
     'Dunblane',
     'Dundee',
     'Ebudae',
-    'Eden',
     'Finnoe',
     'Francisco', // San Francisco
     'Frisco', // San Francisco
@@ -81,19 +68,15 @@ return [
     'Fulsom',
     'Galveston',
     'Geneva',
-    'Ginza',
     'Glenaveigh',
-    'Gower',
     'Grasmeres',
     'Greenville',
     'Guantanamo',
     'Guernica',
-    'Hindu', // Hindu Stan?
     'Hobart',
     'Humberside',
     'Huntington',
     'Hyannisport',
-    'Inisfree',
     'Istanbul',
     'Jackson', // Also a name 
     'Jose', // San Jose, also a name 
@@ -101,7 +84,6 @@ return [
     'Kilronan',
     'Kokomo',
     'Kowloon',
-    'Kush',
     'Laguna', // Laguan Beach
     'Las', // Las Vegas
     'Lethbridge',
@@ -114,10 +96,8 @@ return [
     'Memphis',
     'Metuchen',
     'Monica', // Santa Monica
-    'Montague',
     'Montgomery',
     'Montreux',
-    'Morningside',
     'Moscow',
     'Napoli',
     'Narrabri',
@@ -128,7 +108,6 @@ return [
     'Orleans', // New Orleans
     'Oxford',
     'Perth',
-    'Peyton',
     'Philly',
     'Phu', // Dien Bien Phu
     'Piha',
@@ -141,10 +120,8 @@ return [
     'Rockville',
     'Rollox',
     'Rosedale',
-    'Rotherhide',
-    'Rouge',
+    'Rouge', // Baton
     'Sanh', // Khe Sanh
-    'Scarborough',
     'Shinrone',
     'Slidell',
     'Smithfield',
@@ -161,8 +138,5 @@ return [
     'Ventura',
     'Walla',
     'Watertown',
-    'Westwood',
     'Winnemucca',
-    'Xenia',
-    'Zelda',
 ];

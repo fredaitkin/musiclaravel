@@ -8,6 +8,7 @@ return [
     'Armani',
     'Bacardi',
     'Baileys',
+    'Bally',
     'Barbie',
     'Batego',
     'Beatlemania',
@@ -83,6 +84,7 @@ return [
     'Penney',
     'Pennzoil',
     'Perignon',
+    'Peyton', // Peyton Place tv show
     'Porsches',
     'Reebok',
     'Romilar', // cough syrup
@@ -109,5 +111,6 @@ return [
     'Woodbines',
     'Woody',
     'Wookiee',
+    'Zelda', // video game?
 
-    ];
+];
