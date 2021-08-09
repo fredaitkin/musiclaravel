@@ -93,6 +93,10 @@ class Words extends Command {
             return ['word' => $tmp_word, 'type' => 'country'];
         }
 
+        if ($this->isState($tmp_word)) {
+            return ['word' => $tmp_word, 'type' => 'country'];
+        }
+
         if ($this->isTown($tmp_word)) {
             return ['word' => $tmp_word, 'type' => 'town'];
         }
@@ -208,6 +212,16 @@ class Words extends Command {
         $this->states[] = 'Hawaian';
         $this->states[] = 'Rhode';
         $this->states[] = 'Virginny';
+    }
+
+    /**
+     * Is the word a state?
+     * @param string $word
+     *   The word
+     * @return bool
+     */
+    private function isState($word) {
+        return in_array($word, $this->states);
     }
 
     /**
@@ -395,7 +409,7 @@ class Words extends Command {
         ksort($this->word_cloud);
 
         // TODO don't include song_ids from common words
-        // $common_words = ['a', 'the', 'at', 'where'];
+        // $common_words = ['a', 'about', 'after', 'again', 'at', 'the', 'where'];
         foreach($this->word_cloud as $w => $v) {
             Log::info($w);
             $v['is_word'] = Word::isWord($w);

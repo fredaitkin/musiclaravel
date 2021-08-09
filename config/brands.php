@@ -12,6 +12,7 @@ return [
     'Barbie',
     'Batego',
     'Beatlemania',
+    'Beechams',
     'Benz',
     'Benzie',
     'Birchmount', //stadium
