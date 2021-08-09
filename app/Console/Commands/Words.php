@@ -323,7 +323,7 @@ class Words extends Command {
      */
     private function getAcronym($word) {
         $tmp_word = strtoupper($word);
-        if (in_array($tmp_word, config('acronyms'))):
+        if (isset(config('acronyms')[$tmp_word])):
             $acronym = config('acronyms')[$tmp_word];
             return ['word' => $tmp_word, 'type' => $acronym['type']];
         else:
@@ -395,7 +395,7 @@ class Words extends Command {
         ksort($this->word_cloud);
 
         // TODO don't include song_ids from common words
-        // $common_words = ['the', 'at', 'where'];
+        // $common_words = ['a', 'the', 'at', 'where'];
         foreach($this->word_cloud as $w => $v) {
             Log::info($w);
             $v['is_word'] = Word::isWord($w);

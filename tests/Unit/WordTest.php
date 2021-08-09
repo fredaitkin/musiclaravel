@@ -15,7 +15,9 @@ class WordTest extends TestCase
     public function testSetCaseTest()
     {
         $command = new Words();
-        $word = $command->setCase('Abdul');
-        $this->assertEquals('Abdul', $word);
+        $word_info = $command->setCaseInfo('Abdul');
+        $this->assertEquals('Abdul', $word_info['word']);
+        $word_info = $command->setCaseInfo('abc');
+        $this->assertEquals('ABC', $word_info['word']);
     }
 }
