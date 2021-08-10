@@ -3,7 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Music\Song\Song;
-use App\Words\Word;
+use App\Words\WordMED;
+use App\Words\WordNet;
 use Exception;
 use Illuminate\Console\Command;
 use Log;
@@ -409,10 +410,15 @@ class Words extends Command {
         ksort($this->word_cloud);
 
         // TODO don't include song_ids from common words
-        // $common_words = ['a', 'about', 'after', 'again', 'at', 'the', 'where'];
+        // $common_words = ['a', 'about', 'after', 'again', 'all', 'am', at', 'the', 'where'];
         foreach($this->word_cloud as $w => $v) {
             Log::info($w);
-            $v['is_word'] = Word::isWord($w);
+            if (WordNet::isWord($w)):
+                $v['is_word'] = true;
+            else:
+                // Try again.
+                $v['is_word'] = WordMED::isWord($w);
+             endif;
             $v['song_ids'] = array_unique($v['song_ids']);
             Log::info($v);
         }

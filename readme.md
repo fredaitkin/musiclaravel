@@ -18,5 +18,14 @@ Run database migrate scripts - php artisan migrate
 
 Update database with existing data - storage/backups/mymusic.sql
 
-For Word component:
-Create database with https://sourceforge.net/projects/mysqlenglishdictionary/ dictionary - storage/backups/englishdictionary.sql
+In order to run the Words command, external Word databases will need to be imported:
+I am currently using two different Word databases, both have words the other does not.
+
+The first is Princeton University's WordNet database.
+To install:
+Unzip storage/backups/wordnet20-from-prolog-all-3.zip
+Edit the sql file changing all ITEM=MyISAM to ENGINE=MyISAM
+Load the sql into your mysql database.
+
+THe second is sourced from a Source Forge project - https://sourceforge.net/projects/mysqlenglishdictionary/
+Load the sql and create the database with storage/backups/englishdictionary.sql
