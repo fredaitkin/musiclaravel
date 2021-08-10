@@ -363,7 +363,7 @@ class Words extends Command {
      * @return bool
      */
     private function isOrganisation($word) {
-        return in_array($word, config('brands'));
+        return in_array($word, config('organisations'));
     }
 
     /**
