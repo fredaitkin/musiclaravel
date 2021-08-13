@@ -170,13 +170,19 @@ class Words extends Command {
         $this->countries[] = 'Britain';
         $this->countries[] = 'Britannia';
         $this->countries[] = 'British';
+        $this->countries[] = 'Cajun';
         $this->countries[] = 'Caribbean';
+        $this->countries[] = 'Celtic';
+        $this->countries[] = 'Charlies';
         $this->countries[] = 'Chinese';
         $this->countries[] = 'Colombian';
+        $this->countries[] = 'Coonass';
+        $this->countries[] = 'Creole';
         $this->countries[] = 'Cuban';
         $this->countries[] = 'Dominican';
         $this->countries[] = 'Europe';
         $this->countries[] = 'European';
+        $this->countries[] = 'French';
         $this->countries[] = 'Indians';
         $this->countries[] = 'Indochinan';
         $this->countries[] = 'Mandinka';
@@ -279,9 +285,12 @@ class Words extends Command {
 
     private function setDays() {
         $this->days = config('days');
+        $this->days[] = 'Christmas';
+        $this->days[] = 'Christmases';
+        $this->days[] = 'Christmastime';
+        $this->days[] = 'Fridays';
         $this->days[] = 'Sundays';
         $this->days[] = 'Mondays';
-        $this->days[] = 'Fridays';
     }
 
     /**
@@ -410,18 +419,31 @@ class Words extends Command {
         ksort($this->word_cloud);
 
         // TODO don't include song_ids from common words
-        // $common_words = ['a', 'about', 'after', 'again', 'all', 'am', at', 'the', 'where'];
+        // $common_words = ['a', 'about', 'after', 'again', 'all', 'am', 'an', 'and', 'are', 'around', 'as', 'at', 'be', 'been', 'but', 'by', 'can', 'do',
+        // 'the', 'where'];
         foreach($this->word_cloud as $w => $v) {
             Log::info($w);
-            if (WordNet::isWord($w)):
-                $v['is_word'] = true;
-            else:
-                // Try again.
-                $v['is_word'] = WordMED::isWord($w);
-             endif;
+            $is_word = $this->isWord($w);
+            if (!$is_word):
+                // Check if it is possible a plural.
+                if (substr($w, -1) === 's'):
+                    // Try again.
+                    $is_word = $this->isWord(substr($w, 0, -1));
+                endif;
+            endif;
+            $v['is_word'] = $is_word;
+             // Possible check, if false if last letter is s, strip s and try again.
             $v['song_ids'] = array_unique($v['song_ids']);
             Log::info($v);
         }
+    }
+
+    private function isWord($w) {
+        if (WordNet::isWord($w)):
+            return true;
+        else:
+            return WordMED::isWord($w);
+         endif;
     }
 
     /**

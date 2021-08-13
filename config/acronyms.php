@@ -11,6 +11,7 @@ return [
     'CEO'   => ['full_term' => 'Chief executive officer', 'type' => 'position'],
     'CNN'   => ['full_term' => 'Cable News Network', 'type' => 'organisation'],
     'DNA'   => ['full_term' => 'Deoxyribonucleic acid', 'type' => 'object'],
+    'DVD'   => ['full_term' => 'Digital video disk', 'type' => 'object'],
     'FLA'   => ['full_term' => 'Florida', 'type' => 'state'],
     'IRS'   => ['full_term' => 'Internal Revenue Service', 'type' => 'organisation'],
     'JC'    => ['full_term' => 'JC Penney', 'type' => 'brand'],

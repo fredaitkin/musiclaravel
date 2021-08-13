@@ -58,6 +58,7 @@ return [
     'Diego', // San Diego 
     'Dien', // Dien Bien Phu
     'Dublin',
+    'Duluth',
     'Dunblane',
     'Dundee',
     'Ebudae',

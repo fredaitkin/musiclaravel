@@ -14,5 +14,7 @@ return [
     'Mcquire'       => 'McQuire',
     'Mcqueen'       => 'McQueen',
     'Mcveigh'       => 'McVeigh',
+    'Dj'            => 'DJ',
+    'Djs'           => 'DJs',
 
 ];

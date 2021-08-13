@@ -12,6 +12,8 @@ return [
     'Argonauts',
     'Atlantic',
     'Atlantis',
+    'Avalon',
+    'Babylon',
     'Bali',
     'Balie',
     'Baltic',
@@ -24,8 +26,10 @@ return [
     'Chelsea', // also a name
     'Chesapeake',
     'Chicano', // Chicano City park
+    'Chinatown',
     'Cicero', // Chicago suburb, also a name
     'Clapham',
+    'Clubland',
     'Coeur', // Sacre Couer
     'Collingwood',
     'Coney', // Coney Island
