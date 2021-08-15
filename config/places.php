@@ -38,11 +38,19 @@ return [
     'Disneyland',
     'Disneyworld',
     'Doheny',
+    'Dorado', // El Dorado
     'Eden',
+    'Eiffel', // after a name
     'Elaine', // bar in NYC
+    'Elysian',
+    'Euphrates', // river
     'Euston',
+    'Fillmore',
     'Fitzroy',
+    'Folsom',
     'Galilee',
+    'Galway',
+    'Gaza',
     'Ginza', // Ginza line
     'Gower', // peninsula
     'Graceland', // like Disneyland, not really a place?
@@ -50,6 +58,7 @@ return [
     'Greenpoint',
     'Guernica',
     'Hampstead',
+    'Harlem',
     'Hindu',
     'Hollywood',
     'Hong', // Hong Kong
@@ -70,6 +79,7 @@ return [
     'Louvre',
     'Macquarie',
     'Malvinas',
+    'Mahal', // Taj Mahal
     'Mariana',
     'Marrickville',
     'Martinque',
@@ -79,6 +89,7 @@ return [
     'Montego',
     'Morningside', // suburb of Edinburgh
     'Ngall',
+    'Niagara',
     'Parris',
     'Ponchartrain',
     'Ramblas',
@@ -96,6 +107,7 @@ return [
     'St', // St Kilda St Tropez
     'Staten',
     'Suez',
+    'Taj',
     'Tetons',
     'Thames',
     'Transylvania',

@@ -1,7 +1,7 @@
 <?php
 
 return [
-
+    // drug/substance instead of object
     'ABC'   => ['full_term' => 'American Broadcasting Company', 'type' => 'organisation'],
     'BBC'   => ['full_term' => 'British Broadcasting Company', 'type' => 'organisation'],
     'BLS'   => ['full_term' => '', 'type' => ''],
@@ -12,12 +12,17 @@ return [
     'CNN'   => ['full_term' => 'Cable News Network', 'type' => 'organisation'],
     'DNA'   => ['full_term' => 'Deoxyribonucleic acid', 'type' => 'object'],
     'DVD'   => ['full_term' => 'Digital video disk', 'type' => 'object'],
+    'FCC'   => ['full_term' => 'Federal Communications Commission', 'type' => 'organisation'],
+    'FDS'   => ['full_term' => 'Food and Drug Administration', 'type' => 'organisation'],
     'FLA'   => ['full_term' => 'Florida', 'type' => 'state'],
+    'GHB'   => ['full_term' => 'Gamma-hydroxybutyrate', 'type' => 'object'],
     'IRS'   => ['full_term' => 'Internal Revenue Service', 'type' => 'organisation'],
     'JC'    => ['full_term' => 'JC Penney', 'type' => 'brand'],
     'JFK'   => ['full_term' => 'John F. Kennedy International Airport', 'type' => 'place'],
+    'HIV'   => ['full_term' => 'human immunodeficiency virus', 'type' => 'object'],
     'KLF'   => ['full_term' => '', 'type' => 'organisation'],
     'LA'    => ['full_term' => 'Los Angeles', 'type' => 'town'],
+    'LSD'   => ['full_term' => 'Lysergic acid diethylamide', 'type' => 'object'],
     'LST'   => ['full_term' => 'Landing Ship, Tank', 'type' => 'object'],
     'MC'    => ['full_term' => 'Master of Ceremonies', 'type' => 'position'],
     'MCs'   => ['full_term' => 'Master of Ceremonies', 'type' => 'position'],

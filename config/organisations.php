@@ -9,6 +9,7 @@ return [
     'Centrelink',
     'Fedex',
     'Hibs', // soccer team
+    'L', // KLF
     'Metro-Goldwyn',
     'Mets',
     'Morcheeba',

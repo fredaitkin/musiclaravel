@@ -124,7 +124,11 @@ class Words extends Command {
 
         $name = $this->getNonStandardName($tmp_word);
         if ($name) {
-            return ['word' => $name, 'type' => 'name'];
+            return $name;
+        }
+
+        if ($this->isHonorific($tmp_word)) {
+            return ['word' => $tmp_word, 'type' => 'honorific'];
         }
 
         if ($this->isBrand($tmp_word)) {
@@ -138,6 +142,30 @@ class Words extends Command {
         $acronym = $this->getAcronym($tmp_word);
         if ($acronym) {
             return $acronym;
+        }
+
+        if ($this->isCapitalized($tmp_word)) {
+            return ['word' => $tmp_word, 'type' => 'miscellaneous'];
+        }
+
+        if ($this->isFrench($tmp_word)) {
+            return ['word' => $tmp_word, 'type' => 'French'];
+        }
+
+        if ($this->isSpanish($tmp_word)) {
+            return ['word' => $tmp_word, 'type' => 'Italian'];
+        }
+
+        if ($this->isItalian($tmp_word)) {
+            return ['word' => $tmp_word, 'type' => 'Italian'];
+        }
+
+        if ($this->isGerman($tmp_word)) {
+            return ['word' => $tmp_word, 'type' => 'German'];
+        }
+
+        if ($this->isMadeUp($tmp_word)) {
+            return ['word' => $tmp_word, 'type' => 'made_up'];
         }
 
         return ['word' => strtolower($word), 'type' => ''];
@@ -180,9 +208,17 @@ class Words extends Command {
         $this->countries[] = 'Creole';
         $this->countries[] = 'Cuban';
         $this->countries[] = 'Dominican';
+        $this->countries[] = 'English';
+        $this->countries[] = 'Englishman';
+        $this->countries[] = 'Eskimo';
+        $this->countries[] = 'Eskimos';
         $this->countries[] = 'Europe';
         $this->countries[] = 'European';
+        $this->countries[] = 'Egyptian';
         $this->countries[] = 'French';
+        $this->countries[] = 'German';
+        $this->countries[] = 'Greek';
+        $this->countries[] = 'Hebrew';
         $this->countries[] = 'Indians';
         $this->countries[] = 'Indochinan';
         $this->countries[] = 'Mandinka';
@@ -216,7 +252,8 @@ class Words extends Command {
         $this->states[] = 'Bamee';
         $this->states[] = 'Cali';
         $this->states[] = 'Californication';
-        $this->states[] = 'Hawaian';
+        $this->states[] = 'Georgian';
+        $this->states[] = 'Hawaiian';
         $this->states[] = 'Rhode';
         $this->states[] = 'Virginny';
     }
@@ -285,9 +322,6 @@ class Words extends Command {
 
     private function setDays() {
         $this->days = config('days');
-        $this->days[] = 'Christmas';
-        $this->days[] = 'Christmases';
-        $this->days[] = 'Christmastime';
         $this->days[] = 'Fridays';
         $this->days[] = 'Sundays';
         $this->days[] = 'Mondays';
@@ -322,7 +356,7 @@ class Words extends Command {
      * @return bool
      */
     private function getNonStandardName($word) {
-        if (in_array($word, config('names_non_standard'))):
+        if (isset(config('names_non_standard')[$word])):
             return ['word' => config('names_non_standard')[$word], 'type' => 'name'];
         else:
             return false;
@@ -356,7 +390,18 @@ class Words extends Command {
     }
 
     /**
-     * Is the word a country?
+     * A miscellaneous capitalized word
+     * @param string $word
+     *   The word
+     * @return bool
+     */
+    private function isCapitalized($word) {
+        // May is complex, will often be a word
+        return in_array($word, config('capitalized'));
+    }
+
+    /**
+     * Is the word a brand?
      * @param string $word
      *   The word
      * @return bool
@@ -366,13 +411,63 @@ class Words extends Command {
     }
 
     /**
-     * Is the word a country?
+     * Is the word an organisation?
      * @param string $word
      *   The word
      * @return bool
      */
     private function isOrganisation($word) {
         return in_array($word, config('organisations'));
+    }
+
+    /**
+     * Is the word French?
+     * @param string $word
+     *   The word
+     * @return bool
+     */
+    private function isFrench($word) {
+        return in_array($word, config('french'));
+    }
+
+    /**
+     * Is the word Spanish?
+     * @param string $word
+     *   The word
+     * @return bool
+     */
+    private function isSpanish($word) {
+        return in_array($word, config('spanish'));
+    }
+
+    /**
+     * Is the word Italian?
+     * @param string $word
+     *   The word
+     * @return bool
+     */
+    private function isItalian($word) {
+        return in_array($word, config('italian'));
+    }
+
+    /**
+     * Is the word German?
+     * @param string $word
+     *   The word
+     * @return bool
+     */
+    private function isGerman($word) {
+        return in_array($word, config('german'));
+    }
+
+    /**
+     * Is the word made up or nonsense?
+     * @param string $word
+     *   The word
+     * @return bool
+     */
+    private function isMadeUp($word) {
+        return in_array($word, config('madeup'));
     }
 
     /**
@@ -419,7 +514,7 @@ class Words extends Command {
         ksort($this->word_cloud);
 
         // TODO don't include song_ids from common words
-        // $common_words = ['a', 'about', 'after', 'again', 'all', 'am', 'an', 'and', 'are', 'around', 'as', 'at', 'be', 'been', 'but', 'by', 'can', 'do',
+        // $common_words = ['a', 'about', 'after', 'again', 'all', 'am', 'an', 'and', 'are', 'around', 'as', 'at', 'be', 'been', 'but', 'by', 'can', 'do', 'for', 'from', 'get', 'got', 'gotta', 'had', 'has', 'have',
         // 'the', 'where'];
         foreach($this->word_cloud as $w => $v) {
             Log::info($w);

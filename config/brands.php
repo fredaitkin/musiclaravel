@@ -50,6 +50,7 @@ return [
     'Doz',
     'Dupont',
     'Edsel',
+    'Eldorado',
     'Falstaff', // beer
     'Fendi',
     'Fu',

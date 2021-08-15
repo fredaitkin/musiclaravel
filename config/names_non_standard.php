@@ -3,7 +3,10 @@
 return [
 
     'Dimaggio'      => 'DiMaggio',
+    'Dj'            => 'DJ',
+    'Djs'           => 'DJs',
     'Dmc'           => 'DMC',
+    'Ebay'          => 'eBay',
     'Maclennane'    => 'MacLennane',
     'Mccoy'         => 'McCoy',
     'Mcgee'         => 'McGee',
@@ -14,7 +17,5 @@ return [
     'Mcquire'       => 'McQuire',
     'Mcqueen'       => 'McQueen',
     'Mcveigh'       => 'McVeigh',
-    'Dj'            => 'DJ',
-    'Djs'           => 'DJs',
 
 ];

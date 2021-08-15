@@ -53,6 +53,7 @@ return [
     'Constantinople',
     'Copmanhurst',
     'Corning',
+    'Dearborn',
     'Detroit',
     'Dharamsala',
     'Diego', // San Diego 
@@ -62,11 +63,14 @@ return [
     'Dunblane',
     'Dundee',
     'Ebudae',
+    'Emmeline',
+    'Fe', // Santa Fe
     'Finnoe',
     'Francisco', // San Francisco
     'Frisco', // San Francisco
     'Frontenac',
     'Fulsom',
+    'Gainesville',
     'Galveston',
     'Geneva',
     'Glenaveigh',
@@ -74,6 +78,7 @@ return [
     'Greenville',
     'Guantanamo',
     'Guernica',
+    'Hiroshima',
     'Hobart',
     'Humberside',
     'Huntington',
@@ -86,6 +91,7 @@ return [
     'Kokomo',
     'Kowloon',
     'Laguna', // Laguan Beach
+    'Laramie',
     'Las', // Las Vegas
     'Lethbridge',
     'Liula',
@@ -108,6 +114,7 @@ return [
     'Opelousas',
     'Orleans', // New Orleans
     'Oxford',
+    'Paris',
     'Perth',
     'Philly',
     'Phu', // Dien Bien Phu
