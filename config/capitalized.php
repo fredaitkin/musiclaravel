@@ -9,4 +9,8 @@ return [
     'H',
     'Halley', // comet, thing
     'Halloween',
+    'I',
+    'Im',
+    'K',
+    'L',
 ];

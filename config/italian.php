@@ -2,7 +2,9 @@
 
 return [
 
-    'fasul',
-    'generalissimo',
+    'Fasul',
+    'Generalissimo',
+    'Sono',
+    'Spiacente',
 
 ];

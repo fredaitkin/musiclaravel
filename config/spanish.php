@@ -2,7 +2,11 @@
 
 return [
 
-    'hasta',
-    'mañana',
+    'Hasta',
+    'Lo',
+    'Loca',
+    'Mañana',
+    'Siento',
+    'Vida',
 
 ];

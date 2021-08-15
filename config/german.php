@@ -2,7 +2,12 @@
 
 return [
 
-    'herr',
-    'mein',
+    'Herr',
+    'Heiße',
+    'Ich',
+    'Mein',
+    'Mit',
+    'Superfantastisch',
+    'Trinke',
 
 ];

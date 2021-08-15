@@ -80,22 +80,31 @@ return [
     'Guernica',
     'Hiroshima',
     'Hobart',
+    'Houston',
     'Humberside',
     'Huntington',
     'Hyannisport',
     'Istanbul',
     'Jackson', // Also a name 
+    'Jerusalem',
+    'Johannesburg',
     'Jose', // San Jose, also a name 
+    'Juarez',
     'Khartoum',
     'Kilronan',
+    'Kingston',
+    'Kingstown',
     'Kokomo',
     'Kowloon',
+    'Lafayette',
     'Laguna', // Laguan Beach
+    'Lansing',
     'Laramie',
     'Las', // Las Vegas
     'Lethbridge',
     'Liula',
     'Liverpool',
+    'London',
     'Los', // Los Angeles
     'Madison',
     'Malibu',
@@ -115,6 +124,7 @@ return [
     'Orleans', // New Orleans
     'Oxford',
     'Paris',
+    'Paso', // El Paso
     'Perth',
     'Philly',
     'Phu', // Dien Bien Phu

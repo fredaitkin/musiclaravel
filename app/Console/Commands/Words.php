@@ -148,6 +148,13 @@ class Words extends Command {
             return ['word' => $tmp_word, 'type' => 'miscellaneous'];
         }
 
+        // Ik ben droevig Dutch
+        // sol invictus Latin
+        // jacamo
+        // Jai Guru Deva
+        // Day o umba day o mambu ji ay o
+        // Konnichiwa
+
         if ($this->isFrench($tmp_word)) {
             return ['word' => $tmp_word, 'type' => 'French'];
         }
@@ -212,6 +219,7 @@ class Words extends Command {
         $this->countries[] = 'Englishman';
         $this->countries[] = 'Eskimo';
         $this->countries[] = 'Eskimos';
+        $this->countries[] = 'España';
         $this->countries[] = 'Europe';
         $this->countries[] = 'European';
         $this->countries[] = 'Egyptian';
@@ -219,10 +227,24 @@ class Words extends Command {
         $this->countries[] = 'German';
         $this->countries[] = 'Greek';
         $this->countries[] = 'Hebrew';
+        $this->countries[] = 'Hungarian';
+        $this->countries[] = 'Icelandic';
+        $this->countries[] = 'Indian';
         $this->countries[] = 'Indians';
         $this->countries[] = 'Indochinan';
+        $this->countries[] = 'Irish';
+        $this->countries[] = 'Israeli';
+        $this->countries[] = 'Israelites';
+        $this->countries[] = 'Italia';
+        $this->countries[] = 'Italian';
+        $this->countries[] = 'Jamaican';
+        $this->countries[] = 'Japanese';
+        $this->countries[] = 'Kiwi';
+        $this->countries[] = 'Korean';
         $this->countries[] = 'Mandinka';
+        $this->countries[] = 'Mexicana';
         $this->countries[] = 'Mexicans';
+        $this->countries[] = 'Pakistana';
         $this->countries[] = 'Puerto';
         $this->countries[] = 'Russian';
         $this->countries[] = 'Russians';
@@ -514,7 +536,7 @@ class Words extends Command {
         ksort($this->word_cloud);
 
         // TODO don't include song_ids from common words
-        // $common_words = ['a', 'about', 'after', 'again', 'all', 'am', 'an', 'and', 'are', 'around', 'as', 'at', 'be', 'been', 'but', 'by', 'can', 'do', 'for', 'from', 'get', 'got', 'gotta', 'had', 'has', 'have',
+        // $common_words = ['a', 'about', 'after', 'again', 'all', 'am', 'an', 'and', 'are', 'around', 'as', 'at', 'be', 'been', 'but', 'by', 'can', 'do', 'for', 'from', 'get', 'got', 'gotta', 'had', 'has', 'have', 'i', 'if', 'in', 'into', 'is', 'it', 'its', 'just',
         // 'the', 'where'];
         foreach($this->word_cloud as $w => $v) {
             Log::info($w);

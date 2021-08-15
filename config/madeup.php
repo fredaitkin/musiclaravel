@@ -2,9 +2,28 @@
 
 return [
 
-    'doday',
-    'heba',
-    'helloa',
-    'hiway',
+    // nonsense, slang
+    'Badonkadonk', // extremely curvaceous female behind
+    'Booyaka',
+    'Che',
+    'Doday',
+    'Heba',
+    'Helloa',
+    'Hiway',
+    'Hornay',
+    'Ignoreland',
+    'Inspeed',
+    'Irie',
+    'Ka',
+    'Kechonk',
+    'Koh',
+    'Laba',
+    'Loora',
+    'Lopa',
+    'Luba',
+    'Lum',
+    'Tak',
+    'Toora',
+    'Wanty',
 
 ];

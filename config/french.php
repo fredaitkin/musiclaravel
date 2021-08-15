@@ -2,14 +2,17 @@
 
 return [
 
-    'coup',
-    'd\'état',
-    'et',
-    'faire',
-    'femme',
-    'fixe',
-    'frere',
-    'laissez',
-    'prix',
+    'Doup',
+    'D\'ésolé',
+    'D\'état',
+    'Et',
+    'Faire',
+    'Femme',
+    'Fixe',
+    'Frere',
+    'Je',
+    'Laissez',
+    'Prix',
+    'Suis',
 
 ];

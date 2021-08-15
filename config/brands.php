@@ -68,6 +68,7 @@ return [
     'Horae',
     'Horten',
     'Indy',
+    'Jaguar', // also animal
     'Jaycees',
     'Jeeps',
     'Johnstown',
@@ -79,9 +80,12 @@ return [
     'Kombi',
     'Kraft',
     'Kung',
+    'Lee', // jeans
+    'Lego',
     'Listerine',
     'Longines',
     'Luger',
+    'Lugers',
     'Marlboro',
     'Mastercard',
     'Maybelline',

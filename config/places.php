@@ -62,8 +62,10 @@ return [
     'Hindu',
     'Hollywood',
     'Hong', // Hong Kong
+    'Hudson',
     'Inisfree', // island
     'Itchycoo',
+    'Ken', // isles of Ken
     'Kent',
     'Khe', // Khe Sanh
     'Khyber',
@@ -72,10 +74,15 @@ return [
     'Kintyre',
     'Kong', // Hong Kong
     'Kowloon',
+    'Kremlin',
     'Kush', // Hindu Kush, mountain range
+    'Lahaina',
     'Largo', // Key Largo
     'Leeds',
     'Leith',
+    'Lido',
+    'Lincoln', // Lincoln High School, also a brand and a name
+    'Lords',
     'Louvre',
     'Macquarie',
     'Malvinas',
