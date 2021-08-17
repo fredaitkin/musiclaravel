@@ -31,6 +31,7 @@ return [
     'LST'   => ['full_term' => 'Landing Ship, Tank', 'type' => 'object'],
     'MC'    => ['full_term' => 'Master of Ceremonies', 'type' => 'position'],
     'MCs'   => ['full_term' => 'Master of Ceremonies', 'type' => 'position'],
+    'MDMA'  => ['full_term' => 'Methyl​enedioxy​methamphetamine', 'type' => 'object'],
     'MTV'   => ['full_term' => 'Music Television', 'type' => 'organisation'],
     'NASA'  => ['full_term' => 'National Aeronautics and Space Administration', 'type' => 'organisation'],
     'NBC'   => ['full_term' => 'National Broadcasting Company', 'type' => 'organisation'],

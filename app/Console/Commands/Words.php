@@ -156,23 +156,23 @@ class Words extends Command {
         // Konnichiwa
 
         if ($this->isFrench($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'French'];
+            return ['word' => strtolower($tmp_word), 'type' => 'French'];
         }
 
         if ($this->isSpanish($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'Italian'];
+            return ['word' => strtolower($tmp_word), 'type' => 'Italian'];
         }
 
         if ($this->isItalian($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'Italian'];
+            return ['word' => strtolower($tmp_word), 'type' => 'Italian'];
         }
 
         if ($this->isGerman($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'German'];
+            return ['word' => strtolower($tmp_word), 'type' => 'German'];
         }
 
         if ($this->isMadeUp($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'made_up'];
+            return ['word' => strtolower($tmp_word), 'type' => 'made_up'];
         }
 
         return ['word' => strtolower($word), 'type' => ''];
@@ -242,6 +242,7 @@ class Words extends Command {
         $this->countries[] = 'Kiwi';
         $this->countries[] = 'Korean';
         $this->countries[] = 'Mandinka';
+        $this->countries[] = 'Mexican';
         $this->countries[] = 'Mexicana';
         $this->countries[] = 'Mexicans';
         $this->countries[] = 'Pakistana';

@@ -111,7 +111,11 @@ return [
     'Melbourne',
     'Memphis',
     'Metuchen',
+    'Miami', // Miami Beach
+    'Milan',
+    'Minneapolis',
     'Monica', // Santa Monica
+    'Monterey', // Mexico
     'Montgomery',
     'Montreux',
     'Moscow',

@@ -87,18 +87,25 @@ return [
     'Macquarie',
     'Malvinas',
     'Mahal', // Taj Mahal
+    'Mandalay', // Mandalay Bay Hotel
+    'Manhattan',
+    'Manly', // Manly ferry
+    'Margarita', // Puerto Margarita
     'Mariana',
     'Marrickville',
     'Martinque',
     'Mersey',
     'Mississippi',
+    'Mojave',
     'Monserrat',
     'Montego',
+    'Montelimar',
     'Morningside', // suburb of Edinburgh
     'Ngall',
     'Niagara',
     'Parris',
     'Ponchartrain',
+    'Puerto',
     'Ramblas',
     'Rockaway',
     'Rotherhide',

@@ -86,10 +86,12 @@ return [
     'Longines',
     'Luger',
     'Lugers',
+    'Mac', // also a name and a word
     'Marlboro',
     'Mastercard',
     'Maybelline',
     'Mercedes',
+    'Monopoly', // also a word
     'Moschino',
     'Nescafe',
     'Nyquil',

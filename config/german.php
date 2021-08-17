@@ -7,6 +7,7 @@ return [
     'Ich',
     'Mein',
     'Mit',
+    'Schatz',
     'Superfantastisch',
     'Trinke',
 

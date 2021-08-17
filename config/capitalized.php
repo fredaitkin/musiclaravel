@@ -13,4 +13,7 @@ return [
     'Im',
     'K',
     'L',
+    'Metrocard',
+    'Mobius',
+    'Molotov',
 ];

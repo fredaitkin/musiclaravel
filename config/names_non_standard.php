@@ -10,6 +10,7 @@ return [
     'Ipod'          => 'iPod',
     'Jello'         => 'Jell-O',
     'Jcrew'         => 'JCrew',
+    'Mccarthy'      => 'McCarthy',
     'Maclennane'    => 'MacLennane',
     'Mccoy'         => 'McCoy',
     'Mcgee'         => 'McGee',
@@ -19,6 +20,7 @@ return [
     'Mckenzie'      => 'McKenzie',
     'Mcquire'       => 'McQuire',
     'Mcqueen'       => 'McQueen',
+    'Mcs'           => 'MCs',
     'Mcveigh'       => 'McVeigh',
 
 ];
