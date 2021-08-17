@@ -120,7 +120,12 @@ return [
     'Montreux',
     'Moscow',
     'Napoli',
+    'Naples',
     'Narrabri',
+    'Nashville',
+    'Nassau',
+    'Newark',
+    'Newcastle',
     'Ngall',
     'Oaktown',
     'Olomouc',
@@ -159,6 +164,7 @@ return [
     'Vegas', // Las Vegas
     'Ventura',
     'Walla',
+    'Waterloo', // village in France
     'Watertown',
     'Winnemucca',
 ];

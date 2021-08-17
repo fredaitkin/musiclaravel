@@ -17,6 +17,7 @@ return [
     'Benzie',
     'Birchmount', //stadium
     'Blackstrap',
+    'Blueboy', // magazine
     'Brandivino',
     'Buick',
     'Buicks',
@@ -94,6 +95,7 @@ return [
     'Monopoly', // also a word
     'Moschino',
     'Nescafe',
+    'Nike',
     'Nyquil',
     'Pabst',
     'Panaflex',

@@ -16,4 +16,5 @@ return [
     'Metrocard',
     'Mobius',
     'Molotov',
+    'N',
 ];

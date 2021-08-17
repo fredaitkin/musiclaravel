@@ -245,6 +245,10 @@ class Words extends Command {
         $this->countries[] = 'Mexican';
         $this->countries[] = 'Mexicana';
         $this->countries[] = 'Mexicans';
+        $this->countries[] = 'Namibian';
+        $this->countries[] = 'Navaho';
+        $this->countries[] = 'Nazi';  // add a people group?
+        $this->countries[] = 'Nazis';
         $this->countries[] = 'Pakistana';
         $this->countries[] = 'Puerto';
         $this->countries[] = 'Russian';
@@ -537,7 +541,7 @@ class Words extends Command {
         ksort($this->word_cloud);
 
         // TODO don't include song_ids from common words
-        // $common_words = ['a', 'about', 'after', 'again', 'all', 'am', 'an', 'and', 'are', 'around', 'as', 'at', 'be', 'been', 'but', 'by', 'can', 'do', 'for', 'from', 'get', 'got', 'gotta', 'had', 'has', 'have', 'i', 'if', 'in', 'into', 'is', 'it', 'its', 'just',
+        // $common_words = ['a', 'about', 'after', 'again', 'all', 'am', 'an', 'and', 'are', 'around', 'as', 'at', 'be', 'been', 'but', 'by', 'can', 'do', 'for', 'from', 'get', 'got', 'gotta', 'had', 'has', 'have', 'i', 'if', 'in', 'into', 'is', 'it', 'its', 'just', 'my',
         // 'the', 'where'];
         foreach($this->word_cloud as $w => $v) {
             Log::info($w);

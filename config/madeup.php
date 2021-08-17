@@ -25,6 +25,7 @@ return [
     'Mappy',
     'Miggity',
     'Mih',
+    'Mosies',
     'Tak',
     'Toora',
     'Wanty',

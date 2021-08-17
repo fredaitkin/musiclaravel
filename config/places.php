@@ -101,8 +101,11 @@ return [
     'Montego',
     'Montelimar',
     'Morningside', // suburb of Edinburgh
+    'Mu', // Mu Mu land
+    'Neverland',
     'Ngall',
     'Niagara',
+    'Nile',
     'Parris',
     'Ponchartrain',
     'Puerto',
