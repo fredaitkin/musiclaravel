@@ -12,6 +12,7 @@ return [
     'I',
     'Im',
     'K',
+    'Katrina', // hurricane
     'L',
     'Metrocard',
     'Mobius',

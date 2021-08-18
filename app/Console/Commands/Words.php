@@ -88,6 +88,7 @@ class Words extends Command {
      *   The word.
      */
     public function setCaseInfo($word) {
+        // FIXME strtolower will be quicker.
         $tmp_word = ucfirst(strtolower($word));
 
         if ($this->isCountry($tmp_word)) {
@@ -182,82 +183,7 @@ class Words extends Command {
      * Set country array.
      */
     private function setCountries() {
-        $this->countries = config('countries');
-        $this->countries[] = 'U.S';
-        $this->countries[] = 'USA';
-        $this->countries[] = 'America';
-        $this->countries[] = 'American';
-        $this->countries[] = 'Americana';
-        $this->countries[] = 'Africa';
-        $this->countries[] = 'Afrika';
-        $this->countries[] = 'Arab';
-        $this->countries[] = 'Arabs';
-        $this->countries[] = 'Argentines';
-        $this->countries[] = 'Asia';
-        $this->countries[] = 'Asian';
-        $this->countries[] = 'Asiatic';
-        $this->countries[] = 'Bahama';
-        $this->countries[] = 'Belgians';
-        $this->countries[] = 'Bolivian';
-        $this->countries[] = 'Brasilia';
-        $this->countries[] = 'Brazilia';
-        $this->countries[] = 'Braziliana';
-        $this->countries[] = 'Britain';
-        $this->countries[] = 'Britannia';
-        $this->countries[] = 'British';
-        $this->countries[] = 'Cajun';
-        $this->countries[] = 'Caribbean';
-        $this->countries[] = 'Celtic';
-        $this->countries[] = 'Charlies';
-        $this->countries[] = 'Chinese';
-        $this->countries[] = 'Colombian';
-        $this->countries[] = 'Coonass';
-        $this->countries[] = 'Creole';
-        $this->countries[] = 'Cuban';
-        $this->countries[] = 'Dominican';
-        $this->countries[] = 'English';
-        $this->countries[] = 'Englishman';
-        $this->countries[] = 'Eskimo';
-        $this->countries[] = 'Eskimos';
-        $this->countries[] = 'España';
-        $this->countries[] = 'Europe';
-        $this->countries[] = 'European';
-        $this->countries[] = 'Egyptian';
-        $this->countries[] = 'French';
-        $this->countries[] = 'German';
-        $this->countries[] = 'Greek';
-        $this->countries[] = 'Hebrew';
-        $this->countries[] = 'Hungarian';
-        $this->countries[] = 'Icelandic';
-        $this->countries[] = 'Indian';
-        $this->countries[] = 'Indians';
-        $this->countries[] = 'Indochinan';
-        $this->countries[] = 'Irish';
-        $this->countries[] = 'Israeli';
-        $this->countries[] = 'Israelites';
-        $this->countries[] = 'Italia';
-        $this->countries[] = 'Italian';
-        $this->countries[] = 'Jamaican';
-        $this->countries[] = 'Japanese';
-        $this->countries[] = 'Kiwi';
-        $this->countries[] = 'Korean';
-        $this->countries[] = 'Mandinka';
-        $this->countries[] = 'Mexican';
-        $this->countries[] = 'Mexicana';
-        $this->countries[] = 'Mexicans';
-        $this->countries[] = 'Namibian';
-        $this->countries[] = 'Navaho';
-        $this->countries[] = 'Nazi';  // add a people group?
-        $this->countries[] = 'Nazis';
-        $this->countries[] = 'Pakistana';
-        $this->countries[] = 'Puerto';
-        $this->countries[] = 'Russian';
-        $this->countries[] = 'Russians';
-        $this->countries[] = 'Rican';
-        $this->countries[] = 'Turkish';
-        $this->countries[] = 'Turks';
-        $this->countries[] = 'Zulu';
-        $this->countries[] = 'Zulus';
+        $this->countries = array_merge(config('countries'), config('country_adjacent'));
     }
 
     /**
@@ -541,7 +467,7 @@ class Words extends Command {
         ksort($this->word_cloud);
 
         // TODO don't include song_ids from common words
-        // $common_words = ['a', 'about', 'after', 'again', 'all', 'am', 'an', 'and', 'are', 'around', 'as', 'at', 'be', 'been', 'but', 'by', 'can', 'do', 'for', 'from', 'get', 'got', 'gotta', 'had', 'has', 'have', 'i', 'if', 'in', 'into', 'is', 'it', 'its', 'just', 'my',
+        // $common_words = ['a', 'about', 'after', 'again', 'all', 'am', 'an', 'and', 'are', 'around', 'as', 'at', 'be', 'been', 'but', 'by', 'can', 'do', 'for', 'from', 'get', 'got', 'gotta', 'had', 'has', 'have', 'i', 'if', 'in', 'into', 'is', 'it', 'its', 'just', 'my', 'not', 'of',
         // 'the', 'where'];
         foreach($this->word_cloud as $w => $v) {
             Log::info($w);

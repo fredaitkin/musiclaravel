@@ -17,6 +17,7 @@ return [
     'FLA'   => ['full_term' => 'Florida', 'type' => 'state'],
     'GHB'   => ['full_term' => 'Gamma-hydroxybutyrate', 'type' => 'object'],
     'ICU'   => ['full_term' => 'Intensive care unit', 'type' => 'place'],
+    'IMAX'  => ['full_term' => 'Film format', 'type' => 'brand'],
     'IQ'    => ['full_term' => 'Intelligence quotient', 'type' => ''],
     'IRS'   => ['full_term' => 'Internal Revenue Service', 'type' => 'organisation'],
     'JC'    => ['full_term' => 'JC Penney', 'type' => 'brand'],
