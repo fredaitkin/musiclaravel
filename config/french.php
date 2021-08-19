@@ -9,10 +9,12 @@ return [
     'Faire',
     'Femme',
     'Fixe',
+    'Francais',
     'Frere',
     'Je',
     'Laissez',
+    'Parlez',
     'Prix',
     'Suis',
-
+    'Vous',
 ];

@@ -99,8 +99,10 @@ return [
     'Nyquil',
     'Pabst',
     'Panaflex',
+    'Pantone',
     'Penney',
     'Pennzoil',
+    'Pepsi',
     'Perignon',
     'Peyton', // Peyton Place tv show
     'Porsches',

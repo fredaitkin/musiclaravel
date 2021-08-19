@@ -600,6 +600,9 @@ return [
     'Pablo',
     'Pam',
     'Pasolini',
+    'Patty', // also a word
+    'Paul',
+    'Peewee',
     'Peltier',
     'Penny',
     'Perry',

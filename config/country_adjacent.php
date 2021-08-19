@@ -70,6 +70,8 @@ return [
     'Nazis',
     'Norwegian',
     'Pakistana',
+    'Palestine',
+    'Persian',
     'Puerto',
     'Russian',
     'Russians',

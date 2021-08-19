@@ -14,8 +14,12 @@ return [
     'K',
     'Katrina', // hurricane
     'L',
+    'Lordy',
     'Metrocard',
     'Mobius',
     'Molotov',
     'N',
+    'Pater',
+    'Pentecost',
+    'Pentecostal',
 ];

@@ -134,7 +134,9 @@ return [
     'Orleans', // New Orleans
     'Oxford',
     'Paris',
+    'Parisian',
     'Paso', // El Paso
+    'Peking',
     'Perth',
     'Philly',
     'Phu', // Dien Bien Phu
