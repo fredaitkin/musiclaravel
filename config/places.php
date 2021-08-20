@@ -23,6 +23,7 @@ return [
     'Brooklyn',
     'Bronx',
     'Canaan',
+    'Cavour', // Piazza Cavour
     'Chelsea', // also a name
     'Chesapeake',
     'Chicano', // Chicano City park
@@ -110,6 +111,8 @@ return [
     'Olympus',
     'Pacific',
     'Parris',
+    'Piazza', // Piazza Cavour
+    'Pluto',
     'Ponchartrain',
     'Puerto',
     'Ramblas',

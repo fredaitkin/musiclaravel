@@ -611,8 +611,13 @@ return [
     'Petronilla',
     'Philomena',
     'Philpot',
+    'Picasso',
+    'Pickford',
+    'Pied', // Pied Piper
     'Pierrot',
     'Pilate',
+    'Pitt',
+    'Plath',
     'Pocahontas',
     'Polly',
     'Pontius',

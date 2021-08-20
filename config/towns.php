@@ -138,10 +138,14 @@ return [
     'Paso', // El Paso
     'Peking',
     'Perth',
+    'Philadelphia',
     'Philly',
+    'Phoenix', // also a word
     'Phu', // Dien Bien Phu
     'Piha',
     'Pineola',
+    'Pisa',
+    'Pittsburgh',
     'Pomona',
     'Provincetown',
     'Reno',

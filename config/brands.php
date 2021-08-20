@@ -105,6 +105,7 @@ return [
     'Pepsi',
     'Perignon',
     'Peyton', // Peyton Place tv show
+    'Playboy',
     'Porsches',
     'Reebok',
     'Romilar', // cough syrup

@@ -29,6 +29,7 @@ return [
     'Oochie',
     'Oop',
     'Pash',
+    'Phat',
     'Tak',
     'Toora',
     'Wanty',

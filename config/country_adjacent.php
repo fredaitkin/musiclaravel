@@ -72,6 +72,7 @@ return [
     'Pakistana',
     'Palestine',
     'Persian',
+    'Philistine',
     'Puerto',
     'Russian',
     'Russians',
