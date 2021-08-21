@@ -107,9 +107,11 @@ return [
     'Peyton', // Peyton Place tv show
     'Playboy',
     'Porsches',
+    'Prozac',
     'Reebok',
     'Romilar', // cough syrup
     'Royce',
+    'Saran', // Saran Wrap
     'Scripto',
     'Smurf',
     'Soloflex',

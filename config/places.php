@@ -116,11 +116,17 @@ return [
     'Ponchartrain',
     'Puerto',
     'Ramblas',
+    'Rio', // Rio Grande, a river, also a city
+    'Riviera',
     'Rockaway',
+    'Rockies',
     'Rotherhide',
     'Rouge',
     'Rubicon',
     'Sacre', // Sacre Coeur
+    'Sahara',
+    'Saturn',
+    'Savoy',
     'Scarborough',
     'Serengeti',
     'Shenandoah',

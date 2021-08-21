@@ -155,6 +155,7 @@ class Words extends Command {
         // Jai Guru Deva
         // Day o umba day o mambu ji ay o
         // Konnichiwa
+        // pon de replay Bajan Creole play it again
 
         if ($this->isFrench($tmp_word)) {
             return ['word' => strtolower($tmp_word), 'type' => 'French'];
@@ -207,6 +208,7 @@ class Words extends Command {
         $this->states[] = 'Californication';
         $this->states[] = 'Georgian';
         $this->states[] = 'Hawaiian';
+        $this->states[] = 'Jersey';
         $this->states[] = 'Rhode';
         $this->states[] = 'Virginny';
     }
@@ -276,6 +278,7 @@ class Words extends Command {
     private function setDays() {
         $this->days = config('days');
         $this->days[] = 'Fridays';
+        $this->days[] = 'Saturdays';
         $this->days[] = 'Sundays';
         $this->days[] = 'Mondays';
     }

@@ -30,6 +30,7 @@ return [
     'Oop',
     'Pash',
     'Phat',
+    'Pussing',
     'Tak',
     'Toora',
     'Wanty',

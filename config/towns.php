@@ -153,9 +153,13 @@ return [
     'Rincon',
     'Rockville',
     'Rollox',
+    'Rome',
     'Rosedale',
     'Rouge', // Baton
+    'Saginaw',
     'Sanh', // Khe Sanh
+    'San',
+    'Savannah',
     'Shinrone',
     'Slidell',
     'Smithfield',

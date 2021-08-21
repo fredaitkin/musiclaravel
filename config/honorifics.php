@@ -7,5 +7,9 @@ return [
     'Mr',
     'Mrs',
     'Ms',
+    'Pope',
+    'President',
+    'Presidente',
+    'Reverend',
 
 ];

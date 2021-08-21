@@ -22,4 +22,7 @@ return [
     'Pater',
     'Pentecost',
     'Pentecostal',
+    'Presbyterian',
+    'Roth',
+    'S',
 ];

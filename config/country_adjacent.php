@@ -74,6 +74,8 @@ return [
     'Persian',
     'Philistine',
     'Puerto',
+    'Roman',
+    'Russia',
     'Russian',
     'Russians',
     'Rican',

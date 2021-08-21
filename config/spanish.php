@@ -8,6 +8,7 @@ return [
     'Loca',
     'Mañana',
     'Mundo',
+    'Pueblo',
     'Siento',
     'Todo',
     'Vida',
