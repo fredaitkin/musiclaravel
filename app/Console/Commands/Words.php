@@ -154,7 +154,7 @@ class Words extends Command {
         // jacamo
         // Jai Guru Deva
         // Day o umba day o mambu ji ay o
-        // Konnichiwa
+        // Konnichiwa   Senso hant-ai
         // pon de replay Bajan Creole play it again
 
         if ($this->isFrench($tmp_word)) {

@@ -113,6 +113,9 @@ return [
     'Royce',
     'Saran', // Saran Wrap
     'Scripto',
+    'Sears', // also word
+    'Seconal',
+    'Sharpie',
     'Smurf',
     'Soloflex',
     'Sony',

@@ -79,6 +79,8 @@ return [
     'Russian',
     'Russians',
     'Rican',
+    'Saxon',
+    'Scottish',
     'Turkish',
     'Turks',
     'Zulu',

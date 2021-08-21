@@ -2,6 +2,9 @@
 
 return [
 
+    'Cinco',
+    'Cuatro',
+    'Dos',
     'El',
     'Hasta',
     'Lo',
@@ -9,8 +12,10 @@ return [
     'Mañana',
     'Mundo',
     'Pueblo',
+    'Seís',
     'Siento',
     'Todo',
+    'Uno',
     'Vida',
 
 ];

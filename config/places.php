@@ -129,6 +129,7 @@ return [
     'Savoy',
     'Scarborough',
     'Serengeti',
+    'Shannon',
     'Shenandoah',
     'Siberia',
     'Smithfield',
