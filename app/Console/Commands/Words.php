@@ -156,6 +156,7 @@ class Words extends Command {
         // Day o umba day o mambu ji ay o
         // Konnichiwa   Senso hant-ai
         // pon de replay Bajan Creole play it again
+        // Chuva! Chuvinha! Vem, vem, vem ca, rapaz! Portugese
 
         if ($this->isFrench($tmp_word)) {
             return ['word' => strtolower($tmp_word), 'type' => 'French'];
@@ -470,8 +471,7 @@ class Words extends Command {
         ksort($this->word_cloud);
 
         // TODO don't include song_ids from common words
-        // $common_words = ['a', 'about', 'after', 'again', 'all', 'am', 'an', 'and', 'are', 'around', 'as', 'at', 'be', 'been', 'but', 'by', 'can', 'do', 'for', 'from', 'get', 'got', 'gotta', 'had', 'has', 'have', 'i', 'if', 'in', 'into', 'is', 'it', 'its', 'just', 'my', 'not', 'of', 'oh', 'on', 'or',
-        // 'the', 'where'];
+        // $common_words = ['a', 'about', 'after', 'again', 'all', 'am', 'an', 'and', 'are', 'around', 'as', 'at', 'be', 'been', 'but', 'by', 'can', 'do', 'for', 'from', 'get', 'got', 'gotta', 'had', 'has', 'have', 'i', 'if', 'in', 'into', 'is', 'it', 'its', 'just', 'my', 'not', 'of', 'oh', 'on', 'or', 'so', 'that', 'the', 'there', 'these', this', 'those', 'through', 'to', 'too', 'was', 'were', 'what', 'when', 'where', 'will', 'with', 'would'];
         foreach($this->word_cloud as $w => $v) {
             Log::info($w);
             $is_word = $this->isWord($w);

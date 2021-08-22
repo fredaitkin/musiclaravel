@@ -48,7 +48,11 @@ return [
     'PR'    => ['full_term' => 'Puerto Rican', 'type' => 'country'],
     'REM'   => ['full_term' => 'REM', 'type' => 'organisation'],
     'TRL'   => ['full_term' => 'Total Request Live', 'type' => 'organisation'],
+    'TV'    => ['full_term' => 'Television', 'type' => 'object'],
+    'UK'    => ['full_term' => 'United Kingdom', 'type' => 'country'], // change this to other file
+    'UFO'   => ['full_term' => 'Unidentified flying object', 'type' => 'object'],
     'USO'   => ['full_term' => 'United Service Organizations', 'type' => 'organisation'],
+    'VCR'   => ['full_term' => 'Videocassette recorder', 'type' => 'object'],
     'VP'    => ['full_term' => 'Vice President', 'type' => 'position'],
     'VW'    => ['full_term' => 'Volkswagen', 'type' => 'brand'],
     'WLSD'  => ['full_term' => 'Wise Lee Scott Dickenson', 'type' => 'organisation'],

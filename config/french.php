@@ -2,9 +2,13 @@
 
 return [
 
+    'Amours',
     'Doup',
+    'Chéri',
     'D\'ésolé',
     'D\'état',
+    'Déjà',
+    'Durera',
     'Et',
     'Faire',
     'Femme',
@@ -13,8 +17,16 @@ return [
     'Frere',
     'Je',
     'Laissez',
+    'Les',
     'Parlez',
     'Prix',
+    'Sans',
+    'Souhaits',
     'Suis',
+    'Tes',
+    'Tristesse',
+    'Visage',
     'Vous',
+    'Vu',
+    'Yeux',
 ];

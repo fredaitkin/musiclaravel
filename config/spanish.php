@@ -2,6 +2,7 @@
 
 return [
 
+    'Amor',
     'Cinco',
     'Cuatro',
     'Dos',
@@ -11,10 +12,12 @@ return [
     'Loca',
     'Mañana',
     'Mundo',
+    'Nuovo',
     'Pueblo',
     'Seís',
     'Siento',
     'Todo',
+    'Un',
     'Uno',
     'Vida',
 

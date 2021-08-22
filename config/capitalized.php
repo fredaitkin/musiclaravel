@@ -25,4 +25,14 @@ return [
     'Presbyterian',
     'Roth',
     'S',
+    'T',
+    'Taniwha', // mythological Maori being, name?
+    'Tarzan', // name?
+    'U',
+    'V',
+    'Watergate',
+    'X',
+    'Xmas',
+    'XXIII',
+    'Z',
 ];

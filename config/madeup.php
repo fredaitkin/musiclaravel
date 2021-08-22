@@ -32,7 +32,11 @@ return [
     'Phat',
     'Pussing',
     'Tak',
+    'Te',
+    'Thingamajigsaw',
+    'Toop',
     'Toora',
     'Wanty',
+    'Za',
 
 ];

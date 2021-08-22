@@ -132,18 +132,29 @@ return [
     'Shannon',
     'Shenandoah',
     'Siberia',
+    'Sicily',
     'Smithfield',
     'Soho',
+    'Sorbonne',
     'St', // St Kilda St Tropez
     'Staten',
+    'Sullivan', // street
     'Suez',
     'Taj',
+    'Tempe',
     'Tetons',
     'Thames',
+    'Tirolean',
     'Transylvania',
     'Tropez',
     'Tyne',
+    'Uranus',
     'Ventura',
+    'Venetian',
+    'Venus',
+    'Victoria',
+    'Vieux' , // Vieux Carre church
+    'Warwick', // Warwick Hotel
     'Westwood', // part of East Kilbride
     'Whitehouse',
     'Xanadu',
