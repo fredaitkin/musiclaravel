@@ -35,8 +35,6 @@ class Words extends Command {
      */
     protected $word_cloud = [];
 
-    protected $countries = [];
-
     protected $states = [];
 
     protected $months = [];
@@ -49,7 +47,6 @@ class Words extends Command {
      */
     public function __construct()
     {
-        $this->setCountries();
         $this->setStates();
         $this->setMonths();
         $this->setDays();
@@ -90,9 +87,10 @@ class Words extends Command {
     public function setCaseInfo($word) {
         $tmp_word = strtolower($word);
 
-        if ($this->isCountry($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'country'];
-        }
+        $country = $this->getCountry($tmp_word);
+        if ($country):
+            return $country;
+        endif;
 
         if ($this->isState($tmp_word)) {
             return ['word' => $tmp_word, 'type' => 'country'];
@@ -183,20 +181,17 @@ class Words extends Command {
     }
 
     /**
-     * Set country array.
-     */
-    private function setCountries() {
-        $this->countries = array_merge(config('countries'), config('country_adjacent'));
-    }
-
-    /**
-     * Is the word a country?
+     * Get country.
      * @param string $word
      *   The word
-     * @return bool
+     * @return array
      */
-    private function isCountry($word) {
-        return in_array($word, $this->countries);
+    private function getCountry($word) {
+        if (isset(config('countries_expanded')[$word])):
+            return ['word' => config('countries_expanded')[$word], 'type' => 'country'];
+        else:
+            return false;
+        endif;
     }
 
     /**
