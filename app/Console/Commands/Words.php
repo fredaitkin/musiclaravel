@@ -88,8 +88,7 @@ class Words extends Command {
      *   The word.
      */
     public function setCaseInfo($word) {
-        // FIXME strtolower will be quicker.
-        $tmp_word = ucfirst(strtolower($word));
+        $tmp_word = strtolower($word);
 
         if ($this->isCountry($tmp_word)) {
             return ['word' => $tmp_word, 'type' => 'country'];
@@ -119,8 +118,9 @@ class Words extends Command {
             return ['word' => $tmp_word, 'type' => 'day'];
         }
 
-        if ($this->isName($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'name'];
+        $name = $this->getPersonName($tmp_word);
+        if ($name) {
+            return $name;
         }
 
         $name = $this->getNonStandardName($tmp_word);
@@ -301,9 +301,13 @@ class Words extends Command {
      *   The word
      * @return bool
      */
-    private function isName($word) {
+    private function getPersonName($word) {
         //Ho Chi Minh, Chou En-Lai, Christina Applegate, Clarence Thomas, Santa Claus, Kurt Cobain, Leonard Cohen, John Coltrane, Perry Como, Billy Connolly, Sean Connery, Don Corleone etc
-        return in_array($word, config('names'));
+        if (isset(config('names')[$word])):
+            return ['word' => config('names')[$word], 'type' => 'name'];
+        else:
+            return false;
+        endif;
     }
 
     /**

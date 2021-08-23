@@ -1,11 +1,16 @@
 <?php
 
 return [
+    // is alphabet
+    'B', // name, street
     'Christmas',
     'Christmases',
     'Christmastime',
+    'D', // name, street
+    'E',
     'Easter',
     'Eve', // name, time
+    'G',
     'H',
     'Halley', // comet, thing
     'Halloween',
@@ -30,6 +35,7 @@ return [
     'Tarzan', // name?
     'U',
     'V',
+    'W',
     'Watergate',
     'X',
     'Xmas',
