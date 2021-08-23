@@ -17,6 +17,8 @@ class WordTest extends TestCase
         $command = new Words();
         $word_info = $command->setCaseInfo('Abdul');
         $this->assertEquals('Abdul', $word_info['word']);
+        $word_info = $command->setCaseInfo('DiMaggio');
+        $this->assertEquals('DiMaggio', $word_info['word']);
         // TODO add non Standard to Names
         /*
         $word_info = $command->setCaseInfo('abc');

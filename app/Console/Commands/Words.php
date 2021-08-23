@@ -178,7 +178,7 @@ class Words extends Command {
             return ['word' => strtolower($tmp_word), 'type' => 'made_up'];
         }
 
-        return ['word' => strtolower($word), 'type' => ''];
+        return ['word' => $word, 'type' => ''];
     }
 
     /**
