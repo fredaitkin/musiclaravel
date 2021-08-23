@@ -1,21 +1,20 @@
 <?php
 
 // Change structure of names files
-/*
-$handle1 = fopen("config/names.php", "r");
-$handle2 = fopen("config/names_copy.php", "w");
+$handle1 = fopen("config/brands.php", "r");
+$handle2 = fopen("config/brands_copy.php", "w");
 if ($handle1) {
     while (($line = fgets($handle1)) !== false) {
-        fwrite($handle2, str_replace(array(',', "\n", "\r"), array(' => ', '', ''), strtolower($line)) . ltrim($line));
+        fwrite($handle2, str_pad(str_replace(array(',', "\n", "\r"), array('', '', ''), strtolower($line)), 20) . '=> ' . ltrim($line));
 
     }
     fclose($handle2);
     fclose($handle1);
 }
-*/
 
 // Pad arrays to same length
 // mephistopheles = 14 + 4 + 4 but make it divisible by 4 - tab length
+/*
 $handle1 = fopen("config/names.php", "r");
 $handle2 = fopen("config/names_copy.php", "w");
 if ($handle1) {
@@ -26,3 +25,5 @@ if ($handle1) {
     fclose($handle2);
     fclose($handle1);
 }
+*/
+

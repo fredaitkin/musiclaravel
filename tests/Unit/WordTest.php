@@ -19,7 +19,10 @@ class WordTest extends TestCase
         $this->assertEquals('Abdul', $word_info['word']);
         $word_info = $command->setCaseInfo('DiMaggio');
         $this->assertEquals('DiMaggio', $word_info['word']);
-        // TODO add non Standard to Names
+        $word_info = $command->setCaseInfo('DMC');
+        $this->assertEquals('DMC', $word_info['word']);
+        $word_info = $command->setCaseInfo('jcrew');
+        $this->assertEquals('JCrew', $word_info['word']);
         /*
         $word_info = $command->setCaseInfo('abc');
         $this->assertEquals('ABC', $word_info['word']);
@@ -27,10 +30,7 @@ class WordTest extends TestCase
         $this->assertEquals('Alabama', $word_info['word']);
         $word_info = $command->setCaseInfo('amtracks');
         $this->assertEquals('Amtracks', $word_info['word']);
-        $word_info = $command->setCaseInfo('Dimaggio');
-        $this->assertEquals('DiMaggio', $word_info['word']);
-        $word_info = $command->setCaseInfo('DMC');
-        $this->assertEquals('DMC', $word_info['word']);
+
         $word_info = $command->setCaseInfo('dr');
         $this->assertEquals('Dr', $word_info['word']);
         $word_info = $command->setCaseInfo('easter');

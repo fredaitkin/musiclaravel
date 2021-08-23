@@ -119,9 +119,9 @@ class Words extends Command {
         }
 
         $name = $this->getPersonName($tmp_word);
-        if ($name) {
+        if ($name):
             return $name;
-        }
+        endif;
 
         $name = $this->getNonStandardName($tmp_word);
         if ($name) {
@@ -132,9 +132,10 @@ class Words extends Command {
             return ['word' => $tmp_word, 'type' => 'honorific'];
         }
 
-        if ($this->isBrand($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'brand'];
-        }
+        $brand = $this->getBrand($tmp_word);
+        if ($brand):
+            return $brand;
+        endif;
 
         if ($this->isOrganisation($tmp_word)) {
             return ['word' => $tmp_word, 'type' => 'organisation'];
@@ -296,10 +297,10 @@ class Words extends Command {
     }
 
     /**
-     * Is the word a country?
+     * Get formatted name if it is a name?
      * @param string $word
      *   The word
-     * @return bool
+     * @return array
      */
     private function getPersonName($word) {
         //Ho Chi Minh, Chou En-Lai, Christina Applegate, Clarence Thomas, Santa Claus, Kurt Cobain, Leonard Cohen, John Coltrane, Perry Como, Billy Connolly, Sean Connery, Don Corleone etc
@@ -362,13 +363,17 @@ class Words extends Command {
     }
 
     /**
-     * Is the word a brand?
+     * Get formatted brand if it is a brand?
      * @param string $word
      *   The word
-     * @return bool
+     * @return array
      */
-    private function isBrand($word) {
-        return in_array($word, config('brands'));
+    private function getBrand($word) {
+        if (isset(config('brands')[$word])):
+            return ['word' => config('brands')[$word], 'type' => 'brand'];
+        else:
+            return false;
+        endif;
     }
 
     /**
