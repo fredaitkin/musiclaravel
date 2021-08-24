@@ -97,9 +97,10 @@ class Words extends Command {
             return ['word' => $tmp_word, 'type' => 'town'];
         }
 
-        if ($this->isPlace($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'place'];
-        }
+        $place = $this->getPlace($tmp_word);
+        if ($place):
+            return $place;
+        endif;
 
         if ($this->isStreet($tmp_word)) {
             return ['word' => $tmp_word, 'type' => 'street'];
@@ -230,13 +231,17 @@ class Words extends Command {
     }
 
     /**
-     * Is the word a country?
+     * Get place
      * @param string $word
      *   The word
-     * @return bool
+     * @return array
      */
-    private function isPlace($word) {
-        return in_array($word, config('places'));
+    private function getPlace($word) {
+        if (isset(config('places')[$word])):
+            return ['word' => config('places')[$word], 'type' => 'place'];
+        else:
+            return false;
+        endif;
     }
 
     /**
@@ -270,7 +275,6 @@ class Words extends Command {
         // May is complex, will often be a word
         return in_array($word, $this->months);
     }
-
 
     /**
      * Get day

@@ -2,7 +2,7 @@
 
     /*
     |--------------------------------------------------------------------------
-    | Religion
+    | Religions
     |--------------------------------------------------------------------------
     |
     | Religious, mythical, anti-religious
@@ -16,6 +16,7 @@ return [
     'christmastime' => 'Christmastime',
     'devil'         => 'Devil',
     'easter'        => 'Easter',
+    'elysian'       => 'Elysian',
     'eve'           => 'Eve', // name, time
     'god'           => 'God',
     'heaven'        => 'heaven',
