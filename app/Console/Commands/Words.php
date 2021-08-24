@@ -138,6 +138,11 @@ class Words extends Command {
             return $acronym;
         }
 
+        $religion = $this->getReligion($tmp_word);
+        if ($religion):
+            return $religion;
+        endif;
+
         if ($this->isCapitalized($tmp_word)) {
             return ['word' => $tmp_word, 'type' => 'miscellaneous'];
         }
@@ -305,6 +310,20 @@ class Words extends Command {
     private function getHonorific($word) {
         if (isset(config('honorifics')[$word])):
             return ['word' => config('honorifics')[$word], 'type' => 'honorific'];
+        else:
+            return false;
+        endif;
+    }
+
+    /**
+     * Get religion
+     * @param string $word
+     *   The word
+     * @return array
+     */
+    private function getReligion($word) {
+        if (isset(config('religions')[$word])):
+            return ['word' => config('religions')[$word], 'type' => 'religion'];
         else:
             return false;
         endif;

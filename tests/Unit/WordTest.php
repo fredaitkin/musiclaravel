@@ -37,7 +37,8 @@ class WordTest extends TestCase
         $this->assertEquals('spiacente', $word_info['word']);
         $word_info = $command->setCaseInfo('cuatro');
         $this->assertEquals('cuatro', $word_info['word']);
-        
+        $word_info = $command->setCaseInfo('xmas');
+        $this->assertEquals('Xmas', $word_info['word']);
         
         /*
         $word_info = $command->setCaseInfo('abc');
