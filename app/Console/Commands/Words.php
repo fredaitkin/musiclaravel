@@ -39,8 +39,6 @@ class Words extends Command {
 
     protected $months = [];
 
-    protected $days = [];
-
     /**
      * Create a new command instance.
      *
@@ -49,7 +47,6 @@ class Words extends Command {
     {
         $this->setStates();
         $this->setMonths();
-        $this->setDays();
         parent::__construct();
     }
 
@@ -112,23 +109,20 @@ class Words extends Command {
             return ['word' => $tmp_word, 'type' => 'month'];
         }
 
-        if ($this->isDay($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'day'];
-        }
+        $day = $this->getDay($tmp_word);
+        if ($day):
+            return $day;
+        endif;
 
         $name = $this->getPersonName($tmp_word);
         if ($name):
             return $name;
         endif;
 
-        $name = $this->getNonStandardName($tmp_word);
-        if ($name) {
-            return $name;
-        }
-
-        if ($this->isHonorific($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'honorific'];
-        }
+        $honorific = $this->getHonorific($tmp_word);
+        if ($honorific):
+            return $honorific;
+        endif;
 
         $brand = $this->getBrand($tmp_word);
         if ($brand):
@@ -272,23 +266,19 @@ class Words extends Command {
         return in_array($word, $this->months);
     }
 
-    private function setDays() {
-        $this->days = config('days');
-        $this->days[] = 'Fridays';
-        $this->days[] = 'Saturdays';
-        $this->days[] = 'Sundays';
-        $this->days[] = 'Mondays';
-    }
 
     /**
-     * Is the word a country?
+     * Get day
      * @param string $word
      *   The word
-     * @return bool
+     * @return array
      */
-    private function isDay($word) {
-        // May is complex, will often be a word
-        return in_array($word, $this->days);
+    private function getDay($word) {
+        if (isset(config('days_expanded')[$word])):
+            return ['word' => config('days_expanded')[$word], 'type' => 'day'];
+        else:
+            return false;
+        endif;
     }
 
     /**
@@ -307,27 +297,17 @@ class Words extends Command {
     }
 
     /**
-     * Is the word a country?
+     * Get honorific
      * @param string $word
      *   The word
-     * @return bool
+     * @return array
      */
-    private function getNonStandardName($word) {
-        if (isset(config('names_non_standard')[$word])):
-            return ['word' => config('names_non_standard')[$word], 'type' => 'name'];
+    private function getHonorific($word) {
+        if (isset(config('honorifics')[$word])):
+            return ['word' => config('honorifics')[$word], 'type' => 'honorific'];
         else:
             return false;
         endif;
-    }
-
-    /**
-     * Is the word a country?
-     * @param string $word
-     *   The word
-     * @return bool
-     */
-    private function isHonorific($word) {
-        return in_array($word, config('honorifics'));
     }
 
     /**
