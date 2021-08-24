@@ -29,6 +29,9 @@ class WordTest extends TestCase
         $this->assertEquals('Sundays', $word_info['word']);
         $word_info = $command->setCaseInfo('dr');
         $this->assertEquals('Dr', $word_info['word']);
+        $word_info = $command->setCaseInfo('tristesse');
+        $this->assertEquals('tristesse', $word_info['word']);
+        
         /*
         $word_info = $command->setCaseInfo('abc');
         $this->assertEquals('ABC', $word_info['word']);
