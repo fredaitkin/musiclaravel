@@ -2,16 +2,16 @@
 
 return [
 
-    'Glauben',
-    'Herr',
-    'Heiße',
-    'Ich',
-    'Lachsfisch',
-    'Mein',
-    'Mit',
-    'Schampus',
-    'Schatz',
-    'Superfantastisch',
-    'Trinke',
+    'glauben',
+    'herr',
+    'heiße',
+    'ich',
+    'lachsfisch',
+    'mein',
+    'mit',
+    'schampus',
+    'schatz',
+    'superfantastisch',
+    'trinke',
 
 ];

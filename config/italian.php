@@ -2,12 +2,12 @@
 
 return [
 
-    'Uno',
-    'Fasul',
-    'Generalissimo',
-    'Numero',
-    'Nuovo',
-    'Sono',
-    'Spiacente',
+    'fasul',
+    'generalissimo',
+    'numero',
+    'nuovo',
+    'sono',
+    'spiacente',
+    'uno',
 
 ];
