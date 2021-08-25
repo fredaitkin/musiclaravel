@@ -1,11 +1,11 @@
 <?php
 
 // Change structure of names files
-$handle1 = fopen("config/places.php", "r");
-$handle2 = fopen("config/places_copy.php", "w");
+$handle1 = fopen("config/states.php", "r");
+$handle2 = fopen("config/states_expanded.php", "w");
 if ($handle1) {
     while (($line = fgets($handle1)) !== false) {
-        fwrite($handle2, str_pad(str_replace(array(',', "\n", "\r"), array('', '', ''), strtolower($line)), 20) . '=> ' . ltrim($line));
+        fwrite($handle2, str_pad(str_replace(array(',', "\n", "\r"), array('', '', ''), strtolower($line)), 24) . '=> ' . ltrim($line));
 
     }
     fclose($handle2);

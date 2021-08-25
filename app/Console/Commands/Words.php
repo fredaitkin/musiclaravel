@@ -35,8 +35,6 @@ class Words extends Command {
      */
     protected $word_cloud = [];
 
-    protected $states = [];
-
     protected $months = [];
 
     /**
@@ -45,7 +43,6 @@ class Words extends Command {
      */
     public function __construct()
     {
-        $this->setStates();
         $this->setMonths();
         parent::__construct();
     }
@@ -89,9 +86,10 @@ class Words extends Command {
             return $country;
         endif;
 
-        if ($this->isState($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'country'];
-        }
+        $state = $this->getState($tmp_word);
+        if ($state):
+            return $state;
+        endif;
 
         if ($this->isTown($tmp_word)) {
             return ['word' => $tmp_word, 'type' => 'town'];
@@ -195,29 +193,17 @@ class Words extends Command {
     }
 
     /**
-     * Set state array
-     */
-    public function setStates() {
-        $this->states = config('states');
-        $this->states[] = 'Alberta';
-        $this->states[] = 'Bamee';
-        $this->states[] = 'Cali';
-        $this->states[] = 'Californication';
-        $this->states[] = 'Georgian';
-        $this->states[] = 'Hawaiian';
-        $this->states[] = 'Jersey';
-        $this->states[] = 'Rhode';
-        $this->states[] = 'Virginny';
-    }
-
-    /**
-     * Is the word a state?
+     * Get state.
      * @param string $word
      *   The word
-     * @return bool
+     * @return array
      */
-    private function isState($word) {
-        return in_array($word, $this->states);
+    private function getState($word) {
+        if (isset(config('states_expanded')[$word])):
+            return ['word' => config('states_expanded')[$word], 'type' => 'state'];
+        else:
+            return false;
+        endif;
     }
 
     /**
