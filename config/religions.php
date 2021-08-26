@@ -1,5 +1,7 @@
 <?php
 
+return [
+
     /*
     |--------------------------------------------------------------------------
     | Religions
@@ -8,8 +10,6 @@
     | Religious, mythical, anti-religious
     |
     */
-
-return [
 
     'christmas'     => 'Christmas',
     'christmases'   => 'Christmases',
@@ -22,6 +22,7 @@ return [
     'heaven'        => 'heaven',
     'hell'          => 'hell',
     'lordy'         => 'Lordy',
+    'pater'         => 'pater',
     'pentecost'     => 'Pentecost',
     'pentecostal'   => 'Pentecostal',
     'presbyterian'  => 'Presbyterian',

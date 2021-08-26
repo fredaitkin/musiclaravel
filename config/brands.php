@@ -96,6 +96,7 @@ return [
     'mastercard'    => 'Mastercard',
     'maybelline'    => 'Maybelline',
     'mercedes'      => 'Mercedes',
+    'metrocard'     => 'Metrocard',
     'monopoly'      => 'Monopoly', // also a word
     'moschino'      => 'Moschino',
     'nescafe'       => 'Nescafe',

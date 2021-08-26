@@ -1,44 +1,27 @@
 <?php
 
 return [
-    // is alphabet
-    'B', // name, street
-    'Christmas',
-    'Christmases',
-    'Christmastime',
-    'D', // name, street
-    'E',
-    'Easter',
-    'Eve', // name, time
-    'G',
-    'H',
-    'Halley', // comet, thing
-    'Halloween',
-    'I',
-    'Im',
-    'K',
-    'Katrina', // hurricane
-    'L',
-    'Lordy',
-    'Metrocard',
-    'Mobius',
-    'Molotov',
-    'N',
-    'Pater',
-    'Pentecost',
-    'Pentecostal',
-    'Presbyterian',
-    'Roth',
-    'S',
-    'T',
-    'Taniwha', // mythological Maori being, name?
-    'Tarzan', // name?
-    'U',
-    'V',
-    'W',
-    'Watergate',
-    'X',
-    'Xmas',
-    'XXIII',
-    'Z',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Capitalized
+    |--------------------------------------------------------------------------
+    |
+    | Random capitalized words
+    |
+    */
+
+    'eve'               => 'Eve', // name, time
+    'halley'            => 'Halley', // comet, thing
+    'halloween'         => 'Halloween',
+    'im'                => 'Im',
+    'katrina'           => 'Katrina', // hurricane
+    'mobius'            => 'Mobius',
+    'molotov'           => 'Molotov',
+    'roth'              => 'Roth',
+    'taniwha'           => 'Taniwha', // mythological Maori being, name?
+    'tarzan'            => 'Tarzan', // name?
+    'watergate'         => 'Watergate',
+    'xxiii'             => 'XXIII',
+
 ];

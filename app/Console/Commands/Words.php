@@ -35,18 +35,6 @@ class Words extends Command {
      */
     protected $word_cloud = [];
 
-    protected $months = [];
-
-    /**
-     * Create a new command instance.
-     *
-     */
-    public function __construct()
-    {
-        $this->setMonths();
-        parent::__construct();
-    }
-
     /**
      * Execute the console command.
      *
@@ -91,22 +79,25 @@ class Words extends Command {
             return $state;
         endif;
 
-        if ($this->isTown($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'town'];
-        }
+        $town = $this->getTown($tmp_word);
+        if ($town):
+            return $town;
+        endif;
 
         $place = $this->getPlace($tmp_word);
         if ($place):
             return $place;
         endif;
 
-        if ($this->isStreet($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'street'];
-        }
+        $street = $this->getStreet($tmp_word);
+        if ($street):
+            return $street;
+        endif;
 
-        if ($this->isMonth($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'month'];
-        }
+        $month = $this->getMonth($tmp_word);
+        if ($month):
+            return $month;
+        endif;
 
         $day = $this->getDay($tmp_word);
         if ($day):
@@ -142,9 +133,15 @@ class Words extends Command {
             return $religion;
         endif;
 
-        if ($this->isCapitalized($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'miscellaneous'];
-        }
+        $alphabet = $this->getAlphabet($tmp_word);
+        if ($alphabet):
+            return $alphabet;
+        endif;
+
+        $capitalized = $this->getCapitalized($tmp_word);
+        if ($capitalized):
+            return $capitalized;
+        endif;
 
         // Ik ben droevig Dutch
         // sol invictus Latin
@@ -207,13 +204,17 @@ class Words extends Command {
     }
 
     /**
-     * Is the word a country?
+     * Get town.
      * @param string $word
      *   The word
-     * @return bool
+     * @return array
      */
-    private function isTown($word) {
-        return in_array($word, config('towns'));
+    private function getTown($word) {
+        if (isset(config('towns')[$word])):
+            return ['word' => config('towns')[$word], 'type' => 'town'];
+        else:
+            return false;
+        endif;
     }
 
     /**
@@ -231,35 +232,31 @@ class Words extends Command {
     }
 
     /**
-     * Is the word a country?
+     * Get street
      * @param string $word
      *   The word
-     * @return bool
+     * @return array
      */
-    private function isStreet($word) {
-        return in_array($word, config('streets'));
+    private function getStreet($word) {
+        if (isset(config('streets')[$word])):
+            return ['word' => config('streets')[$word], 'type' => 'street'];
+        else:
+            return false;
+        endif;
     }
 
     /**
-     * Is the word a country?
+     * Get month
      * @param string $word
      *   The word
-     * @return bool
+     * @return array
      */
-    private function setMonths() {
-        $this->months = config('months');
-        $this->months[] = 'Junes';
-    }
-
-    /**
-     * Is the word a country?
-     * @param string $word
-     *   The word
-     * @return bool
-     */
-    private function isMonth($word) {
-        // May is complex, will often be a word
-        return in_array($word, $this->months);
+    private function getMonth($word) {
+        if (isset(config('months_expanded')[$word])):
+            return ['word' => config('months_expanded')[$word], 'type' => 'month'];
+        else:
+            return false;
+        endif;
     }
 
     /**
@@ -320,6 +317,34 @@ class Words extends Command {
     }
 
     /**
+     * Get alphabet
+     * @param string $word
+     *   The word
+     * @return bool
+     */
+    private function getAlphabet($word) {
+        if (isset(config('alphabet')[$word])):
+            return ['word' => config('alphabet')[$word], 'type' => 'alphabet'];
+        else:
+            return false;
+        endif;
+    }
+
+    /**
+     * Get capitalized
+     * @param string $word
+     *   The word
+     * @return bool
+     */
+    private function getCapitalized($word) {
+        if (isset(config('capitalized')[$word])):
+            return ['word' => config('capitalized')[$word], 'type' => 'capitalized'];
+        else:
+            return false;
+        endif;
+    }
+
+    /**
      * Is the word a country?
      * @param string $word
      *   The word
@@ -335,16 +360,6 @@ class Words extends Command {
         endif;
     }
 
-    /**
-     * A miscellaneous capitalized word
-     * @param string $word
-     *   The word
-     * @return bool
-     */
-    private function isCapitalized($word) {
-        // May is complex, will often be a word
-        return in_array($word, config('capitalized'));
-    }
 
     /**
      * Get formatted brand if it is a brand?

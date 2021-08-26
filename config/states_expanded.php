@@ -2,6 +2,15 @@
 
 return [
 
+    /*
+    |--------------------------------------------------------------------------
+    | States
+    |--------------------------------------------------------------------------
+    |
+    | States, provinces, state dimunitives, persons of a state.
+    |
+    */
+
     'alabama'           => 'Alabama',
     'alaska'            => 'Alaska',
     'alberta'           => 'Alberta',

@@ -2,25 +2,34 @@
 
 return [
 
-    'Barrington',
-    'Beale',
-    'Belmont', // avenue
-    'Broadway',
-    'Campbell', // lane, also a name
-    'Cauldrum',
-    'Cienega', // La Cienega Boulevard, LA
-    'Clinton',
-    'Danforth', // avenue
-    'Diagonalia', // avenue
-    'Frenchmen',
-    'Haight',
-    'Hoovre',
-    'Humberside',
-    'Montague',
-    'Mulholland',
-    'Powis',
-    'Ramblas',
-    'Sloane',
-    'Tiananmen',
+    /*
+    |--------------------------------------------------------------------------
+    | Streets
+    |--------------------------------------------------------------------------
+    |
+    | Streets, avenues, lanes, squares
+    |
+    */
+
+    'barrington'    => 'Barrington',
+    'beale'         => 'Beale',
+    'belmont'       => 'Belmont', // avenue
+    'broadway'      => 'Broadway',
+    'campbell'      => 'Campbell', // lane, also a name
+    'cauldrum'      => 'Cauldrum',
+    'cienega'       => 'Cienega', // La Cienega Boulevard, LA
+    'clinton'       => 'Clinton',
+    'danforth'      => 'Danforth', // avenue
+    'diagonalia'    => 'Diagonalia', // avenue
+    'frenchmen'     => 'Frenchmen',
+    'haight'        => 'Haight',
+    'hoovre'        => 'Hoovre',
+    'humberside'    => 'Humberside',
+    'montague'      => 'Montague',
+    'mulholland'    => 'Mulholland',
+    'powis'         => 'Powis',
+    'ramblas'       => 'Ramblas',
+    'sloane'        => 'Sloane',
+    'tiananmen'     => 'Tiananmen'
 
 ];

@@ -1,8 +1,8 @@
 <?php
 
 // Change structure of names files
-$handle1 = fopen("config/states.php", "r");
-$handle2 = fopen("config/states_expanded.php", "w");
+$handle1 = fopen("config/capitalized.php", "r");
+$handle2 = fopen("config/capitalized2.php", "w");
 if ($handle1) {
     while (($line = fgets($handle1)) !== false) {
         fwrite($handle2, str_pad(str_replace(array(',', "\n", "\r"), array('', '', ''), strtolower($line)), 24) . '=> ' . ltrim($line));
