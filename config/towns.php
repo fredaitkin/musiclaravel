@@ -110,6 +110,7 @@ return [
     'laguna'            => 'Laguna', // Laguan Beach
     'lansing'           => 'Lansing',
     'laramie'           => 'Laramie',
+    'la'                => 'LA', // Los Angeles, this will be a problem
     'las'               => 'Las', // Las Vegas
     'lethbridge'        => 'Lethbridge',
     'liula'             => 'Liula',
@@ -138,6 +139,7 @@ return [
     'newcastle'         => 'Newcastle',
     'ngall'             => 'Ngall',
     'nutbush'           => 'Nutbush',
+    'nyc'               => 'NYC',
     'oaktown'           => 'Oaktown',
     'olomouc'           => 'Olomouc',
     'opelousas'         => 'Opelousas',

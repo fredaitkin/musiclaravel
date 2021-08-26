@@ -53,14 +53,9 @@ class WordTest extends TestCase
         $this->assertEquals('Halley', $word_info['word']);
         $word_info = $command->setCaseInfo('i');
         $this->assertEquals('I', $word_info['word']);
-        /*
         $word_info = $command->setCaseInfo('abc');
         $this->assertEquals('ABC', $word_info['word']);
-        $word_info = $command->setCaseInfo('amtracks');
-        $this->assertEquals('Amtracks', $word_info['word']);
-        $word_info = $command->setCaseInfo('frater');
-        $this->assertEquals('Frater', $word_info['word']);
-
-        */
+        $word_info = $command->setCaseInfo('morcheeba');
+        $this->assertEquals('Morcheeba', $word_info['word']);
     }
 }

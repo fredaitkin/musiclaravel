@@ -119,9 +119,10 @@ class Words extends Command {
             return $brand;
         endif;
 
-        if ($this->isOrganisation($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'organisation'];
-        }
+        $organisation = $this->getOrganisation($tmp_word);
+        if ($organisation):
+            return $organisation;
+        endif;
 
         $acronym = $this->getAcronym($tmp_word);
         if ($acronym) {
@@ -351,18 +352,15 @@ class Words extends Command {
      * @return bool
      */
     private function getAcronym($word) {
-        $tmp_word = strtoupper($word);
-        if (isset(config('acronyms')[$tmp_word])):
-            $acronym = config('acronyms')[$tmp_word];
-            return ['word' => $tmp_word, 'type' => $acronym['type']];
+        if (isset(config('acronyms')[$word])):
+            return ['word' => config('acronyms')[$word]['uppercase'], 'type' => config('acronyms')[$word]['type']];
         else:
             return false;
         endif;
     }
 
-
     /**
-     * Get formatted brand if it is a brand?
+     * Get brand
      * @param string $word
      *   The word
      * @return array
@@ -376,13 +374,17 @@ class Words extends Command {
     }
 
     /**
-     * Is the word an organisation?
+     * Get organisation
      * @param string $word
      *   The word
-     * @return bool
+     * @return array
      */
-    private function isOrganisation($word) {
-        return in_array($word, config('organisations'));
+    private function getOrganisation($word) {
+        if (isset(config('organisations')[$word])):
+            return ['word' => config('organisations')[$word], 'type' => 'organisation'];
+        else:
+            return false;
+        endif;
     }
 
     /**

@@ -2,20 +2,32 @@
 
 return [
 
-    'Amtracks',
-    'Beastie',
-    'Bran', // Bran Van 3000
-    'Catholic',
-    'Centrelink',
-    'Fedex',
-    'Hibs', // soccer team
-    'Leadbelly',
-    'Metro-Goldwyn',
-    'Mets',
-    'Morcheeba',
-    'Presidency',
-    'Revelaires',
-    'Stranraer', // soccer team
-    'Yankees',
+    /*
+    |--------------------------------------------------------------------------
+    | Organisations
+    |--------------------------------------------------------------------------
+    |
+    | Organisations, teams, bands
+    |
+    */
+
+    'amtracks'      => 'Amtracks',
+    'beastie'       => 'Beastie',
+    'bran'          => 'Bran', // Bran Van 3000
+    'centrelink'    => 'Centrelink',
+    'fedex'         => 'Fedex',
+    'hibs'          => 'Hibs', // soccer team
+    'klf'           => 'KLF',
+    'leadbelly'     => 'Leadbelly',
+    'metro-goldwyn' => 'Metro-Goldwyn',
+    'mets'          => 'Mets',
+    'morcheeba'     => 'Morcheeba',
+    'nwa'           => 'NWA',
+    'presidency'    => 'Presidency',
+    'revelaires'    => 'Revelaires',
+    'rem'           => 'REM',
+    'stranraer'     => 'Stranraer', // soccer team
+    'yankees'       => 'Yankees',
+    'zz'            => 'ZZ', // ZZ Top
 
 ];

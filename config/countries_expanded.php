@@ -259,6 +259,7 @@ return [
     'pitcairn'                                      => 'Pitcairn',
     'poland'                                        => 'Poland',
     'portugal'                                      => 'Portugal',
+    'pr'                                            => 'PR',  // Puerto Rican
     'puerto'                                        => 'Puerto',
     'puerto rico'                                   => 'Puerto Rico',
     'qatar'                                         => 'Qatar',
@@ -331,6 +332,7 @@ return [
     'turks and caicos islands'                      => 'Turks and Caicos Islands',
     'tuvalu'                                        => 'Tuvalu',
     'uganda'                                        => 'Uganda',
+    'uk'                                            => 'UK',
     'ukraine'                                       => 'Ukraine',
     'united arab emirates'                          => 'United Arab Emirates',
     'united kingdom'                                => 'United Kingdom',
