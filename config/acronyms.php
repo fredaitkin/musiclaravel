@@ -15,7 +15,7 @@ return [
     'abc'   => ['uppercase' => 'ABC', 'full_term' => 'American Broadcasting Company', 'type' => 'organisation'],
     'bbc'   => ['uppercase' => 'BBC', 'full_term' => 'British Broadcasting Company', 'type' => 'organisation'],
     'bls'   => ['uppercase' => 'BLS', 'full_term' => '', 'type' => ''],
-    'cd'    => ['uppercase' => 'CB', 'full_term' => 'Citizens band radio', 'type' => 'object'],
+    'cb'    => ['uppercase' => 'CB', 'full_term' => 'Citizens band radio', 'type' => 'object'],
     'cbs'   => ['uppercase' => 'CBS', 'full_term' => 'Columbia Broadcasting System', 'type' => 'organisation'],
     'cd'    => ['uppercase' => 'CD', 'full_term' => 'Compact disc', 'type' => 'object'],
     'cia'   => ['uppercase' => 'CIA', 'full_term' => 'Central Intelligence Agency', 'type' => 'organisation'],

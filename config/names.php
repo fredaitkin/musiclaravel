@@ -110,6 +110,7 @@ return [
     'brucies'           => 'Brucies',
     'brummel'           => 'Brummel',
     'brynner'           => 'Brynner',
+    'bubbla'            => 'Bubbla',
     'buddha'            => 'Buddha',
     'buddhas'           => 'Buddhas',
     'bugsy'             => 'Bugsy',

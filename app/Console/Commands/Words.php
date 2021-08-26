@@ -154,26 +154,26 @@ class Words extends Command {
         // Chuva! Chuvinha! Vem, vem, vem ca, rapaz! Portugese
 
         if ($this->isFrench($tmp_word)) {
-            return ['word' => strtolower($tmp_word), 'type' => 'French'];
+            return ['word' => $tmp_word, 'type' => 'French'];
         }
 
         if ($this->isSpanish($tmp_word)) {
-            return ['word' => strtolower($tmp_word), 'type' => 'Italian'];
+            return ['word' => $tmp_word, 'type' => 'Italian'];
         }
 
         if ($this->isItalian($tmp_word)) {
-            return ['word' => strtolower($tmp_word), 'type' => 'Italian'];
+            return ['word' => $tmp_word, 'type' => 'Italian'];
         }
 
         if ($this->isGerman($tmp_word)) {
-            return ['word' => strtolower($tmp_word), 'type' => 'German'];
+            return ['word' => $tmp_word, 'type' => 'German'];
         }
 
         if ($this->isMadeUp($tmp_word)) {
-            return ['word' => strtolower($tmp_word), 'type' => 'made_up'];
+            return ['word' => $tmp_word, 'type' => 'made_up'];
         }
 
-        return ['word' => $word, 'type' => ''];
+        return ['word' => $tmp_word, 'type' => ''];
     }
 
     /**
@@ -483,7 +483,6 @@ class Words extends Command {
         // TODO don't include song_ids from common words
         // $common_words = ['a', 'about', 'after', 'again', 'all', 'am', 'an', 'and', 'are', 'around', 'as', 'at', 'be', 'been', 'but', 'by', 'can', 'do', 'for', 'from', 'get', 'got', 'gotta', 'had', 'has', 'have', 'i', 'if', 'in', 'into', 'is', 'it', 'its', 'just', 'my', 'not', 'of', 'oh', 'on', 'or', 'so', 'that', 'the', 'there', 'these', this', 'those', 'through', 'to', 'too', 'was', 'were', 'what', 'when', 'where', 'will', 'with', 'would'];
         foreach($this->word_cloud as $w => $v) {
-            Log::info($w);
             $is_word = $this->isWord($w);
             if (!$is_word):
                 // Check if it is possible a plural.
@@ -495,7 +494,10 @@ class Words extends Command {
             $v['is_word'] = $is_word;
              // Possible check, if false if last letter is s, strip s and try again.
             $v['song_ids'] = array_unique($v['song_ids']);
-            Log::info($v);
+            if ($v['is_word'] === false && $v['type'] == '') {
+                Log::info($w);
+                Log::info($v);
+            }
         }
     }
 

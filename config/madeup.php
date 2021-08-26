@@ -3,9 +3,22 @@
 return [
 
     // nonsense, slang
+    'aboopa',
+    'afronauts',
+    'alang',
+    'angelicate',
+    'bababam',
+    'babambabam',
+    'babbits',
     'badonkadonk', // extremely curvaceous female behind
+    'beautifoolish',
+    'bicka',
+    'bizzles',
     'booyaka',
+    'bup',
     'che',
+    'cking',
+    'crabalocker',
     'doday',
     'heba',
     'helloa',

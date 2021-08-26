@@ -3,6 +3,7 @@
 return [
 
     'amor',
+    'bossa',
     'cinco',
     'cuatro',
     'dos',

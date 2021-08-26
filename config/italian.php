@@ -2,6 +2,8 @@
 
 return [
 
+    'amore',
+    'buona',
     'fasul',
     'generalissimo',
     'numero',
