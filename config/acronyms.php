@@ -37,6 +37,7 @@ return [
     'lsd'   => ['uppercase' => 'LSD', 'full_term' => 'Lysergic acid diethylamide', 'type' => ''],
     'lst'   => ['uppercase' => 'LST', 'full_term' => 'Landing Ship, Tank', 'type' => 'object'],
     'mdma'  => ['uppercase' => 'MDMA', 'full_term' => 'Methylenedioxymethamphetamine', 'type' => ''],
+    'mkb'   => ['uppercase' => 'MKB', 'full_term' => '', 'type' => ''],
     'mtv'   => ['uppercase' => 'MTV', 'full_term' => 'Music Television', 'type' => ''],
     'nasa'  => ['uppercase' => 'NASA', 'full_term' => 'National Aeronautics and Space Administration', 'type' => 'organisation'],
     'nbc'   => ['uppercase' => 'NBC', 'full_term' => 'National Broadcasting Company', 'type' => 'organisation'],

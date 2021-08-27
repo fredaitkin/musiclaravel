@@ -11,6 +11,7 @@ return [
     'creme',
     'd\'ésolé',
     'd\'état',
+    'deja',
     'déjà',
     'durera',
     'et',

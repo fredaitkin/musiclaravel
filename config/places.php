@@ -77,6 +77,7 @@ return [
     'itchycoo'      => 'Itchycoo',
     'ken'           => 'Ken', // isles of Ken
     'kent'          => 'Kent',
+    'kettering'     => 'Kettering',  // Sloan Kettering
     'khe'           => 'Khe', // Khe Sanh
     'khyber'        => 'Khyber',
     'kilda'         => 'Kilda', // St Kilda
@@ -142,6 +143,7 @@ return [
     'shenandoah'    => 'Shenandoah',
     'siberia'       => 'Siberia',
     'sicily'        => 'Sicily',
+    'sloan'         => 'Sloan',
     'smithfield'    => 'Smithfield',
     'soho'          => 'Soho',
     'sorbonne'      => 'Sorbonne',

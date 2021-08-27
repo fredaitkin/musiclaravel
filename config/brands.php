@@ -37,6 +37,7 @@ return [
     'corona'        => 'Corona',
     'corvette'      => 'Corvette',
     'crayola'       => 'Crayola',
+    'crispies'      => 'Crispies', // Rice Crispies
     'dacron'        => 'Dacron',
     'danneman'      => 'Danneman',
     'darjeeling'    => 'Darjeeling',
@@ -93,10 +94,12 @@ return [
     'lugers'        => 'Lugers',
     'mac'           => 'Mac', // also a name and a word
     'marlboro'      => 'Marlboro',
+    'marriott'      => 'Marriott',
     'mastercard'    => 'Mastercard',
     'maybelline'    => 'Maybelline',
     'mercedes'      => 'Mercedes',
     'metrocard'     => 'Metrocard',
+    'mcdonald'      => 'McDonald',
     'monopoly'      => 'Monopoly', // also a word
     'moschino'      => 'Moschino',
     'nescafe'       => 'Nescafe',

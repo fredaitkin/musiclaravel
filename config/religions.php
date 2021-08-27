@@ -17,11 +17,13 @@ return [
     'christmastime' => 'Christmastime',
     'devil'         => 'Devil',
     'easter'        => 'Easter',
+    'eleison'       => 'eleison',
     'elysian'       => 'Elysian',
     'eve'           => 'Eve', // name, time
     'god'           => 'God',
     'heaven'        => 'heaven',
     'hell'          => 'hell',
+    'kyrie'         => 'kyrie',
     'lordy'         => 'Lordy',
     'pater'         => 'pater',
     'pentecost'     => 'Pentecost',

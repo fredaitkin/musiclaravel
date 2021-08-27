@@ -144,14 +144,16 @@ class Words extends Command {
             return $capitalized;
         endif;
 
+        // Other languages
         // Ik ben droevig Dutch
-        // sol invictus Latin
+        // sol invictus, Servatis a periculum, servatis a maleficum Latin
         // jacamo
         // Jai Guru Deva
         // Day o umba day o mambu ji ay o
         // Konnichiwa   Senso hant-ai
         // pon de replay Bajan Creole play it again
         // Chuva! Chuvinha! Vem, vem, vem ca, rapaz! Portugese
+        // slainte
 
         if ($this->isFrench($tmp_word)) {
             return ['word' => $tmp_word, 'type' => 'French'];
