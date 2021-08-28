@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Music\Song\Song;
+use App\Words\WordCloud;
 use App\Words\WordMED;
 use App\Words\WordNet;
 use Exception;
@@ -465,6 +466,7 @@ class Words extends Command {
         if ($song_ids):
             $query->whereIn('songs.id', $song_ids);
         endif;
+
         $lyrics = $query->get()->toArray();
 
         foreach ($lyrics as $song):
@@ -480,27 +482,10 @@ class Words extends Command {
             }
 
         endforeach;
-        ksort($this->word_cloud);
 
-        // TODO don't include song_ids from common words
-        // $common_words = ['a', 'about', 'after', 'again', 'all', 'am', 'an', 'and', 'are', 'around', 'as', 'at', 'be', 'been', 'but', 'by', 'can', 'do', 'for', 'from', 'get', 'got', 'gotta', 'had', 'has', 'have', 'i', 'if', 'in', 'into', 'is', 'it', 'its', 'just', 'my', 'not', 'of', 'oh', 'on', 'or', 'so', 'that', 'the', 'there', 'these', this', 'those', 'through', 'to', 'too', 'was', 'were', 'what', 'when', 'where', 'will', 'with', 'would'];
-        foreach($this->word_cloud as $w => $v) {
-            $is_word = $this->isWord($w);
-            if (!$is_word):
-                // Check if it is possible a plural.
-                if (substr($w, -1) === 's'):
-                    // Try again.
-                    $is_word = $this->isWord(substr($w, 0, -1));
-                endif;
-            endif;
-            $v['is_word'] = $is_word;
-             // Possible check, if false if last letter is s, strip s and try again.
-            $v['song_ids'] = array_unique($v['song_ids']);
-            if ($v['is_word'] === false && $v['type'] == '') {
-                Log::info($w);
-                Log::info($v);
-            }
-        }
+        // Insert words and word info into the word_cloud table.
+        $this->storeWordCloud();
+
     }
 
     private function isWord($w) {
@@ -535,6 +520,64 @@ class Words extends Command {
                 endif;
             endif;
         endif;
+    }
+
+    /**
+     * Log word cloud.
+     */
+    private function storeWordCloud() {
+        foreach($this->word_cloud as $w => $v) {
+            $is_word = $this->isWord($w);
+            if (!$is_word):
+                // Check if it is possible a plural.
+                if (substr($w, -1) === 's'):
+                    // Try again.
+                    // Possible check, if false if last letter is s, strip s and try again.
+                    $is_word = $this->isWord(substr($w, 0, -1));
+                endif;
+            endif;
+            $v['is_word'] = $is_word;
+            $v['song_ids'] = array_unique($v['song_ids']);
+
+            $word = [];
+            $word['word'] = $w;
+            $word['count'] = $v['count'];
+            $word['is_word'] = $v['is_word'];
+
+            WordCloud::create($word);
+
+            // Make any updates to artist/s
+            // foreach($inserts as $artist):
+                // $updated_song->artists()->attach(['artist' => $artist]);
+            // endforeach;
+        }
+    }
+
+    /**
+     * Log word cloud.
+     */
+    private function logWordCloud() {
+        ksort($this->word_cloud);
+
+        // TODO don't include song_ids from common words
+        // $common_words = ['a', 'about', 'after', 'again', 'all', 'am', 'an', 'and', 'are', 'around', 'as', 'at', 'be', 'been', 'but', 'by', 'can', 'do', 'for', 'from', 'get', 'got', 'gotta', 'had', 'has', 'have', 'i', 'if', 'in', 'into', 'is', 'it', 'its', 'just', 'my', 'not', 'of', 'oh', 'on', 'or', 'so', 'that', 'the', 'there', 'these', this', 'those', 'through', 'to', 'too', 'was', 'were', 'what', 'when', 'where', 'will', 'with', 'would'];
+        foreach($this->word_cloud as $w => $v) {
+            $is_word = $this->isWord($w);
+            if (!$is_word):
+                // Check if it is possible a plural.
+                if (substr($w, -1) === 's'):
+                    // Try again.
+                    $is_word = $this->isWord(substr($w, 0, -1));
+                endif;
+            endif;
+            $v['is_word'] = $is_word;
+             // Possible check, if false if last letter is s, strip s and try again.
+            $v['song_ids'] = array_unique($v['song_ids']);
+            if ($v['is_word'] === false && $v['type'] == '') {
+                Log::info($w);
+                Log::info($v);
+            }
+        }
     }
 
 }
