@@ -47,11 +47,13 @@ return [
     'phat',
     'pussing',
     'satisfactioning',
+    'speedyhead',
     'tak',
     'te',
     'thingamajigsaw',
     'toop',
     'toora',
+    'unboyfriendable',
     'wanty',
     'za',
 
