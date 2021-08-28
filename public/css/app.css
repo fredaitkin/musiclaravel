@@ -14671,3 +14671,11 @@ span.select2-results {
 .artist-photo {
   max-height: 300px;
 }
+
+th.sortable a {
+  color: white;
+}
+
+th.sortable a:hover {
+  color: white !important;
+}

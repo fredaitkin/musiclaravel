@@ -3,10 +3,12 @@
 namespace App\Words;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
+use Kyslik\ColumnSortable\Sortable;
 
 class WordCloud extends Model
 {
+
+    use Sortable;
 
     protected $table = 'word_cloud';
 
@@ -67,11 +69,31 @@ class WordCloud extends Model
     protected $updated_at;
 
     /**
+     * Sortable columns
+     *
+     * @var array
+     */
+    protected $sortabe = [
+        'word',
+        'category',
+        'count',
+    ];
+
+    /**
      * The attributes that aren't mass assignable.
      *
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * Get word cloud
+     * @return mixed
+     **/
+    public static function getWordCloud()
+    {
+        return WordCloud::sortable('word')->paginate(10);
+    }
 
     /**
      * Word cloud songs

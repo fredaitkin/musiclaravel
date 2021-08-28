@@ -158,7 +158,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\PermissionsServiceProvider::class,
 
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
 
     ],
 
