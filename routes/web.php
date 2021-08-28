@@ -75,6 +75,9 @@ Route::middleware(['auth'])->group(function () {
     // Image routes
     Route::get('cover/{id}', 'ImageAPIController@coverArt');
 
+    // Word Cloud routes
+    Route::get('word-cloud', 'WordCloudController@index');
+
 });
 
 Route::middleware(['auth'])->prefix('internalapi')->group(function () {

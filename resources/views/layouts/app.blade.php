@@ -48,6 +48,9 @@
                     <a class="navbar-brand" href="{{ url('/genres') }}">
                          {{ __('Genres') }}
                     </a>
+                    <a class="navbar-brand" href="{{ url('/word-cloud') }}">
+                         {{ __('Word Cloud') }}
+                    </a>
                 @endif
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

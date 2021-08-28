@@ -83,6 +83,7 @@
                         <a href="{{ url('/artists') }}">Artists</a>
                         <a href="{{ url('/playlists') }}">Playlists</a>
                         <a href="{{ url('/genres') }}">Genres</a>
+                        <a href="{{ url('/word-cloud') }}">Word Cloud</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>

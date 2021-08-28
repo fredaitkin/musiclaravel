@@ -32,6 +32,7 @@
             <div><a href="{{ url('/playlists') }}">Playlists</a></div>
             <div><a href="#" name="shuffle_songs">Shuffle Songs</a></div>
             <div><a href="{{ url('/genres') }}">Genres</a></div>
+            <div><a href="{{ url('/word-cloud') }}">Word Cloud</a></div>
             <div>
                 <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                     Logout
