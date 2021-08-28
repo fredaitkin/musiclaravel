@@ -515,7 +515,7 @@ class Words extends Command {
                 if (! isset($this->word_cloud[$word_info['word']])):
                     $this->word_cloud[$word_info['word']] = [
                         'word' => $word_info['word'],
-                        'type' => $word_info['type'],
+                        'category' => $word_info['type'],
                         'count' => 1,
                         'song_ids' => [$id],
                     ];
@@ -532,6 +532,7 @@ class Words extends Command {
      */
     private function storeWordCloud() {
         foreach($this->word_cloud as $w) {
+            // Is this a real word?
             $is_word = $this->isWord($w['word']);
             if (!$is_word):
                 // Check if it is possible a plural.
@@ -541,12 +542,6 @@ class Words extends Command {
                 endif;
             endif;
             $w['is_word'] = $is_word;
-
-            // Set word type.
-            if (!empty($w['type'])) {
-                $w['is_' . $w['type']] = 1;
-            }
-            unset($w['type']);
 
             // Save and unset song_ids for pivot table insert.
             $song_ids = array_unique($w['song_ids']);
@@ -581,7 +576,7 @@ class Words extends Command {
             $v['is_word'] = $is_word;
              // Possible check, if false if last letter is s, strip s and try again.
             $v['song_ids'] = array_unique($v['song_ids']);
-            if ($v['is_word'] === false && $v['type'] == '') {
+            if ($v['is_word'] === false && $v['category'] == '') {
                 Log::info($w);
                 Log::info($v);
             }
