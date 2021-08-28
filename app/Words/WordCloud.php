@@ -92,7 +92,7 @@ class WordCloud extends Model
      *
      * @var bool
      */
-    protected $is_madeup;
+    protected $is_made_up;
 
     /**
      * Is a month.
@@ -107,6 +107,13 @@ class WordCloud extends Model
      * @var bool
      */
     protected $is_name;
+
+    /**
+     * Is an object.
+     *
+     * @var bool
+     */
+    protected $is_object;
 
     /**
      * Is an organisation.

@@ -513,7 +513,12 @@ class Words extends Command {
             $word_info = $this->setCaseInfo($word);
             if (! empty($word_info)):
                 if (! isset($this->word_cloud[$word_info['word']])):
-                    $this->word_cloud[$word_info['word']] = ['type' => $word_info['type'], 'count' => 1, 'song_ids' => [$id]];
+                    $this->word_cloud[$word_info['word']] = [
+                        'word' => $word_info['word'],
+                        'type' => $word_info['type'],
+                        'count' => 1,
+                        'song_ids' => [$id],
+                    ];
                 else:
                     $this->word_cloud[$word_info['word']]['count'] += 1;
                     $this->word_cloud[$word_info['word']]['song_ids'][] = $id;
@@ -523,33 +528,36 @@ class Words extends Command {
     }
 
     /**
-     * Log word cloud.
+     * Save word cloud to the database.
      */
     private function storeWordCloud() {
-        foreach($this->word_cloud as $w => $v) {
-            $is_word = $this->isWord($w);
+        foreach($this->word_cloud as $w) {
+            $is_word = $this->isWord($w['word']);
             if (!$is_word):
                 // Check if it is possible a plural.
-                if (substr($w, -1) === 's'):
+                if (substr($w['word'], -1) === 's'):
                     // Try again.
-                    // Possible check, if false if last letter is s, strip s and try again.
-                    $is_word = $this->isWord(substr($w, 0, -1));
+                    $is_word = $this->isWord(substr($w['word'], 0, -1));
                 endif;
             endif;
-            $v['is_word'] = $is_word;
-            $v['song_ids'] = array_unique($v['song_ids']);
+            $w['is_word'] = $is_word;
 
-            $word = [];
-            $word['word'] = $w;
-            $word['count'] = $v['count'];
-            $word['is_word'] = $v['is_word'];
+            // Set word type.
+            if (!empty($w['type'])) {
+                $w['is_' . $w['type']] = 1;
+            }
+            unset($w['type']);
 
-            WordCloud::create($word);
+            // Save and unset song_ids for pivot table insert.
+            $song_ids = array_unique($w['song_ids']);
+            unset($w['song_ids']);
 
-            // Make any updates to artist/s
-            // foreach($inserts as $artist):
-                // $updated_song->artists()->attach(['artist' => $artist]);
-            // endforeach;
+            $wordCloud = WordCloud::create($w);
+
+            // Add word song references
+            foreach($song_ids as $song_id):
+                $wordCloud->songs()->attach(['song' => $song_id]);
+            endforeach;
         }
     }
 
