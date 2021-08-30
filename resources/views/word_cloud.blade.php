@@ -24,6 +24,15 @@
 
             <div class="panel-body">
                 @if ($word_cloud->count() > 0)
+
+                    <form class="form-inline" method="GET">
+                      <div class="form-group mb-2">
+                        <label for="filter" class="col-sm-2 col-form-label">Filter</label>
+                        <input type="text" class="form-control" id="filter" name="filter" placeholder="Type..." value="{{ $filter }}">
+                      </div>
+                      <button type="submit" class="btn btn-default mb-2">Filter</button>
+                    </form>
+
                     <table class="table table-striped mysounds-table">
 
                         <thead>

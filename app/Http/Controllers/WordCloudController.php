@@ -15,7 +15,23 @@ class WordCloudController extends Controller
      */
     public function index(Request $request)
     {
-        return view('word_cloud', ['word_cloud' => WordCloud::getWordCloud()]);
+        $filter = $request->query('filter');
+
+        if (! empty($filter)) {
+            $words = WordCloud::sortable()
+                ->where('category', 'like', '%' . $filter . '%')
+                ->paginate(10);
+        } else {
+            $words = WordCloud::sortable()
+                ->paginate(10);
+        }
+
+        return view('word_cloud', [
+            'word_cloud' => $words,
+            'filter' => $filter,
+        ]);
+
     }
+
 
 }
