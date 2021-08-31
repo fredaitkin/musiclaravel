@@ -87,15 +87,6 @@ class WordCloud extends Model
     protected $guarded = [];
 
     /**
-     * Get word cloud
-     * @return mixed
-     **/
-    public static function getWordCloud()
-    {
-        return WordCloud::sortable('word')->paginate(10);
-    }
-
-    /**
      * Word cloud songs
      */
     public function songs()

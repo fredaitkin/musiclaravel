@@ -28,7 +28,7 @@
                     <form class="form-inline" method="GET">
                       <div class="form-group ml-3 mb-2">
                         <label for="filter" class="col-sm-3 col-form-label">Filter</label>
-                        <input type="text" class="form-control" id="filter" name="filter" placeholder="Type..." value="{{ $filter }}">
+                        <input type="text" class="form-control" id="filter" name="filter" placeholder="Word/Category" value="{{ $filter }}">
                       </div>
                       <button type="submit" class="btn btn-default mb-2">Go</button>
                     </form>

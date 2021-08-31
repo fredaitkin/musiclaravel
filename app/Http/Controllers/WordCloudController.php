@@ -20,6 +20,7 @@ class WordCloudController extends Controller
         if (! empty($filter)) {
             $words = WordCloud::sortable()
                 ->where('category', 'like', '%' . $filter . '%')
+                ->orWhere('word', 'like', '%' . $filter . '%')
                 ->paginate(10);
         } else {
             $words = WordCloud::sortable()
