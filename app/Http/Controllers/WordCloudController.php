@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Words\WordCloud;
+use App\Music\Song\Song;
+use DB;
 use Illuminate\Http\Request;
 
 class WordCloudController extends Controller
@@ -34,5 +36,20 @@ class WordCloudController extends Controller
 
     }
 
+    public function songs(Request $request)
+    {
+        $songs = DB::table('song_word_cloud')
+             ->select('song_id')
+             ->where('word_cloud_id', $request->get('id'))
+             ->get();
+
+        $data = [];
+        foreach($songs as $song):
+            $song = Song::find($song->song_id);
+            $data[] = array('song' => $song->title, 'artist' => $song->artists[0]->artist);
+        endforeach;
+
+        return json_encode($data);
+    }
 
 }

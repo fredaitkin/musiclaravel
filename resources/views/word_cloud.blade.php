@@ -39,6 +39,7 @@
                             <th scope='col' class='sortable'>@sortablelink('word')</th>
                             <th scope='col' class='sortable'>@sortablelink('category')</th>
                             <th scope='col' class='sortable'>@sortablelink('count')</th>
+                            <th></th>
                          </thead>
 
                         <tbody>
@@ -53,6 +54,9 @@
                                     <td class="table-text">
                                         <div>{{ $word->count }}</div>
                                     </td>
+                                    <td>
+                                       <input type="button" class="btn btn-link btn-mysounds" name="songs" id="songs-{{ $word->id }}" value="songs">
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -62,4 +66,8 @@
             </div>
         </div>
 
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/word_cloud.js') }}"></script>
 @endsection

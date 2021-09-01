@@ -97,6 +97,8 @@ Route::middleware(['auth'])->prefix('internalapi')->group(function () {
 
     Route::get('artist/songs/{id}', 'ArtistController@songs');
 
+    Route::get('word-cloud', 'WordCloudController@songs');
+
  });
 
 
