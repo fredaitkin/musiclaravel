@@ -13,11 +13,7 @@ $(document).ready(function() {
                         return;
                     }
                     response.json().then(function(data) {
-                        var info = '';
-                        $.each(data, function(index, song) {
-                            info += song.song + ' : ' + song.artist + "\r\n";
-                        });
-                        alert(info);
+                        display_song_form(data);
                     });
                 }
             )
@@ -26,5 +22,26 @@ $(document).ready(function() {
         });
 
     });
+
+    function display_song_form(data) {
+        let form = '<div>';
+        $.each(data, function(i, song) {
+            form += '<div><div style="width:50%;float:left">' + song.song + '</div><div style="width:50%;float:left">' + song.artist + '</div></div>';
+        });
+
+        form += '</div>';
+
+        $(form).dialog({
+          title: 'Songs',
+          close: function() {
+            $(this).remove()
+          },
+          modal: false,
+          width: 700,
+          open : function() {
+            $('div.ui-dialog').addClass('ui-dialog-jukebox');
+          }
+      });
+    }
 
 });
