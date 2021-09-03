@@ -20,7 +20,8 @@ class Words extends Command {
     protected $signature = 'db:words
                             {--cloud : Word cloud}
                             {--sids= : Comma separated list of song ids}
-                            {--aids= : Comma separated list of artist ids}';
+                            {--aids= : Comma separated list of artist ids}
+                            {--store : Save the word cloud to the database}';
 
     /**
      * The console command description.
@@ -28,6 +29,13 @@ class Words extends Command {
      * @var string
      */
     protected $description = 'Runs word utilities';
+
+    /**
+     * Save to database
+     *
+     * @var bool
+     */
+    protected $store = false;
 
     /**
      * The word cloud
@@ -44,6 +52,8 @@ class Words extends Command {
     public function handle()
     {
         $options = $this->options();
+
+        $this->store = $options['store'];
 
         $song_ids = null;
         if(! empty($options['sids'])):
@@ -477,23 +487,32 @@ class Words extends Command {
                 foreach ($words as $word):
                     $this->processWord($word, $song['id']);
                   endforeach;
+
             } catch (Exception $e) {
                 Log::info($e->getMessage());
             }
 
         endforeach;
 
-        // Insert words and word info into the word_cloud table.
-        $this->storeWordCloud();
+        if ($this->store):
+            // Insert words and word info into the word_cloud table.
+            $this->storeWordCloud();
+        else:
+            $this->logWordCloud();
+        endif;
 
     }
 
     private function isWord($w) {
-        if (WordNet::isWord($w)):
-            return true;
-        else:
-            return WordMED::isWord($w);
-         endif;
+        try {
+            if (WordNet::isWord($w)):
+                return true;
+            else:
+                return WordMED::isWord($w);
+            endif;
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     /**
@@ -507,8 +526,12 @@ class Words extends Command {
      * @return array
      */
     private function processWord($word, $id) {
-        // Ignore non-Latin words.
-        if (preg_match('/^\p{Latin}+$/', $word)): 
+        $word = str_replace(
+            [',', '.', '"', ' ', '!', ']', ')', '&', "''", ':'],
+            ['', '', '', '', '', '', '', '', '', ''],
+            $word
+        );
+        if (! empty($word)):
             // Retain capitilisation for countries, months, names etc
             $word_info = $this->setCaseInfo($word);
             if (! empty($word_info)):
