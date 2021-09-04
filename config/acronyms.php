@@ -14,6 +14,7 @@ return [
 
     'abc'   => ['uppercase' => 'ABC', 'full_term' => 'American Broadcasting Company', 'type' => 'organisation'],
     'bbc'   => ['uppercase' => 'BBC', 'full_term' => 'British Broadcasting Company', 'type' => 'organisation'],
+    'bfpo'  => ['uppercase' => 'BFPO', 'full_term' => 'British Forces Post Office', 'type' => 'organisation'],
     'bls'   => ['uppercase' => 'BLS', 'full_term' => '', 'type' => ''],
     'cb'    => ['uppercase' => 'CB', 'full_term' => 'Citizens band radio', 'type' => 'object'],
     'cbs'   => ['uppercase' => 'CBS', 'full_term' => 'Columbia Broadcasting System', 'type' => 'organisation'],
@@ -44,7 +45,8 @@ return [
     'nf'    => ['uppercase' => 'NF', 'full_term' => '', 'type' => ''],
     'nra'   => ['uppercase' => 'NRA', 'full_term' => 'National Rifle Association', 'type' => 'organisation'],
     'nypd'  => ['uppercase' => 'NYPD', 'full_term' => 'New York City Police Department', 'type' => 'organisation'],
-    'pms'   => ['uppercase' => 'pms', 'full_term' => 'premenstrual syndrome', 'type' => ''],
+    'pms'   => ['uppercase' => 'PMS', 'full_term' => 'premenstrual syndrome', 'type' => ''],
+    "qe2's" => ['uppercase' => "QE2's", 'full_term' => 'Queen Elizabeth 2', 'type' => ''],
     'trl'   => ['uppercase' => 'TRL', 'full_term' => 'Total Request Live', 'type' => ''],
     'tv'    => ['uppercase' => 'TV', 'full_term' => 'Television', 'type' => 'object'],
     'ufo'   => ['uppercase' => 'UFO', 'full_term' => 'Unidentified flying object', 'type' => 'object'],

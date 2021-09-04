@@ -159,7 +159,7 @@ class Words extends Command {
         // Ik ben droevig Dutch
         // sol invictus, Servatis a periculum, servatis a maleficum Latin
         // jacamo
-        // Jai Guru Deva
+        // Jai Guru Deva Maheshwara Gurur Sakshaat etc
         // Day o umba day o mambu ji ay o
         // Konnichiwa   Senso hant-ai
         // pon de replay Bajan Creole play it again
@@ -526,9 +526,12 @@ class Words extends Command {
      * @return array
      */
     private function processWord($word, $id) {
+        // TODO strips hyphens EXCEPT for words that need it. such "5-0-4", freeze-frame STRIP and then ADD?
+        // 2 levels of stripping hyphen last? hard-workin'
+        $chars_to_trim = [',', '.', '"', ' ', '!', '?', ']', '(', ')', '&', "''", ':', '*', '-'];
         $word = str_replace(
-            [',', '.', '"', ' ', '!', '?', ']', ')', '&', "''", ':'],
-            ['', '', '', '', '', '', '', '', '', '', ''],
+            $chars_to_trim,
+            array_fill(0, count($chars_to_trim, '')),
             $word
         );
         if (! empty($word)):
