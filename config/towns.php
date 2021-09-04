@@ -11,6 +11,7 @@ return [
     |
     */
 
+    "'frisco"           => "'Frisco",
     'aberdeen'          => 'Aberdeen',
     'aberdine'          => 'Aberdine',
     'acapulco'          => 'Acapulco',
@@ -21,6 +22,7 @@ return [
     'allentown'         => 'Allentown',
     'amsterdam'         => 'Amsterdam',
     'anaheim'           => 'Anaheim',
+    'anchorage'         => 'Anchorage',
     'angeles'           => 'Angeles',
     'athens'            => 'Athens',
     'atlanta'           => 'Atlanta',

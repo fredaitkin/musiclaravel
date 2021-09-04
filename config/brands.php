@@ -117,6 +117,7 @@ return [
     'porsches'      => 'Porsches',
     'prozac'        => 'Prozac',
     'reebok'        => 'Reebok',
+    'rivin'         => 'Rivin', // Japanese beer
     'romilar'       => 'Romilar', // cough syrup
     'royce'         => 'Royce',
     'saran'         => 'Saran', // Saran Wrap
@@ -134,6 +135,7 @@ return [
     'teflon'        => 'Teflon',
     'tesco'         => 'Tesco',
     'texaco'        => 'Texaco',
+    'thunderbird'   => 'Thunderbird', // wine
     'titanic'       => 'Titanic',
     'tropicana'     => 'Tropicana',
     'tylenol'       => 'Tylenol',
