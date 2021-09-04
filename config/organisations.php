@@ -26,6 +26,7 @@ return [
     'presidency'    => 'Presidency',
     'revelaires'    => 'Revelaires',
     'rem'           => 'REM',
+    'run-dmc'       => 'Run-DMC',
     'stranraer'     => 'Stranraer', // soccer team
     'yankees'       => 'Yankees',
     'zz'            => 'ZZ', // ZZ Top

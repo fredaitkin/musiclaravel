@@ -23,6 +23,7 @@ return [
     'god'           => 'God',
     'heaven'        => 'heaven',
     'hell'          => 'hell',
+    'jordan'        => 'Jordan',
     'kyrie'         => 'kyrie',
     'lordy'         => 'Lordy',
     'pater'         => 'pater',

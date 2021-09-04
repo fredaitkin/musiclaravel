@@ -166,6 +166,7 @@ return [
     'reno'              => 'Reno',
     'rimini'            => 'Rimini',
     'rincon'            => 'Rincon',
+    'rio'               => 'Rio',
     'rockville'         => 'Rockville',
     'rollox'            => 'Rollox',
     'rome'              => 'Rome',
@@ -198,6 +199,7 @@ return [
     'turin'             => 'Turin',
     'utrecht'           => 'Utrecht',
     'vegas'             => 'Vegas', // Las Vegas
+    'venetian'          => 'Venetian',
     'venice'            => 'Venice',
     'ventura'           => 'Ventura',
     'vienna'            => 'Vienna',

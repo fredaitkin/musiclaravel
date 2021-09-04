@@ -47,6 +47,7 @@ return [
     'nypd'  => ['uppercase' => 'NYPD', 'full_term' => 'New York City Police Department', 'type' => 'organisation'],
     'pms'   => ['uppercase' => 'PMS', 'full_term' => 'premenstrual syndrome', 'type' => ''],
     "qe2's" => ['uppercase' => "QE2's", 'full_term' => 'Queen Elizabeth 2', 'type' => ''],
+    'tnt'   => ['uppercase' => 'TNT', 'full_term' => 'Trinitrotoluene', 'type' => ''],
     'trl'   => ['uppercase' => 'TRL', 'full_term' => 'Total Request Live', 'type' => ''],
     'tv'    => ['uppercase' => 'TV', 'full_term' => 'Television', 'type' => 'object'],
     'ufo'   => ['uppercase' => 'UFO', 'full_term' => 'Unidentified flying object', 'type' => 'object'],

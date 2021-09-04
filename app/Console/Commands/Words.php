@@ -528,7 +528,7 @@ class Words extends Command {
     private function processWord($word, $id) {
         // strtolower here.  one-eyed
         // TODO strips hyphens EXCEPT for words that need it. such "5-0-4", freeze-frame STRIP and then ADD?
-        // 2 levels of stripping hyphen last? hard-workin' Jay-Z  Bedford-Stuy
+        // 2 levels of stripping hyphen last? hard-workin' Jay-Z  Bedford-Stuy  run-dmc sh-boom  washed-out
         $chars_to_trim = [',', '.', '"', ' ', '!', '?', ']', '(', ')', '&', "''", ':', '*', '-'];
         $word = str_replace(
             $chars_to_trim,

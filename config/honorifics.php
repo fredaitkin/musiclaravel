@@ -25,6 +25,7 @@ return [
     'pope'          => 'Pope',
     'president'     => 'President',
     'presidente'    => 'Presidente',
+    'queen'         => 'Queen',
     'reverend'      => 'Reverend',
     'vp'            => 'VP',
 
