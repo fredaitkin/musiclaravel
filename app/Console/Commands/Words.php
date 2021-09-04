@@ -161,7 +161,7 @@ class Words extends Command {
         // jacamo
         // Jai Guru Deva Maheshwara Gurur Sakshaat etc
         // Day o umba day o mambu ji ay o
-        // Konnichiwa   Senso hant-ai
+        // Konnichiwa   Senso hant-ai Yoru hitori de aruitewa ikemasen.
         // pon de replay Bajan Creole play it again
         // Chuva! Chuvinha! Vem, vem, vem ca, rapaz! Portugese
         // slainte
@@ -526,8 +526,9 @@ class Words extends Command {
      * @return array
      */
     private function processWord($word, $id) {
+        // strtolower here.  one-eyed
         // TODO strips hyphens EXCEPT for words that need it. such "5-0-4", freeze-frame STRIP and then ADD?
-        // 2 levels of stripping hyphen last? hard-workin'
+        // 2 levels of stripping hyphen last? hard-workin' Jay-Z  Bedford-Stuy
         $chars_to_trim = [',', '.', '"', ' ', '!', '?', ']', '(', ')', '&', "''", ':', '*', '-'];
         $word = str_replace(
             $chars_to_trim,

@@ -102,6 +102,7 @@ return [
     'johannesburg'      => 'Johannesburg',
     'jose'              => 'Jose', // San Jose, also a name 
     'juarez'            => 'Juarez',
+    'kalamazoo'         => 'Kalamazoo',
     'khartoum'          => 'Khartoum',
     'kilronan'          => 'Kilronan',
     'kingston'          => 'Kingston',

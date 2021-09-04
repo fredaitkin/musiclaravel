@@ -15,8 +15,9 @@ return [
     'halley'            => 'Halley', // comet, thing
     'halloween'         => 'Halloween',
     'ii'                => 'II',
+    "i'll"              => "I'll",
     "i'm"               => "I'm",
-    "i've"               => "I've",
+    "i've"              => "I've",
     'katrina'           => 'Katrina', // hurricane
     'mobius'            => 'Mobius',
     'molotov'           => 'Molotov',

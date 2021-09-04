@@ -27,6 +27,7 @@ return [
     'bali'          => 'Bali',
     'balie'         => 'Balie',
     'baltic'        => 'Baltic',
+    'bedford-stuy'  => 'Bedford-Stuy',
     'bergere'       => 'Bergere', // Folies Bergere
     'bondi'         => 'Bondi',
     'brixton'       => 'Brixton',
