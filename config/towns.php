@@ -27,6 +27,7 @@ return [
     'angeles'           => 'Angeles',
     'athens'            => 'Athens',
     'atlanta'           => 'Atlanta',
+    "atlanta's"         => "Atlanta's",
     'austin'            => 'Austin', // also a name
     'aviv'              => 'Aviv', // Tel Aviv
     'azul'              => 'Azul', // Cerro Azul

@@ -3,6 +3,7 @@
 return [
 
     'amours',
+    'au-revoir',
     'coup',
     'cher',
     'cheri',
