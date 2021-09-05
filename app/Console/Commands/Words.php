@@ -526,22 +526,26 @@ class Words extends Command {
      * @return array
      */
     private function processWord($word, $id) {
-        // strtolower here.  one-eyed
-        // 4x4 1/2
-        // 4:08 10:35  12:30 3:05 4:00 4:08 6:30 8:15
-        // TODO strips hyphens EXCEPT for words that need it. such "5-0-4", freeze-frame STRIP and then ADD?
-        // 2 levels of stripping hyphen last? hard-workin' Jay-Z  Bedford-Stuy  run-dmc sh-boom  washed-out 1-2-3 1-2-3-4
-        // 215-222-4209 24-hour-a-day 26-hour 3-wheelin  557-2223 6-4 7-elevens 9-5 a-ok
-        // Replace - with space
-        $chars_to_trim = [',', '.', '"', ' ', '!', '?', '[', ']', '(', ')', '&', "''", ':', '*', '-', "/", ';'];
+        // Clean up text.
+        $chars_to_replace = [',', '.', '"', ' ', '!', '?', '[', ']', '(', ')', '&', "''", '*', ';'];
         $word = str_replace(
-            $chars_to_trim,
-            array_fill(0, count($chars_to_trim, '')),
+            $chars_to_replace,
+            array_fill(0, count($chars_to_replace), ''),
             $word
         );
-        if (! empty($word)):
+        $chars_to_trim = " :-/\0\t\n\x0B\r";
+        $word = trim($word, $chars_to_trim);
+
+        if (! empty($word) && ! preg_match('/^[-]+$/', $word)):
+            // 'accattone'
+            if($word[0] == "'" && $word[strlen($word) - 1] == "'") {
+                $word = substr($word, 1, strlen($word) - 2);
+                if ($word === 'n') {
+                    $word = "'n";
+                }
+            }
             // Retain capitilisation for countries, months, names etc
-            $word_info = $this->setCaseInfo(trim($word));
+            $word_info = $this->setCaseInfo($word);
             if (! empty($word_info)):
                 if (! isset($this->word_cloud[$word_info['word']])):
                     $this->word_cloud[$word_info['word']] = [
@@ -592,7 +596,6 @@ class Words extends Command {
      */
     private function logWordCloud() {
         ksort($this->word_cloud);
-
         // TODO don't include song_ids from common words
         // $common_words = ['a', 'about', 'after', 'again', 'all', 'am', 'an', 'and', 'are', 'around', 'as', 'at', 'be', 'been', 'but', 'by', 'can', 'do', 'for', 'from', 'get', 'got', 'gotta', 'had', 'has', 'have', 'i', 'if', 'in', 'into', 'is', 'it', 'its', 'just', 'my', 'not', 'of', 'oh', 'on', 'or', 'so', 'that', 'the', 'there', 'these', this', 'those', 'through', 'to', 'too', 'was', 'were', 'what', 'when', 'where', 'will', 'with', 'would'];
         foreach($this->word_cloud as $w => $v) {

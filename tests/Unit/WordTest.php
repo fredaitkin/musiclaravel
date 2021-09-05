@@ -62,4 +62,20 @@ class WordTest extends TestCase
         $word_info = $command->setCaseInfo('ASKS');
         $this->assertEquals('asks', $word_info['word']);
     }
+
+    /**
+     * String only contains dashes
+     *
+     * @return void
+     */
+    public function testDashesTest()
+    {
+        $pattern = '/^[-]+$/';
+        $this->assertEquals(true, preg_match($pattern, '-'));
+        $this->assertEquals(true, preg_match($pattern, '--'));
+        $this->assertEquals(true, preg_match($pattern, '--'));
+        $this->assertEquals(false, preg_match($pattern, 'a-b'));
+        $this->assertEquals(true, !preg_match($pattern, 'a-b'));
+    }
+
 }

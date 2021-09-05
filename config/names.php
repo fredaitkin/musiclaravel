@@ -762,6 +762,7 @@ return [
     'teddi'             => 'Teddi',
     'teresa'            => 'Teresa',
     'terry'             => 'Terry',
+    'tex'               => 'Tex',
     'thatcher'          => 'Thatcher',
     'thelmy'            => 'Thelmy',
     'thomas'            => 'Thomas',
