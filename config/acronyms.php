@@ -12,6 +12,8 @@ return [
     |
     */
 
+    'a1a'   => ['uppercase' => 'A1A', 'full_term' => 'State road', 'type' => ''],
+    'a&r'   => ['uppercase' => 'A&R', 'full_term' => 'Artists and repertoire', 'type' => 'organisation'],
     'abc'   => ['uppercase' => 'ABC', 'full_term' => 'American Broadcasting Company', 'type' => 'organisation'],
     'bbc'   => ['uppercase' => 'BBC', 'full_term' => 'British Broadcasting Company', 'type' => 'organisation'],
     'bfpo'  => ['uppercase' => 'BFPO', 'full_term' => 'British Forces Post Office', 'type' => 'organisation'],
@@ -50,6 +52,7 @@ return [
     'tnt'   => ['uppercase' => 'TNT', 'full_term' => 'Trinitrotoluene', 'type' => ''],
     'trl'   => ['uppercase' => 'TRL', 'full_term' => 'Total Request Live', 'type' => ''],
     'tv'    => ['uppercase' => 'TV', 'full_term' => 'Television', 'type' => 'object'],
+    'u2'    => ['uppercase' => 'U2', 'full_term' => '', 'type' => 'organisation'],
     'ufo'   => ['uppercase' => 'UFO', 'full_term' => 'Unidentified flying object', 'type' => 'object'],
     'uso'   => ['uppercase' => 'USO', 'full_term' => 'United Service Organizations', 'type' => 'organisation'],
     'vcr'   => ['uppercase' => 'VCR', 'full_term' => 'Videocassette recorder', 'type' => 'object'],

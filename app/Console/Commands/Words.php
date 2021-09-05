@@ -531,9 +531,9 @@ class Words extends Command {
         // 4:08 10:35  12:30 3:05 4:00 4:08 6:30 8:15
         // TODO strips hyphens EXCEPT for words that need it. such "5-0-4", freeze-frame STRIP and then ADD?
         // 2 levels of stripping hyphen last? hard-workin' Jay-Z  Bedford-Stuy  run-dmc sh-boom  washed-out 1-2-3 1-2-3-4
-        // 215-222-4209 24-hour-a-day 26-hour 3-wheelin  557-2223 6-4 7-elevens 9-5
+        // 215-222-4209 24-hour-a-day 26-hour 3-wheelin  557-2223 6-4 7-elevens 9-5 a-ok
         // Replace - with space
-        $chars_to_trim = [',', '.', '"', ' ', '!', '?', '[', ']', '(', ')', '&', "''", ':', '*', '-', "/"];
+        $chars_to_trim = [',', '.', '"', ' ', '!', '?', '[', ']', '(', ')', '&', "''", ':', '*', '-', "/", ';'];
         $word = str_replace(
             $chars_to_trim,
             array_fill(0, count($chars_to_trim, '')),
@@ -541,7 +541,7 @@ class Words extends Command {
         );
         if (! empty($word)):
             // Retain capitilisation for countries, months, names etc
-            $word_info = $this->setCaseInfo($word);
+            $word_info = $this->setCaseInfo(trim($word));
             if (! empty($word_info)):
                 if (! isset($this->word_cloud[$word_info['word']])):
                     $this->word_cloud[$word_info['word']] = [
