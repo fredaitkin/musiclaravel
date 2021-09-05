@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'amtracks'      => 'Amtracks',
+    'amtraks'       => 'Amtraks',
     'beastie'       => 'Beastie',
     'bran'          => 'Bran', // Bran Van 3000
     'centrelink'    => 'Centrelink',

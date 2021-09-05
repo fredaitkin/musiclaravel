@@ -12,11 +12,13 @@ return [
     |
     */
 
+    "aborigine's"                                   => "Aborigine's",
     'afghanistan'                                   => 'Afghanistan',
     'africa'                                        => 'Africa',
     'afrika'                                        => 'Afrika',
     'albania'                                       => 'Albania',
     'algeria'                                       => 'Algeria',
+    'ameri-kay'                                     => 'Ameri-kay',
     'america'                                       => 'America',
     'american'                                      => 'American',
     'americana'                                     => 'Americana',
@@ -26,6 +28,7 @@ return [
     'anguilla'                                      => 'Anguilla',
     'antarctica'                                    => 'Antarctica',
     'antigua and barbuda'                           => 'Antigua and Barbuda',
+    'aotearoa'                                      => 'Aotearoa',
     'arab'                                          => 'Arab',
     'arabs'                                         => 'Arabs',
     'argentina'                                     => 'Argentina',

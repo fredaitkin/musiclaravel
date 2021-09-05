@@ -11,6 +11,7 @@ return [
     |
     */
 
+    "alabam'"           => "Alabam'",
     'alabama'           => 'Alabama',
     'alaska'            => 'Alaska',
     'alberta'           => 'Alberta',

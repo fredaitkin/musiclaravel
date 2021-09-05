@@ -527,7 +527,7 @@ class Words extends Command {
      */
     private function processWord($word, $id) {
         // Clean up text.
-        $chars_to_replace = [',', '.', '"', ' ', '!', '?', '[', ']', '(', ')', '&', "''", '*', ';'];
+        $chars_to_replace = [',', '.', '"', ' ', '!', '?', '[', ']', '(', ')', '{', '}', '&', "''", '*', ';'];
         $word = str_replace(
             $chars_to_replace,
             array_fill(0, count($chars_to_replace), ''),

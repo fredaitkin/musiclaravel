@@ -12,6 +12,7 @@ return [
     |
     */
 
+    "alderaan's"    => "Alderaan's",
     'amazon'        => 'Amazon',
     'amazonians'    => 'Amazonians',
     'andalusia'     => 'Andalusia',

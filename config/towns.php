@@ -16,6 +16,7 @@ return [
     'aberdine'          => 'Aberdine',
     'acapulco'          => 'Acapulco',
     'accrington'        => 'Accrington',
+    'agadir'            => 'Agadir',
     'aires'             => 'Aires', // Buenos Aires
     'albuquerque'       => 'Albuquerque',
     'algiers'           => 'Algiers',

@@ -11,6 +11,8 @@ return [
     |
     */
 
+    'a1'                => 'A1',
+    'alotherian'        => 'Alotherian',
     'eve'               => 'Eve', // name, time
     'halley'            => 'Halley', // comet, thing
     'halloween'         => 'Halloween',
