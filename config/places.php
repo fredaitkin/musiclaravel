@@ -32,7 +32,9 @@ return [
     'bergere'       => 'Bergere', // Folies Bergere
     'bondi'         => 'Bondi',
     'brixton'       => 'Brixton',
+    'broadway'      => 'Broadway',
     'brooklyn'      => 'Brooklyn',
+    "brooklyn's"    => "Brooklyn's",
     'bronx'         => 'Bronx',
     'canaan'        => 'Canaan',
     'cavour'        => 'Cavour', // Piazza Cavour

@@ -20,6 +20,7 @@ return [
     'bamee'             => 'Bamee',
     'cali'              => 'Cali',
     'california'        => 'California',
+    "california's"      => "California's",
     'californication'   => 'Californication',
     'colorado'          => 'Colorado',
     'connecticut'       => 'Connecticut',

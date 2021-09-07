@@ -31,6 +31,8 @@ return [
     'cadillac'      => 'Cadillac',
     'cadillacs'     => 'Cadillacs',
     'calvin'        => 'Calvin', // also a name
+    "camaro's"      => "Camaro's",
+    "camino"        => "Camino",
     'cartier'       => 'Cartier',
     'casio'         => 'Casio',
     'chablis'       => 'Chablis', // also a place

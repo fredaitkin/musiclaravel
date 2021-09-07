@@ -4,6 +4,8 @@ return [
 
     'amours',
     'au-revoir',
+    'bonjour',
+    "c'est",
     'coup',
     'cher',
     'cheri',

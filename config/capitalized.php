@@ -16,6 +16,7 @@ return [
     'b-5'               => 'B-5', // Battleship game
     'b-grade'           => 'B-grade',
     'b-side'            => 'B-side',
+    'cal-cotton'        => 'CAL-cotton',
     'eve'               => 'Eve', // name, time
     'halley'            => 'Halley', // comet, thing
     'halloween'         => 'Halloween',

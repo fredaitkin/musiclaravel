@@ -51,6 +51,7 @@ return [
     'bombay'            => 'Bombay',
     'boston'            => 'Boston',
     'brighton'          => 'Brighton',
+    "brisbane's"        => "Brisbane's",
     'brussels'          => 'Brussels',
     'buenos'            => 'Buenos', // Buenos Aires
     'calgary'           => 'Calgary',
@@ -143,6 +144,7 @@ return [
     'newark'            => 'Newark',
     'newcastle'         => 'Newcastle',
     'ngall'             => 'Ngall',
+    'northcliff'        => 'Northcliff',
     'nutbush'           => 'Nutbush',
     'nyc'               => 'NYC',
     'oaktown'           => 'Oaktown',
