@@ -153,6 +153,7 @@ return [
     'cameron'           => 'Cameron',
     'camilla'           => 'Camilla',
     'camille'           => 'Camille',
+    'campanella'        => 'Campanella',
     'capone'            => 'Capone',
     'carla'             => 'Carla',
     'carol'             => 'Carol',

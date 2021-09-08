@@ -527,12 +527,15 @@ class Words extends Command {
      */
     private function processWord($word, $id) {
         // Clean up text.
-        $chars_to_replace = [',', '.', '"', ' ', '!', '?', '[', ']', '(', ')', '{', '}', '&', "''", '*', ';'];
+        $chars_to_replace = [',', '.', '"', ' ', '!', '?', '[', ']', '(', ')', '{', '}', '&', "''", '*', ';', '…'];
         $word = str_replace(
             $chars_to_replace,
             array_fill(0, count($chars_to_replace), ''),
             $word
         );
+        // Replace ticks.
+        $word = str_replace('`', "'", $word);
+        // Strip certain characters from the start and the end of words.
         $chars_to_trim = " :-/\0\t\n\x0B\r";
         $word = trim($word, $chars_to_trim);
 
