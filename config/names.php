@@ -314,6 +314,7 @@ return [
     'evans'             => 'Evans',
     'evie'              => 'Evie',
     'ezekial'           => 'Ezekial',
+    'fagg'              => 'Fagg',
     'fairbanks'         => 'Fairbanks',
     'fats'              => 'Fats', // also a word
     'fergie'            => 'Fergie',

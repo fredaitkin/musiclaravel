@@ -27,6 +27,7 @@ return [
     'delaware'          => 'Delaware',
     'fla'               => 'FLA',
     'florida'           => 'Florida',
+    "florida's"         => "Florida's",
     'georgia'           => 'Georgia',
     'georgian'          => 'Georgian',
     'hawaii'            => 'Hawaii',
