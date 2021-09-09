@@ -161,7 +161,7 @@ class Words extends Command {
         // jacamo
         // Jai Guru Deva Maheshwara Gurur Sakshaat etc
         // Day o umba day o mambu ji ay o
-        // pon de replay Bajan Creole play it again
+        // pon de replay Bajan Creole play it again  Etouffe
         // Chuva! Chuvinha! Vem, vem, vem ca, rapaz! Portugese
         // slainte
 

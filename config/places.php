@@ -58,7 +58,7 @@ return [
     'dorado'        => 'Dorado', // El Dorado
     'eden'          => 'Eden',
     'eiffel'        => 'Eiffel', // after a name
-    'elaine'        => 'Elaine', // bar in NYC
+    "elaine's"      => "Elaine's", // bar in NYC
     'euphrates'     => 'Euphrates', // river
     'euston'        => 'Euston',
     'fillmore'      => 'Fillmore',
