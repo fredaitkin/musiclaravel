@@ -7,6 +7,7 @@ return [
     'b'     => 'B', // name, street
     "c's"   => "C's",
     'd'     => 'D', // name, street
+    "d's"   => "D's",
     'e'     => 'E',
     'g'     => 'G',
     'h'     => 'H',

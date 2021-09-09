@@ -2,6 +2,7 @@
 
 return [
 
+    'danke',
     'glauben',
     'herr',
     'heiße',

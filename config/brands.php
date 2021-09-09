@@ -50,9 +50,13 @@ return [
     'danneman'      => 'Danneman',
     'darjeeling'    => 'Darjeeling',
     'datsuns'       => 'Datsuns',
+    "debenham's"    => "Debenham's",
+    "denny's"       => "Denny's",
     'dereon'        => 'Dereon',
     'dexydrine'     => 'Dexydrine',
+    'dg20'          => "DG20", //DG20 Casio Electric Guitar
     'dijon'         => 'Dijon',
+    "dixie's"       => "Dixie's",
     'dolce'         => 'Dolce',
     'donna'         => 'Donna', // also a name
     'dorado'        => 'Dorado',
