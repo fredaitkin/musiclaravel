@@ -84,6 +84,7 @@ return [
     'charlies'                                      => 'Charlies',
     'chile'                                         => 'Chile',
     'china'                                         => 'China',
+    "china's"                                       => "China's",
     'chinese'                                       => 'Chinese',
     'christmas island'                              => 'Christmas Island',
     'cocos (keeling) islands'                       => 'Cocos (Keeling) Islands',

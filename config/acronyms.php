@@ -23,7 +23,7 @@ return [
     'bls'   => ['uppercase' => 'BLS', 'full_term' => '', 'type' => ''],
     'cb'    => ['uppercase' => 'CB', 'full_term' => 'Citizens band radio', 'type' => 'object'],
     'cbs'   => ['uppercase' => 'CBS', 'full_term' => 'Columbia Broadcasting System', 'type' => 'organisation'],
-    'cd'    => ['uppercase' => 'CD', 'full_term' => 'Compact disc', 'type' => 'object'],
+    "cd's"  => ['uppercase' => "CD's", 'full_term' => 'Compact disc', 'type' => 'object'],
     'cia'   => ['uppercase' => 'CIA', 'full_term' => 'Central Intelligence Agency', 'type' => 'organisation'],
     'cnn'   => ['uppercase' => 'CNN', 'full_term' => 'Cable News Network', 'type' => 'organisation'],
     'dna'   => ['uppercase' => 'CNN', 'full_term' => 'Deoxyribonucleic acid', 'type' => 'object'],

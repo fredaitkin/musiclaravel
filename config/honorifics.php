@@ -12,6 +12,7 @@ return [
     */
 
     'ceo'           => 'CEO',
+    "ceo's"         => "CEO's",
     'dj'            => 'DJ',
     'djs'           => 'DJs',
     'dr'            => 'Dr',

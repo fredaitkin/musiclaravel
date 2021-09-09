@@ -40,6 +40,7 @@ return [
     'chevy'         => 'Chevy',
     'chrysler'      => 'Chrysler',
     'coca'          => 'Coca',
+    'coca-cola'     => 'Coca-Cola',
     'coke'          => 'Coke',
     'corona'        => 'Corona',
     'corvette'      => 'Corvette',

@@ -533,12 +533,11 @@ class Words extends Command {
             array_fill(0, count($chars_to_replace), ''),
             $word
         );
-        // Replace ticks.
-        $word = str_replace('`', "'", $word);
+        // Replace ticks and curly quotes..
+        $word = str_replace(['`', '‘', '’'], ["'", "'", "'"], $word);
         // Strip certain characters from the start and the end of words.
         $chars_to_trim = " :-/\0\t\n\x0B\r";
         $word = trim($word, $chars_to_trim);
-
         if (! empty($word) && ! preg_match('/^[-]+$/', $word)):
             // 'accattone'
             if($word[0] == "'" && $word[strlen($word) - 1] == "'") {

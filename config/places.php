@@ -37,7 +37,9 @@ return [
     "brooklyn's"    => "Brooklyn's",
     'bronx'         => 'Bronx',
     'canaan'        => 'Canaan',
+    'carre'         => 'Carre', // Vieux Carre neighborhood in New Orleans
     'cavour'        => 'Cavour', // Piazza Cavour
+    'challen'       => 'Challen', // UK shipping forecast area
     'chelsea'       => 'Chelsea', // also a name
     'chesapeake'    => 'Chesapeake',
     'chicano'       => 'Chicano', // Chicano City park
