@@ -19,6 +19,7 @@ return [
     'christmastime' => 'Christmastime',
     'devil'         => 'Devil',
     'easter'        => 'Easter',
+    "eden's"        => "Eden's",
     'eleison'       => 'eleison',
     'elysian'       => 'Elysian',
     'eve'           => 'Eve', // name, time

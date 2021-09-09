@@ -161,7 +161,6 @@ class Words extends Command {
         // jacamo
         // Jai Guru Deva Maheshwara Gurur Sakshaat etc
         // Day o umba day o mambu ji ay o
-        // Konnichiwa   Senso hant-ai Yoru hitori de aruitewa ikemasen.
         // pon de replay Bajan Creole play it again
         // Chuva! Chuvinha! Vem, vem, vem ca, rapaz! Portugese
         // slainte
@@ -180,6 +179,10 @@ class Words extends Command {
 
         if ($this->isGerman($tmp_word)) {
             return ['word' => $tmp_word, 'type' => 'German'];
+        }
+
+        if ($this->isJapanese($tmp_word)) {
+            return ['word' => $tmp_word, 'type' => 'Japanese'];
         }
 
         if ($this->isMadeUp($tmp_word)) {
@@ -438,6 +441,16 @@ class Words extends Command {
      */
     private function isGerman($word) {
         return in_array($word, config('german'));
+    }
+
+    /**
+     * Is the word Japanese?
+     * @param string $word
+     *   The word
+     * @return bool
+     */
+    private function isJapanese($word) {
+        return in_array($word, config('japanese'));
     }
 
     /**

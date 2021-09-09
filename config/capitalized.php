@@ -18,6 +18,9 @@ return [
     'b-side'            => 'B-side',
     'cal-cotton'        => 'CAL-cotton',
     'crenshaw'          => 'Crenshaw',
+    "duffy's"           => "Duffy's",
+    'e-tickets'         => 'E-tickets',
+    'eid'               => 'E.I.D',
     'eve'               => 'Eve', // name, time
     'halley'            => 'Halley', // comet, thing
     'halloween'         => 'Halloween',
