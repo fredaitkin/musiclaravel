@@ -33,6 +33,7 @@ return [
     "heaven's"      => "Heaven's",
     'hell'          => 'Hell',
     "hell's"        => "Hell's",
+    "jesus'"        => "Jesus'",
     'jordan'        => 'Jordan',
     'kyrie'         => 'kyrie',
     'lordy'         => 'Lordy',

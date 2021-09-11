@@ -104,7 +104,9 @@ return [
     'huntington'        => 'Huntington',
     'hyannisport'       => 'Hyannisport',
     'istanbul'          => 'Istanbul',
-    'jackson'           => 'Jackson', // Also a name 
+    'jackson'           => 'Jackson', // Also a name
+    "jacksonville's"    => "Jacksonville's",
+    'janeiro'           => 'Janeiro',
     'jerusalem'         => 'Jerusalem',
     'johannesburg'      => 'Johannesburg',
     'jose'              => 'Jose', // San Jose, also a name 
@@ -122,6 +124,7 @@ return [
     'laramie'           => 'Laramie',
     'la'                => 'LA', // Los Angeles, this will be a problem
     'las'               => 'Las', // Las Vegas
+    'leodiensian'       => 'Leodiensian',
     'lethbridge'        => 'Lethbridge',
     'liula'             => 'Liula',
     'liverpool'         => 'Liverpool',

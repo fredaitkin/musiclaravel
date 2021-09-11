@@ -90,6 +90,8 @@ return [
     'inisfree'      => 'Inisfree', // island
     'irisy'         => 'Irisy',
     'itchycoo'      => 'Itchycoo',
+    "jack's"        => "Jack's", // Big Jack's, a club
+    "jordan's"      => "Jordan's",
     'ken'           => 'Ken', // isles of Ken
     'kent'          => 'Kent',
     'kettering'     => 'Kettering',  // Sloan Kettering
@@ -101,12 +103,14 @@ return [
     'kong'          => 'Kong', // Hong Kong
     'kowloon'       => 'Kowloon',
     'kremlin'       => 'Kremlin',
+    "kremlin's"     => "Kremlin's",
     'kush'          => 'Kush', // Hindu Kush, mountain range
     'lahaina'       => 'Lahaina',
     'largo'         => 'Largo', // Key Largo
     'leeds'         => 'Leeds',
     'leith'         => 'Leith',
     'lido'          => 'Lido',
+    'lieth'         => 'Lieth',
     'lincoln'       => 'Lincoln', // Lincoln High School, also a brand and a name
     'lords'         => 'Lords',
     'louvre'        => 'Louvre',

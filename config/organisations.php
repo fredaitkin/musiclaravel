@@ -22,6 +22,7 @@ return [
     'hibs'                      => 'Hibs', // soccer team
     'holland–dozier–holland'    => 'Holland–Dozier–Holland', // Songwriting team
     'klf'                       => 'KLF',
+    'lakers'                    => 'Lakers',
     'leadbelly'                 => 'Leadbelly',
     'metro-goldwyn'             => 'Metro-Goldwyn',
     'mets'                      => 'Mets',

@@ -40,6 +40,7 @@ return [
     'iowa'              => 'Iowa',
     'jersey'            => 'Jersey',
     'kansas'            => 'Kansas',
+    'kansas-born'       => 'Kansas-born',
     'kentucky'          => 'Kentucky',
     'louisiana'         => 'Louisiana',
     'maine'             => 'Maine',
