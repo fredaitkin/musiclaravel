@@ -9,6 +9,7 @@ return [
     'dos',
     'el',
     'hasta',
+    'hola',
     'lo',
     'loca',
     'mañana',

@@ -36,6 +36,7 @@ return [
     'idaho'             => 'Idaho',
     'illinois'          => 'Illinois',
     'indiana'           => 'Indiana',
+    "indiana's"         => "Indiana's",
     'iowa'              => 'Iowa',
     'jersey'            => 'Jersey',
     'kansas'            => 'Kansas',

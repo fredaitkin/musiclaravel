@@ -84,6 +84,7 @@ return [
     'hepperties'    => 'Hepperties',
     'hindu'         => 'Hindu',
     'hollywood'     => 'Hollywood',
+    "hollywood's"   => "Hollywood's",
     'hong'          => 'Hong', // Hong Kong
     'hudson'        => 'Hudson',
     'inisfree'      => 'Inisfree', // island

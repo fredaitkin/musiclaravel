@@ -411,6 +411,8 @@ return [
     'horner'            => 'Horner',
     'howard'            => 'Howard',
     'hugh'              => 'Hugh',
+    "humphreys'"        => "Humphreys'",
+    'hur'               => 'Hur',
     'huxley'            => 'Huxley',
     'hyde'              => 'Hyde',
     'hydra'             => 'Hydra',

@@ -27,7 +27,9 @@ return [
     'ii'                => 'II',
     "i'll"              => "I'll",
     "i'm"               => "I'm",
+    "i's"               => "I's",
     "i've"              => "I've",
+    "id've"             => "Id've",
     'katrina'           => 'Katrina', // hurricane
     'mobius'            => 'Mobius',
     'molotov'           => 'Molotov',
