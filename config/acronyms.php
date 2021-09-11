@@ -31,6 +31,7 @@ return [
     'fcc'   => ['uppercase' => 'FCC', 'full_term' => 'Federal Communications Commission', 'type' => 'organisation'],
     'fds'   => ['uppercase' => 'FDS', 'full_term' => 'Food and Drug Administration', 'type' => 'organisation'],
     'ghb'   => ['uppercase' => 'GHB', 'full_term' => 'Gamma-hydroxybutyrate', 'type' => ''],
+    'gt'    => ['uppercase' => 'GT', 'full_term' => '', 'type' => ''],
     'icu'   => ['uppercase' => 'ICU', 'full_term' => 'Intensive care unit', 'type' => 'place'],
     'imax'  => ['uppercase' => 'IMAX', 'full_term' => 'Film format', 'type' => 'brand'],
     'iq'    => ['uppercase' => 'IQ', 'full_term' => 'Intelligence quotient', 'type' => ''],

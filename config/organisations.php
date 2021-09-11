@@ -18,6 +18,7 @@ return [
     "db's"          => "dB's", // band
     "dmc's"         => "DMC's",
     'fedex'         => 'Fedex',
+    'g-unit'        => 'G-Unit', // hip hop band
     'hibs'          => 'Hibs', // soccer team
     'klf'           => 'KLF',
     'leadbelly'     => 'Leadbelly',

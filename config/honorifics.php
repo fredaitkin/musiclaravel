@@ -18,6 +18,7 @@ return [
     "dj's"          => "DJ's",
     'dr'            => 'Dr',
     'frater'        => 'Frater',
+    "gi's"          => "GI's",
     'mc'            => 'MC',
     'mcs'           => 'MCs',
     'mr'            => 'Mr',

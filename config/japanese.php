@@ -8,6 +8,7 @@ return [
     'desu',
     'ejiki',
     'ga',
+    'hant-ai',
     'hitori',
     'hitori-aruki',
     'ikemasen',

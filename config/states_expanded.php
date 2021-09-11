@@ -28,6 +28,7 @@ return [
     'fla'               => 'FLA',
     'florida'           => 'Florida',
     "florida's"         => "Florida's",
+    'g-a'               => 'G-A',
     'georgia'           => 'Georgia',
     'georgian'          => 'Georgian',
     'hawaii'            => 'Hawaii',

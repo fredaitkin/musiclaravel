@@ -22,6 +22,7 @@ return [
     'daysleeper',
     'depadepa',
     'doday',
+    "g'joob",
     'heba',
     'helloa',
     'hiway',

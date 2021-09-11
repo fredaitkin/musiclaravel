@@ -11,6 +11,7 @@ return [
     'wednesday' => 'Wednesday',
     'thursday'  => 'Thursday',
     'friday'    => 'Friday',
+    "friday'd"  => "Friday'd",
     'fridays'   => 'Fridays',
     'saturday'  => 'Saturday',
     'saturdays' => 'Saturdays',
