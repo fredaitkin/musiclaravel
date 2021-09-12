@@ -31,6 +31,7 @@ return [
     "i've"              => "I've",
     "id've"             => "Id've",
     'katrina'           => 'Katrina', // hurricane
+    'm-a-r'             => 'M-A-R',
     'mobius'            => 'Mobius',
     'molotov'           => 'Molotov',
     'roth'              => 'Roth',

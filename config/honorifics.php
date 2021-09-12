@@ -20,6 +20,8 @@ return [
     'frater'        => 'Frater',
     "gi's"          => "GI's",
     'mc'            => 'MC',
+    "m-cin'"        => "M-Cin'",
+    "mc's"          => "MC's",
     'mcs'           => 'MCs',
     'mr'            => 'Mr',
     'mrs'           => 'Mrs',

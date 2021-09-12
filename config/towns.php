@@ -122,6 +122,7 @@ return [
     'laguna'            => 'Laguna', // Laguan Beach
     'lansing'           => 'Lansing',
     'laramie'           => 'Laramie',
+    'l.a.'              => 'L.A.',
     'la'                => 'LA', // Los Angeles, this will be a problem
     'las'               => 'Las', // Las Vegas
     'leodiensian'       => 'Leodiensian',

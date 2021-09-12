@@ -120,12 +120,15 @@ return [
     'longines'      => 'Longines',
     'luger'         => 'Luger',
     'lugers'        => 'Lugers',
+    "m-16's"        => "M-16's",
     'mac'           => 'Mac', // also a name and a word
+    'mai'           => 'Mai', // Mai Tai
     'marlboro'      => 'Marlboro',
     'marriott'      => 'Marriott',
     'mastercard'    => 'Mastercard',
     'maybelline'    => 'Maybelline',
     'mercedes'      => 'Mercedes',
+    'mercedes-benz' => 'Mercedes-Benz',
     'metrocard'     => 'Metrocard',
     'mcdonald'      => 'McDonald',
     'monopoly'      => 'Monopoly', // also a word
@@ -160,7 +163,8 @@ return [
     'soloflex'      => 'Soloflex',
     'sony'          => 'Sony',
     'starbucks'     => 'Starbucks',
-    'symphonette'   => 'Symphonette', 
+    'symphonette'   => 'Symphonette',
+    'tai'           => 'Tai',
     'tampax'        => 'Tampax',
     'teflon'        => 'Teflon',
     'tesco'         => 'Tesco',

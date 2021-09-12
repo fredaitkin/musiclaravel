@@ -119,6 +119,7 @@ return [
     'mahal'         => 'Mahal', // Taj Mahal
     'mandalay'      => 'Mandalay', // Mandalay Bay Hotel
     'manhattan'     => 'Manhattan',
+    "manhattan's"   => "Manhattan's",
     'manly'         => 'Manly', // Manly ferry
     'margarita'     => 'Margarita', // Puerto Margarita
     'mariana'       => 'Mariana',
@@ -126,6 +127,7 @@ return [
     'martinque'     => 'Martinque',
     'mersey'        => 'Mersey',
     'mississippi'   => 'Mississippi',
+    "mississippi's" => "Mississippi's",
     'mojave'        => 'Mojave',
     'monserrat'     => 'Monserrat',
     'montego'       => 'Montego',

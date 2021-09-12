@@ -220,6 +220,7 @@ return [
     'mauritania'                                    => 'Mauritania',
     'mauritius'                                     => 'Mauritius',
     'mayotte'                                       => 'Mayotte',
+    'merica'                                        => 'Merica',
     'mexican'                                       => 'Mexican',
     'mexicana'                                      => 'Mexicana',
     'mexicans'                                      => 'Mexicans',
