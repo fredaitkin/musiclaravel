@@ -138,6 +138,7 @@ return [
     'ngall'         => 'Ngall',
     'niagara'       => 'Niagara',
     'nile'          => 'Nile',
+    'northside'     => 'Northside',
     'olympia'       => 'Olympia',
     'olympus'       => 'Olympus',
     'pacific'       => 'Pacific',

@@ -23,7 +23,8 @@ return [
     "m-cin'"        => "M-Cin'",
     "mc's"          => "MC's",
     'mcs'           => 'MCs',
-    'mr'            => 'Mr',
+    'mcs'           => 'MCs',
+    "mp's"          => "MP's",
     'mrs'           => 'Mrs',
     'ms'            => 'Ms',
     'pfc'           => 'PFC', // Private First Class

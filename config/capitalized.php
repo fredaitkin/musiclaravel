@@ -34,6 +34,8 @@ return [
     'm-a-r'             => 'M-A-R',
     'mobius'            => 'Mobius',
     'molotov'           => 'Molotov',
+    'o-k'               => 'O-K',
+    "od'd"              => "OD'd",
     'roth'              => 'Roth',
     'taniwha'           => 'Taniwha', // mythological Maori being, name?
     'tarzan'            => 'Tarzan', // name?

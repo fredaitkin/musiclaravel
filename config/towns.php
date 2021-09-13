@@ -143,7 +143,9 @@ return [
     'monterey'          => 'Monterey', // Mexico
     'montgomery'        => 'Montgomery',
     'montreux'          => 'Montreux',
+    'morningtown'       => 'Morningtown',
     'moscow'            => 'Moscow',
+    'nacogdoches'       => 'Nacogdoches',
     'napoli'            => 'Napoli',
     'naples'            => 'Naples',
     'narrabri'          => 'Narrabri',
