@@ -15,6 +15,7 @@ return [
     'mañana',
     'mundo',
     'nuovo',
+    'pachanguera',
     'pueblo',
     'seís',
     'siento',

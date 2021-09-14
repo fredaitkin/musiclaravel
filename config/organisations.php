@@ -30,6 +30,7 @@ return [
     'n-w-a'                     => 'N-W-A',
     'nwa'                       => 'NWA',
     "o'jays"                    => "O'Jays",
+    'p-i-x-i-e-s'               => "P-I-X-I-E-S",
     'presidency'                => 'Presidency',
     'revelaires'                => 'Revelaires',
     'rem'                       => 'REM',

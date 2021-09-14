@@ -138,6 +138,7 @@ return [
     'nyquil'        => 'Nyquil',
     'olympic'       => 'Olympic',
     'pabst'         => 'Pabst',
+    'pac-man'       => 'Pac-Man',
     'panaflex'      => 'Panaflex',
     'pantone'       => 'Pantone',
     'penney'        => 'Penney',
@@ -145,6 +146,7 @@ return [
     'pepsi'         => 'Pepsi',
     'perignon'      => 'Perignon',
     'peyton'        => 'Peyton', // Peyton Place tv show
+    'play-doh'      => 'Play-Doh',
     'playboy'       => 'Playboy',
     'porsches'      => 'Porsches',
     'prozac'        => 'Prozac',

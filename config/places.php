@@ -142,6 +142,7 @@ return [
     'olympia'       => 'Olympia',
     'olympus'       => 'Olympus',
     'pacific'       => 'Pacific',
+    'panmunjong'    => 'Panmunjong',
     'parris'        => 'Parris',
     'piazza'        => 'Piazza', // Piazza Cavour
     'pluto'         => 'Pluto',
