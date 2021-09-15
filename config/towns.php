@@ -190,6 +190,7 @@ return [
     'sanh'              => 'Sanh', // Khe Sanh
     'san'               => 'San',
     'savannah'          => 'Savannah',
+    'segundo'           => 'Segundo', // El Segundo
     'shinrone'          => 'Shinrone',
     'slidell'           => 'Slidell',
     'smithfield'        => 'Smithfield',

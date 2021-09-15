@@ -42,6 +42,7 @@ return [
     'pentecost'     => 'Pentecost',
     'pentecostal'   => 'Pentecostal',
     'presbyterian'  => 'Presbyterian',
+    "satan's"       => "Satan's",
     'taniwha'       => 'Taniwha', // mythological Maori being, name?
     'xmas'          => 'Xmas',
 

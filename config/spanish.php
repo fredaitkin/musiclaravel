@@ -18,6 +18,8 @@ return [
     'pachanguera',
     'pueblo',
     'seís',
+    'seis',
+    "senorita's",
     'siento',
     'todo',
     'un',

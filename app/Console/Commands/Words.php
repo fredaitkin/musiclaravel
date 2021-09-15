@@ -156,10 +156,11 @@ class Words extends Command {
         endif;
 
         // Other languages
+        // TODO add a single language file
         // Ik ben droevig Dutch
-        // sol invictus, Servatis a periculum, servatis a maleficum Latin
+        // sol invictus, Servatis a periculum, servatis a maleficum Latin semper fi
         // jacamo
-        // Jai Guru Deva Maheshwara Gurur Sakshaat etc
+        // Jai Guru Deva Maheshwara Gurur Sakshaat etc Sanskrit?
         // Day o umba day o mambu ji ay o
         // pon de replay Bajan Creole play it again  Etouffe
         // Chuva! Chuvinha! Vem, vem, vem ca, rapaz! Portugese

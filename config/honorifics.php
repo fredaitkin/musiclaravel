@@ -34,6 +34,7 @@ return [
     'presidente'    => 'Presidente',
     'queen'         => 'Queen',
     'reverend'      => 'Reverend',
+    'sgt'           => 'Sgt',
     'vp'            => 'VP',
 
 ];

@@ -8,6 +8,7 @@ return [
     'generalissimo',
     'numero',
     'nuovo',
+    'sera',
     'sono',
     'spiacente',
     'uno',
