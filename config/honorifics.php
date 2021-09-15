@@ -30,6 +30,7 @@ return [
     'pfc'           => 'PFC', // Private First Class
     'pope'          => 'Pope',
     'president'     => 'President',
+    "president's"   => "President's",
     'presidente'    => 'Presidente',
     'queen'         => 'Queen',
     'reverend'      => 'Reverend',

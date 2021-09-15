@@ -54,6 +54,7 @@ return [
     'nra'   => ['uppercase' => 'NRA', 'full_term' => 'National Rifle Association', 'type' => 'organisation'],
     'nypd'  => ['uppercase' => 'NYPD', 'full_term' => 'New York City Police Department', 'type' => 'organisation'],
     'pms'   => ['uppercase' => 'PMS', 'full_term' => 'premenstrual syndrome', 'type' => ''],
+    'ptas'  => ['uppercase' => 'PTAs', 'full_term' => 'Parent-teacher association', 'type' => 'organisation'],
     "qe2's" => ['uppercase' => "QE2's", 'full_term' => 'Queen Elizabeth 2', 'type' => ''],
     'tnt'   => ['uppercase' => 'TNT', 'full_term' => 'Trinitrotoluene', 'type' => ''],
     'trl'   => ['uppercase' => 'TRL', 'full_term' => 'Total Request Live', 'type' => ''],
