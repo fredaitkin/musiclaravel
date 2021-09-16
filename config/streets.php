@@ -30,6 +30,7 @@ return [
     'powis'         => 'Powis',
     'ramblas'       => 'Ramblas',
     'sloane'        => 'Sloane',
+    'sullivan'      => 'Sullivan',
     'tiananmen'     => 'Tiananmen'
 
 ];

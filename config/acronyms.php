@@ -56,6 +56,7 @@ return [
     'pms'   => ['uppercase' => 'PMS', 'full_term' => 'premenstrual syndrome', 'type' => ''],
     'ptas'  => ['uppercase' => 'PTAs', 'full_term' => 'Parent-teacher association', 'type' => 'organisation'],
     "qe2's" => ['uppercase' => "QE2's", 'full_term' => 'Queen Elizabeth 2', 'type' => ''],
+    "std's" => ['uppercase' => "STD's", 'full_term' => 'Sexually transmitted disease', 'type' => ''],
     'tnt'   => ['uppercase' => 'TNT', 'full_term' => 'Trinitrotoluene', 'type' => ''],
     'trl'   => ['uppercase' => 'TRL', 'full_term' => 'Total Request Live', 'type' => ''],
     'tv'    => ['uppercase' => 'TV', 'full_term' => 'Television', 'type' => 'object'],

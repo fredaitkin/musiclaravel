@@ -123,6 +123,7 @@ return [
     'lansing'           => 'Lansing',
     'laramie'           => 'Laramie',
     'l.a.'              => 'L.A.',
+    'l.a'               => 'L.A',
     'la'                => 'LA', // Los Angeles, this will be a problem
     'las'               => 'Las', // Las Vegas
     'leodiensian'       => 'Leodiensian',
@@ -199,6 +200,8 @@ return [
     'stanley'           => 'Stanley', // also a name
     'subiaco'           => 'Subiaco',
     'sydney'            => 'Sydney',
+    "sydney's"          => "Sydney's",
+    'tacoma'            => 'Tacoma',
     'taipei'            => 'Taipei',
     'tampa'             => 'Tampa',
     'taroudant'         => 'Taroudant',

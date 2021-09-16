@@ -4,7 +4,7 @@ return [
 
     'sunday'    => 'Sunday',
     "sunday'd"  => "Sunday'd",
-    'sundays'   => 'Sundays',
+    "sunday's"  => "Sunday's",
     'monday'    => 'Monday',
     "monday's"  => "Monday's",
     'tuesday'   => 'Tuesday',

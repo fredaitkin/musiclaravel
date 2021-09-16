@@ -38,6 +38,10 @@ return [
     "od'd"              => "OD'd",
     'post-katrina'      => 'post-Katrina',
     'roth'              => 'Roth',
+    'sv'                => 'SV',
+    'sweeney'           => 'Sweeney', // TV show
+    't-i-r-e-d'         => 'T-I-R-E-D',
+    't-r-u-e'           => 'T-R-U-E',
     'taniwha'           => 'Taniwha', // mythological Maori being, name?
     'tarzan'            => 'Tarzan', // name?
     'watergate'         => 'Watergate',

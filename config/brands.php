@@ -165,6 +165,7 @@ return [
     'soloflex'      => 'Soloflex',
     'sony'          => 'Sony',
     'starbucks'     => 'Starbucks',
+    'studebaker'    => 'Studebaker',
     'symphonette'   => 'Symphonette',
     'tai'           => 'Tai',
     'tampax'        => 'Tampax',

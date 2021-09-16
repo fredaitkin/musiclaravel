@@ -36,6 +36,7 @@ return [
     'rem'                       => 'REM',
     'run-dmc'                   => 'Run-DMC',
     'stranraer'                 => 'Stranraer', // soccer team
+    't-rex'                     => 'T-Rex',
     'yankees'                   => 'Yankees',
     'zz'                        => 'ZZ', // ZZ Top
 

@@ -300,6 +300,7 @@ return [
     'serbia'                                        => 'Serbia',
     'seychelles'                                    => 'Seychelles',
     'siam'                                          => 'Siam',
+    "siam's"                                        => "Siam's",
     'sierra leone'                                  => 'Sierra Leone',
     'singapore'                                     => 'Singapore',
     'sint maarten (dutch part)'                     => 'Sint Maarten (Dutch part)',

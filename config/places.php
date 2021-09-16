@@ -173,8 +173,9 @@ return [
     'sorbonne'      => 'Sorbonne',
     'st'            => 'St', // St Kilda St Tropez
     'staten'        => 'Staten',
-    'sullivan'      => 'Sullivan', // street
+    "stroh's"       => "Stroh's",
     'suez'          => 'Suez',
+    'swathmore'     => 'Swathmore',
     'taj'           => 'Taj',
     'tempe'         => 'Tempe',
     'tetons'        => 'Tetons',
