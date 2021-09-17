@@ -37,6 +37,7 @@ return [
     'run-dmc'                   => 'Run-DMC',
     'stranraer'                 => 'Stranraer', // soccer team
     't-rex'                     => 'T-Rex',
+    'trex'                      => 'TRex',
     'yankees'                   => 'Yankees',
     'zz'                        => 'ZZ', // ZZ Top
 

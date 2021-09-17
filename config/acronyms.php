@@ -60,6 +60,7 @@ return [
     'tnt'   => ['uppercase' => 'TNT', 'full_term' => 'Trinitrotoluene', 'type' => ''],
     'trl'   => ['uppercase' => 'TRL', 'full_term' => 'Total Request Live', 'type' => ''],
     'tv'    => ['uppercase' => 'TV', 'full_term' => 'Television', 'type' => 'object'],
+    "tv's"  => ['uppercase' => "TV's", 'full_term' => 'Television', 'type' => 'object'],
     'u2'    => ['uppercase' => 'U2', 'full_term' => '', 'type' => 'organisation'],
     'ufo'   => ['uppercase' => 'UFO', 'full_term' => 'Unidentified flying object', 'type' => 'object'],
     'uso'   => ['uppercase' => 'USO', 'full_term' => 'United Service Organizations', 'type' => 'organisation'],

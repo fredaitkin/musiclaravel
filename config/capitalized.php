@@ -44,6 +44,8 @@ return [
     't-r-u-e'           => 'T-R-U-E',
     'taniwha'           => 'Taniwha', // mythological Maori being, name?
     'tarzan'            => 'Tarzan', // name?
+    "tiffany's"         => "Tiffany's", // the film
+    'tv-screen'         => 'TV-screen',
     'watergate'         => 'Watergate',
     'xxiii'             => 'XXIII',
 

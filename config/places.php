@@ -180,10 +180,13 @@ return [
     'tempe'         => 'Tempe',
     'tetons'        => 'Tetons',
     'thames'        => 'Thames',
+    'tiers'         => "Tiers", // Western Tiers
     'tirolean'      => 'Tirolean',
     'transylvania'  => 'Transylvania',
-    'travelga'      => 'Travelga',
+    'travelga'      => 'Travelga', // UK shipping forecast area
+    "trogny's"      => "Trogny's",
     'tropez'        => 'Tropez',
+    "tropicana's"   => "Tropicana's",
     'tyne'          => 'Tyne',
     'uranus'        => 'Uranus',
     'ventura'       => 'Ventura',

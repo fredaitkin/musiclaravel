@@ -22,6 +22,7 @@ return [
     "senorita's",
     'siento',
     'todo',
+    'tres',
     'un',
     'uno',
     'vida',

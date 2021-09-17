@@ -89,6 +89,7 @@ return [
     'hoover'        => 'Hoover',
     'horae'         => 'Horae',
     'horten'        => 'Horten',
+    'hummer'        => 'Hummer',
     'hummers'       => 'Hummers',
     'hyundai'       => 'Hyundai',
     'indy'          => 'Indy',
@@ -106,6 +107,7 @@ return [
     'karan'         => 'Karan',
     "katz's"        => "Katz's",
     'keds'          => 'Keds',
+    'kevlar'        => 'Kevlar',
     'khus'          => 'Khus',
     'klein'         => 'Klein',
     'kohoutek'      => 'Kohoutek',
@@ -173,9 +175,12 @@ return [
     'tesco'         => 'Tesco',
     'texaco'        => 'Texaco',
     'thunderbird'   => 'Thunderbird', // wine
+    'tiffany'       => 'Tiffany',
     'titanic'       => 'Titanic',
+    "toys'r'us"     => "Toys'R'Us",
     'tropicana'     => 'Tropicana',
     'tylenol'       => 'Tylenol',
+    'u-2'           => 'U-2', // plane
     'uzi'           => 'Uzi',
     'vaseline'      => 'Vaseline',
     'vaselines'     => 'Vaselines',
