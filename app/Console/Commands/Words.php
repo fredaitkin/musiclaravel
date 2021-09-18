@@ -155,17 +155,6 @@ class Words extends Command {
             return $capitalized;
         endif;
 
-        // Other languages
-        // TODO add a single language file
-        // Ik ben droevig Dutch
-        // sol invictus, Servatis a periculum, servatis a maleficum Latin semper fi
-        // jacamo
-        // Jai Guru Deva Maheshwara Gurur Sakshaat etc Sanskrit? shree hare krishna  Tasmayi
-        // Day o umba day o mambu ji ay o
-        // pon de replay Bajan Creole play it again  Etouffe
-        // Chuva! Chuvinha! Vem, vem, vem ca, rapaz! Portugese
-        // slainte
-
         $language = $this->getLanguage($tmp_word);
         if ($language):
             return $language;
