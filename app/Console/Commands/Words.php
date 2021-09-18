@@ -166,25 +166,10 @@ class Words extends Command {
         // Chuva! Chuvinha! Vem, vem, vem ca, rapaz! Portugese
         // slainte
 
-        if ($this->isFrench($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'French'];
-        }
-
-        if ($this->isSpanish($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'Italian'];
-        }
-
-        if ($this->isItalian($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'Italian'];
-        }
-
-        if ($this->isGerman($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'German'];
-        }
-
-        if ($this->isJapanese($tmp_word)) {
-            return ['word' => $tmp_word, 'type' => 'Japanese'];
-        }
+        $language = $this->getLanguage($tmp_word);
+        if ($language):
+            return $language;
+        endif;
 
         if ($this->isMadeUp($tmp_word)) {
             return ['word' => $tmp_word, 'type' => 'made_up'];
@@ -405,53 +390,17 @@ class Words extends Command {
     }
 
     /**
-     * Is the word French?
+     * Get language
      * @param string $word
      *   The word
-     * @return bool
+     * @return array
      */
-    private function isFrench($word) {
-        return in_array($word, config('french'));
-    }
-
-    /**
-     * Is the word Spanish?
-     * @param string $word
-     *   The word
-     * @return bool
-     */
-    private function isSpanish($word) {
-        return in_array($word, config('spanish'));
-    }
-
-    /**
-     * Is the word Italian?
-     * @param string $word
-     *   The word
-     * @return bool
-     */
-    private function isItalian($word) {
-        return in_array($word, config('italian'));
-    }
-
-    /**
-     * Is the word German?
-     * @param string $word
-     *   The word
-     * @return bool
-     */
-    private function isGerman($word) {
-        return in_array($word, config('german'));
-    }
-
-    /**
-     * Is the word Japanese?
-     * @param string $word
-     *   The word
-     * @return bool
-     */
-    private function isJapanese($word) {
-        return in_array($word, config('japanese'));
+    private function getLanguage($word) {
+        if (isset(config('languages')[$word])):
+            return ['word' => $word, 'type' => config('languages')[$word]];
+        else:
+            return false;
+        endif;
     }
 
     /**
