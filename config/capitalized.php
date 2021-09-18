@@ -46,7 +46,14 @@ return [
     'tarzan'            => 'Tarzan', // name?
     "tiffany's"         => "Tiffany's", // the film
     'tv-screen'         => 'TV-screen',
+    'v-day'             => 'V-day',
+    "valentine's"       => "Valentine's",
     'watergate'         => 'Watergate',
+    'wc'                => 'W.C.',
+    'woodstock'         => 'Woodstock', // event
+    'wp'                => 'WP',
+    'xu-1'              => 'XU-1',
     'xxiii'             => 'XXIII',
+    'y-o-u'             => 'Y-O-U',
 
 ];

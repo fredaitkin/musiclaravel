@@ -10,6 +10,7 @@ return [
     'tuesday'       => 'Tuesday',
     "tuesday's"     => "Tuesday's",
     'wednesday'     => 'Wednesday',
+    "wednesday's"   => "Wednesday's",
     'thursday'      => 'Thursday',
     "thursday's"    => "Thursday's",
     'friday'        => 'Friday',

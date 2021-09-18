@@ -187,17 +187,21 @@ return [
     'vanetto'       => 'Vanetto',
     'vegemite'      => 'Vegemite',
     'velcro'        => 'Velcro',
+    "vic's"         => "Vic's", // Trader Vic
+    'vicodin'       => 'Vicodin',
     'visine'        => 'Visine',
     'vogue'         => 'Vogue',
     'vuitton'       => 'Vuitton',
     'walker'        => 'Walker', // Johnny Walker, also a "word"
     'walkman'       => 'Walkman',
     'walmart'       => 'Walmart',
+    "webster's"     => "Webster's", // dictonary
     'winterman'     => 'Winterman',
     'wonderbread'   => 'Wonderbread',
     'woodbines'     => 'Woodbines',
     'woody'         => 'Woody',
     'wookiee'       => 'Wookiee',
+    'x-files'       => 'X-Files', // tv show
     'xerox'         => 'Xerox',
     'zelda'         => 'Zelda', // video game?
 

@@ -44,6 +44,8 @@ return [
     'tois',
     'tristesse',
     'visage',
+    'vivant',
+    'voulez-vous',
     'vous',
     'vu',
     'yeux',

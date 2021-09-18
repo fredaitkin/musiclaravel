@@ -199,6 +199,8 @@ return [
     'whitehouse'    => 'Whitehouse',
     'xanadu'        => 'Xanadu',
     'xenia'         => 'Xenia',
+    'ymca'          => 'YMCA',
+    'ywca'          => 'YWCA',
 
 ];
 

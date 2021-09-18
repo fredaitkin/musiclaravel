@@ -216,6 +216,7 @@ return [
     'tulsa'             => 'Tulsa',
     'turin'             => 'Turin',
     'utrecht'           => 'Utrecht',
+    "vancouver's"       => "Vancouver's",
     'vegas'             => 'Vegas', // Las Vegas
     'venetian'          => 'Venetian',
     'venice'            => 'Venice',

@@ -370,8 +370,9 @@ return [
     'yemen'                                         => 'Yemen',
     'zambia'                                        => 'Zambia',
     'zimbabwe'                                      => 'Zimbabwe',
+    'z-u-l-a'                                       => 'Z-U-L-A',
     'zulu'                                          => 'Zulu',
-    'zulus'                                         => 'Zulus',
+    "zulu's"                                        => "Zulu's",
     'ã…land islands'                                => 'Ã…land Islands',
 
 ];
