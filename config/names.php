@@ -297,6 +297,7 @@ return [
     'eli'               => 'Eli',
     'elise'             => 'Elise',
     'ella'              => 'Ella',
+    'ellen'             => 'Ellen',
     "ellen's"           => "Ellen's",
     "elmer's"           => "Elmer's",
     'elmo'              => 'Elmo',

@@ -98,6 +98,7 @@ return [
     'guantanamo'        => 'Guantanamo',
     'guernica'          => 'Guernica',
     'hackensack'        => 'Hackensack',
+    'harlan'            => 'Harlan',
     'hiroshima'         => 'Hiroshima',
     'hobart'            => 'Hobart',
     'houston'           => 'Houston',

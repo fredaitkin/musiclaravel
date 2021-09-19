@@ -44,6 +44,7 @@ return [
     'lsd'   => ['uppercase' => 'LSD', 'full_term' => 'Lysergic acid diethylamide', 'type' => ''],
     'lst'   => ['uppercase' => 'LST', 'full_term' => 'Landing Ship, Tank', 'type' => 'object'],
     'm-o-p' => ['uppercase' => 'M-O-P', 'full_term' => '', 'type' => ''],
+    'mcg'   => ['uppercase' => 'MCG', 'full_term' => 'Melbourne Cricket Ground', 'type' => 'place'],
     'mdma'  => ['uppercase' => 'MDMA', 'full_term' => 'Methylenedioxymethamphetamine', 'type' => ''],
     'mkb'   => ['uppercase' => 'MKB', 'full_term' => '', 'type' => ''],
     'm-t-v' => ['uppercase' => 'MTV', 'full_term' => 'Music Television', 'type' => ''],

@@ -56,7 +56,7 @@ return [
     "denny's"       => "Denny's",
     'dereon'        => 'Dereon',
     'dexydrine'     => 'Dexydrine',
-    'dg20'          => "DG20", //DG20 Casio Electric Guitar
+    'dj20'          => "DJ20", //DJ20 Casio Electric Guitar
     'dijon'         => 'Dijon',
     "dixie's"       => "Dixie's",
     'dolce'         => 'Dolce',
@@ -82,7 +82,7 @@ return [
     'hardiflex'     => 'Hardiflex',
     'harpers'       => 'Harpers',
     'heinekin'      => 'Heinekin',
-    'hennessey'     => 'Hennessey',
+    'hennessy'      => 'Hennessy',
     'henri'         => 'Henri',
     'heusen'        => 'Heusen',
     'hilton'        => 'Hilton',

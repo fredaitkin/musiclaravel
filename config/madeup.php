@@ -22,6 +22,8 @@ return [
     'daysleeper',
     'depadepa',
     'doday',
+    'foolosophy',
+    'foolosophies',
     "g'joob",
     'heba',
     'helloa',

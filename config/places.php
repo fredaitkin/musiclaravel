@@ -130,6 +130,7 @@ return [
     'mississippi'   => 'Mississippi',
     "mississippi's" => "Mississippi's",
     'mojave'        => 'Mojave',
+    'momo'          => 'Momo', // Momo Plaza
     'monserrat'     => 'Monserrat',
     'montego'       => 'Montego',
     'montelimar'    => 'Montelimar',

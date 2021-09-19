@@ -18,7 +18,9 @@ return [
     'b-side'            => 'B-side',
     'cal-cotton'        => 'CAL-cotton',
     'crenshaw'          => 'Crenshaw',
+    'dillinger'         => 'Dillinger', // slang for a Colt M1903 gun
     "duffy's"           => "Duffy's",
+    'e-class-es'        => 'E-class-es',
     'e-tickets'         => 'E-tickets',
     'eid'               => 'E.I.D',
     'eve'               => 'Eve', // name, time
