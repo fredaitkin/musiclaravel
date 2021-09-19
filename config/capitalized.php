@@ -11,10 +11,13 @@ return [
     |
     */
 
+    'a-l-a-m-a-z-o'     => 'A-L-A-M-A-Z-O',
     'a1'                => 'A1',
     'alotherian'        => 'Alotherian',
     'b-5'               => 'B-5', // Battleship game
     'b-grade'           => 'B-grade',
+    'b-i-z'             => 'B-I-Z',
+    'b-i-z-m-a-r-k-i'   => 'B-I-Z-M-A-R-K-I',
     'b-side'            => 'B-side',
     'cal-cotton'        => 'CAL-cotton',
     'crenshaw'          => 'Crenshaw',
@@ -32,7 +35,11 @@ return [
     "i's"               => "I's",
     "i've"              => "I've",
     "id've"             => "Id've",
+    'k-i'               => 'K-I',
     'katrina'           => 'Katrina', // hurricane
+    'l-a-m-a-z-o'       => 'L-A-M-A-Z-O',
+    'l-i-v-i-n-g'       => 'L-I-V-I-N-G',
+    'l-s-d'             => 'L-S-D',
     'm-a-r'             => 'M-A-R',
     'mobius'            => 'Mobius',
     'molotov'           => 'Molotov',

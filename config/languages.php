@@ -82,6 +82,7 @@ return [
     'jai'               => 'Sanskrit',
     'je'                => 'French',
     'kaerenai'          => 'Japanese',
+    'keffiyeh'          => 'Arabic',
     'ki'                => 'Japanese',
     'kichin'            => 'Japanese',
     'kimi'              => 'Japanese',

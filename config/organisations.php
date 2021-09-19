@@ -20,7 +20,7 @@ return [
     'fedex'                     => 'Fedex',
     'g-unit'                    => 'G-Unit', // hip hop band
     'hibs'                      => 'Hibs', // soccer team
-    'holland–dozier–holland'    => 'Holland–Dozier–Holland', // Songwriting team
+    'holland-dozier-holland'    => 'Holland–Dozier–Holland', // Songwriting team
     'klf'                       => 'KLF',
     'lakers'                    => 'Lakers',
     'leadbelly'                 => 'Leadbelly',
