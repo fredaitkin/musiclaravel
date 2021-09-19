@@ -62,6 +62,7 @@ return [
     'cerro'             => 'Cerro', // Cerro Azul
     'chattanooga'       => 'Chattanooga',
     'chernobyl'         => 'Chernobyl',
+    'chi-town'          => 'Chi-Town',
     'chicago'           => 'Chicago',
     'cleveland'         => 'Cleveland',
     'constantinople'    => 'Constantinople',

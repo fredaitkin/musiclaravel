@@ -51,6 +51,7 @@ return [
     'collingwood'   => 'Collingwood',
     'coney'         => 'Coney', // Coney Island
     'costa'         => 'Costa', //  Costa del Malvinas
+    'crooklyn'      => 'Crooklyn',
     'cuyahoga'      => 'Cuyahoga',
     'disneyland'    => 'Disneyland',
     'disneyworld'   => 'Disneyworld',

@@ -14,6 +14,7 @@ return [
     'barrington'    => 'Barrington',
     'beale'         => 'Beale',
     'belmont'       => 'Belmont', // avenue
+    'blvd'          => 'Blvd',
     'broadway'      => 'Broadway',
     'campbell'      => 'Campbell', // lane, also a name
     'cauldrum'      => 'Cauldrum',

@@ -2,14 +2,19 @@
 
 return [
 
+    'abunai'            => 'Japanese',
     'ai-o'              => 'Swahili',
-    'akazukin-chan'     => 'Japanese',
+    'akazuki-chan'      => 'Japanese',
     'amor'              => 'Spanish',
     'amore'             => 'Italian',
     'amours'            => 'French',
+    'aruitewa'          => 'Japanese',
     'au-revoir'         => 'French',
+    'bella'             => 'Italian',
     'bonjour'           => 'French',
     'bossa'             => 'Spanish',
+    'bravissimo'        => 'Italian',
+    'buji'              => 'Japanese',
     'buona'             => 'Italian',
     "c'est"             => 'French',
     'ca'                => 'Portugese',
@@ -90,6 +95,7 @@ return [
     'lo'                => 'Spanish',
     'loca'              => 'Spanish',
     'mada'              => 'Japanese',
+    'magnifico'         => 'Italian',
     'maheshwara'        => 'Sanskrit',
     'maison'            => 'French',
     'maleficum'         => 'Latin',

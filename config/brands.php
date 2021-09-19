@@ -4,6 +4,7 @@ return [
 
     'accattone'     => 'Accattone', // movie
     'adidas'        => 'Adidas',
+    'anusol'        => 'Anusol',
     'armalite'      => 'Armalite',
     'armani'        => 'Armani',
     'bacardi'       => 'Bacardi',
@@ -36,6 +37,7 @@ return [
     'cartier'       => 'Cartier',
     'casio'         => 'Casio',
     'chablis'       => 'Chablis', // also a place
+    'chanel'        => 'Chanel',
     'chevrolet'     => 'Chevrolet',
     'chevy'         => 'Chevy',
     'chrysler'      => 'Chrysler',

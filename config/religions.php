@@ -11,7 +11,9 @@ return [
     |
     */
 
+    "buddha's"      => "Buddha's",
     'catholic'      => 'Catholic',
+    'chakra'        => 'chakra',
     "christ's"      => "Christ's",
     'christ-loving' => 'Christ-loving',
     'christmas'     => 'Christmas',
