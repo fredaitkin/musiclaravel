@@ -78,7 +78,7 @@ class Words extends Command {
      *   The word.
      */
     public function setCaseInfo($word) {
-        $tmp_word = strtolower($word);
+        $tmp_word = mb_strtolower($word);
 
         $country = $this->getCountry($tmp_word);
         if ($country):
@@ -550,8 +550,6 @@ class Words extends Command {
      */
     private function logWordCloud() {
         ksort($this->word_cloud);
-        // TODO don't include song_ids from common words
-        // $common_words = ['a', 'about', 'after', 'again', 'all', 'am', 'an', 'and', 'are', 'around', 'as', 'at', 'be', 'been', 'but', 'by', 'can', 'do', 'for', 'from', 'get', 'got', 'gotta', 'had', 'has', 'have', 'i', 'if', 'in', 'into', 'is', 'it', 'its', 'just', 'my', 'not', 'of', 'oh', 'on', 'or', 'so', 'that', 'the', 'there', 'these', this', 'those', 'through', 'to', 'too', 'was', 'were', 'what', 'when', 'where', 'will', 'with', 'would'];
         foreach($this->word_cloud as $w => $v) {
             $is_word = $this->isWord($w);
             if (!$is_word):
