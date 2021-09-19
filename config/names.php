@@ -807,7 +807,7 @@ return [
     'reed'              => 'Reed',
     'reggie'            => 'Reggie',
     'rembrandt'         => 'Rembrandt',
-    'renee'             => 'Renee',
+    'renée'             => 'Renée',
     'rhee'              => 'Rhee',
     'rhiannon'          => 'Rhiannon',
     'rhoda'             => 'Rhoda',
