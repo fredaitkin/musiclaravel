@@ -622,6 +622,7 @@ return [
     'lyle'              => 'Lyle',
     'lynn'              => 'Lynn',
     'lysistrata'        => 'Lysistrata',
+    'm-r-a-z'           => 'm-r-a-z',
     "mac'll"            => "Mac'll",
     'macey'             => 'Macey',
     'mack'              => 'Mack',

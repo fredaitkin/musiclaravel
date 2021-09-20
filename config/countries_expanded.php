@@ -214,6 +214,7 @@ return [
     'maldives'                                      => 'Maldives',
     'mali'                                          => 'Mali',
     'malta'                                         => 'Malta',
+    'man-din-ka'                                    => 'Man-din-ka',
     'mandinka'                                      => 'Mandinka',
     'marshall islands'                              => 'Marshall Islands',
     'martinique'                                    => 'Martinique',

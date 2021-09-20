@@ -124,6 +124,7 @@ return [
     'longines'      => 'Longines',
     'luger'         => 'Luger',
     'lugers'        => 'Lugers',
+    'm-16'          => 'M-16',
     "m-16's"        => "M-16's",
     'mac'           => 'Mac', // also a name and a word
     'mai'           => 'Mai', // Mai Tai

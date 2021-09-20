@@ -41,6 +41,7 @@ return [
     'l-i-v-i-n-g'       => 'L-I-V-I-N-G',
     'l-s-d'             => 'L-S-D',
     'm-a-r'             => 'M-A-R',
+    'm-s-g'             => 'M-S-G',
     'mobius'            => 'Mobius',
     'molotov'           => 'Molotov',
     'o-k'               => 'O-K',
