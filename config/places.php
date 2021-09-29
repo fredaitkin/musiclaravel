@@ -148,7 +148,7 @@ return [
     'parris'        => 'Parris',
     'piazza'        => 'Piazza', // Piazza Cavour
     'pluto'         => 'Pluto',
-    'ponchatrain'   => 'Ponchatrain',
+    'pontchartrain' => 'Pontchartrain',
     'promity'       => 'Promity',
     'puerto'        => 'Puerto',
     'ramblas'       => 'Ramblas',

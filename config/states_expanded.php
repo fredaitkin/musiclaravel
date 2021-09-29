@@ -46,6 +46,7 @@ return [
     'maine'             => 'Maine',
     'maryland'          => 'Maryland',
     'massachusetts'     => 'Massachusetts',
+    'massastu-sus'      => 'Massastu-sus',
     'michigan'          => 'Michigan',
     'minnesota'         => 'Minnesota',
     'mississippi'       => 'Mississippi',

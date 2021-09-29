@@ -181,6 +181,7 @@ return [
     'pomona'            => 'Pomona',
     'provincetown'      => 'Provincetown',
     'reno'              => 'Reno',
+    'rhymney'           => 'Rhymney',
     'rimini'            => 'Rimini',
     'rincon'            => 'Rincon',
     'rio'               => 'Rio',

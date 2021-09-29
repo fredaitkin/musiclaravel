@@ -49,6 +49,7 @@ return [
     'pash',
     'phat',
     'pipperoo',
+    'piskey',
     'pussing',
     'satisfactioning',
     'speedyhead',
