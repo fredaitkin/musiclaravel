@@ -957,6 +957,7 @@ return [
     'tex'               => 'Tex',
     'thatcher'          => 'Thatcher',
     'thelmy'            => 'Thelmy',
+    "theresa's"         => "Theresa's",
     'thomas'            => 'Thomas',
     'thoreau'           => 'Thoreau',
     'tim'               => 'Tim',

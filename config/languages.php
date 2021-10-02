@@ -167,7 +167,7 @@ return [
     'suis'              => 'French',
     'superfantastisch'  => 'German',
     'suru'              => 'Japanese',
-    'Tasmayi'           => 'Sanskrit',
+    'tasmayi'           => 'Sanskrit',
     'tes'               => 'French',
     'todo'              => 'Spanish',
     'tois'              => 'French',
