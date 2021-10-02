@@ -854,6 +854,7 @@ return [
     'romeo'             => 'Romeo',
     'romeos'            => 'Romeos',
     'ronald'            => 'Ronald',
+    'roni'              => 'Roni',
     'ronnie'            => 'Ronnie',
     "ronnie's"          => "Ronnie's",
     'roosevelt'         => 'Roosevelt',
@@ -944,7 +945,7 @@ return [
     'suzy'              => 'Suzy',
     'sylvia'            => 'Sylvia',
     "sylvia's"          => "Sylvia's",
-    'silvie'            => 'Silvie',
+    'sylvie'            => 'Sylvie',
     'synghman'          => 'Synghman',
     'tadzio'            => 'Tadzio',
     "taffy's"           => "Taffy's", // might actual refer to people from a country...

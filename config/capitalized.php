@@ -50,6 +50,9 @@ return [
     'p.u.s.h.o.'        => 'P.U.S.H.O.',
     'post-katrina'      => 'post-Katrina',
     'roth'              => 'Roth',
+    'ryde'              => 'Ryde',
+    'shriners'          => 'Shriners',
+    'super-people-mart' => 'Super-People-Mart',
     'sv'                => 'SV',
     'sweeney'           => 'Sweeney', // TV show
     't-i-r-e-d'         => 'T-I-R-E-D',

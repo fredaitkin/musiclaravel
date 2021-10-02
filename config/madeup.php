@@ -52,6 +52,7 @@ return [
     'piskey',
     'pussing',
     'satisfactioning',
+    'schooler',
     'speedyhead',
     'tak',
     'te',
