@@ -12,7 +12,7 @@ class CreateWordCloudTables extends Migration
         Schema::create('word_cloud', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('word')->unique();
+            $table->string('word')->unique()->collation('utf8_bin');
             $table->integer('count');
             $table->boolean('is_word')->nullable();
             $table->string('category')->nullable();
