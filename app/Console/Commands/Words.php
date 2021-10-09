@@ -568,11 +568,8 @@ class Words extends Command {
             $v['is_word'] = $is_word;
              // Possible check, if false if last letter is s, strip s and try again.
             $v['song_ids'] = array_unique($v['song_ids']);
-            $target = ['repeat', 'solo', 'refrain'];
-            if (($v['is_word'] === false && $v['category'] == '') || in_array($w, $target)) {
-                Log::info($w);
-                Log::info($v);
-            }
+            Log::info($w);
+            Log::info($v);
         }
     }
 
