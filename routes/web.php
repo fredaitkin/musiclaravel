@@ -77,6 +77,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Word Cloud routes
     Route::get('word-cloud', 'WordCloudController@index');
+    Route::get('word-cloud/{id}', 'WordCloudController@edit');
 
 });
 

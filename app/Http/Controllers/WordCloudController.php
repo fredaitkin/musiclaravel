@@ -52,4 +52,16 @@ class WordCloudController extends Controller
         return json_encode($data);
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $word_cloud = WordCloud::find($id);
+        return view('word', ['word_cloud' => $word_cloud]);
+    }
+
 }

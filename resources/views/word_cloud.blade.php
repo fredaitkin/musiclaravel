@@ -37,7 +37,9 @@
 
                         <thead>
                             <th scope='col' class='sortable'>@sortablelink('word')</th>
+                            <th scope='col' class='sortable'>@sortablelink('is_word', 'Is Word')</th>
                             <th scope='col' class='sortable'>@sortablelink('category')</th>
+                            <th scope='col' class='sortable'>@sortablelink('variant_of', 'Variant Of')</th>
                             <th scope='col' class='sortable'>@sortablelink('count')</th>
                             <th></th>
                          </thead>
@@ -46,10 +48,20 @@
                             @foreach ($word_cloud as $word)
                                 <tr class="mysounds-tr">
                                     <td class="table-text">
-                                        <div>{{ $word->word }}</div>
+                                        <div>
+                                            {{ csrf_field() }}
+                                            <a href="/word-cloud/{{ $word->id }}">{{ $word->word }}</a>
+                                        </div>
+                                    </td></div>
+                                    </td>
+                                    <td class="table-text">
+                                        <div>{{ $word->is_word }}</div>
                                     </td>
                                     <td class="table-text">
                                         <div>{{ $word->category }}</div>
+                                    </td>
+                                    <td class="table-text">
+                                        <div>{{ $word->variant_of }}</div>
                                     </td>
                                     <td class="table-text">
                                         <div>{{ $word->count }}</div>
