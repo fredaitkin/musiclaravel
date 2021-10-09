@@ -32,7 +32,7 @@ class ArtistController extends Controller
      */
     public function create()
     {
-        return view('artist', ['title' => 'Add Artist', 'countries' => getCountryNames()]);
+        return view('artist', ['title' => 'Add Artist', 'countries' => config('countries')]);
     }
 
     /**
@@ -100,7 +100,7 @@ class ArtistController extends Controller
             'artist'    => $artist,
             'albums'    => $albums,
             'songs'     => Song::getArtistSongs($id, $artist->artist),
-            'countries' => getCountryNames(),
+            'countries' => config('countries'),
         ]);
     }
 
