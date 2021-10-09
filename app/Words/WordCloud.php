@@ -87,6 +87,13 @@ class WordCloud extends Model
     protected $guarded = [];
 
     /**
+     * Use timestamps
+     *
+     * @var bool
+     */
+    public $timestamps = true;
+
+    /**
      * Word cloud songs
      */
     public function songs()

@@ -6,6 +6,7 @@ use App\Music\Song\Song;
 use App\Words\WordCloud;
 use App\Words\WordMED;
 use App\Words\WordNet;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Console\Command;
 use Log;
@@ -521,27 +522,32 @@ class Words extends Command {
      */
     private function storeWordCloud() {
         foreach($this->word_cloud as $w) {
-            // Is this a real word?
-            $is_word = $this->isWord($w['word']);
-            if (!$is_word):
-                // Check if it is possible a plural.
-                if (substr($w['word'], -1) === 's'):
-                    // Try again.
-                    $is_word = $this->isWord(substr($w['word'], 0, -1));
+            try {
+                // Is this a real word?
+                $is_word = $this->isWord($w['word']);
+                if (!$is_word):
+                    // Check if it is possible a plural.
+                    if (substr($w['word'], -1) === 's'):
+                        // Try again.
+                        $is_word = $this->isWord(substr($w['word'], 0, -1));
+                    endif;
                 endif;
-            endif;
-            $w['is_word'] = $is_word;
+                $w['is_word'] = $is_word;
 
-            // Save and unset song_ids for pivot table insert.
-            $song_ids = array_unique($w['song_ids']);
-            unset($w['song_ids']);
+                // Save and unset song_ids for pivot table insert.
+                $song_ids = array_unique($w['song_ids']);
+                unset($w['song_ids']);
 
-            $wordCloud = WordCloud::create($w);
+                $w['created_at'] = Carbon::now();
+                $wordCloud = WordCloud::create($w);
 
-            // Add word song references
-            foreach($song_ids as $song_id):
-                $wordCloud->songs()->attach(['song' => $song_id]);
-            endforeach;
+                // Add word song references
+                foreach($song_ids as $song_id):
+                    $wordCloud->songs()->attach(['song' => $song_id]);
+                endforeach;
+            } catch (Exception $e) {
+                Log::error($e->getMessage());
+            }
         }
     }
 
