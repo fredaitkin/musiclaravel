@@ -175,6 +175,7 @@ return [
     'trinke'            => 'German',
     'tristesse'         => 'French',
     'tsukete'           => 'Japanese',
+    'umba'              => 'Swahili',
     'un'                => 'Spanish',
     'uno'               => 'Italian',
     'urouro'            => 'Japanese',

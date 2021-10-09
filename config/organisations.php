@@ -13,6 +13,7 @@ return [
 
     'amtraks'                   => 'Amtraks',
     'beastie'                   => 'Beastie',
+    'beausoleil'                => 'Beausoleil',
     'bran'                      => 'Bran', // Bran Van 3000
     'centrelink'                => 'Centrelink',
     "db's"                      => "dB's", // band

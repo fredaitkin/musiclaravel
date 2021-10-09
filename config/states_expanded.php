@@ -11,6 +11,7 @@ return [
     |
     */
 
+    "a-lou'sian'"       => "a-Lou'sian'",
     "alabam'"           => "Alabam'",
     'alabama'           => 'Alabama',
     'alaska'            => 'Alaska',

@@ -19,6 +19,7 @@ return [
     'b-i-z'             => 'B-I-Z',
     'b-i-z-m-a-r-k-i'   => 'B-I-Z-M-A-R-K-I',
     'b-side'            => 'B-side',
+    'blon'              => 'Blon',  // Jolie Blon song
     'cal-cotton'        => 'CAL-cotton',
     'crenshaw'          => 'Crenshaw',
     'dillinger'         => 'Dillinger', // slang for a Colt M1903 gun
@@ -35,6 +36,7 @@ return [
     "i's"               => "I's",
     "i've"              => "I've",
     "id've"             => "Id've",
+    'jolie'             => 'Jolie',
     'k-i'               => 'K-I',
     'katrina'           => 'Katrina', // hurricane
     'l-a-m-a-z-o'       => 'L-A-M-A-Z-O',
@@ -67,6 +69,7 @@ return [
     'wc'                => 'W.C.',
     'woodstock'         => 'Woodstock', // event
     'wp'                => 'WP',
+    'x-t-c'             => 'X-T-C',
     'xu-1'              => 'XU-1',
     'xxiii'             => 'XXIII',
     'y-o-u'             => 'Y-O-U',

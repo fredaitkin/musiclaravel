@@ -59,6 +59,7 @@ return [
     'thingamajigsaw',
     'toop',
     'toora',
+    'umpa',
     'unboyfriendable',
     'wanty',
     'za',
