@@ -412,6 +412,7 @@ class Words extends Command {
      */
     private function getWordCloud($song_ids, $artist_ids)
     {
+        Log::info('Retrieving Words');
         $query = Song::select('songs.id', 'title', 'lyrics')
             ->join('artist_song', 'songs.id', '=', 'artist_song.song_id')
             ->whereNotIn('songs.id', [
@@ -431,7 +432,8 @@ class Words extends Command {
         endif;
 
         $lyrics = $query->get()->toArray();
-
+        
+        Log::info('Processing Words');
         foreach ($lyrics as $song):
             try {
                 $lyric = str_replace([PHP_EOL], [' '], $song['lyrics']);
@@ -447,6 +449,7 @@ class Words extends Command {
 
         endforeach;
 
+        Log::info('Storing Words');
         if ($this->store):
             // Insert words and word info into the word_cloud table.
             $this->storeWordCloud();
@@ -454,6 +457,7 @@ class Words extends Command {
             $this->logWordCloud();
         endif;
 
+        Log::info("Finished");
     }
 
     private function isWord($w) {
