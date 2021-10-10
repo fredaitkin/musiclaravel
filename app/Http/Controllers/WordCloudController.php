@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Words\WordCloud;
 use App\Music\Song\Song;
+use App\Words\WordCloud;
 use DB;
 use Illuminate\Http\Request;
 

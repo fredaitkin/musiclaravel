@@ -50,7 +50,7 @@ class ImageAPIController extends Controller
             $path = Cache::store('redis')->get('song_photo_' . $id);
         endif;
 
-        if (!$path):
+        if (! $path):
             $path = Storage::disk('public')->path('black.jpeg');
         endif;
         return Response::download($path);

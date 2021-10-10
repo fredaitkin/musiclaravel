@@ -529,7 +529,7 @@ class Words extends Command {
             try {
                 // Is this a real word?
                 $is_word = $this->isWord($w['word']);
-                if (!$is_word):
+                if (! $is_word):
                     // Check if it is possible a plural.
                     if (substr($w['word'], -1) === 's'):
                         // Try again.
@@ -562,7 +562,7 @@ class Words extends Command {
         ksort($this->word_cloud);
         foreach($this->word_cloud as $w => $v) {
             $is_word = $this->isWord($w);
-            if (!$is_word):
+            if (! $is_word):
                 // Check if it is possible a plural.
                 if (substr($w, -1) === 's'):
                     // Try again.

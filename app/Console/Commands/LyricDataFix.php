@@ -63,8 +63,7 @@ class LyricDataFix extends Command {
         if ($id):
             $query = Song::select('id', 'title', 'lyrics')->where('id', $id);
         else:
-            $query = Song::select('id', 'title', 'lyrics')->where('lyrics', 'LIKE', "%$str%");
-            // $query = Song::select('id', 'title', 'lyrics')->where('lyrics', 'LIKE', "%$str%")->where('id', '>', 8769);
+            $query = Song::select('id', 'title', 'lyrics')->where('lyrics', 'LIKE', "%{$str}%");
         endif;
         $songs = $query->get()->toArray();
 

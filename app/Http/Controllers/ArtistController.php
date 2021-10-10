@@ -90,7 +90,7 @@ class ArtistController extends Controller
             $albums = Song::getArtistAlbums($id);
             array_unshift($albums, array('album' => 'Please Select'));
         endif;
-        if (!empty($artist->photo)):
+        if (! empty($artist->photo)):
             if (strpos($artist->photo, 'cdn') === false):
                 $artist->photo = URL::to('/') . '/storage/artists/' . $artist->photo;
             endif;

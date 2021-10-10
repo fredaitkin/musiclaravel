@@ -76,7 +76,7 @@ class SongController extends Controller
     {
         $song = Song::find($id);
 
-        if (!$song):
+        if (! $song):
             abort(404);
         endif;
 

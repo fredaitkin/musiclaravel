@@ -10,6 +10,13 @@ class WordCloud extends Model
 
     use Sortable;
 
+    /**
+     * Use timestamps
+     *
+     * @var bool
+     */
+    public $timestamps = true;
+
     protected $table = 'word_cloud';
 
     /**
@@ -86,12 +93,7 @@ class WordCloud extends Model
      */
     protected $guarded = [];
 
-    /**
-     * Use timestamps
-     *
-     * @var bool
-     */
-    public $timestamps = true;
+
 
     /**
      * Word cloud songs
