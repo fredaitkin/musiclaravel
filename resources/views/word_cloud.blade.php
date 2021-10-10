@@ -23,57 +23,54 @@
         <div class="panel panel-default">
 
             <div class="panel-body">
-                @if ($word_cloud->count() > 0)
+                <form class="form-inline" method="GET">
+                  <div class="form-group ml-3 mb-2">
+                    <label for="filter" class="col-sm-3 col-form-label">Filter</label>
+                    <input type="text" class="form-control" id="filter" name="filter" placeholder="Word/Category" value="{{ $filter }}">
+                  </div>
+                  <button type="submit" class="btn btn-default mb-2">Go</button>
+                </form>
 
-                    <form class="form-inline" method="GET">
-                      <div class="form-group ml-3 mb-2">
-                        <label for="filter" class="col-sm-3 col-form-label">Filter</label>
-                        <input type="text" class="form-control" id="filter" name="filter" placeholder="Word/Category" value="{{ $filter }}">
-                      </div>
-                      <button type="submit" class="btn btn-default mb-2">Go</button>
-                    </form>
+                <table class="table table-striped mysounds-table">
 
-                    <table class="table table-striped mysounds-table">
+                    <thead>
+                        <th scope='col' class='sortable'>@sortablelink('word')</th>
+                        <th scope='col' class='sortable'>@sortablelink('is_word', 'Is Word')</th>
+                        <th scope='col' class='sortable'>@sortablelink('category')</th>
+                        <th scope='col' class='sortable'>@sortablelink('variant_of', 'Variant Of')</th>
+                        <th scope='col' class='sortable'>@sortablelink('count')</th>
+                        <th></th>
+                     </thead>
 
-                        <thead>
-                            <th scope='col' class='sortable'>@sortablelink('word')</th>
-                            <th scope='col' class='sortable'>@sortablelink('is_word', 'Is Word')</th>
-                            <th scope='col' class='sortable'>@sortablelink('category')</th>
-                            <th scope='col' class='sortable'>@sortablelink('variant_of', 'Variant Of')</th>
-                            <th scope='col' class='sortable'>@sortablelink('count')</th>
-                            <th></th>
-                         </thead>
-
-                        <tbody>
-                            @foreach ($word_cloud as $word)
-                                <tr class="mysounds-tr">
-                                    <td class="table-text">
-                                        <div>
-                                            {{ csrf_field() }}
-                                            <a href="/word-cloud/{{ $word->id }}">{{ $word->word }}</a>
-                                        </div>
-                                    </td></div>
-                                    </td>
-                                    <td class="table-text">
-                                        <div>{{ $word->is_word }}</div>
-                                    </td>
-                                    <td class="table-text">
-                                        <div>{{ $word->category }}</div>
-                                    </td>
-                                    <td class="table-text">
-                                        <div>{{ $word->variant_of }}</div>
-                                    </td>
-                                    <td class="table-text">
-                                        <div>{{ $word->count }}</div>
-                                    </td>
-                                    <td>
-                                       <input type="button" class="btn btn-link btn-mysounds" name="songs" id="songs-{{ $word->id }}" value="songs">
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                @endif
+                    <tbody>
+                        @foreach ($word_cloud as $word)
+                            <tr class="mysounds-tr">
+                                <td class="table-text">
+                                    <div>
+                                        {{ csrf_field() }}
+                                        <a href="/word-cloud/{{ $word->id }}">{{ $word->word }}</a>
+                                    </div>
+                                </td></div>
+                                </td>
+                                <td class="table-text">
+                                    <div>{{ $word->is_word }}</div>
+                                </td>
+                                <td class="table-text">
+                                    <div>{{ $word->category }}</div>
+                                </td>
+                                <td class="table-text">
+                                    <div>{{ $word->variant_of }}</div>
+                                </td>
+                                <td class="table-text">
+                                    <div>{{ $word->count }}</div>
+                                </td>
+                                <td>
+                                   <input type="button" class="btn btn-link btn-mysounds" name="songs" id="songs-{{ $word->id }}" value="songs">
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
                 {{ $word_cloud->links() }}
             </div>
         </div>

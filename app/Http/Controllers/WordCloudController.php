@@ -29,11 +29,16 @@ class WordCloudController extends Controller
                 ->paginate(10);
         }
 
-        return view('word_cloud', [
+        $view = view('word_cloud', [
             'word_cloud' => $words,
             'filter' => $filter,
         ]);
 
+        if ($words->isEmpty()) {
+            $view->withMessage('No words found. Try to search again!');
+        }
+
+        return $view;
     }
 
     public function songs(Request $request)
