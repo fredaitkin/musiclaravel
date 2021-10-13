@@ -35,10 +35,10 @@
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+                <a class="navbar-brand" href="{{ url('/songs') }}">
+                    {{ __('Songs') }}
+                </a>
                 @auth
-                    <a class="navbar-brand" href="{{ url('/songs') }}">
-                        {{ __('Songs') }}
-                    </a>
                     <a class="navbar-brand" href="{{ url('/artists') }}">
                          {{ __('Artists') }}
                     </a>
