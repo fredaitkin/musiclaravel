@@ -28,7 +28,7 @@
                     <label for="filter" class="col-sm-3 col-form-label">Filter</label>
                     <input type="text" class="form-control" id="filter" name="filter" placeholder="Word/Category" value="{{ $filter }}">
                   </div>
-                  <button type="submit" class="btn btn-default mb-2">Go</button>
+                  <button type="submit" class="btn btn-primary mb-2">Go</button>
                 </form>
 
                 <table class="table table-striped mysounds-table">
