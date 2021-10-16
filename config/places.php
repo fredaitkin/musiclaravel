@@ -62,6 +62,7 @@ return [
     "elaine's"      => "Elaine's", // bar in NYC
     'euphrates'     => 'Euphrates', // river
     'euston'        => 'Euston',
+    'fawkner'       => 'Fawkner',
     'fiddister'     => 'Fiddister',
     'fillmore'      => 'Fillmore',
     'fiscay'        => 'Fiscay',
@@ -140,6 +141,7 @@ return [
     'ngall'         => 'Ngall',
     'niagara'       => 'Niagara',
     'nile'          => 'Nile',
+    'northcote'     => 'Northcote',
     'northside'     => 'Northside',
     'olympia'       => 'Olympia',
     'olympus'       => 'Olympus',

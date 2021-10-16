@@ -503,6 +503,7 @@ return [
     'jordan'            => 'Jordan',
     'joseph'            => 'Joseph',
     'josephine'         => 'Josephine',
+    'josephina'         => 'Josephina',
     'jovi'              => 'Jovi',
     'juan'              => 'Juan',
     'juanita'           => 'Juanita',

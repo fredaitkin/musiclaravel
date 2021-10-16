@@ -28,14 +28,17 @@ class LyricController extends Controller
         if ($request->lyrics != $song->lyrics):
             $words = explode(' ', str_replace([PHP_EOL], [' '], $song->lyrics));
             foreach ($words as $w):
-                $word = new Word();
-                $word->process($w, 'subtract');
+                $word_cloud = new WordCloud();
+                $word_cloud->process($w, 'subtract');
             endforeach;
             $words = explode(' ', str_replace([PHP_EOL], [' '], $request->lyrics));
             foreach ($words as $w):
-                $word = new Word();
-                $word->process($w, 'add');
+                $word_cloud = new WordCloud();
+                $word_cloud->process($w, 'add');
             endforeach;
+
+            $song->lyrics = $request->lyrics;
+            $song->save();
         endif;
 
         return redirect('/songs');
