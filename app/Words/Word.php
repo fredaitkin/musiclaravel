@@ -179,7 +179,7 @@ class Word extends Model
             return;
         endif;
 
-        if (in_array($word, config('madeup'))):
+        if (in_array($word, config('made_up'))):
             $this->word     = $word;
             $this->category = 'made_up';
             return;

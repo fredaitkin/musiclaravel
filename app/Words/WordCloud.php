@@ -182,8 +182,8 @@ class WordCloud extends Model
             return ['word' => config('language')[$word], 'category' => 'language'];
         endif;
 
-        if (in_array($word, config('madeup'))):
-            return ['word' => config('madeup')[$word], 'category' => 'madeup'];
+        if (in_array($word, config('made_up'))):
+            return ['word' => config('made_up')[$word], 'category' => 'made_up'];
         endif;
 
         return ['word' => $word, 'category' => ''];
@@ -216,11 +216,17 @@ class WordCloud extends Model
         endif;
     }
 
+    /**
+     * Retrieve categories.
+     *
+     * Cache the results for an hour.
+     */
     public static function getCategories()
     {
         $categories = WordCloud::remember(60 * 3600)->select('category')->distinct()->get()->toArray();
         return array_column($categories, 'category');
     }
+
     /**
      * Process and store the word.
      *

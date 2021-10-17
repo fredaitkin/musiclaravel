@@ -78,17 +78,18 @@ class WordCloudController extends Controller
     public function store(Request $request)
     {
         $validator = $request->validate([
+            'id' => 'required',
             'word' => 'required',
             'category' => Rule::in(WordCloud::getCategories()),
         ]);
 
-        $word_cloud = [];
-        $word_cloud['word'] = $request->word;
-        $word_cloud['is_word'] = $request->is_word ? 1 : 0;
-        $word_cloud['category'] = $request->category;
-        $word_cloud['variant_of'] = $request->variant_of;
+        $wordCloud = [];
+        $wordCloud['word'] = $request->word;
+        $wordCloud['is_word'] = $request->is_word ? 1 : 0;
+        $wordCloud['category'] = $request->category;
+        $wordCloud['variant_of'] = $request->variant_of;
 
-        WordCloud::where('id', $request->id)->update($word_cloud);
+        WordCloud::where('id', $request->id)->update($wordCloud);
 
         return view('word_cloud', [
             'word_cloud' => WordCloud::sortable()->paginate(10),
