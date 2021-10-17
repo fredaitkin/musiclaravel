@@ -206,7 +206,7 @@ class WordCloud extends Model
 
         $this->words = [];
         foreach ($words as $word):
-            $this->processWord($word);
+            $this->processWord(mb_strtolower($word));
         endforeach;
 
         if ($action == 'subtract'):
@@ -293,7 +293,11 @@ class WordCloud extends Model
             if($wordCloud):
                 $wordCloud->attributes['count'] = $wordCloud->attributes['count'] + $count;
             else:
-                $wordCloud = self::create(['word' => $word, 'count' => $count]);
+                $wordCloud = self::create([
+                    'word' => $word,
+                    'is_word' => $this->isWord($word),
+                    'count' => $count,
+                ]);
             endif;
             $wordCloud->save();
             $wordCloud->songs()->attach(['song' => $id]);
