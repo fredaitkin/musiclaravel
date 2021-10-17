@@ -13,7 +13,8 @@ class BackupDatabase extends Command
      * @var string
      */
     protected $signature = 'db:backup
-                            {--no-stats-flag : Drop MySQL8 column-statistics flag}';
+                            {--no-stats-flag : Drop MySQL8 column-statistics flag}
+                            {--commit : Commit and push}';
 
     /**
      * The console command description.
@@ -21,6 +22,13 @@ class BackupDatabase extends Command
      * @var string
      */
     protected $description = 'Backup the database';
+
+    /**
+     * Perform a GIT commit and push
+     *
+     * @var bool
+     */
+    protected $commit = false;
 
     /**
      * Create a new command instance.
@@ -59,6 +67,13 @@ class BackupDatabase extends Command
             );
 
             exec($command);
+
+            $this->commit = $options['commit'];
+
+            if ($this->commit):
+                exec("git commit -m 'db backup' storage/backups/mymusic.sql");
+                exec("git push");
+            endif;
 
             $this->info('The backup has been proceed successfully.');
         } catch (Exception $e) {
