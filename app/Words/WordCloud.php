@@ -256,13 +256,10 @@ class WordCloud extends Model
                     $word = "'n";
                 }
             }
-            // Retain capitilisation for countries, months, names etc
-            $wordInfo = $this->setWord($word);
-            if (! isset($this->words[$wordInfo['word']])):
-                $wordInfo['count'] = 1;
-                $this->words[$wordInfo['word']] = $wordInfo;
+            if (! isset($this->words[$word])):
+                $this->words[$word] = 1;
             else:
-                $this->words[$wordInfo['word']]['count'] += 1;
+                $this->words[$word] += 1;
             endif;
         endif;
     }
@@ -274,10 +271,10 @@ class WordCloud extends Model
      *   The song id.
      */
     private function removeWords($id) {
-        foreach($this->words as $key => $word):
-            $wordCloud = self::whereRaw('LOWER(word) = ?', mb_strtolower($key))->first();
+        foreach($this->words as $word => $count):
+            $wordCloud = self::whereRaw('LOWER(word) = ?', mb_strtolower($word))->first();
             if($wordCloud):
-                $wordCloud->attributes['count'] = $wordCloud->attributes['count'] - $word['count'];
+                $wordCloud->attributes['count'] = $wordCloud->attributes['count'] - $count;
                 $wordCloud->save();
                 $wordCloud->songs()->detach(['song' => $id]);
             endif;
@@ -291,16 +288,12 @@ class WordCloud extends Model
      *   The song id.
      */
     private function addWords($id) {
-        foreach($this->words as $key => $word):
-            $wordCloud = self::whereRaw('LOWER(word) = ?', mb_strtolower($key))->first();
+        foreach($this->words as $word => $count):
+            $wordCloud = self::whereRaw('LOWER(word) = ?', mb_strtolower($word))->first();
             if($wordCloud):
-                $wordCloud->attributes['count'] = $wordCloud->attributes['count'] + $word['count'];
+                $wordCloud->attributes['count'] = $wordCloud->attributes['count'] + $count;
             else:
-                $wordCloud = self::create([
-                    'word'      => $key,
-                    'category'  => $this->category,
-                    'count'     => $word['count'],
-                ]);
+                $wordCloud = self::create(['word' => $word, 'count' => $count]);
             endif;
             $wordCloud->save();
             $wordCloud->songs()->attach(['song' => $id]);
