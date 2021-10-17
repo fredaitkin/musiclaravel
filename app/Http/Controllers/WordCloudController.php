@@ -6,6 +6,7 @@ use App\Music\Song\Song;
 use App\Words\WordCloud;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class WordCloudController extends Controller
 {
@@ -67,6 +68,32 @@ class WordCloudController extends Controller
     {
         $word_cloud = WordCloud::find($id);
         return view('word', ['word_cloud' => $word_cloud]);
+    }
+
+    /**
+     * Update a word in the word cloud.
+     *
+     * @param Request $request
+     */
+    public function store(Request $request)
+    {
+        $validator = $request->validate([
+            'word' => 'required',
+            'category' => Rule::in(WordCloud::getCategories()),
+        ]);
+
+        $word_cloud = [];
+        $word_cloud['word'] = $request->word;
+        $word_cloud['is_word'] = $request->is_word ? 1 : 0;
+        $word_cloud['category'] = $request->category;
+        $word_cloud['variant_of'] = $request->variant_of;
+
+        WordCloud::where('id', $request->id)->update($word_cloud);
+
+        return view('word_cloud', [
+            'word_cloud' => WordCloud::sortable()->paginate(10),
+            'filter' => '',
+        ]);
     }
 
 }

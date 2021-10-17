@@ -4,9 +4,12 @@ namespace App\Words;
 
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
+use Watson\Rememberable\Rememberable;
 
 class WordCloud extends Model
 {
+
+    use Rememberable;
 
     use Sortable;
 
@@ -213,7 +216,11 @@ class WordCloud extends Model
         endif;
     }
 
-
+    public static function getCategories()
+    {
+        $categories = WordCloud::remember(60 * 3600)->select('category')->distinct()->get()->toArray();
+        return array_column($categories, 'category');
+    }
     /**
      * Process and store the word.
      *
