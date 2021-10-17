@@ -269,7 +269,7 @@ class WordCloud extends Model
      */
     private function removeWords($id) {
         foreach($this->words as $key => $word):
-            $wordCloud = self::where('word', $key)->first();
+            $wordCloud = self::whereRaw('LOWER(word) = ?', mb_strtolower($key))->first();
             if($wordCloud):
                 $wordCloud->attributes['count'] = $wordCloud->attributes['count'] - $word['count'];
                 $wordCloud->save();
@@ -286,7 +286,7 @@ class WordCloud extends Model
      */
     private function addWords($id) {
         foreach($this->words as $key => $word):
-            $wordCloud = self::where('word', $key)->first();
+            $wordCloud = self::whereRaw('LOWER(word) = ?', mb_strtolower($key))->first();
             if($wordCloud):
                 $wordCloud->attributes['count'] = $wordCloud->attributes['count'] + $word['count'];
             else:
