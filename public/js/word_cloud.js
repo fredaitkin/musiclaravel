@@ -26,7 +26,7 @@ $(document).ready(function() {
     function display_song_form(data) {
         let form = '<div>';
         $.each(data, function(i, song) {
-            form += '<div><div style="width:50%;float:left">' + song.song + '</div><div style="width:50%;float:left">' + song.artist + '</div></div>';
+            form += '<div><div style="width:50%;float:left">' + song.song.substr(0, 50) + '</div><div style="width:50%;float:left">' + song.artist + '</div></div>';
         });
 
         form += '</div>';

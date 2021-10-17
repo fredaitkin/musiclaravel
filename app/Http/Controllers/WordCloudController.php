@@ -42,6 +42,9 @@ class WordCloudController extends Controller
         return $view;
     }
 
+    /**
+     * Retrieve songs (and artists) that feature a word.
+     */
     public function songs(Request $request)
     {
         $songs = DB::table('song_word_cloud')
@@ -55,7 +58,17 @@ class WordCloudController extends Controller
             $data[] = array('song' => $song->title, 'artist' => $song->artists[0]->artist);
         endforeach;
 
+        usort($data, [$this, 'sortSongs']);
+
         return json_encode($data);
+    }
+
+    /**
+     * Sort an array of songs by song title.
+     */
+    private function sortSongs($a, $b)
+    {
+        return strcmp($a["song"], $b["song"]);
     }
 
     /**
