@@ -20,23 +20,16 @@ class LyricController extends Controller
     public function store(Request $request)
     {
         $validator = $request->validate([
-            'id' => 'required|max:255',
+            'id' => 'required|integer',
         ]);
 
         $song = Song::find($request->id);
 
         if ($request->lyrics != $song->lyrics):
-            $words = explode(' ', str_replace([PHP_EOL], [' '], $song->lyrics));
-            foreach ($words as $w):
-                $word_cloud = new WordCloud();
-                $word_cloud->process($w, 'subtract');
-            endforeach;
-            $words = explode(' ', str_replace([PHP_EOL], [' '], $request->lyrics));
-            foreach ($words as $w):
-                $word_cloud = new WordCloud();
-                $word_cloud->process($w, 'add');
-            endforeach;
-
+            $word_cloud = new WordCloud();
+            $word_cloud->process($song->lyrics, 'subtract', $song->id);
+            $word_cloud = new WordCloud();
+            $word_cloud->process($request->lyrics, 'add', $song->id);
             $song->lyrics = $request->lyrics;
             $song->save();
         endif;

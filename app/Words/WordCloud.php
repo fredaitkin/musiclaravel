@@ -80,7 +80,7 @@ class WordCloud extends Model
      *
      * @var array
      */
-    protected $sortabe = [
+    protected $sortable = [
         'word',
         'category',
         'count',
@@ -92,6 +92,13 @@ class WordCloud extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * Song words
+     *
+     * @var array
+     */
+    protected $words = [];
 
     /**
      * Word cloud songs
@@ -109,120 +116,113 @@ class WordCloud extends Model
         $word = mb_strtolower($word);
 
         if (isset(config('countries_expanded')[$word])):
-            $this->word     = config('countries_expanded')[$word];
-            $this->category = 'country';
-            return;
+            return ['word' => config('countries_expanded')[$word], 'category' => 'country'];
         endif;
 
         if (isset(config('states_expanded')[$word])):
-            $this->word     = config('states_expanded')[$word];
-            $this->category = 'state';
-            return;
+            return ['word' => config('states_expanded')[$word], 'category' => 'state'];
         endif;
 
         if (isset(config('towns')[$word])):
-            $this->word     = config('towns')[$word];
-            $this->category = 'town';
-            return;
+            return ['word' => config('towns')[$word], 'category' => 'town'];
         endif;
 
         if (isset(config('places')[$word])):
-            $this->word     = config('places')[$word];
-            $this->category = 'place';
-            return;
+            return ['word' => config('places')[$word], 'category' => 'places'];
         endif;
 
         if (isset(config('streets')[$word])):
-            $this->word     = config('streets')[$word];
-            $this->category = 'street';
-            return;
+            return ['word' => config('streets')[$word], 'category' => 'street'];
         endif;
 
         if (isset(config('months_expanded')[$word])):
-            $this->word     = config('months_expanded')[$word];
-            $this->category = 'month';
-            return;
+            return ['word' => config('months_expanded')[$word], 'category' => 'month'];
         endif;
 
         if (isset(config('days_expanded')[$word])):
-            $this->word     = config('days_expanded')[$word];
-            $this->category = 'day';
-            return;
+            return ['word' => config('days_expanded')[$word], 'category' => 'day'];
         endif;
 
         if (isset(config('names')[$word])):
-            $this->word     = config('names')[$word];
-            $this->category = 'name';
-            return;
+            return ['word' => config('names')[$word], 'category' => 'name'];
         endif;
 
         if (isset(config('honorifics')[$word])):
-            $this->word     = config('honorifics')[$word];
-            $this->category = 'honorific';
-            return;
+            return ['word' => config('honorifics')[$word], 'category' => 'honorific'];
         endif;
 
         if (isset(config('brands')[$word])):
-            $this->word     = config('brands')[$word];
-            $this->category = 'brand';
-            return;
+            return ['word' => config('brands')[$word], 'category' => 'brand'];
         endif;
 
         if (isset(config('organisations')[$word])):
-            $this->word     = config('organisations')[$word];
-            $this->category = 'organisation';
-            return;
+            return ['word' => config('organisations')[$word], 'category' => 'organisation'];
         endif;
 
         if (isset(config('acronyms')[$word])):
-            $this->word     = config('acronyms')[$word];
-            $this->category = 'acronym';
-            return;
+            return ['word' => config('acronyms')[$word]['uppercase'], 'category' => 'acronym'];
         endif;
 
         if (isset(config('religions')[$word])):
-            $this->word     = config('religions')[$word];
-            $this->category = 'religion';
-            return;
+            return ['word' => config('religions')[$word], 'category' => 'religion'];
         endif;
 
         if (isset(config('alphabet')[$word])):
-            $this->word     = config('alphabet')[$word];
-            $this->category = 'alphabet';
-            return;
+            return ['word' => config('alphabet')[$word], 'category' => 'alphabet'];
         endif;
 
         if (isset(config('capitalized')[$word])):
-            $this->word     = config('capitalized')[$word];
-            $this->category = 'capitalized';
-            return;
+            return ['word' => config('capitalized')[$word], 'category' => 'capitalized'];
         endif;
 
         if (isset(config('language')[$word])):
-            $this->word     = config('language')[$word];
-            $this->category = 'language';
-            return;
+            return ['word' => config('language')[$word], 'category' => 'language'];
         endif;
 
         if (in_array($word, config('madeup'))):
-            $this->word     = $word;
-            $this->category = 'made_up';
-            return;
+            return ['word' => config('madeup')[$word], 'category' => 'madeup'];
         endif;
 
-        $this->word = $word;
+        return ['word' => $word, 'category' => ''];
     }
 
     /**
-     * Process the word.
+     * Process the song lyrics.
      *
      * @param string $word
      *   The word
      * @param string $action
      *   Add or remove
+     * @param int $id
+     *   Song id
      */
-    public function process($word, $action)
+    public function process($lyrics, $action, $id)
     {
+        $lyrics = str_replace([PHP_EOL], [' '], $lyrics);
+        $words = explode(' ', $lyrics);
+
+        $this->words = [];
+        foreach ($words as $word):
+            $this->processWord($word);
+        endforeach;
+
+        if ($action == 'subtract'):
+            $this->removeWords($id);
+        else:
+            $this->addWords($id);
+        endif;
+    }
+
+
+    /**
+     * Process and store the word.
+     *
+     * @param string $word
+     *   The word.
+     *
+     * @return array
+     */
+    private function processWord($word) {
         // Clean up text.
         $chars_to_replace = [',', '.', '"', ' ', '!', '?', '[', ']', '(', ')', '{', '}', '&', "''", '*', ';', '…', '~'];
         $word = str_replace(
@@ -236,6 +236,7 @@ class WordCloud extends Model
         $chars_to_trim = " :-/\0\t\n\x0B\r";
         $word = trim($word, $chars_to_trim);
         if (! empty($word) && ! preg_match('/^[-]+$/', $word)):
+            // 'accattone'
             if($word[0] == "'" && $word[strlen($word) - 1] == "'") {
                 $word = substr($word, 1, strlen($word) - 2);
                 if ($word === 'n') {
@@ -243,27 +244,54 @@ class WordCloud extends Model
                 }
             }
             // Retain capitilisation for countries, months, names etc
-            $this->setWord($word);
-            $word_cloud = self::where('word', $this->word)->first();
-
-            if ($word_cloud):
-                if ($action == 'add'):
-                    $word_cloud->attributes['count'] += 1;
-                else:
-                    $word_cloud->attributes['count'] -= 1;
-                    // @todo if 0 contemplate removing;
-                endif;
-                $word_cloud->save();
+            $wordInfo = $this->setWord($word);
+            if (! isset($this->words[$wordInfo['word']])):
+                $wordInfo['count'] = 1;
+                $this->words[$wordInfo['word']] = $wordInfo;
             else:
-                if ($action == 'add'):
-                    WordCloud::create([
-                        'word'      => $this->word,
-                        'category'  => $this->category,
-                        'count'     => 1,
-                    ]);
-                endif;
+                $this->words[$wordInfo['word']]['count'] += 1;
             endif;
         endif;
+    }
+
+    /**
+     * Remove words from word cloud.
+     *
+     * @param int $id
+     *   The song id.
+     */
+    private function removeWords($id) {
+        foreach($this->words as $key => $word):
+            $wordCloud = self::where('word', $key)->first();
+            if($wordCloud):
+                $wordCloud->attributes['count'] = $wordCloud->attributes['count'] - $word['count'];
+                $wordCloud->save();
+                $wordCloud->songs()->detach(['song' => $id]);
+            endif;
+        endforeach;
+    }
+
+    /**
+     * Add words to the word cloud.
+     *
+     * @param int $id
+     *   The song id.
+     */
+    private function addWords($id) {
+        foreach($this->words as $key => $word):
+            $wordCloud = self::where('word', $key)->first();
+            if($wordCloud):
+                $wordCloud->attributes['count'] = $wordCloud->attributes['count'] + $word['count'];
+            else:
+                $wordCloud = self::create([
+                    'word'      => $key,
+                    'category'  => $this->category,
+                    'count'     => $word['count'],
+                ]);
+            endif;
+            $wordCloud->save();
+            $wordCloud->songs()->attach(['song' => $id]);
+        endforeach;
     }
 
     private function isWord($w) {
