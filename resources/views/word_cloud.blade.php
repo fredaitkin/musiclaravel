@@ -71,7 +71,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $word_cloud->links() }}
+                {{ $word_cloud->appends(\Request::except('page'))->render() }}
             </div>
         </div>
 
