@@ -2,6 +2,7 @@
 
 namespace App\Words;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 use Watson\Rememberable\Rememberable;
@@ -296,6 +297,7 @@ class WordCloud extends Model
                 $wordCloud = self::create([
                     'word' => $word,
                     'is_word' => $this->isWord($word),
+                    'created_at' => Carbon::now(),
                     'count' => $count,
                 ]);
             endif;
