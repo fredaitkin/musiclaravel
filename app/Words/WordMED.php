@@ -41,7 +41,7 @@ class WordMED extends Model
      */
     public static function isWord($w)
     {
-        $word = WordMED::where(["word" => $w])->get()->first();
+        $word = WordMED::whereRAW('binary LOWER(word) = binary ?', $w)->get()->first();
         return isset($word);
     }
 
