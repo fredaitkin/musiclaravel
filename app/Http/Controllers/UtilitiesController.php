@@ -235,9 +235,9 @@ class UtilitiesController extends Controller
             endif;
 
             // Process song
-            if(! Song::does_song_exist($artist_id, $song_info->title())):
+            if(! Song::doesSongExist($artist_id, $song_info->title())):
                 Log::info("Adding and moving song " . $song_info->title());
-                $new_song_location = $song_info->artist() . "\\" . $song_info->album() . DIRECTORY_SEPARATOR . $song_info->title() . "." . $song_info->file_type(); 
+                $new_song_location = $song_info->artist() . "\\" . $song_info->album() . DIRECTORY_SEPARATOR . $song_info->title() . "." . $song_info->fileType();
                 // Create song in datathis->media_directory.
                 Song::dynamicStore($new_song_location, $song_info->album(), $artist_id, $song_info);
                 Storage::disk(config('filesystems.partition'))->move(str_replace($this->partition_root, '', $song), $this->media_directory . $new_song_location);
