@@ -254,13 +254,15 @@ class Song extends Model
      */
     public static function doesSongExist($id, $title)
     {
-        // FIXME investigate processing of songs with no artists and remove duplication
-        $song = Song::where('title', $title)
-            ->with(['artists' => function($q) use ($id) {
-                $q->where('artist_id', '=', $id);
-            }])
-            ->first();
-        return isset($song);
+        $songs = Song::where('title', $title)->get();
+        foreach($songs as $song):
+            foreach ($song->artists as $artist):
+                if ($artist->id == $id):
+                    return true;
+                endif;
+            endforeach;
+        endforeach;
+        return false;
     }
 
     /**
