@@ -416,11 +416,10 @@ class Words extends Command {
         $query = Song::select('songs.id', 'title', 'lyrics')
             ->join('artist_song', 'songs.id', '=', 'artist_song.song_id')
             ->whereNotIn('songs.id', [
-                908, 911, 1273, 1425, 2225, 3966, 3994, 4145, 4146, 8587, 4856, 9473, 9741,
+                908, 911, 1273, 1425, 2225, 3966, 3994, 4145, 4146, 4885, 8587, 4856, 9473, 9741,
             ])
-            // LOOK AT 607
             ->whereNotIn('artist_song.artist_id', [
-                23, 84, 197, 209, 280, 469, 510, 607, 611, 763, 802, 821, 838, 841, 846, 1453, 1516,
+                23, 84, 197, 209, 280, 469, 510, 611, 763, 802, 821, 838, 841, 846, 1453, 1516,
             ])
             ->whereNotIn('album', [
                 'Turkish Groove', 'African Women', 'Bocelli Greatest Hits', 'Buena Vista Social Club', 'Everything Is Possible!',
