@@ -2,6 +2,8 @@
 
 namespace App\Music\AudioFile;
 
+use DateTime;
+
 class MP4 implements AudioFileInterface {
 
     const FILE_TYPE = 'mp4';
@@ -63,16 +65,21 @@ class MP4 implements AudioFileInterface {
     /**
      * Return year.
      *
+     * Comes through in multiple formats 1984-01-23T08:00:00Z and 1988.
+     *
      * @return integer
      */
     public function year() {
-        //1984-01-23T08:00:00Z
         $date_str = $this->file_info["quicktime"]["comments"]["creation_date"][0] ?? '';
         if(empty($date_str)):
             $year = 9999;
         else:
-            $date_time = new DateTime($date_str);
-            $year = $date_time->format('Y');
+            if (strlen($date_str) == 4):
+                $year = $date_str;
+            else:
+                $date_time = new DateTime($date_str);
+                $year = $date_time->format('Y');
+            endif;
         endif;
         return $year;
     }
