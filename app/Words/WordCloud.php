@@ -113,6 +113,18 @@ class WordCloud extends Model
     }
 
     /**
+     * Get variant as word
+     *
+     * @return string
+     */
+    public function getVariantAttribute()
+    {
+        $word = json_decode($this);
+        $variant = WordCloud::select('word')->where('id', $word->variant_of)->get()->toArray();
+        return $variant[0]['word'] ?? '';
+    }
+
+    /**
      * Set word format and type.
      */
     public function setWord($word)

@@ -110,4 +110,16 @@ class WordCloudController extends Controller
         ]);
     }
 
+    /**
+     * Search for word.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function autocomplete(Request $request)
+    {
+        $data = WordCloud::select("id as value", "word as label")
+            ->where("word", "LIKE", "{$request->search}%")
+            ->get();
+        return response()->json($data);
+    }
 }

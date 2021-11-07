@@ -59,7 +59,7 @@
                                     <div>{{ $word->category }}</div>
                                 </td>
                                 <td class="table-text">
-                                    <div>{{ $word->variant_of }}</div>
+                                    <div>{{ $word->variant }}</div>
                                 </td>
                                 <td class="table-text">
                                     <div>{{ $word->count }}</div>
@@ -78,5 +78,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/word_cloud.js') }}"></script>
+    <script src="{{ asset('js/word_clouds.js') }}"></script>
 @endsection

@@ -82,6 +82,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('word-cloud', 'WordCloudController@store');
 
+    Route::post('word-cloud-autocomplete', 'WordCloudController@autocomplete');
+
 });
 
 Route::middleware(['auth'])->prefix('internalapi')->group(function () {

@@ -35,7 +35,8 @@
             <div class="col-sm-3 pb-2">
                 <label for="variant_of" class="control-label">Variant of</label>
                 <div>
-                    <input type="text" name="variant_of" id="variant_of" class="form-control" @if ( ! empty($word_cloud->variant_of)) value="{{ $word_cloud->variant_of }}" @endif>
+                    <input type="text" name="variant" id="variant" class="form-control" @if ( ! empty($word_cloud->variant)) value="{{ $word_cloud->variant }}" @endif>
+                    <input type="hidden" name="variant_of" id="variant_of" @if ( ! empty($word_cloud->variant_of)) value="{{ $word_cloud->variant_of }}" @endif>
                 </div>
             </div>
 
@@ -48,4 +49,10 @@
         </form>
 
     </div>
+@endsection
+
+@section('scripts')
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{{ asset('js/word_cloud.js') }}"></script>
 @endsection
