@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Category\Category;
 use App\Music\Song\Song;
+use App\Words\WordCloud;
 use DB;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Redis;
@@ -18,7 +20,8 @@ class PerformDataFix extends Command
      */
     protected $signature = 'db:df
                             {--missing-songs : Report on missing songs}
-                            {--resave-artists : Copy artist ids to pivot table}';
+                            {--resave-artists : Copy artist ids to pivot table}
+                            {--fix-categories : Move category to pivot table}';
 
     /**
      * The console command description.
@@ -68,6 +71,10 @@ class PerformDataFix extends Command
         if ($this->options['resave-artists']):
             $this->updateArtistPivotTable();
         endif;
+
+        if ($this->options['fix-categories']):
+            $this->fixCategories();
+        endif;
     }
 
     /**
@@ -96,4 +103,21 @@ class PerformDataFix extends Command
         endforeach;
     }
 
+    /**
+     * Move categories to pivit table
+     */
+    private function fixCategories()
+    {
+        // Retrieve categories
+        $records = Category::all();
+        $categories = [];
+        foreach($records as $record) {
+            $categories[$record->category] = $record->id;
+        }
+        // Insert category id into pivot table
+        $wordCloud = WordCloud::select('id', 'category')->whereNotNull('category')->where('category', '<>', '')->get();
+        foreach ($wordCloud as $word):
+            DB::table('word_category')->insert(['word_cloud_id' => $word->id, 'category_id' => $categories[$word->category]]);
+        endforeach;
+    }
 }

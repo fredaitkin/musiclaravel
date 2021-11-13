@@ -105,6 +105,28 @@ class WordCloud extends Model
     protected $words = [];
 
     /**
+     * Word cloud categories
+     */
+    public function categories()
+    {
+        // Specify table name as it does not follow the default laravel naming convention
+        return $this->belongsToMany('App\Category\Category', 'word_category');
+    }
+
+    /**
+     * Word cloud categories for display
+     */
+    public function getCategoriesDisplayAttribute()
+    {
+        $records = $this->categories;
+        $categories = [];
+        foreach ($records as $record) {
+            $categories[] = $record->category;
+        }
+        return implode(',', $categories);
+    }
+
+    /**
      * Word cloud songs
      */
     public function songs()
