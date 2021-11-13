@@ -14,7 +14,8 @@ class BackupDatabase extends Command
      */
     protected $signature = 'db:backup
                             {--no-stats-flag : Drop MySQL8 column-statistics flag}
-                            {--commit : Commit and push}';
+                            {--commit : Commit and push}
+                            {--m= : Commit message}';
 
     /**
      * The console command description.
@@ -71,7 +72,8 @@ class BackupDatabase extends Command
             $this->commit = $options['commit'];
 
             if ($this->commit):
-                exec("git commit -m 'db backup' storage/backups/mymusic.sql");
+                $message = $options['m'] ?? 'db backup';
+                exec("git commit -m '$message' storage/backups/mymusic.sql");
                 exec("git push");
             endif;
 
