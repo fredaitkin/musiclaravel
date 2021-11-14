@@ -26,10 +26,9 @@
             </div>
 
             <div class="col-sm-3 pb-2">
-                <label for="category" class="control-label">Category</label>
-                <div>
-                    <input type="text" name="category" id="category" class="form-control" @if ( ! empty($word_cloud->category)) value="{{ $word_cloud->category }}" @endif>
-                </div>
+                <label for="categories" class="control-label">Categories</label>
+                <textarea type="text" name="category_display" id="category_display" class="form-control" rows="2">@if (old('category_display')){{ old('category_display') }}@elseif(!empty($word_cloud->category_display)){{ $word_cloud->category_display }}@endif</textarea>
+                <input type="hidden" name="category_ids" id="category_ids" class="form-control" value=@if (old('category_ids')) {{ old('category_ids') }} @elseif (!empty($word_cloud->category_ids)) {{ $word_cloud->category_ids }} @endif>
             </div>
 
             <div class="col-sm-3 pb-2">

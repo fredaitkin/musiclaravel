@@ -116,14 +116,38 @@ class WordCloud extends Model
     /**
      * Word cloud categories for display
      */
-    public function getCategoriesDisplayAttribute()
+    public function getCategoryDisplayAttribute()
     {
-        $records = $this->categories;
         $categories = [];
-        foreach ($records as $record) {
-            $categories[] = $record->category;
+        foreach ($this->categories as $category) {
+            $categories[] = $category->category;
         }
         return implode(',', $categories);
+    }
+
+    /**
+     * Word cloud category ids
+     */
+    public function getCategoryIdsAttribute()
+    {
+        $categories = [];
+        foreach ($this->categories as $category) {
+            $categories[] = $category->id;
+        }
+        return implode(',', $categories);
+    }
+
+    /**
+     * Get the category ids as an array
+     * @return string
+     */
+    public function getCategoryArrayAttribute()
+    {
+        $categories = [];
+        foreach ($this->categories as $category) {
+            $categories[] = $category->id;
+        }
+        return $categories;
     }
 
     /**
@@ -249,17 +273,6 @@ class WordCloud extends Model
         else:
             $this->addWords($id);
         endif;
-    }
-
-    /**
-     * Retrieve categories.
-     *
-     * Cache the results for an hour.
-     */
-    public static function getCategories()
-    {
-        $categories = WordCloud::remember(60 * 3600)->select('category')->distinct()->get()->toArray();
-        return array_column($categories, 'category');
     }
 
     /**

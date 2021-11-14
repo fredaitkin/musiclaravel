@@ -56,7 +56,7 @@
                                     <div>{{ $word->is_word }}</div>
                                 </td>
                                 <td class="table-text">
-                                    <div>{{ $word->categories_display }}</div>
+                                    <div>{{ $word->category_display }}</div>
                                 </td>
                                 <td class="table-text">
                                     <div>{{ $word->variant }}</div>

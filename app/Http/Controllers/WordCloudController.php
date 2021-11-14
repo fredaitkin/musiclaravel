@@ -93,16 +93,27 @@ class WordCloudController extends Controller
         $validator = $request->validate([
             'id' => 'required',
             'word' => 'required',
-            'category' => Rule::in(WordCloud::getCategories()),
         ]);
 
-        $wordCloud = [];
-        $wordCloud['word'] = $request->word;
-        $wordCloud['is_word'] = $request->is_word ? 1 : 0;
-        $wordCloud['category'] = $request->category;
-        $wordCloud['variant_of'] = $request->variant_of;
+        $wordCloud = WordCloud::find($request->id);
+        $wordCloud->word = $request->word;
+        $wordCloud->is_word = $request->is_word ? 1 : 0;
+        $wordCloud->variant_of = $request->variant_of;
 
-        WordCloud::where('id', $request->id)->update($wordCloud);
+        // Make any updates to categories
+        if (! empty($request->category_ids)):
+            $request->categories = explode(',', trim($request->category_ids));
+        else:
+            $request->categories = [];
+        endif;
+        $inserts = array_diff($request->categories, $wordCloud->category_array);
+        foreach($inserts as $id):
+            $wordCloud->categories()->attach(['category_id' => $id]);
+        endforeach;
+        $deletes = array_diff($wordCloud->category_array, $request->categories);
+        foreach($deletes as $id):
+            $wordCloud->categories()->detach(['category_id' => $id]);
+        endforeach;
 
         return view('word_cloud', [
             'word_cloud' => WordCloud::sortable()->paginate(10),
