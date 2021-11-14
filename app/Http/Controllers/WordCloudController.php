@@ -99,6 +99,7 @@ class WordCloudController extends Controller
         $wordCloud->word = $request->word;
         $wordCloud->is_word = $request->is_word ? 1 : 0;
         $wordCloud->variant_of = $request->variant_of;
+        $wordCloud->save();
 
         // Make any updates to categories
         if (! empty($request->category_ids)):
