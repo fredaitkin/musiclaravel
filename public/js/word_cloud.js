@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+    $("#capitalize").click(function() {
+        $("#word").val($("#word").val()[0].toUpperCase() + $("#word").val().slice(1));
+    });
+
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     $( "#variant" ).autocomplete({
         source: function( request, response ) {

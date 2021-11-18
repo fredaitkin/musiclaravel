@@ -11,10 +11,11 @@
         <form action="/word-cloud" method="POST" class="form-horizontal">
             {{ csrf_field() }}
 
-            <div class="col-sm-3 pb-2">
+            <div class="col-md-3 pb-2">
                 <label for="word" class="control-label">Word</label>
-                <div>
+                <div class="form-inline">
                     <input type="text" name="word" id="word" class="form-control" @if ( ! empty($word_cloud->word)) value="{{ $word_cloud->word }}" @endif>
+                    <span class="pl-2"><button type="button" id="capitalize" class="btn btn-secondary">Capitalize</button></span>
                 </div>
             </div>
 
