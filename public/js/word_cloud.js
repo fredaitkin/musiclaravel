@@ -7,24 +7,24 @@ $(document).ready(function() {
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     $( "#variant" ).autocomplete({
         source: function( request, response ) {
-          // Fetch data
-          $.ajax({
-            url:"/word-cloud-autocomplete",
-            type: 'post',
-            dataType: "json",
-            data: {
-               _token: CSRF_TOKEN,
-               search: request.term
-            },
-            success: function( data ) {
-               response( data );
-            }
-          });
+            // Fetch data
+            $.ajax({
+                url:"/word-cloud-autocomplete",
+                type: 'post',
+                dataType: "json",
+                data: {
+                   _token: CSRF_TOKEN,
+                   search: request.term
+                },
+                success: function( data ) {
+                    response( data );
+                }
+            });
         },
         select: function (event, ui) {
-           // Set selection
-           $('#variant').val(ui.item.label);
-           $('#variant_of').val(ui.item.value);
+            // Set selection
+            $('#variant').val(ui.item.label);
+            $('#variant_of').val(ui.item.value);
            return false;
         }
     });
@@ -41,11 +41,11 @@ $(document).ready(function() {
                     response.json().then(function(data) {
                         var categories = $("#category_ids").val().split(',');
                         $.each( categories, function( index, value ) {
-                          $.each( data, function( key, category ) {
-                            if (category != undefined && category.id == value) {
-                              data.splice(key, 1);
-                            }
-                          });
+                            $.each( data, function( key, category ) {
+                                if (category != undefined && category.id == value) {
+                                    data.splice(key, 1);
+                                }
+                            });
                         });
                         items = data;
                     });
@@ -56,50 +56,49 @@ $(document).ready(function() {
         });
 
         function split( val ) {
-          return val.split( /,\s*/ );
+            return val.split( /,\s*/ );
         }
         function extractLast( term ) {
-          return split( term ).pop();
+            return split( term ).pop();
         }
         function removeFromAvailableCategories(id) {
-           $.each( items, function( key, category ) {
-              if (category.id == id) {
-                items.splice(key, 1);
-                return false;
-              }
-          });
+            $.each( items, function( key, category ) {
+                if (category.id == id) {
+                    items.splice(key, 1);
+                    return false;
+                }
+            });
         }
-        $( "#category_display" )
-          .autocomplete({
+        $( "#category_display" ).autocomplete({
             minLength: 0,
             source: function( request, response ) {
-              response( $.ui.autocomplete.filter(
-                items, extractLast( request.term ) ) );
-            },
+                response( $.ui.autocomplete.filter(
+                    items, extractLast( request.term ) ) );
+                },
             focus: function() {
-              return false;
+                return false;
             },
             select: function( event, ui ) {
 
-              var terms = split( this.value );
-              // remove the current input
-              terms.pop();
-              // add the selected item
-              terms.push( ui.item.value );
-              this.value = terms.join( ", " );
-              // Remove from future search
-              removeFromAvailableCategories(ui.item.id);
+                var terms = split( this.value );
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push( ui.item.value );
+                this.value = terms.join( ", " );
+                // Remove from future search
+                removeFromAvailableCategories(ui.item.id);
 
-              $("#category_ids").val(function() {
-                  if (this.value.length == 0) {
-                      return ui.item.id;
-                  } else {
-                  return this.value + ',' + ui.item.id;
-                  }
+                $("#category_ids").val(function() {
+                    if (this.value.length == 0) {
+                        return ui.item.id;
+                    } else {
+                        return this.value + ',' + ui.item.id;
+                    }
 
-              });
+                });
 
-              return false;
+                return false;
             }
         });
     });
