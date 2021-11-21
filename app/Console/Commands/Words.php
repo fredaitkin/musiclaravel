@@ -400,7 +400,7 @@ class Words extends Command {
      * @return bool
      */
     private function isMadeUp($word) {
-        return in_array($word, config('madeup'));
+        return in_array($word, config('made_up'));
     }
 
     /**
