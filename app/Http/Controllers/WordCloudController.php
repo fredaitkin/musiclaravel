@@ -80,7 +80,10 @@ class WordCloudController extends Controller
     public function edit($id)
     {
         $word_cloud = WordCloud::find($id);
-        return view('word', ['word_cloud' => $word_cloud]);
+        return view('word', [
+            'word_cloud' => $word_cloud,
+            'categories' => json_encode($word_cloud->categories),
+        ]);
     }
 
     /**
@@ -102,9 +105,7 @@ class WordCloudController extends Controller
         $wordCloud->save();
 
         // Make any updates to categories
-        if (! empty($request->category_ids)):
-            $request->categories = explode(',', trim($request->category_ids));
-        else:
+        if (empty($request->categories)):
             $request->categories = [];
         endif;
         $inserts = array_diff($request->categories, $wordCloud->category_array);

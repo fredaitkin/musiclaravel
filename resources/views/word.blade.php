@@ -26,10 +26,11 @@
                 </div>
             </div>
 
-            <div class="col-sm-3 pb-2">
+            <div class="col-md-3 pb-2">
                 <label for="categories" class="control-label">Categories</label>
-                <textarea type="text" name="category_display" id="category_display" class="form-control" rows="2">@if (old('category_display')){{ old('category_display') }}@elseif(!empty($word_cloud->category_display)){{ $word_cloud->category_display }}@endif</textarea>
-                <input type="hidden" name="category_ids" id="category_ids" class="form-control" value=@if (old('category_ids')) {{ old('category_ids') }} @elseif (!empty($word_cloud->category_ids)) {{ $word_cloud->category_ids }} @endif>
+                <div class="pb-1">
+                    <select class="categories form-control" multiple="multiple" name="categories[]" id="categories"></select>
+                </div>
             </div>
 
             <div class="col-sm-3 pb-2">
@@ -43,6 +44,7 @@
             <div class="col-sm-3 pt-5">
                 <input type="hidden" name="id" id="song-id" value="{{ $word_cloud->id }}">
                 <button type="submit" class="btn btn-primary">Update</button>
+                <input type="hidden" name="categories_json" id="categories_json" value="{{ $categories }}">
                 <a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>
             </div>
 
@@ -54,5 +56,10 @@
 @section('scripts')
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script src="{{ asset('js/word_cloud.js') }}"></script>
+@endsection
+
+@section('styles')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 @endsection

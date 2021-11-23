@@ -31,6 +31,7 @@ return [
     'halley'            => 'Halley', // comet, thing
     'halloween'         => 'Halloween',
     'ii'                => 'II',
+    "i'd"               => "I'd",
     "i'll"              => "I'll",
     "i'm"               => "I'm",
     "i's"               => "I's",
