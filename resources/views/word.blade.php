@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="col-md-3 pb-2">
+            <div class="col-sm-3 pb-2">
                 <label for="categories" class="control-label">Categories</label>
                 <div class="pb-1">
                     <select class="categories form-control" multiple="multiple" name="categories[]" id="categories"></select>
