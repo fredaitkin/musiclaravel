@@ -71,7 +71,14 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $word_cloud->appends(\Request::except('page'))->render() }}
+                  <div class="form-inline">
+                    {{ $word_cloud->appends(\Request::except('page'))->render() }}
+
+                     <form class="form-inline" method="GET">
+                        <input type="text" class="form-control" id="page" name="page" size=10>
+                        <input type="submit" class="btn btn-secondary" id="go" value="Go">
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -79,4 +86,8 @@
 
 @section('scripts')
     <script src="{{ asset('js/word_clouds.js') }}"></script>
+@endsection
+
+@section('styles')
+    <link href="{{ asset('css/word-cloud.css') }}" rel="stylesheet">
 @endsection
