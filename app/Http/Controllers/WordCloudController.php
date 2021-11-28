@@ -77,12 +77,13 @@ class WordCloudController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
         $word_cloud = WordCloud::find($id);
         return view('word', [
-            'word_cloud' => $word_cloud,
-            'categories' => json_encode($word_cloud->categories),
+            'page'          => $request->page,
+            'word_cloud'    => $word_cloud,
+            'categories'    => json_encode($word_cloud->categories),
         ]);
     }
 
@@ -118,7 +119,7 @@ class WordCloudController extends Controller
         endforeach;
 
         return view('word_cloud', [
-            'word_cloud' => WordCloud::sortable()->paginate(10),
+            'word_cloud' => WordCloud::sortable()->paginate(10, '*', 'page', $request->page),
             'filter' => '',
         ]);
     }

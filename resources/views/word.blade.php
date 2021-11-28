@@ -43,6 +43,7 @@
 
             <div class="col-sm-3 pt-5">
                 <input type="hidden" name="id" id="song-id" value="{{ $word_cloud->id }}">
+                <input type="hidden" name="page" id="page" value="{{ $page }}">
                 <button type="submit" class="btn btn-primary">Update</button>
                 <input type="hidden" name="categories_json" id="categories_json" value="{{ $categories }}">
                 <a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>

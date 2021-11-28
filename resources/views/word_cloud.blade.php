@@ -48,7 +48,7 @@
                                 <td class="table-text">
                                     <div>
                                         {{ csrf_field() }}
-                                        <a href="/word-cloud/{{ $word->id }}">{{ $word->word }}</a>
+                                        <a href="/word-cloud/{{ $word->id }}?page={{ $word_cloud->currentPage() }}">{{ $word->word }}</a>
                                     </div>
                                 </td></div>
                                 </td>
@@ -72,7 +72,7 @@
                     </tbody>
                 </table>
                   <div class="form-inline">
-                    {{ $word_cloud->appends(\Request::except('page'))->render() }}
+                    {{ $word_cloud->links() }}
 
                      <form class="form-inline" method="GET">
                         <input type="text" class="form-control" id="page" name="page" size=10>
