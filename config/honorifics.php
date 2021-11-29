@@ -25,6 +25,7 @@ return [
     'mcs'               => 'MCs',
     'mcs'               => 'MCs',
     "mp's"              => "MP's",
+    'mr'                => 'Mr',
     'mrs'               => 'Mrs',
     'ms'                => 'Ms',
     'pfc'               => 'PFC', // Private First Class

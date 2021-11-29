@@ -34,6 +34,7 @@ return [
     "i'd"               => "I'd",
     "i'll"              => "I'll",
     "i'm"               => "I'm",
+    'im'                => 'Im',
     "i's"               => "I's",
     "i've"              => "I've",
     "id've"             => "Id've",
