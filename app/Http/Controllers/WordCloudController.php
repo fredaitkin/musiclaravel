@@ -55,7 +55,7 @@ class WordCloudController extends Controller
         $data = [];
         foreach($songs as $song):
             $song = Song::find($song->song_id);
-            $data[] = array('song' => $song->title, 'artist' => $song->artists[0]->artist);
+            $data[] = array('id' => $song->id, 'song' => $song->title, 'artist' => $song->artists[0]->artist, 'lyrics' => $song->lyrics);
         endforeach;
 
         usort($data, [$this, 'sortSongs']);

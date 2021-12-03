@@ -7,3 +7,6 @@ ol, ul, dl {
 #go {
     margin-left: 10px;
 }
+.ui-dialog-lyrics .ui-dialog-content {
+  color: black;
+}
