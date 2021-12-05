@@ -194,6 +194,7 @@ return [
     'kiwi'                                          => 'Kiwi',
     'korea (democratic people\'s republic of)'      => 'Korea (Democratic People\'s Republic of)',
     'korea (republic of)'                           => 'Korea (Republic of)',
+    'korea'                                         => 'Korea',
     'korean'                                        => 'Korean',
     'kuwait'                                        => 'Kuwait',
     'kyrgyzstan'                                    => 'Kyrgyzstan',
