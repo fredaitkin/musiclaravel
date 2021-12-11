@@ -357,7 +357,7 @@ class Song extends Model
         if (isset($request->all)):
             $query = Song::select('songs.*')->with('artists:artist');
         else:
-            $query = Song::select('id', 'title')->with('artists:artist');
+            $query = Song::select('id', 'title', 'lyrics')->with('artists:artist');
         endif;
 
         if(isset($request->album)):

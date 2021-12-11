@@ -33,6 +33,7 @@ function play_songs(title, songs) {
     jukebox_form += '<audio controls src="' + song_url + songs[0].id + '" type="audio/mpeg">Your browser does not support the<code>audio</code> element.</audio>';
     jukebox_form += '</figure>';
     jukebox_form += '<button class="next">Next</button>';
+    jukebox_form += '<textarea id="lyrics" style="white-space:pre;" rows="20" cols="70">' + get_lyrics(songs[0]) + '</textarea>';
     jukebox_form += '</div>';
 
     $(jukebox_form).dialog({
@@ -68,6 +69,7 @@ function play_songs(title, songs) {
             if (song !== undefined) {
                 audio.src = song_url + song.id;
                 $("#song_title").text(song.title + ' - ' + song.artists[0].artist);
+                $("#lyrics").val(get_lyrics(song));
                 audio.pause();
                 audio.load();
                 var playPromise = audio.play();
@@ -103,4 +105,12 @@ function shuffle(array) {
     }
 
     return array;
+}
+
+function get_lyrics(song) {
+    lyrics = song.lyrics;
+    if (lyrics === undefined || lyrics == 'unavailable') {
+        lyrics = 'No lyrics set...';
+    }
+    return lyrics;
 }
