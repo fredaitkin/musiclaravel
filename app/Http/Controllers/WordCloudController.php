@@ -21,9 +21,12 @@ class WordCloudController extends Controller
         $filter = $request->query('filter');
 
         if (! empty($filter)) {
-            // @todo add category search
             $words = WordCloud::sortable()
+                ->select('word_cloud.*', 'category')
+                ->leftJoin('word_category', 'word_cloud.id', '=', 'word_category.word_cloud_id')
+                ->leftJoin('category', 'word_category.category_id', '=', 'category.id')
                 ->where('word', 'like', '%' . $filter . '%')
+                ->orWhere('category.category', 'like', '%' . $filter . '%')
                 ->paginate(10);
         } else {
             $words = WordCloud::sortable()
