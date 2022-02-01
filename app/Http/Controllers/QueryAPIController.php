@@ -19,10 +19,18 @@ class QueryAPIController extends Controller
     public function query(Request $request)
     {
         $myquery = '';
+        $predefined_query = '';
         $results = '';
         $count = 0;
         $show_cols = isset($request->show_cols);
-        if (isset($request->myquery)):
+        $queries = [
+            '' => 'Please Select',
+            '1' => 'Words in Songs',
+        ];
+        if (isset($request->predefined_query)):
+            $predefined_query = $request->predefined_query;
+            $results = "ID:1 "." TODO";
+        elseif (isset($request->myquery)):
             $myquery = $request->myquery;
             try {
                 if (stripos($request->myquery, 'delete') !== false):
@@ -47,6 +55,8 @@ class QueryAPIController extends Controller
         endif;
         return view('query', [
             'myquery' => $myquery,
+            'predefined_query' => $predefined_query,
+            'queries' => $queries,
             'results' => $results,
             'show_cols' => $show_cols,
         ]);

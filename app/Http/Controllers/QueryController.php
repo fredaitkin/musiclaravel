@@ -16,7 +16,11 @@ class QueryController extends Controller
      */
     public function index(Request $request)
     {
-        return view('query', ['show_cols' => 1]);
+        $queries = [
+            '' => 'Please Select',
+            '1' => 'Words in Songs',
+        ];
+        return view('query', ['queries' => $queries, 'show_cols' => 1]);
     }
 
 }
