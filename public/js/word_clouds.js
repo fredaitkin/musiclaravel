@@ -27,7 +27,7 @@ $(document).ready(function() {
         let form = '<div>';
         $.each(data, function(i, song) {
             form += '<div>' +
-                '<div style="width:50%;float:left" id="' + song.id + '" class="song">' + song.song.substr(0, 50) + '</div>' +
+                '<div style="width:50%;float:left" id="' + song.id + '" class="song"><a class="songs" href="#">' + song.song.substr(0, 50) + '</a></div>' +
                 '<div style="width:50%;float:left">' + song.artist + '</div>' +
                 '<div id="modal-' + song.id + '" style="display:none;white-space:pre;">' + song.lyrics + '</div>' +
                 '</div>';

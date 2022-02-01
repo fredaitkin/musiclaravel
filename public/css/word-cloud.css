@@ -10,3 +10,9 @@ ol, ul, dl {
 .ui-dialog-lyrics .ui-dialog-content {
   color: black;
 }
+a.songs {
+color: white !important;
+}
+a.songs:hover {
+color: blue !important;
+}
