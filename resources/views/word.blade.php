@@ -4,8 +4,6 @@
 
     <div class="panel-body mysound-submit-form-div">
 
-        <h2 class="col-sm-12">Edit Word</h2>
-
         @include('common.errors')
 
         <form action="/word-cloud" method="POST" class="form-horizontal">
