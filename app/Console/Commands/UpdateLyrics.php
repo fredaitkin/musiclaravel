@@ -3,10 +3,12 @@
 namespace App\Console\Commands;
 
 use App\Music\Song\Song;
+use App\Words\WordCloud;
+use DB;
 use Exception;
 use Illuminate\Console\Command;
 use Log;
-use DB;
+
 class UpdateLyrics extends Command {
 
     /**
@@ -67,9 +69,10 @@ class UpdateLyrics extends Command {
         $artists_names = [
             'Dinosaur Junior' => 'Dinosaur Jr.',
         ];
-        $song = DB::select('select s.id, title, artist from songs s left join artist_song ass on ass.song_id = s.id left join artists a on ass.artist_id = a.id where s.id = ?', [$id]);
+        $song = DB::select("select s.id, title, artist from songs s left join artist_song ass on ass.song_id = s.id left join artists a on ass.artist_id = a.id where s.id > ? and lyrics in('','unavailable') LIMIT 1", [$id]);
 
         if (isset($song[0]->id)):
+
             // 1927 Dolly worked on wide search
             // 1959 Dragon have song but no lyrics - lyricid etc
             if (isset($artists_names[$song[0]->artist])):
@@ -92,12 +95,15 @@ class UpdateLyrics extends Command {
                     $this->info($lyric);
                     $save = $this->ask('Save the lyrics?');
                      if ($save === 'Y'):
-                         $this->info("Let us save this sucker");
+                        $_song = Song::find($song[0]->id);
+                        $word_cloud = new WordCloud();
+                        $word_cloud->process($lyric, 'add', $song[0]->id);
+                        $_song->lyrics = $lyric;
+                        $_song->save();
+                        $this->info("SAVED");
                     else:
                         $this->info("Ignoring");
                      endif;
-                    // $song->lyrics = $lyric['lyric'];
-                    // $song->save();
                 else:
                     throw new Exception('Not found');
                 endif;
