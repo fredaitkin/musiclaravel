@@ -74,6 +74,7 @@ class UpdateLyrics extends Command {
         if (isset($song[0]->id)):
 
             // 1927 Dolly worked on wide search
+            // 1927 Dolly 9 to 5 causes stop/safety error on API end.
             // 1959 Dragon have song but no lyrics - lyricid etc
             if (isset($artists_names[$song[0]->artist])):
                 $song[0]->artist = $artists_names[$song[0]->artist];
@@ -86,6 +87,7 @@ class UpdateLyrics extends Command {
                 endif;
                 $this->info("ARTIST: " . $artist);
                 $this->info("TITLE: " . $song[0]->title);
+                $this->info("ID: " . $song[0]->id);
                 $lyric = $this->directSearch($artist, $song[0]->title);
                 if (! $lyric):
                     $lyric = $this->search($artist, $song[0]->title);
@@ -93,8 +95,10 @@ class UpdateLyrics extends Command {
 
                 if (! empty($lyric)):
                     $this->info($lyric);
+                    $this->info("");
+                    $this->info($artist . ' : ' . $song[0]->title);
                     $save = $this->ask('Save the lyrics?');
-                     if ($save === 'Y'):
+                     if ($save === 'y'):
                         $_song = Song::find($song[0]->id);
                         $word_cloud = new WordCloud();
                         $word_cloud->process($lyric, 'add', $song[0]->id);
