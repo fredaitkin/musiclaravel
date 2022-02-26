@@ -67,15 +67,13 @@ class UpdateLyrics extends Command {
     protected function updateLyrics($id)
     {
         $artists_names = [
-            'Dinosaur Junior' => 'Dinosaur Jr.',
+            'Dinosaur Junior'           => 'Dinosaur Jr.',
+            'Florence + the Machine'    => 'Florence and The Machine',
         ];
         $song = DB::select("select s.id, title, artist from songs s left join artist_song ass on ass.song_id = s.id left join artists a on ass.artist_id = a.id where s.id > ? and lyrics in('','unavailable') LIMIT 1", [$id]);
 
         if (isset($song[0]->id)):
 
-            // 1927 Dolly worked on wide search
-            // 1927 Dolly 9 to 5 causes stop/safety error on API end.
-            // 1959 Dragon have song but no lyrics - lyricid etc
             if (isset($artists_names[$song[0]->artist])):
                 $song[0]->artist = $artists_names[$song[0]->artist];
             endif;
@@ -107,15 +105,16 @@ class UpdateLyrics extends Command {
                         $this->info("SAVED");
                     else:
                         $this->info("Ignoring");
-                     endif;
-                else:
-                    throw new Exception('Not found');
+                    endif;
                 endif;
 
             } catch (Exception $e) {
+
                 Log::info($song[0]->title . ' ' . $artist);
                 Log::info($e->getMessage());
             }
+
+             $this->info("ID: " . $song[0]->id);
 
         endif;
 
@@ -156,6 +155,7 @@ class UpdateLyrics extends Command {
         $this->info("Direct Search");
 
         $response = $this->executeCurlRequest($this->url . "SearchLyricDirect?artist=" . urlencode($artist) . "&song=" . urlencode($song));
+        $this->info($this->url . "SearchLyricDirect?artist=" . urlencode($artist) . "&song=" . urlencode($song));
         $xml = simplexml_load_string($response);
         if (isset($xml) && ! empty($xml->Lyric)):
             $this->info("LYRIC ARTIST: " . $xml->LyricArtist);
@@ -187,7 +187,9 @@ class UpdateLyrics extends Command {
                         $this->info("Getting lyrics");
                         $this->info("Lyric ID: " . $result->LyricId);
                         $this->info("LyricChecksum: " . $result->LyricChecksum);
-                        return $this->getLyric($result->LyricId, $result->LyricChecksum);
+                        if ($result->LyricId > 0 && ! empty($result->LyricChecksum)):
+                            return $this->getLyric($result->LyricId, $result->LyricChecksum);
+                        endif;
                     endif;
                 endif;
             endforeach;
@@ -204,9 +206,11 @@ class UpdateLyrics extends Command {
      */
     private function getLyric($id, $checksum) {
         $response = $this->executeCurlRequest($this->url . "GetLyric?lyricId=" . $id . "&lyricCheckSum=" . $checksum);
-        $xml = simplexml_load_string($response);
-        if (isset($xml) && ! empty($xml->Lyric)):
+        if (strpos($response, '<') === 0):
+            $xml = simplexml_load_string($response);
             return (string) $xml->Lyric;
+        else:
+            $this->info($response);
         endif;
 
         return false;
