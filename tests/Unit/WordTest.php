@@ -93,7 +93,18 @@ class WordTest extends TestCase
         $this->assertEquals(true, preg_match($pattern, '--'));
         $this->assertEquals(true, preg_match($pattern, '--'));
         $this->assertEquals(false, preg_match($pattern, 'a-b'));
-        $this->assertEquals(true, !preg_match($pattern, 'a-b'));
+        $this->assertEquals(true, ! preg_match($pattern, 'a-b'));
     }
 
+    /**
+     * Test word processing utility.
+     *
+     * @return void
+     */
+    public function testProcessWordTest()
+    {
+        $wordCloud = new WordCloud();
+        $wordCloud->processWord('U.S.A.​');
+        $this->assertEquals('USA', array_key_first($wordCloud->get_words()));
+    }
 }

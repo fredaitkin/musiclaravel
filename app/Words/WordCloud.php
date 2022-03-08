@@ -283,9 +283,9 @@ class WordCloud extends Model
      *
      * @return array
      */
-    private function processWord($word) {
+    public function processWord($word) {
         // Clean up text.
-        $chars_to_replace = [',', '.', '"', ' ', '!', '?', '[', ']', '(', ')', '{', '}', '&', "''", '*', ';', '…', '~'];
+        $chars_to_replace = [',', '.', '"', ' ', '!', '?', '[', ']', '(', ')', '{', '}', '&', "''", '*', ';', '…', '~', '​'];
         $word = str_replace(
             $chars_to_replace,
             array_fill(0, count($chars_to_replace), ''),
@@ -310,6 +310,16 @@ class WordCloud extends Model
                 $this->words[$word] += 1;
             endif;
         endif;
+    }
+
+    /**
+     * Retrieve the words
+     *
+     * @return array
+     */
+    public function get_words()
+    {
+        return $this->words;
     }
 
     /**
