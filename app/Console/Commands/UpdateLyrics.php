@@ -71,7 +71,7 @@ class UpdateLyrics extends Command {
             'Florence + the Machine'    => 'Florence and The Machine',
             'Run-D.M.C'                 => 'Run-D.M.C.',
         ];
-        $song = DB::select("select s.id, title, artist from songs s left join artist_song ass on ass.song_id = s.id left join artists a on ass.artist_id = a.id where s.id > ? and lyrics in('','unavailable') LIMIT 1", [$id]);
+        $song = DB::select("select s.id, title, artist, s.notes from songs s left join artist_song ass on ass.song_id = s.id left join artists a on ass.artist_id = a.id where s.id > ? and lyrics in('','unavailable') LIMIT 1", [$id]);
 
         if (isset($song[0]->id)):
 
@@ -82,7 +82,7 @@ class UpdateLyrics extends Command {
             try {
                 $artist = $song[0]->artist;
                 if ($artist == 'Compilations'):
-                    $artist = trim($song->notes);
+                    $artist = trim($song[0]->notes);
                 endif;
                 $this->info("ARTIST: " . $artist);
                 $this->info("TITLE: " . $song[0]->title);
