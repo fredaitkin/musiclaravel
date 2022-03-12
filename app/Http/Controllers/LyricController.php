@@ -53,4 +53,28 @@ class LyricController extends Controller
         endif;
     }
 
+    /**
+     * Get author lyrics
+     *
+     * @param Request request
+     * @return Response
+     */
+    public function artist(Request $request)
+    {
+        $query = Song::select('songs.id', 'songs.title');
+
+        if(isset($request->artist)):
+            $artist = $request->artist;
+            $query->whereHas('artists', function($q) use($artist) {
+                $q->where('artist', 'LIKE', '%' . $artist . '%');
+            });
+        endif;
+
+        if(isset($request->empty)):
+            $query->whereIn('lyrics', ['','unavailable']);
+        endif;
+
+        return $query->get();
+    }
+
 }

@@ -74,7 +74,31 @@
 
             </div>
 
+            <div class="border border-dark pt-3 ml-3">
+
+                <h6 class="col-sm-6">Get Artist Lyrics</h6>
+
+                <div class="form-group">
+                    <label for="directory" class="col-sm-3 control-label">Artist</label>
+
+                    <div class="col-sm-6">
+                        <input type="text" name="artist" id="artist" class="form-control"@if (session()->has('artist')) value=" {{ session()->get('artist') }}" @endif>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <button type="button" class="btn btn-primary" id="lyrics">Get</button>
+                    </div>
+                </div>
+
+            </div>
+
         </form>
 
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/the_works.js') }}"></script>
 @endsection

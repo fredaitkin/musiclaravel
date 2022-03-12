@@ -108,6 +108,8 @@ Route::middleware(['auth'])->prefix('internalapi')->group(function () {
 
     Route::get('word-cloud', 'WordCloudController@songs');
 
+    Route::get('lyrics/artist', 'LyricController@artist');
+
  });
 
 
