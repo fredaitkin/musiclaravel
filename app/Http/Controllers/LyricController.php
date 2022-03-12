@@ -71,7 +71,7 @@ class LyricController extends Controller
         endif;
 
         if(isset($request->exempt)):
-            $exempt = explode(',', $request->exempt)
+            $exempt = explode(',', $request->exempt);
             $query->whereNotIn('songs.id', $exempt);
         endif;
 
