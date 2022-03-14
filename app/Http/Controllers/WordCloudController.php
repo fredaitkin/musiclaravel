@@ -22,11 +22,12 @@ class WordCloudController extends Controller
 
         if (! empty($filter)) {
             $words = WordCloud::sortable()
-                ->select('word_cloud.*', 'category')
+                ->select('word_cloud.*')
                 ->leftJoin('word_category', 'word_cloud.id', '=', 'word_category.word_cloud_id')
                 ->leftJoin('category', 'word_category.category_id', '=', 'category.id')
                 ->where('word', 'like', '%' . $filter . '%')
                 ->orWhere('category.category', 'like', '%' . $filter . '%')
+                ->groupBy('id')
                 ->paginate(10);
         } else {
             $words = WordCloud::sortable()
