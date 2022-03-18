@@ -24,10 +24,11 @@
                 </div>
             </div>
 
-            <div class="col-sm-3 pb-2">
+            <div class="col-md-5 pb-2">
                 <label for="categories" class="control-label">Categories</label>
-                <div class="pb-1">
-                    <select class="categories form-control" multiple="multiple" name="categories[]" id="categories"></select>
+                <div class="form-inline">
+                    <select class="categories form-control w-50" multiple="multiple" name="categories[]" id="categories"></select>
+                    <label class="pl-1">Name</label><input type="checkbox" name="set_name" id="set_name"/>
                 </div>
             </div>
 
