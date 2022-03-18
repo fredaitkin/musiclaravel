@@ -70,6 +70,7 @@ class LyricController extends Controller
             });
         endif;
 
+        $request->exempt = '5675,5685,5687,5690,5689,5694';
         if(isset($request->exempt)):
             $exempt = explode(',', $request->exempt);
             $query->whereNotIn('songs.id', $exempt);
