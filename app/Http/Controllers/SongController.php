@@ -106,21 +106,27 @@ class SongController extends Controller
     public function search(Request $request)
     {
         $q = $request->q;
-        if ($q != "") {
+
+        if ($q != ""):
             $data = $this->retrieveSongs($q);
-        } else {
+        else:
             $data = $this->retrieveSongs(session()->get('songs_query'));
-        }
-        // Data object can be a view or a paginator
-        if (get_class($data) === 'Illuminate\View\View') {
-            return $data;
-        } else {
-            if ($data->total() > 0) {
-                return view('songs', ['q' => $q, 'songs' => $data]);
-            } else {
-                return view('songs', ['q' => $q, 'songs' => $data])->withMessage('No songs found. Try to search again!');
-            }
-        }
+        endif;
+
+        if ($data):
+            // Data object can be a null, a view or a paginator
+            if (get_class($data) === 'Illuminate\View\View'):
+                return $data;
+            else:
+                if ($data->total() > 0):
+                    return view('songs', ['q' => $q, 'songs' => $data]);
+                else:
+                    return view('songs', ['q' => $q, 'songs' => $data])->withMessage('No songs found. Try to search again!');
+                endif;
+            endif;
+        else:
+            return view('songs')->withMessage('No songs found. Try to search again!');
+        endif;
     }
 
     /**

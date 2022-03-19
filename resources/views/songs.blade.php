@@ -36,7 +36,7 @@
             </div>
 
             <div class="panel-body">
-                @if ($songs->count() > 0)
+                @if (isset($songs) && $songs->count() > 0)
                     <table class="table table-striped mysounds-table">
 
                         <thead>
@@ -96,8 +96,8 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $songs->links() }}
                 @endif
-                {{ $songs->links() }}
             </div>
         </div>
 
