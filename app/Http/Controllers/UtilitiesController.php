@@ -68,6 +68,10 @@ class UtilitiesController extends Controller
             if(empty($this->media_directory)):
                 return view('utilities')->withErrors(["The media library needs to be set at <a href='/settings'>Settings</a>"]);
             endif;
+            // Check directories have been set
+            if(empty($request->artist_directory) && empty($request->random_directory)):
+                return view('utilities')->withErrors(["Please choose a directory"]);
+            endif;
             if(! empty($request->artist_directory)):
                 if(Storage::disk(config('filesystems.partition'))->has($this->media_directory . $request->artist_directory)):
                     if(isset($request->entire_library)):
