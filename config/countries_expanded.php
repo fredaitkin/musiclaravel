@@ -70,6 +70,7 @@ return [
     'brunei darussalam'                             => 'Brunei Darussalam',
     'bulgaria'                                      => 'Bulgaria',
     'burkina faso'                                  => 'Burkina Faso',
+    'burma'                                         => 'Burma',
     'burundi'                                       => 'Burundi',
     'cabo verde'                                    => 'Cabo Verde',
     'cajun'                                         => 'Cajun',
