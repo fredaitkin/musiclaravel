@@ -70,6 +70,7 @@ class UpdateLyrics extends Command {
             'Dinosaur Junior'           => 'Dinosaur Jr.',
             'Florence + the Machine'    => 'Florence and The Machine',
             'Run-D.M.C'                 => 'Run-D.M.C.',
+            'Pink'                      => 'P!nk',
         ];
         $song = DB::select("select s.id, title, artist, s.notes from songs s left join artist_song ass on ass.song_id = s.id left join artists a on ass.artist_id = a.id where s.id > ? and lyrics in('','unavailable') LIMIT 1", [$id]);
 
