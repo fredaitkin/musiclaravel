@@ -113,6 +113,10 @@ class WordCloudController extends Controller
         if (empty($request->categories)):
             $request->categories = [];
         endif;
+        // Name quick set.
+        if (isset($request->set_name)) {
+            $request->categories[] = 24;
+        }
         $inserts = array_diff($request->categories, $wordCloud->category_array);
         foreach($inserts as $id):
             $wordCloud->categories()->attach(['category_id' => $id]);
