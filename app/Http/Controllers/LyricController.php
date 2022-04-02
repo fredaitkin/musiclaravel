@@ -65,15 +65,17 @@ class LyricController extends Controller
 
         if(isset($request->artist)):
             $artist = $request->artist;
-            $query->whereHas('artists', function($q) use($artist) {
-                $q->where('artist', 'LIKE', '%' . $artist . '%');
+            $query->whereHas('artists', function($q) use($artist, $request) {
+                if($request->exact_match === 'true'):
+                    $q->where('artist', $artist);
+                else:
+                    $q->where('artist', 'LIKE', '%' . $artist . '%');
+                endif;
             });
         endif;
 
-        $request->exempt = '5675,5685,5687,5690,5689,5694';
         if(isset($request->exempt)):
-            $exempt = explode(',', $request->exempt);
-            $query->whereNotIn('songs.id', $exempt);
+            $query->whereNotIn('songs.id', $request->exempt);
         endif;
 
         if(isset($request->empty)):

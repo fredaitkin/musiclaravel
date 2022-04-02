@@ -13,7 +13,7 @@
 
             <div class="form-group">
                 <div>
-                    <textarea name="lyrics" id="lyrics" class="form-control" cols="30" rows="60">{{ $song->lyrics }}</textarea>
+                    <textarea name="lyrics" id="lyrics" class="form-control" cols="30" rows="35">{{ $song->lyrics }}</textarea>
                 </div>
             </div>
 

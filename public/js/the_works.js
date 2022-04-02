@@ -2,7 +2,10 @@ $(document).ready(function() {
 
     $("#lyrics").click(function() {
 
-        let url = '/internalapi/lyrics/artist?artist=' + $("#artist").val() + '&empty=true';
+        let url = '/internalapi/lyrics/artist?artist=' + $("#artist").val() +
+            '&empty=true' +
+            '&exact_match=' + $('#exact_match').is(':checked') +
+            '&exempt=' + $('#exempt').val();
 
         fetch(url)
             .then(

@@ -85,6 +85,18 @@
                         <input type="text" name="artist" id="artist" class="form-control"@if (session()->has('artist')) value=" {{ session()->get('artist') }}" @endif>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="exact_match" class="col-sm-4 control-label">Exact Match</label>
+                    <div class="col-sm-1">
+                        <input type="checkbox" name="exact_match" id="exact_match" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exempt" class="col-sm-4 control-label">Exempt IDs</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="exempt" id="exempt" class="form-control" />
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-6">
