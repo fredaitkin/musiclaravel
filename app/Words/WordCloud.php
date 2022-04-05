@@ -260,7 +260,7 @@ class WordCloud extends Model
      */
     public function process($lyrics, $action, $id)
     {
-        $lyrics = str_replace([PHP_EOL], [' '], $lyrics);
+        $lyrics = str_replace([PHP_EOL, ' '], [' ', ' '], $lyrics);
         $words = explode(' ', $lyrics);
 
         $this->words = [];
