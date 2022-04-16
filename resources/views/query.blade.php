@@ -24,16 +24,6 @@
                         <textarea name="myquery" id="myquery" class="form-control" rows="3" cols="50">@if (!empty($myquery)){{ $myquery }}@endif</textarea>
                     </div>
                     <div class="row pb-1">
-                        <div class="col-md-3">
-                            <label for="predefined_query" class="control-label">Predefined Queries</label>
-                            <select class="form-control" name="predefined_query" id="predefined_query">
-                                @foreach ($queries as $key => $query)
-                                    <option value="{{ $key }}" @if ( ! empty($predefined_query) && ($key == $predefined_query)) selected @endif>{{ $query }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row pb-1">
                         <div class="col-sm-1"><label for="show_cols" class="control-label">Show columns</label></div>
                         <div class="col-sm-1"><input type="checkbox" name="show_cols" id="show_cols" class="form-control" @if ($show_cols) checked="{{ $show_cols }}" @endif></div>
                     </div>
