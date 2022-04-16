@@ -93,6 +93,9 @@
                                             <a class="dropdown-item" href="{{ url('/query') }}">
                                                  {{ __('Queries') }}
                                             </a>
+                                            <a class="dropdown-item" href="{{ url('/managed-query') }}">
+                                                 {{ __('Managed Queries') }}
+                                            </a>
                                             <a class="dropdown-item" href="{{ url('/utilities') }}">
                                                  {{ __('Utilities') }}
                                             </a>

@@ -128,6 +128,10 @@ Route::group(['middleware' => 'role:super-user'], function() {
     Route::get('query', 'QueryController@index');
 
     Route::post('query', 'QueryAPIController@query');
+
+    Route::get('managed-query', 'ManagedQueryController@index');
+
+    Route::post('managed-query', 'ManagedQueryController@query');
 });
 
 Auth::routes();
