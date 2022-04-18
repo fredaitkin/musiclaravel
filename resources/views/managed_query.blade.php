@@ -29,7 +29,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row pl-3 pb-2">
+                    <div class="row pl-3 pb-3">
                         <div class="col-md-3">
                             <label for="params" class="control-label">Params</label>
                             <input type="input" name="params" id="params" class="form-control" @if (!empty($params))value="{{ $params }}"@endif>
@@ -38,10 +38,17 @@
 
                     <div>
                         @isset($results)
-                            @if (count($results) > 1)
+                            @if (count($results['rows']) > 0)
                                 <table class="table mysounds-table">
+                                    <thead>
+                                        <tr>
+                                            @foreach ($results['headings'] as $heading)
+                                                <th><div name="heading">{{ $heading }}</div></td>
+                                            @endforeach
+                                        </tr>
+                                    </thead>
                                     <tbody>
-                                        @foreach ($results as $row)
+                                        @foreach ($results['rows'] as $row)
                                             <tr class="mysounds-tr">
                                                 @foreach ($row as $col)
                                                     <td class="table-text"><div name="col">{{ $col }}</div></td>

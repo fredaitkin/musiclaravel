@@ -55,7 +55,8 @@ class ManagedQueryController extends Controller
     {
         $results = [];
         $songs = Song::select('id', 'title', 'lyrics')->where('lyrics', 'like', '%' . $words . '%')->get();
-        $results[] = ['SONG ID', 'TITLE', 'PHRASE'];
+        $results['headings'] = ['ID', 'TITLE', 'PHRASE'];
+        $results['rows'] = [];
         foreach($songs as $song):
             $pos = stripos($song->lyrics, $words);
             if ($pos > 50):
@@ -71,7 +72,7 @@ class ManagedQueryController extends Controller
             // Strip end to get whole word.
             $end_pos = strrpos($phrase, " ");
             $phrase = substr($phrase, 0, $end_pos);
-            $results[] = [$song->id, strlen($song->title) < 20 ? $song->title : str_pad(substr($song->title, 0, 20), 25, "."), trim($phrase)];
+            $results['rows'][] = [$song->id, strlen($song->title) < 20 ? $song->title : str_pad(substr($song->title, 0, 20), 25, "."), trim($phrase)];
         endforeach;
         return $results;
     }
