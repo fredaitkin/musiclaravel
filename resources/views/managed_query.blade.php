@@ -51,7 +51,7 @@
                                         @foreach ($results['rows'] as $row)
                                             <tr class="mysounds-tr">
                                                 @foreach ($row as $col)
-                                                    <td class="table-text"><div name="col">{{ $col }}</div></td>
+                                                    <td class="table-text"><div name="col">{!! $col !!}</div></td>
                                                 @endforeach
                                             </tr>
                                         @endforeach
