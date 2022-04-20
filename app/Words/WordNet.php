@@ -73,7 +73,7 @@ class WordNet extends Model
         $word = static::where(["word" => $w])->get();
         $glossary = [];
         foreach($word as $definition):
-            $glossary[] = $definition['ss_type'] . ': ' . $definition['glossary']->gloss;
+            $glossary[] = ['type' => $definition['ss_type'], 'definition' => $definition['glossary']->gloss];
         endforeach;
         $dictionary = new \stdClass();
         $dictionary->word = $word[0]['word'];

@@ -86,23 +86,21 @@ $(document).ready(function() {
 
     function display_dictionary_form(word, data) {
         let form = '<div>';
-            form += '<div><strong>' + word + '</strong></div>';
         $.each(data, function(i, dictionary) {
-            $.each(dictionary.glossary, function(j, definition) {
-                console.log(definition);
-                form += '<div>' + definition + '</div>';
+            $.each(dictionary.glossary, function(j, glossary) {
+                form += '<div style="width:10%;float:left">' + glossary.type + '</div>';
+                form += '<div style="width:90%;float:left">' + glossary.definition + '</div>';
             });
         });
-
         form += '</div>';
 
         $(form).dialog({
-          title: 'Dictionary',
+          title: word,
           close: function() {
             $(this).remove()
           },
           modal: false,
-          width: 700,
+          width: "85%",
           open : function() {
             $('div.ui-dialog').addClass('ui-dialog-jukebox');
           }

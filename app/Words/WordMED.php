@@ -50,7 +50,7 @@ class WordMED extends Model
         $word = static::whereRAW('binary LOWER(word) = binary ?', $w)->get();
         $glossary = [];
         foreach($word as $definition):
-            $glossary[] = $definition['wordtype'] . ': ' . $definition['definition'];
+            $glossary[] = ['type' => $definition['wordtype'], 'definition' => $definition['definition']];
         endforeach;
         $dictionary = new \stdClass();
         $dictionary->word = $word[0]['word'];
