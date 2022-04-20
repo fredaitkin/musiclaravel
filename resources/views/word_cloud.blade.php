@@ -40,6 +40,7 @@
                         <th scope='col' class='sortable'>@sortablelink('variant_of', 'Variant Of')</th>
                         <th scope='col' class='sortable'>@sortablelink('count')</th>
                         <th></th>
+                        <th></th>
                      </thead>
 
                     <tbody>
@@ -66,6 +67,11 @@
                                 </td>
                                 <td>
                                    <input type="button" class="btn btn-link btn-mysounds" name="songs" id="songs-{{ $word->id }}" value="songs">
+                                </td>
+                                <td>
+                                    @if ($word->is_word)
+                                        <input type="button" class="btn btn-link btn-mysounds" name="dictionary" id="dictionary-{{ $word->word }}" value="dictionary">
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

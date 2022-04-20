@@ -45,4 +45,17 @@ class WordMED extends Model
         return isset($word);
     }
 
+    public function getDictionary($w)
+    {
+        $word = static::whereRAW('binary LOWER(word) = binary ?', $w)->get();
+        $glossary = [];
+        foreach($word as $definition):
+            $glossary[] = $definition['wordtype'] . ': ' . $definition['definition'];
+        endforeach;
+        $dictionary = new \stdClass();
+        $dictionary->word = $word[0]['word'];
+        $dictionary->glossary = $glossary;
+        return $dictionary;
+    }
+
 }

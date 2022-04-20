@@ -110,6 +110,8 @@ Route::middleware(['auth'])->prefix('internalapi')->group(function () {
 
     Route::get('lyrics/artist', 'LyricController@artist');
 
+    Route::get('dictionary', 'DictionaryController@dictionary');
+
  });
 
 

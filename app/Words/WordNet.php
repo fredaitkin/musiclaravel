@@ -2,6 +2,7 @@
 
 namespace App\Words;
 
+use App\Words\GlossaryNet;
 use Illuminate\Database\Eloquent\Model;
 
 class WordNet extends Model
@@ -59,4 +60,24 @@ class WordNet extends Model
         return isset($word);
     }
 
+    /**
+     * Get the glossary associated with the word.
+     */
+    public function glossary()
+    {
+        return $this->hasOne(GlossaryNet::class, 'synset_id', 'synset_id');
+    }
+
+    public function getDictionary($w)
+    {
+        $word = static::where(["word" => $w])->get();
+        $glossary = [];
+        foreach($word as $definition):
+            $glossary[] = $definition['ss_type'] . ': ' . $definition['glossary']->gloss;
+        endforeach;
+        $dictionary = new \stdClass();
+        $dictionary->word = $word[0]['word'];
+        $dictionary->glossary = $glossary;
+        return $dictionary;
+    }
 }

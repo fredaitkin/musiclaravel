@@ -23,6 +23,29 @@ $(document).ready(function() {
 
     });
 
+    $("input[name='dictionary']").click(function() {
+        let word = $(this).attr('id');
+        word = word.replace("dictionary-", "");
+        var url = '/internalapi/dictionary?word=' + word;
+
+        fetch(url)
+            .then(
+                function(response) {
+                    if (response.status !== 200) {
+                        console.log('Looks like there was a problem. Status Code: ' + response.status);
+                        return;
+                    }
+                    response.json().then(function(data) {
+                        display_dictionary_form(word, data);
+                    });
+                }
+            )
+            .catch(function(err) {
+                console.log('Fetch Error: ', err);
+        });
+
+    });
+
     function display_song_form(data) {
         let form = '<div>';
         $.each(data, function(i, song) {
@@ -59,6 +82,32 @@ $(document).ready(function() {
                 },
             });
         });
+    }
+
+    function display_dictionary_form(word, data) {
+        let form = '<div>';
+            form += '<div><strong>' + word + '</strong></div>';
+        $.each(data, function(i, dictionary) {
+            $.each(dictionary.glossary, function(j, definition) {
+                console.log(definition);
+                form += '<div>' + definition + '</div>';
+            });
+        });
+
+        form += '</div>';
+
+        $(form).dialog({
+          title: 'Dictionary',
+          close: function() {
+            $(this).remove()
+          },
+          modal: false,
+          width: 700,
+          open : function() {
+            $('div.ui-dialog').addClass('ui-dialog-jukebox');
+          }
+      });
+
     }
 
 });
