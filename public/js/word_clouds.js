@@ -36,6 +36,7 @@ $(document).ready(function() {
                         return;
                     }
                     response.json().then(function(data) {
+                        console.log(data);
                         display_dictionary_form(word, data);
                     });
                 }
