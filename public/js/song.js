@@ -23,7 +23,8 @@ $(document).ready(function() {
         });
     }
 
-    var playlist_url = '/internalapi/playlists';
+    // var playlist_url = '/playlists';
+    // var playlist_url = '/internalapi/playlists';
     var song_url = APP_URL + '/song/play/';
 
     $("input[name='playlist']").click(function() {
@@ -31,7 +32,9 @@ $(document).ready(function() {
         let song_id = $(this).attr('id');
         song_id = song_id.replace("playlist-", "");
 
-        fetch(playlist_url)
+        var url = APP_URL + '/playlists?all=true';
+
+        fetch(url)
             .then(
                 function(response) {
                     if (response.status !== 200) {
@@ -39,7 +42,8 @@ $(document).ready(function() {
                         return;
                     }
                     response.json().then(function(data) {
-                        display_playlist_form(song_id, data.playlists);
+                        console.log(data);
+                        display_playlist_form(song_id, data);
                     });
                 }
             )
@@ -70,6 +74,8 @@ $(document).ready(function() {
         playlist_form += '<input type="hidden" id="song_id" value="' + song_id + '"/>';
         playlist_form += '</div>';
 
+        var url = APP_URL + '/playlists';
+
         $(playlist_form).dialog({
             title: 'Playlists',
             modal: false,
@@ -84,7 +90,7 @@ $(document).ready(function() {
                         $('#error_message').removeClass('d-none');
                     } else {
                         const data = {playlist: playlist, id: $('#song_id').val()};
-                        fetch(playlist_url, {
+                        fetch(url, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -114,7 +120,8 @@ $(document).ready(function() {
         let song_id = $(this).attr('id');
         song_id = song_id.replace("play-album-", "");
 
-        var url = '/internalapi/songs?id=' + song_id + '&album=true';
+        // var url = '/internalapi/songs?id=' + song_id + '&album=true';
+        var url = APP_URL + '/songs?id=' + song_id + '&album=true';
 
         fetch(url)
             .then(
@@ -124,7 +131,8 @@ $(document).ready(function() {
                         return;
                     }
                     response.json().then(function(data) {
-                        display_jukebox(data.songs[0].album, data.songs);
+                        console.log(data);
+                        display_jukebox(data[0].album, data);
                     });
                 }
             )
@@ -138,8 +146,7 @@ $(document).ready(function() {
         let song_id = $(this).attr('id');
         song_id = song_id.replace("play-", "");
 
-        var url = '/internalapi/songs?id=' + song_id;
-
+        var url = APP_URL + '/songs?id=' + song_id;
         fetch(url)
             .then(
                 function(response) {
@@ -148,9 +155,7 @@ $(document).ready(function() {
                         return;
                     }
                     response.json().then(function(data) {
-                        // display jukebox requires an array of songs
-                        songs = [data.songs];
-                        display_jukebox(songs[0].album, songs);
+                        display_jukebox(data[0].album, data);
                     });
                 }
             )

@@ -7,7 +7,7 @@ use App\Music\Artist\Artist;
 use App\Music\AudioFile\AudioFile;
 use App\Music\AudioFile\MP3;
 use App\Music\AudioFile\MP4;
-use App\Music\Song\Song;
+use App\Jukebox\Song\SongInterface as Song;
 use Exception;
 use getID3;
 use Illuminate\Http\Request;
@@ -35,14 +35,29 @@ class UtilitiesController extends Controller
      */
     private $partition_root;
 
+    /**
+     * Artifacts loaded
+     *
+     * @var int
+     */
+    private $count;
+
+    /**
+     * The song interface
+     *
+     * @var App\Jukebox\Song\SongInterface
+     */
+    private $song;
+
      /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(Song $song)
     {
         $this->ID3_extractor = new getID3;
         $this->media_directory = Redis::get('media_directory');
         $this->partition_root = config('filesystems.disks')[config('filesystems.partition')]['root'];
+        $this->song = $song;
     }
 
     /**
@@ -64,6 +79,7 @@ class UtilitiesController extends Controller
     public function loadSongs(Request $request)
     {
         try {
+            $this->count = 0;
             // Check media library has been set
             if(empty($this->media_directory)):
                 return view('utilities')->withErrors(["The media library needs to be set at <a href='/settings'>Settings</a>"]);
@@ -107,7 +123,7 @@ class UtilitiesController extends Controller
         }
         return Redirect::route('utilities.utilities')
             ->with([
-                'msg' => 'Songs have been loaded',
+                'msg' => $this->count . ' songs have been loaded',
                 'random_directory' => $request->random_directory,
                 'artist_directory' => $request->artist_directory,
             ]);
@@ -126,7 +142,7 @@ class UtilitiesController extends Controller
                 $artist_id = $this->processArtist($item);
                 $this->processArtistDirectory($item, $artist_id);
             else:
-                if (Song::isSong($item)):
+                if ($this->song->isSong($item)):
                     $this->processSong($artist_id, $item);
                 endif;
             endif;
@@ -146,7 +162,7 @@ class UtilitiesController extends Controller
             if(is_dir($album)):
                 $this->processAlbum($artist_dir, $album, $artist_id);
             else:
-                if(Song::isSong($album)):
+                if($this->song->isSong($album)):
                     $this->processSong($artist_id, $album);
                 endif;
             endif;
@@ -167,15 +183,16 @@ class UtilitiesController extends Controller
         if(preg_match('/[\[\]]/', $album_name)):
             throw new Exception("Album directory contains square brackets");
         endif;
-        $album_exists = Song::doesAlbumExist($artist_id, $album_name);
+        $album_exists = $this->song->doesAlbumExist($artist_id, $album_name);
         if(! $album_exists):
             $is_compilation = Artist::isCompilation($artist_id);
             $scan_songs = glob($album . '/*');
             foreach($scan_songs as $song):
-                if(Song::isSong($song)):
+                if($this->song->isSong($song)):
                     $song_info = $this->retrieveSongInfo($song, basename($song), $is_compilation);
                     $location = $artist . DIRECTORY_SEPARATOR . $album_name . DIRECTORY_SEPARATOR . basename($song);
-                    Song::dynamicStore($location, $album_name, $artist_id, $song_info);
+                    $this->song->dynamicStore($location, $album_name, $artist_id, $song_info);
+                    $this->count++;
                     // If the song is in a compilation but the artist does not exist, add the artist.
                     if($song_info->isCompilation()):
                         if(! empty($song_info->notes())):
@@ -190,11 +207,12 @@ class UtilitiesController extends Controller
     }
 
     private function processSong(int $artist_id, string $song) {
-        $song_exists = Song::doesSongExist($artist_id, $song);
+        $song_exists = $this->song->doesSongExist($artist_id, $song);
         if(! $song_exists):
             $is_compilation = Artist::isCompilation($artist_id);
             $song_info = $this->retrieveSongInfo($song, basename($song), $is_compilation);
-            Song::dynamicStore($song, 'To Set', $artist_id, $song_info);
+            $this->song->dynamicStore($song, 'To Set', $artist_id, $song_info);
+            $this->count++;
         endif;
     }
 
@@ -239,11 +257,11 @@ class UtilitiesController extends Controller
             endif;
 
             // Process song
-            if(! Song::doesSongExist($artist_id, $song_info->title())):
+            if(! $this->song->doesSongExist($artist_id, $song_info->title())):
                 Log::info("Adding and moving song " . $song_info->title());
                 $new_song_location = $song_info->artist() . "\\" . $song_info->album() . DIRECTORY_SEPARATOR . $song_info->title() . "." . $song_info->fileType();
                 // Create song in datathis->media_directory.
-                Song::dynamicStore($new_song_location, $song_info->album(), $artist_id, $song_info);
+                $this->song->dynamicStore($new_song_location, $song_info->album(), $artist_id, $song_info);
                 Storage::disk(config('filesystems.partition'))->move(str_replace($this->partition_root, '', $song), $this->media_directory . $new_song_location);
             else:
                 // Song already exists, delete this one

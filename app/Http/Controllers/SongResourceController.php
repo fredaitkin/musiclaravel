@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Music\Song\Song;
+use App\Jukebox\Song\SongInterface as Song;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 use Storage;
 
-class SongController extends Controller
+class SongResourceController extends Controller
 {
 
     /**
@@ -18,25 +18,23 @@ class SongController extends Controller
      *
      * @var string
      */
+    // TODO make me a trait?
     private $media_directory;
+
+    /**
+     * The song interface
+     *
+     * @var App\Jukebox\Song\SongInterface
+     */
+    private $song;
 
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(Song $song)
     {
         $this->media_directory = Redis::get('media_directory');
-    }
-
-    /**
-     * Display songs
-     *
-     * @return Response
-     */
-    public function index(Request $request)
-    {
-        $songs = Song::paginate(10);
-        return view('songs', ['songs' => $songs]);
+        $this->song = $song;
     }
 
     /**
@@ -44,56 +42,13 @@ class SongController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function add()
     {
         return view('song', [
             'title'         => 'Add New Song',
-            'file_types'    => Song::FILE_TYPES,
+            'file_types'    => ['mp3', 'm4'], // move to config
             'song_exists'   => false,
             'cover_art'     => false,
-        ]);
-    }
-
-    /**
-     * Store a newly created song in the database
-     *
-     * @param Request request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        Song::store($request);
-        return redirect('/songs');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        $song = Song::find($id);
-
-        if (! $song):
-            abort(404);
-        endif;
-
-        if (! empty($song->cover_art)):
-            $cover_art = unserialize($song->cover_art);
-            $cover_art = $cover_art['api'];
-        endif;
-        if (empty($cover_art)):
-            $cover_art = '/cover/' . $song->id;
-        endif;
-        return view('song', [
-            'song'          => $song,
-            'title'         => $song->title,
-            'cover_art'     => $cover_art,
-            'artists'       => json_encode($song->artists),
-            'file_types'    => Song::FILE_TYPES,
-            'song_exists'   => Storage::disk(config('filesystems.partition'))->has($this->media_directory . $song->location),
         ]);
     }
 
@@ -141,7 +96,7 @@ class SongController extends Controller
             if (stripos( $query, 'SELECT') === 0) {
                 return $this->adminSearch($query);
             } else {
-                return Song::search($query);
+                return $this->song->search($query);
             }
         }
     }
@@ -176,21 +131,9 @@ class SongController extends Controller
         }
     }
 
-    /**
-     * Remove the song from the database
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        Song::destroy($id);
-        return redirect('/songs');
-    }
-
     public function play($id)
     {
-        $song = Song::find($id);
+        $song = $this->song->get($id);
         $location = $this->media_directory . $song->location;
         // TODO what to do with wma files
         if (Storage::disk(config('filesystems.partition'))->has($location)) {

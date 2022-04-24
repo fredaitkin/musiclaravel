@@ -6,19 +6,25 @@ use App\Music\Playlist\Playlist;
 use App\Music\Song\Song;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use Log;
 class PlaylistController extends Controller
 {
 
     /**
      * Display playlists
-     *
-     * @return Response
+     * @param Request $request
+     * @return mixed
      */
-    public function index()
+    public function index(Request $request)
     {
-        $playlists = Playlist::get(['name']);
-        return view('playlists', ['playlists' => $playlists ?? []]);
+        if (empty($request->all())):
+            $playlists = Playlist::get(['name']);
+            return view('playlists', ['playlists' => $playlists ?? []]);
+        endif;
+
+        if (isset($request->all)):
+            return Playlist::get(['name']);
+        endif;
     }
 
     /**
@@ -74,7 +80,7 @@ class PlaylistController extends Controller
      * @return Response
      */
     public function save(Request $request)
-    {
+    {Log::info('saving');
         $validator = Validator::make($request->all(), [
             'id'        => 'required|numeric',
             'playlist'  => 'required|max:100',
@@ -88,7 +94,7 @@ class PlaylistController extends Controller
         $playlist = Playlist::firstOrNew(array('name' => $request->playlist));
         $playlist->name = $request->playlist;
 
-        $song = Song::find($request->id);
+        $song = Song::find($request->id);Log::info($song);
         if(isset($playlist->playlist)) {
             $existing_playlist = (array) json_decode($playlist->playlist);
         } else {

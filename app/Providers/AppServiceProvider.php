@@ -24,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(
+            'App\Jukebox\Song\SongInterface',
+            'App\Jukebox\Song\Song'
+        );
+
     }
 }
