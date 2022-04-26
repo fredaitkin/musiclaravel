@@ -30,33 +30,33 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('songs', 'SongRestController@index');
 
-    Route::any('songs/search', 'SongResourceController@search');
-
-    Route::get('song', 'SongResourceController@add');
-
     Route::post('song', 'SongRestController@store');
 
     Route::get('song/{id}', 'SongRestController@edit');
 
     Route::delete('song/{id}', 'SongRestController@destroy');
 
+    Route::any('songs/search', 'SongResourceController@search');
+
+    Route::get('song', 'SongResourceController@add');
+
     Route::get('song/play/{id}', 'SongResourceController@play')->name('song.play');
 
     // Artist Routes
 
-    Route::get('artists', 'ArtistController@index');
+    Route::get('artists', 'ArtistRestController@index');
 
-    Route::any('artists/search', 'ArtistController@search');
+    Route::post('artist', 'ArtistRestController@store');
 
-    Route::get('artist', 'ArtistController@create');
+    Route::get('artist/{id}', 'ArtistRestController@edit');
 
-    Route::post('artist', 'ArtistController@store');
+    Route::delete('artist/{id}', 'ArtistRestController@destroy')->name('artist.destroy');
 
-    Route::get('artist/{id}', 'ArtistController@edit');
+    Route::any('artists/search', 'ArtistResourceController@search');
 
-    Route::delete('artist/{id}', 'ArtistController@destroy')->name('artist.destroy');
+    Route::get('artist-select-ajax', 'ArtistResourceController@artist_ajax');
 
-    Route::get('artist-select-ajax', 'ArtistController@artist_ajax');
+    Route::get('artist/songs/{id}', 'ArtistResourceController@songs');
 
     // Playlist routes
 

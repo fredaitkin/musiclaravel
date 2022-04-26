@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Music\Song\Song;
+use App\Jukebox\Song\SongInterface as Song;
 use Exception;
 use Illuminate\Console\Command;
 use Log;
@@ -29,12 +29,20 @@ class LyricDataFix extends Command {
     protected $description = 'Runs lyric analysis and cleanup';
 
     /**
+     * The song interface
+     *
+     * @var App\Jukebox\Song\SongInterface
+     */
+    private $song;
+
+    /**
      * Create a new command instance.
      *
      */
-    public function __construct()
+    public function __construct(Song $song)
     {
         parent::__construct();
+        $this->song = $song;
     }
 
     /**
@@ -60,12 +68,12 @@ class LyricDataFix extends Command {
      */
     protected function getLyric($str, $clean, $id = NULL)
     {
+        $songs = [];
         if ($id):
-            $query = Song::select('id', 'title', 'lyrics')->where('id', $id);
+            $songs[] = $this->song->get($id)->toArray();
         else:
-            $query = Song::select('id', 'title', 'lyrics')->where('lyrics', 'LIKE', "%{$str}%");
+            $songs = $this->song->getSongsByLyric($str)->toArray();
         endif;
-        $songs = $query->get()->toArray();
 
         foreach ($songs as $song):
             try {
@@ -86,12 +94,13 @@ class LyricDataFix extends Command {
             }
 
             Log::info($song);
-            Log::info($lyric);
+            Log::info($lyric ?? 'No match');
 
             if ($clean):
-                Song::where('id', $song['id'])->update(['lyrics' => $lyric]);
+                $song_arr = ['id' => $song['id'], 'lyrics' => $lyric];
+                $this->song->updateSong($song_arr);
+                $this->info("Song {$song['id']} was updated");
             endif;
-            exit;
         endforeach;
     }
 
@@ -102,7 +111,7 @@ class LyricDataFix extends Command {
     protected function replaceLyric($str, $repl, $clean, $id)
     {
         if ($id):
-            $query = Song::select('id', 'title', 'lyrics')->where('id', $id);
+            $query = $this->song->get($id);
             $song = $query->first()->toArray();
 
             $lyric = $song['lyrics'];
@@ -112,7 +121,8 @@ class LyricDataFix extends Command {
             Log::info($lyric);
 
             if ($clean):
-                Song::where('id', $song['id'])->update(['lyrics' => $lyric]);
+                $song_arr = ['id' => $song['id'], 'lyrics' => $lyric];
+                $this->song->updateSong($song_arr);
             endif;
         endif;
     }

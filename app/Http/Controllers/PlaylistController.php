@@ -23,7 +23,11 @@ class PlaylistController extends Controller
         endif;
 
         if (isset($request->all)):
-            return Playlist::get(['name']);
+            $query = Playlist::select('name');
+            if (isset($request->notIn)):
+                $query->where('playlist', 'not like', '%"id": "' . intval($request->notIn) . '"%');
+            endif;
+            return $query->get();
         endif;
     }
 
@@ -80,7 +84,7 @@ class PlaylistController extends Controller
      * @return Response
      */
     public function save(Request $request)
-    {Log::info('saving');
+    {
         $validator = Validator::make($request->all(), [
             'id'        => 'required|numeric',
             'playlist'  => 'required|max:100',

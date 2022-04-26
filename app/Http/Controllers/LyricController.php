@@ -3,13 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Music\Song\Song;
+use App\Jukebox\Song\SongInterface as Song;
 use App\Words\Word;
 use App\Words\WordCloud;
 use Illuminate\Http\Request;
 
 class LyricController extends Controller
 {
+
+    /**
+     * The song interface
+     *
+     * @var App\Jukebox\Song\SongInterface
+     */
+    private $song;
+
+    /**
+     * Constructor
+     */
+    public function __construct(Song $song)
+    {
+        $this->song = $song;
+    }
 
     /**
      * Store song lyrics in the database
@@ -23,7 +38,7 @@ class LyricController extends Controller
             'id' => 'required|integer',
         ]);
 
-        $song = Song::find($request->id);
+        $song = $this->song->get($request->id);
 
         if ($request->lyrics != $song->lyrics):
             $word_cloud = new WordCloud();
@@ -45,7 +60,7 @@ class LyricController extends Controller
      */
     public function show($id)
     {
-        $song = Song::find($id);
+        $song = $this->song->get($id);
         if ($song):
             return view('lyrics', ['song' => $song]);
         else:

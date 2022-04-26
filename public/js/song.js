@@ -23,8 +23,6 @@ $(document).ready(function() {
         });
     }
 
-    // var playlist_url = '/playlists';
-    // var playlist_url = '/internalapi/playlists';
     var song_url = APP_URL + '/song/play/';
 
     $("input[name='playlist']").click(function() {
@@ -32,7 +30,7 @@ $(document).ready(function() {
         let song_id = $(this).attr('id');
         song_id = song_id.replace("playlist-", "");
 
-        var url = APP_URL + '/playlists?all=true';
+        var url = APP_URL + '/playlists?all=true&notIn=' + song_id;
 
         fetch(url)
             .then(
@@ -80,6 +78,10 @@ $(document).ready(function() {
             title: 'Playlists',
             modal: false,
             width: 500,
+            open : function() {
+                $('div.ui-dialog').addClass('ui-dialog-jukebox');
+                $('div.ui-dialog-buttonpane').addClass('ui-dialog-jukebox');
+            },
             buttons: {
                 "Add": function() {
                     let playlist = $("#existing_playlist option:selected").val();
@@ -101,6 +103,7 @@ $(document).ready(function() {
                             })
                             .then(response => response.json())
                             .then(data => {
+                                alert('Song has been added');
                                 $(this).dialog("close");
                             })
                             .catch((error) => {
@@ -120,7 +123,6 @@ $(document).ready(function() {
         let song_id = $(this).attr('id');
         song_id = song_id.replace("play-album-", "");
 
-        // var url = '/internalapi/songs?id=' + song_id + '&album=true';
         var url = APP_URL + '/songs?id=' + song_id + '&album=true';
 
         fetch(url)

@@ -59,7 +59,6 @@ class SongRestController extends Controller
      */
     public function store(Request $request)
     {
-            // FIXME CREATE OR UPDATE - ADD A PUT METHOD
         $this->song->createOrUpdate($request);
         return redirect('/songs');
     }

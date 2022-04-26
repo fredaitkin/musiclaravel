@@ -155,7 +155,7 @@ class WordCloud extends Model
      */
     public function songs()
     {
-        return $this->belongsToMany('App\Music\Song\Song');
+        return $this->belongsToMany('App\Jukebox\Song\SongModel', 'song_word_cloud', 'word_cloud_id', 'song_id');
     }
 
     /**

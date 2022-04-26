@@ -3,32 +3,15 @@
 namespace App\Jukebox\Song;
 
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class Song implements SongInterface
 {
-
-    /**
-     * @var \Illuminate\Http\Request
-     */
-    private $request;
-
-    /**
-     * The constructor method.
-     *
-     * @param \Illuminate\Http\Request  $request
-     */
-    function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
-
     /**
      * Create a song.
      *
      * @param Request $request
      */
-    public function createOrUpdate($request)
+    public function createOrUpdate(Request $request)
     {
         $validator = $request->validate([
             'title' => 'required|max:255',
@@ -36,27 +19,25 @@ class Song implements SongInterface
             'year'  => 'required|integer',
         ]);
 
-        // Get a new model instance.
-        $model = new SongModel();
-
-        $model->title = $this->request->title;
-        $model->album = $this->request->album;
-        $model->year = $this->request->year;
-        $model->file_type = $this->request->file_type;
-        $model->track_no = $this->request->track_no;
-        $model->genre = $this->request->genre;
-        $model->location = $this->request->location;
-        $model->filesize = $this->request->filesize ?? 0;
-        $model->composer = $this->request->composer;
-        $model->playtime = $this->request->playtime;
-        $model->notes = $this->request->notes;
-
-        if (isset($this->request->id)):
-            $model->id = $this->request->id;
-            $model->update();
+        if (isset($request->id)):
+            $model = SongModel::find($request->id);
         else:
-            $model->save();
+            $model = new SongModel();
         endif;
+
+        $model->title = $request->title;
+        $model->album = $request->album;
+        $model->year = $request->year;
+        $model->file_type = $request->file_type;
+        $model->track_no = $request->track_no;
+        $model->genre = $request->genre;
+        $model->location = $request->location;
+        $model->filesize = $request->filesize ?? 0;
+        $model->composer = $request->composer;
+        $model->playtime = $request->playtime;
+        $model->notes = $request->notes;
+
+        $model->save();
 
         // Make any updates to artist/s
         $existing_artists = [];
@@ -64,14 +45,14 @@ class Song implements SongInterface
             $existing_artists[] = $artist->id;
         }
 
-        if (empty($this->request->artists)):
-            $this->request->artists = [];
+        if (empty($request->artists)):
+            $request->artists = [];
         endif;
-        $inserts = array_diff($this->request->artists, $existing_artists);
+        $inserts = array_diff($request->artists, $existing_artists);
         foreach($inserts as $artist):
             $model->artists()->attach(['artist' => $artist]);
         endforeach;
-        $deletes = array_diff($existing_artists, $this->request->artists);
+        $deletes = array_diff($existing_artists, $request->artists);
         foreach($deletes as $artist):
             $model->artists()->detach(['artist' => $artist]);
         endforeach;
@@ -105,11 +86,9 @@ class Song implements SongInterface
      * @param integer artist_it
      * @param array ID3 song array
      *
-     * @param Request $request
      */
-    public static function dynamicStore($path, $album_name, $artist_id, $song)
+    public function dynamicStore($path, $album_name, $artist_id, $song)
     {
-        // Get a new model instance.
         $model = new SongModel();
 
         $model->title = $song->title();
@@ -130,6 +109,28 @@ class Song implements SongInterface
     }
 
     /**
+     * Update a song.
+     *
+     * @param array $song
+     */
+    public function updateSong(array $song)
+    {
+        $model = new SongModel();
+
+        if (!isset($song['id']) || !is_numeric($song['id'])):
+            throw new Exception('A numeric song id is required');
+        endif;
+
+        $model = $model->find($song['id']);
+
+        if (isset($song['lyrics'])):
+            $model->lyrics = $song['lyrics'];
+        endif;
+
+        $model->update();
+    }
+
+    /**
      * Does the album exist
      *
      * @param integer $id Artist id
@@ -141,7 +142,7 @@ class Song implements SongInterface
         $song = SongModel::where('album', $album_name)
             ->with(['artists' => function($q) use ($id) {
                 $q->where('artist_id', '=', $id);
-            }])
+            }],)
             ->first();
         return isset($song);
     }
@@ -153,6 +154,7 @@ class Song implements SongInterface
      * @param string $title Song title
      * @return boolean
      */
+
     public function doesSongExist($id, $title)
     {
         $songs = SongModel::where('title', $title)->get();
@@ -172,7 +174,7 @@ class Song implements SongInterface
     * @param string $album Restrict via album.
     * @return Collection Eloquent collection of song titles.
     */
-    public function getSongTitles(string $album = null)
+    public function getSongTitles($album = null)
     {
         if($album):
             return SongModel::where('album', '=', $album)->get(['title']);
@@ -192,11 +194,21 @@ class Song implements SongInterface
         $model = $model->find($id)->delete();
     }
 
+    /**
+    * Is this file an audio file type?
+    *
+    * @param string $file
+    */
     public function isSong($file) {
         $extension = strtolower( pathinfo( $file, PATHINFO_EXTENSION ) );
         return in_array($extension, config('audio_file_formats'));
     }
 
+    /**
+    * Get artist's albums
+    *
+    * @param int $id
+    */
     public function getArtistAlbums($id) {
         return SongModel::distinct('album')->where(["artist_id" => $id])->get(['album'])->toArray();
     }
@@ -225,7 +237,6 @@ class Song implements SongInterface
     * @param int $id
     */
     public function getAlbumSongsBySongID($id) {
-        // FIXME handle common album names like Greatest Hits
         return SongModel::select('id', 'title', 'album')
             ->where('album', function($q2)  use ($id)
                 {
@@ -252,6 +263,15 @@ class Song implements SongInterface
             ->paginate()
             ->appends(['q' => $query])
             ->setPath('');
+    }
+
+    /**
+    * Get songs by lyric
+    *
+    * @param string $lyric
+    */
+    public function getSongsByLyric($lyric) {
+        return Song::where('lyrics', 'LIKE', "%{$lyric}%");
     }
 
     public function songs(Request $request)
@@ -283,7 +303,7 @@ class Song implements SongInterface
             $artist_id = $request->artist_id;
             $query = SongModel::with(['artists' => function($q) use ($artist_id) {
                 $q->where('artist_id', '=', $artist_id);
-            }]);
+            }],);
         endif;
 
         if(isset($request->artist)):

@@ -108,6 +108,13 @@ class SongModel extends Model
     protected $notes;
 
     /**
+     * Song lyrics.
+     *
+     * @var string
+     */
+    protected $lyrics;
+
+    /**
      * The attributes that aren't mass assignable.
      *
      * @var array
@@ -119,7 +126,7 @@ class SongModel extends Model
     */
     public function artists()
     {
-        return $this->belongsToMany('App\Music\Artist\Artist', 'artist_song', 'song_id');
+        return $this->belongsToMany('App\Jukebox\Artist\ArtistModel', 'artist_song', 'song_id', 'artist_id');
     }
 
 }

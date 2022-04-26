@@ -2,7 +2,7 @@ $(document).ready(function() {
 
     $("#album").change(function() {
 
-        var url = '/internalapi/songs?album=' + encodeURIComponent($('#album').val());
+        var url = APP_URL + '/songs?album=' + encodeURIComponent($('#album').val());
 
         fetch(url)
             .then(
@@ -32,7 +32,7 @@ $(document).ready(function() {
         artist_id = artist_id.replace("play-songs-", "");
         let artist = $(this).closest('tr').find('div[name="artist_name"]').text();
 
-        let url = '/internalapi/artist/songs/' + artist_id;
+        let url = APP_URL + '/artist/songs/' + artist_id;
 
         fetch(url)
             .then(

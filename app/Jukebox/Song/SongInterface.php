@@ -12,7 +12,7 @@ interface SongInterface
      *
      * @param Request $request
      */
-    public function createOrUpdate($request);
+    public function createOrUpdate(Request $request);
 
     /**
      * Retrieve a song.
