@@ -34,5 +34,10 @@ class AppServiceProvider extends ServiceProvider
             'App\Jukebox\Artist\Artist'
         );
 
+        $this->app->bind(
+            'App\Jukebox\Playlist\PlaylistInterface',
+            'App\Jukebox\Playlist\Playlist'
+        );
+
     }
 }

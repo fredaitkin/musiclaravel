@@ -87,7 +87,7 @@
                                        <input type="button" class="btn btn-link btn-mysounds" name="play_album" id="play-album-{{ $song->id }}" value="play album">
                                     </td>
                                     <td>
-                                       <input type="button" class="btn btn-link btn-mysounds" name="playlist" id="playlist-{{ $song->id }}" value="add to playlist">
+                                       <input type="button" class="btn btn-link btn-mysounds" name="playlist" id="playlist-{{ $song->id }}" data-title="{{ $song->title }}" value="add to playlist">
                                     </td>
                                     <td>
                                         <a target="_blank" href="/lyrics/{{ $song->id }}">lyrics</a>

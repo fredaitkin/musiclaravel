@@ -25,7 +25,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('home', 'HomeController@index');
 
-
     // Song Routes
 
     Route::get('songs', 'SongRestController@index');
@@ -60,13 +59,13 @@ Route::middleware(['auth'])->group(function () {
 
     // Playlist routes
 
-    Route::get('playlists', 'PlaylistController@index');
+    Route::get('playlists', 'PlaylistRestController@index');
 
-    Route::post('playlists', 'PlaylistController@save');
+    Route::post('playlists', 'PlaylistRestController@store');
 
-    Route::delete('playlists/{playlist}', 'PlaylistController@destroy')->name('playlists.destroy');
+    Route::delete('playlists/{playlist}', 'PlaylistRestController@destroy')->name('playlists.destroy');
 
-    Route::get('playlists/songs', 'PlaylistController@songs');
+    Route::get('playlists/songs', 'PlaylistResourceController@songs');
 
     // Genres routes
     Route::get('genres', 'GenreController@index');
@@ -95,20 +94,8 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth'])->prefix('internalapi')->group(function () {
 
-    // Routes that can be called both internally and externally
-    // Route::get('songs', 'SongController@all');
-
-    // Route::get('songs/{id}', 'SongController@song');
-
-    // Route::get('playlists', 'PlaylistController@playlists');
-
-    // Route::get('playlists/songs', 'PlaylistController@songs');
-
-    // Route::post('playlists', 'PlaylistController@save');
-
     // Route::get('genres/songs', 'GenreController@songs');
 
-    // Route::get('artist/songs/{id}', 'ArtistController@songs');
 
     // Route::get('word-cloud', 'WordCloudController@songs');
 

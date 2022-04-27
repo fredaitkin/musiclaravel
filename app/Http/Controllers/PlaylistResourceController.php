@@ -2,45 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Music\Playlist\Playlist;
-use App\Music\Song\Song;
+use App\Jukebox\Playlist\PlaylistInterface as Playlist;
+use App\Jukebox\Song\SongInterface as Song;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Log;
-class PlaylistController extends Controller
+class PlaylistResourceController extends Controller
 {
 
     /**
-     * Display playlists
-     * @param Request $request
-     * @return mixed
+     * The playlist interface
+     *
+     * @var App\Jukebox\Playlist\PlaylistInterface
      */
-    public function index(Request $request)
-    {
-        if (empty($request->all())):
-            $playlists = Playlist::get(['name']);
-            return view('playlists', ['playlists' => $playlists ?? []]);
-        endif;
-
-        if (isset($request->all)):
-            $query = Playlist::select('name');
-            if (isset($request->notIn)):
-                $query->where('playlist', 'not like', '%"id": "' . intval($request->notIn) . '"%');
-            endif;
-            return $query->get();
-        endif;
-    }
+    private $playlist;
 
     /**
-     * Remove the playlist
+     * The song interface
      *
-     * @param  int  $id
-     * @return Response
+     * @var App\Jukebox\Song\SongInterface
      */
-    public function destroy($playlist)
+    private $song;
+
+    /**
+     * Constructor
+     */
+    public function __construct(Playlist $playlist, Song $song)
     {
-        Playlist::where(['name' => $playlist])->delete();
-        return redirect('/playlists');
+        $this->playlist = $playlist;
+        $this->song = $song;
     }
 
     /**
@@ -72,7 +62,7 @@ class PlaylistController extends Controller
             return ['errors' => $validator->errors(), 'status_code' => 422];
         endif;
 
-        $playlist = Playlist::where(['name' => $request->playlist])->get(['playlist'])->toArray();
+        $playlist = $this->playlist->get($request->playlist);
         return ['songs' => json_decode($playlist[0]['playlist']), 'status_code' => 200];
     }
 

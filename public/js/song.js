@@ -29,9 +29,10 @@ $(document).ready(function() {
 
         let song_id = $(this).attr('id');
         song_id = song_id.replace("playlist-", "");
+        let song_title = $(this).attr('data-title');
 
         var url = APP_URL + '/playlists?all=true&notIn=' + song_id;
-
+console.log(url);
         fetch(url)
             .then(
                 function(response) {
@@ -41,7 +42,7 @@ $(document).ready(function() {
                     }
                     response.json().then(function(data) {
                         console.log(data);
-                        display_playlist_form(song_id, data);
+                        display_playlist_form(song_id, song_title, data);
                     });
                 }
             )
@@ -51,7 +52,7 @@ $(document).ready(function() {
 
     });
 
-    function display_playlist_form(song_id, playlists) {
+    function display_playlist_form(song_id, song_title, playlists) {
         let playlist_form = '<div>';
 
         playlist_form += '<div id="error_message" class="d-none alert alert-danger alert-dismissible fade show">';
@@ -70,6 +71,7 @@ $(document).ready(function() {
         playlist_form += '<input id="new_playlist"/>';
 
         playlist_form += '<input type="hidden" id="song_id" value="' + song_id + '"/>';
+        playlist_form += '<input type="hidden" id="song_title" value="' + song_title + '"/>';
         playlist_form += '</div>';
 
         var url = APP_URL + '/playlists';
@@ -91,7 +93,7 @@ $(document).ready(function() {
                     if (playlist == '') {
                         $('#error_message').removeClass('d-none');
                     } else {
-                        const data = {playlist: playlist, id: $('#song_id').val()};
+                        const data = {playlist: playlist, id: $('#song_id').val(), title: $('#song_title').val()};
                         fetch(url, {
                             method: 'POST',
                             headers: {

@@ -41,15 +41,13 @@ class SongRestController extends Controller
      */
     public function index(Request $request)
     {
-        if (empty($request->all())):
+        if (empty($request->all()) || $request->has('page')):
             $songs = $this->song->all();
             return view('songs', ['songs' => $songs]);
         endif;
 
         return $this->song->songs($request);
     }
-
-
 
     /**
      * Store a newly created song in the database

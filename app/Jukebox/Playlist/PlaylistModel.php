@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Music\Playlist;
+namespace App\Jukebox\Playlist;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Playlist extends Model
+class PlaylistModel extends Model
 {
 
     protected $table = 'playlists';
