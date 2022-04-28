@@ -39,5 +39,10 @@ class AppServiceProvider extends ServiceProvider
             'App\Jukebox\Playlist\Playlist'
         );
 
+        $this->app->bind(
+            'App\Music\Dictionary\WordCloudInterface',
+            'App\Music\Dictionary\WordCloud',
+        );
+
     }
 }

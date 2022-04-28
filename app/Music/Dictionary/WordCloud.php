@@ -1,173 +1,125 @@
 <?php
 
-namespace App\Words;
+namespace App\Music\Dictionary;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
-use Kyslik\ColumnSortable\Sortable;
+use DB;
+use App\Jukebox\Song\SongModel as Song;
+use Illuminate\Http\Request;
 use Watson\Rememberable\Rememberable;
 
-class WordCloud extends Model
+class WordCloud implements WordCloudInterface
 {
 
     use Rememberable;
 
-    use Sortable;
-
     /**
-     * Use timestamps
+     * Retrieve a word.
      *
-     * @var bool
+     * @param int $id
      */
-    public $timestamps = true;
-
-    protected $table = 'word_cloud';
-
-    /**
-     * The primary key for the model.
-     *
-     * @var integer
-     */
-    protected $id;
-
-    /**
-     * The word.
-     *
-     * @var string
-     */
-    protected $word;
-
-    /**
-     * Number of times the word appears in lyrics.
-     *
-     * @var integer
-     */
-    protected $count;
-
-    /**
-     * Recognized as word by the two dictionary databases.
-     *
-     * @var bool
-     */
-    protected $is_word;
-
-    /**
-     * Category.
-     *
-     * @var string
-     */
-    protected $category;
-
-    /**
-     * The id of the word this word is the variant of.
-     *
-     * @var integer
-     */
-    protected $variant_of;
-
-    /**
-     * Created date.
-     *
-     * @var datetime
-     */
-    protected $created_at;
-
-    /**
-     * Updated date.
-     *
-     * @var datetime
-     */
-    protected $updated_at;
-
-    /**
-     * Sortable columns
-     *
-     * @var array
-     */
-    protected $sortable = [
-        'word',
-        'category',
-        'count',
-    ];
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
-
-    /**
-     * Song words
-     *
-     * @var array
-     */
-    protected $words = [];
-
-    /**
-     * Word cloud categories
-     */
-    public function categories()
+    public function get($id)
     {
-        // Specify table name as it does not follow the default laravel naming convention
-        return $this->belongsToMany('App\Category\Category', 'word_category');
+        return WordCloudModel::find($id);
     }
 
     /**
-     * Word cloud categories for display
+     * Display word cloud
+     *
+     * @return Response
      */
-    public function getCategoryDisplayAttribute()
+    public function all(Request $request)
     {
-        $categories = [];
-        foreach ($this->categories as $category) {
-            $categories[] = $category->category;
+        $filter = $request->query('filter');
+
+        if (! empty($filter)) {
+            $words = WordCloudModel::sortable()
+                ->select('word_cloud.*')
+                ->leftJoin('word_category', 'word_cloud.id', '=', 'word_category.word_cloud_id')
+                ->leftJoin('category', 'word_category.category_id', '=', 'category.id')
+                ->where('word', 'like', '%' . $filter . '%')
+                ->orWhere('category.category', 'like', '%' . $filter . '%')
+                ->groupBy('id')
+                ->paginate(10);
+        } else {
+            $words = WordCloudModel::sortable()
+                ->paginate(10);
         }
-        return implode(',', $categories);
+
+        return $words;
     }
 
     /**
-     * Word cloud category ids
-     */
-    public function getCategoryIdsAttribute()
-    {
-        $categories = [];
-        foreach ($this->categories as $category) {
-            $categories[] = $category->id;
-        }
-        return implode(',', $categories);
-    }
-
-    /**
-     * Get the category ids as an array
-     * @return string
-     */
-    public function getCategoryArrayAttribute()
-    {
-        $categories = [];
-        foreach ($this->categories as $category) {
-            $categories[] = $category->id;
-        }
-        return $categories;
-    }
-
-    /**
-     * Word cloud songs
-     */
-    public function songs()
-    {
-        return $this->belongsToMany('App\Jukebox\Song\SongModel', 'song_word_cloud', 'word_cloud_id', 'song_id');
-    }
-
-    /**
-     * Get variant as word
+     * Update a word in the word cloud.
      *
-     * @return string
+     * @param Request $request
      */
-    public function getVariantAttribute()
+    public function createOrUpdate(Request $request)
     {
-        $word = json_decode($this);
-        $variant = WordCloud::select('word')->where('id', $word->variant_of)->get()->toArray();
-        return $variant[0]['word'] ?? '';
+        $validator = $request->validate([
+            'id' => 'required',
+            'word' => 'required',
+        ]);
+
+        if (isset($request->id)):
+            $model = WordCloudModel::find($request->id);
+        else:
+            $model = new WordCloudModel();
+        endif;
+
+        $model->word = $request->word;
+        $model->is_word = $request->is_word ? 1 : 0;
+        $model->variant_of = $request->variant_of;
+        
+        $model->save();
+
+        // Make any updates to categories
+        if (empty($request->categories)):
+            $request->categories = [];
+        endif;
+        // Name quick set.
+        if (isset($request->set_name)) {
+            $request->categories[] = 24;
+        }
+        $inserts = array_diff($request->categories, $model->category_array);
+        foreach($inserts as $id):
+            $model->categories()->attach(['category_id' => $id]);
+        endforeach;
+        $deletes = array_diff($model->category_array, $request->categories);
+        foreach($deletes as $id):
+            $model->categories()->detach(['category_id' => $id]);
+        endforeach;
+    }
+
+    /**
+     * Retrieve songs (and artists) that feature a word.
+     */
+    public function songs(Request $request)
+    {
+        $songs = DB::table('song_word_cloud')
+             ->select('song_id')
+             ->where('word_cloud_id', $request->get('id'))
+             ->get();
+
+        $data = [];
+        foreach($songs as $song):
+            // $song = DB::table('songs')->select('*')->where('id', $song->song_id)->get();
+            // TODO take out of WordCloud model
+            $song = Song::find($song->song_id);
+            $data[] = array('id' => $song->id, 'song' => $song->title, 'artist' => $song->artists[0]->artist, 'lyrics' => $song->lyrics);
+        endforeach;
+
+        usort($data, [$this, 'sortSongs']);
+
+        return json_encode($data);
+    }
+
+    /**
+     * Sort an array of songs by song title.
+     */
+    private function sortSongs($a, $b)
+    {
+        return strcmp($a["song"], $b["song"]);
     }
 
     /**

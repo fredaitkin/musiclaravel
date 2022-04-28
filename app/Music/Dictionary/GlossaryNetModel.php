@@ -5,7 +5,7 @@ namespace App\Words;
 use App\Words\WordNet;
 use Illuminate\Database\Eloquent\Model;
 
-class GlossaryNet extends Model
+class GlossaryNetModel extends Model
 {
 
     protected $connection = 'mysql3';
@@ -29,7 +29,7 @@ class GlossaryNet extends Model
      */
     public function word()
     {
-        return $this->belongsTo(WordNet::class);
+        return $this->belongsTo(WordNetModel::class);
     }
 
 }

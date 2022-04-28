@@ -79,13 +79,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('cover/{id}', 'ImageAPIController@coverArt');
 
     // Word Cloud routes
-    Route::get('word-cloud', 'WordCloudController@index');
+    Route::get('word-cloud', 'WordCloudRestController@index');
+        // Route::get('word-cloud', 'WordCloudController@songs');
 
-    Route::get('word-cloud/{id}', 'WordCloudController@edit');
+    Route::get('word-cloud/{id}', 'WordCloudRestController@edit');
 
-    Route::post('word-cloud', 'WordCloudController@store');
+    Route::post('word-cloud', 'WordCloudRestController@store');
 
-    Route::post('word-cloud-autocomplete', 'WordCloudController@autocomplete');
+    Route::post('word-cloud-autocomplete', 'WordCloudResourceController@autocomplete');
 
     // Category routes
     Route::get('categories/ajax', 'CategoryController@categories');
@@ -97,7 +98,7 @@ Route::middleware(['auth'])->prefix('internalapi')->group(function () {
     // Route::get('genres/songs', 'GenreController@songs');
 
 
-    // Route::get('word-cloud', 'WordCloudController@songs');
+
 
     // Route::get('lyrics/artist', 'LyricController@artist');
 

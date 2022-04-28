@@ -3,7 +3,7 @@ $(document).ready(function() {
     $("input[name='songs']").click(function() {
         let word_id = $(this).attr('id');
         word_id = word_id.replace("songs-", "");
-        var url = '/internalapi/word-cloud?id=' + word_id;
+        var url = APP_URL + '/word-cloud?songs=true&id=' + word_id;
 
         fetch(url)
             .then(
@@ -26,7 +26,7 @@ $(document).ready(function() {
     $("input[name='dictionary']").click(function() {
         let word = $(this).attr('id');
         word = word.replace("dictionary-", "");
-        var url = '/internalapi/dictionary?word=' + word;
+        var url = APP_URL + '/dictionary?word=' + word;
 
         fetch(url)
             .then(
