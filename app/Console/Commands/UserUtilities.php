@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Permission;
-use App\Role;
-use App\User;
+use App\User\PermissionModel as Permission;
+use App\User\RoleModel as Role;
+use App\User\UserModel as User;
 use Exception;
 use Illuminate\Console\Command;
 

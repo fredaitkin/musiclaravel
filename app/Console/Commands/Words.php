@@ -2,11 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Music\Song\Song;
-use App\Words\WordCloud;
-use App\Words\WordMED;
-use App\Words\WordNet;
-use Carbon\Carbon;
+use App\Jukebox\Song\SongInterface as Song;
+use App\Music\Dictionary\WordCloudInterface as WordCloud;
+use App\Music\Dictionary\WordInterface as WordMed;
+use App\Music\Dictionary\WordInterface as WordNet;
 use Exception;
 use Illuminate\Console\Command;
 use Log;
@@ -21,8 +20,7 @@ class Words extends Command {
     protected $signature = 'db:words
                             {--cloud : Word cloud}
                             {--sids= : Comma separated list of song ids}
-                            {--aids= : Comma separated list of artist ids}
-                            {--store : Save the word cloud to the database}';
+                            {--aids= : Comma separated list of artist ids}';
 
     /**
      * The console command description.
@@ -46,6 +44,46 @@ class Words extends Command {
     protected $word_cloud = [];
 
     /**
+     * The song interface
+     *
+     * @var App\Jukebox\Song\SongInterface
+     */
+    private $song;
+
+    /**
+     * The wordcloud interface
+     *
+     * @var App\Music\Dictionary\WordCloudInterface
+     */
+    private $wordCloud;
+
+    /**
+     * The word interface
+     *
+     * @var App\Music\Dictionary\WordInterface
+     */
+    private $wordMed;
+
+    /**
+     * The word interface
+     *
+     * @var App\Music\Dictionary\WordInterface
+     */
+    private $wordNet;
+
+    /**
+     * Constructor
+     */
+    public function __construct(Song $song, WordCloud $wordCloud, WordMed $wordMed, WordNet $wordNet)
+    {
+        parent::__construct();
+        $this->song = $song;
+        $this->wordCloud = $wordCloud;
+        $this->wordMed = $wordMed;
+        $this->wordNet = $wordNet;
+    }
+
+    /**
      * Execute the console command.
      *
      * @return mixed
@@ -54,7 +92,8 @@ class Words extends Command {
     {
         $options = $this->options();
 
-        $this->store = $options['store'];
+        // Store is no longer valid.
+        $this->store = false;
 
         $song_ids = null;
         if(! empty($options['sids'])):
@@ -413,31 +452,14 @@ class Words extends Command {
     private function getWordCloud($song_ids, $artist_ids)
     {
         Log::info('Retrieving Words');
-        $query = Song::select('songs.id', 'title', 'lyrics')
-            ->join('artist_song', 'songs.id', '=', 'artist_song.song_id')
-            ->whereNotIn('songs.id', [
-                908, 911, 1273, 1425, 2225, 3966, 3994, 4145, 4146, 4885, 8587, 4856, 9473, 9741,
-            ])
-            ->whereNotIn('artist_song.artist_id', [
-                23, 84, 197, 209, 280, 469, 510, 611, 763, 802, 821, 838, 841, 846, 1453, 1516,
-            ])
-            ->whereNotIn('album', [
-                'Turkish Groove', 'African Women', 'Bocelli Greatest Hits', 'Buena Vista Social Club', 'Everything Is Possible!',
-                "Edith Piaf - 20 'French' Hit Singles",
-            ])
-            ->whereNotIn('lyrics', ['unavailable', 'Instrumental', 'inapplicable']);
+        $lyrics = $this->song->retrieveEnglishLyrics($song_ids);
 
-        if ($song_ids):
-            $query->whereIn('songs.id', $song_ids);
-        endif;
-
-        $lyrics = $query->get()->toArray();
-        
         Log::info('Processing Words');
         foreach ($lyrics as $song):
             try {
                 $lyric = str_replace([PHP_EOL], [' '], $song['lyrics']);
                 $words = explode(' ', $lyric);
+                $words[] = 'masticating';
 
                 foreach ($words as $word):
                     $this->processWord($word, $song['id']);
@@ -460,12 +482,13 @@ class Words extends Command {
         Log::info("Finished");
     }
 
+    // TODO move isWord to Dictionary?
     private function isWord($w) {
         try {
-            if (WordNet::isWord($w)):
+            if ($this->wordNet->isWord($w)):
                 return true;
             else:
-                return WordMED::isWord($w);
+                return $this->wordMED->isWord($w);
             endif;
         } catch (Exception $e) {
             return false;
@@ -537,18 +560,10 @@ class Words extends Command {
                     endif;
                 endif;
                 $w['is_word'] = $is_word;
+                $w['song_ids'] = array_unique($w['song_ids']);
 
-                // Save and unset song_ids for pivot table insert.
-                $song_ids = array_unique($w['song_ids']);
-                unset($w['song_ids']);
+                $this->wordCloud->dynamicStore($w);
 
-                $w['created_at'] = Carbon::now();
-                $wordCloud = WordCloud::create($w);
-
-                // Add word song references
-                foreach($song_ids as $song_id):
-                    $wordCloud->songs()->attach(['song' => $song_id]);
-                endforeach;
             } catch (Exception $e) {
                 Log::error($e->getMessage());
             }

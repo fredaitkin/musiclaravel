@@ -276,6 +276,27 @@ class WordCloud implements WordCloudInterface
     }
 
     /**
+     * Update a word in the word cloud.
+     *
+     * @param array $word
+     */
+    public function dynamicStore(array $word)
+    {
+
+        // Add validation
+        $model = new WordCloudModel();
+        $model->word = $word['word'];
+        $model->is_word = $word['is_word'];
+        
+        $model->save();
+
+        // Add word song references
+        foreach($word['song_ids'] as $song_id):
+            $wordCloud->songs()->attach(['song' => $song_id]);
+        endforeach;
+    }
+
+    /**
      * Remove words from word cloud.
      *
      * @param int $id

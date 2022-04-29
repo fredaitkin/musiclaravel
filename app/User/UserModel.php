@@ -1,16 +1,18 @@
 <?php
 
-namespace App;
+namespace App\User;
 
-use App\Permissions\HasPermissionsTrait;
+use App\Traits\HasPermissionsTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class UserModel extends Authenticatable
 {
     use Notifiable;
 
     use HasPermissionsTrait;
+
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.

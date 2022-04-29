@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Permissions;
+namespace App\Traits;
 
-use App\Permission;
-use App\Role;
+use App\User\PermissionModel as Permission;
+use App\User\RoleModel as Role;
 
 trait HasPermissionsTrait {
 
@@ -59,12 +59,12 @@ trait HasPermissionsTrait {
 
   public function roles() {
 
-    return $this->belongsToMany(Role::class,'users_roles');
+    return $this->belongsToMany(Role::class,'users_roles', 'user_id', 'role_id');
 
   }
   public function permissions() {
 
-    return $this->belongsToMany(Permission::class,'users_permissions');
+    return $this->belongsToMany(Permission::class,'users_permissions', 'user_id', 'permission_id');
 
   }
   protected function hasPermission($permission) {
@@ -74,7 +74,7 @@ trait HasPermissionsTrait {
 
   protected function getAllPermissions(array $permissions) {
 
-    return Permission::whereIn('slug',$permissions)->get();
+    return PermissionModel::whereIn('slug',$permissions)->get();
     
   }
 
