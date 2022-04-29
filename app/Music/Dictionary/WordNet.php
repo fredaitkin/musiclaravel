@@ -2,7 +2,7 @@
 
 namespace App\Music\Dictionary;
 
-class WordNet implemenents WordInterface
+class WordNet implements WordInterface
 {
 
     /**

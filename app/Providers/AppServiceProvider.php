@@ -44,5 +44,20 @@ class AppServiceProvider extends ServiceProvider
             'App\Music\Dictionary\WordCloud',
         );
 
+        $this->app->bind(
+            'App\Music\Dictionary\WordInterface',
+            'App\Music\Dictionary\WordNet',
+        );
+
+        $this->app->bind(
+            'App\Music\Dictionary\WordInterface',
+            'App\Music\Dictionary\WordMed',
+        );
+
+        $this->app->bind(
+            'App\Music\Dictionary\CategoryInterface',
+            'App\Music\Dictionary\Category',
+        );
+
     }
 }

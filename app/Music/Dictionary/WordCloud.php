@@ -93,6 +93,7 @@ class WordCloud implements WordCloudInterface
 
     /**
      * Retrieve songs (and artists) that feature a word.
+     * TODO Separate into song attribute ++
      */
     public function songs(Request $request)
     {

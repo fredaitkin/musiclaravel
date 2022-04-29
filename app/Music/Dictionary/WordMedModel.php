@@ -4,7 +4,7 @@ namespace App\Music\Dictionary;
 
 use Illuminate\Database\Eloquent\Model;
 
-class WordMED extends Model
+class WordMedModel extends Model
 {
 
     protected $connection = 'mysql2';

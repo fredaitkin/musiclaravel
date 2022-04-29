@@ -89,7 +89,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('word-cloud-autocomplete', 'WordCloudResourceController@autocomplete');
 
     // Category routes
-    Route::get('categories/ajax', 'CategoryController@categories');
+    Route::get('categories/ajax', 'CategoryResourceController@categories');
+
+    Route::get('dictionary', 'DictionaryResourceController@dictionary');
 
 });
 
@@ -102,7 +104,6 @@ Route::middleware(['auth'])->prefix('internalapi')->group(function () {
 
     // Route::get('lyrics/artist', 'LyricController@artist');
 
-    // Route::get('dictionary', 'DictionaryController@dictionary');
 
  });
 

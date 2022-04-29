@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Category;
+namespace App\Music\Dictionary;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
-class Category extends Model
+class CategoryModel extends Model
 {
 
     protected $table = 'category';

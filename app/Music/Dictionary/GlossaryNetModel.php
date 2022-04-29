@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Words;
+namespace App\Music\Dictionary;
 
 use App\Words\WordNet;
 use Illuminate\Database\Eloquent\Model;

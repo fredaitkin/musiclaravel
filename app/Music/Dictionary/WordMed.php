@@ -14,7 +14,7 @@ class WordMed implements WordInterface
      */
     public function isWord($w)
     {
-        $word = WordMED::whereRAW('binary LOWER(word) = binary ?', $w)->get()->first();
+        $word = WordMedModel::whereRAW('binary LOWER(word) = binary ?', $w)->get()->first();
         return isset($word);
     }
 
@@ -22,7 +22,7 @@ class WordMed implements WordInterface
     {
         $dictionary = [];
 
-        $word = static::whereRAW('binary LOWER(word) = binary ?', $w)->get();
+        $word = WordMedModel::whereRAW('binary LOWER(word) = binary ?', $w)->get();
 
         if (empty($word[0])):
             return $dictionary;

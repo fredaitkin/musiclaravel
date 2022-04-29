@@ -88,7 +88,7 @@ class WordCloudModel extends Model
     public function categories()
     {
         // Specify table name as it does not follow the default laravel naming convention
-        return $this->belongsToMany('App\Category\Category', 'word_category', 'word_cloud_id');
+        return $this->belongsToMany('App\Music\Dictionary\CategoryModel', 'word_category', 'word_cloud_id', 'category_id');
     }
 
     /**

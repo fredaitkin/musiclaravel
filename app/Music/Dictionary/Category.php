@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Music\Dictionary;
 
-use App\Category\Category;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class Category extends Model
 {
 
     /**
-     * Return categories
+     * Get categories
      *
      * @return Response
      */
@@ -17,7 +17,7 @@ class CategoryController extends Controller
     {
         $data = [];
         if ($request->has('q')) {
-            $data = Category::select('id', 'category as text')->where('category', 'LIKE', '%' . $request->q . '%')->get();
+            $data = CategoryModel::select('id', 'category as text')->where('category', 'LIKE', '%' . $request->q . '%')->get();
         }
         return response()->json($data);
     }
