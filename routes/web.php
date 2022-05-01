@@ -57,6 +57,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('artist/songs/{id}', 'ArtistResourceController@songs');
 
+    Route::get('artist', 'ArtistResourceController@add');
+
     // Playlist routes
 
     Route::get('playlists', 'PlaylistRestController@index');

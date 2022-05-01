@@ -68,7 +68,7 @@
                                 <label for="album" class="control-label">Albums</label>
                                 <select class="form-control" name="album" id="album">
                                     @foreach ($albums as $album)
-                                        <option value="{{ $album['album'] }}">{{ $album['album'] }}</option>
+                                        <option value="{{ $album }}">{{ $album }}</option>
                                     @endforeach
                                 </select>
                             </div>

@@ -33,6 +33,19 @@ class ArtistResourceController extends Controller
     }
 
     /**
+     * Show the form for creating a new artist
+     *
+     * @return Response
+     */
+    public function add()
+    {
+        return view('artist', [
+            'title'     => 'Add New Artist',
+            'countries' => array_merge(['' => 'Please Select...'], config('countries')),
+        ]);
+    }
+
+    /**
      * Search for artist.
      *
      * Using session object retains the list of artists after Back has been

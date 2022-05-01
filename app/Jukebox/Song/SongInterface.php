@@ -73,8 +73,6 @@ interface SongInterface
 
     public function isSong($file);
 
-    public function getArtistAlbums($id);
-
     /**
     * Retrieve artist's songs.
     *

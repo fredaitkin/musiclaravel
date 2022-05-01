@@ -75,4 +75,6 @@ interface ArtistInterface
     */
     public function searchByName($search);
 
+    public function getArtistAlbums($id);
+
 }

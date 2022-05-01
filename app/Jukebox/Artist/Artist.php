@@ -147,4 +147,18 @@ class Artist implements ArtistInterface
             ->get();
     }
 
+    /**
+    * Get artist's albums
+    *
+    * @param int $id
+    */
+    public function getArtistAlbums($id) {
+        $artist = ArtistModel::find($id);
+        $albums = [];
+        foreach($artist->songs as $song):
+            $albums[$song->album] = $song->album;
+        endforeach;
+        return $albums;
+    }
+
 }

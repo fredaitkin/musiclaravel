@@ -221,15 +221,6 @@ class Song implements SongInterface
     }
 
     /**
-    * Get artist's albums
-    *
-    * @param int $id
-    */
-    public function getArtistAlbums($id) {
-        return SongModel::distinct('album')->where(["artist_id" => $id])->get(['album'])->toArray();
-    }
-
-    /**
     * Retrieve artist's songs.
     *
     * Retrieves the songs from the artist's albums and compilation albums.

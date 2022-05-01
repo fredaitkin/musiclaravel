@@ -13,7 +13,7 @@ $(document).ready(function() {
                     }
                     response.json().then(function(data) {
                         var ol = '<ol id="songs" style="list-style-type:none">';
-                        $.each(data.songs, function(k, song) {
+                        $.each(data, function(k, song) {
                             ol += '<li><a href="/song/' + song.id + '">' + song.title + '</a></li>';
                         });
                         ol += '</ol>';

@@ -79,8 +79,7 @@ class ArtistRestController extends Controller
         $artist = $this->artist->get($id ?? null);
         $albums = null;
         if ($artist->artist === 'Compilations'):
-            $albums = Song::getArtistAlbums($id);
-            array_unshift($albums, array('album' => 'Please Select'));
+            $albums = array_merge(['' => 'Please Select...'], $this->artist->getArtistAlbums($id));
         endif;
         if (! empty($artist->photo)):
             if (strpos($artist->photo, 'cdn') === false):
@@ -92,11 +91,9 @@ class ArtistRestController extends Controller
             'artist'    => $artist,
             'albums'    => $albums,
             'songs'     => $this->song->getArtistSongs($id, $artist->artist),
-            'countries' => config('countries'),
+            'countries' => array_merge(['' => 'Please Select...'], config('countries')),
         ]);
     }
-
-  
 
     /**
      * Remove the artist and all their songs from the database
@@ -106,8 +103,7 @@ class ArtistRestController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        Artist::destroy($id);
-        return back();
+        $this->artist->destroy($id);
     }
 
 }
