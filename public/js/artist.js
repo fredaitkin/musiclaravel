@@ -42,6 +42,7 @@ $(document).ready(function() {
                         return;
                     }
                     response.json().then(function(songs) {
+                        console.log(songs);
                         display_jukebox(artist, songs);
                     });
                 }

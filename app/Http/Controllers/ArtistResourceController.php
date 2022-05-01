@@ -129,8 +129,13 @@ class ArtistResourceController extends Controller
         return response()->json($data);
     }
 
+    /**
+     * Return artists ajax
+     *
+     * @return Response
+     */
     public function songs($id) {
-        return $this->artist->artistSongs($id);
+        // @todo Get songs when artist is compilation.
+        return response()->json($this->artist->get($id)->songs);
     }
-
 }

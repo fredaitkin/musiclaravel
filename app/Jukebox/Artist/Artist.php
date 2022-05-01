@@ -147,17 +147,4 @@ class Artist implements ArtistInterface
             ->get();
     }
 
-    /**
-    * Get artist songs.
-    *
-    * @param int $id
-    */
-    public function artistSongs($id) {
-        $artist = ArtistModel::where('id', $id)
-            ->with(['songs' => function($q) use ($id) {
-                $q->select('id', 'title')->where('artist_id', '=', $id);
-            }])->get();
-        return $artist[0]->songs;
-    }
-
 }
