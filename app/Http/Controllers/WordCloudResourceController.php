@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jukebox\Dictionary\WordCloudInterface as WordCloud;
-use DB;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class WordCloudResourceController extends Controller
 {
@@ -15,16 +13,15 @@ class WordCloudResourceController extends Controller
      *
      * @var App\Jukebox\Dictionary\WordCloudInterface
      */
-    private $wordcloud;
+    private $wordCloud;
 
     /**
      * Constructor
      */
-    public function __construct(WordCloud $wordcloud)
+    public function __construct(WordCloud $wordCloud)
     {
-        $this->wordcloud = $wordcloud;
+        $this->wordCloud = $wordCloud;
     }
-
 
 
     /**
@@ -34,9 +31,11 @@ class WordCloudResourceController extends Controller
      */
     public function autocomplete(Request $request)
     {
-        $data = WordCloud::select("id as value", "word as label")
-            ->where("word", "LIKE", "{$request->search}%")
-            ->get();
+        $words = $this->wordCloud->getWords(['like' => $request->search]);
+        $data = [];
+        foreach($words as $word):
+            $data[] = ['value' => $word->id, 'label' => $word->word];
+        endforeach;
         return response()->json($data);
     }
 }

@@ -3,12 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
-use Log;
-use Redirect;
-use Storage;
 
 class UtilitiesRestController extends Controller
 {

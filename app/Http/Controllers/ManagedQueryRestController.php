@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Jukebox\Song\Song;
 use Illuminate\Http\Request;
 
 class ManagedQueryRestController extends Controller

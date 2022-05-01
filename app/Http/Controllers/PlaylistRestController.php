@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Jukebox\Playlist\PlaylistInterface as Playlist;
-use App\Jukebox\Song\SongInterface as Song;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Log;
+
 class PlaylistRestController extends Controller
 {
 
@@ -61,18 +59,6 @@ class PlaylistRestController extends Controller
     {
         $this->playlist->destroy($playlist);
         return view('playlists', ['playlists' => $this->playlist->all($request)]);
-    }
-
-    /**
-     * Retrieve playlists
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function playlists(Request $request)
-    {
-        $playlists = Playlist::get(['name']);
-        return ['playlists' => $playlists, 'status_code' => 200];
     }
 
 }

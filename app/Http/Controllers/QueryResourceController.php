@@ -22,7 +22,7 @@ class QueryResourceController extends Controller
         $results = '';
         $count = 0;
         $show_cols = isset($request->show_cols);
-        if (!empty($request->myquery)):
+        if (! empty($request->myquery)):
             try {
                 if (stripos($request->myquery, 'delete') !== false):
                     throw new Exception('This operation is not allowed');

@@ -2,9 +2,9 @@
 
 namespace App\Jukebox\Dictionary;
 
+use App\Jukebox\Song\SongModel as Song;
 use Carbon\Carbon;
 use DB;
-use App\Jukebox\Song\SongModel as Song;
 use Illuminate\Http\Request;
 use Watson\Rememberable\Rememberable;
 
@@ -209,6 +209,20 @@ class WordCloud implements WordCloudInterface
         endif;
 
         return ['word' => $word, 'category' => ''];
+    }
+
+    /**
+     * Get words.
+     *
+     * @param array $contraints
+     */
+    public function getWords(array $constraints)
+    {
+        $query = WordCloudModel::select("*");
+        if (isset($constraints['like'])):
+            $query->where("word", "LIKE", "%{$constraints['like']}%");
+        endif;
+        return $query->get();
     }
 
     /**
