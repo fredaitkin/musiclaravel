@@ -248,6 +248,18 @@ class Song implements SongInterface
     }
 
     /**
+    * Retrieve artist's songs from compilations.
+    *
+    * @param string $artist
+    */
+    public function getArtistCompilationSongs($artist) {
+        return SongModel::select('*')
+            ->where(["notes" => $artist])
+            ->orderBy('title')
+            ->get();
+    }
+
+    /**
     * Retrieve album songs by song id.
     *
     * @param int $id
