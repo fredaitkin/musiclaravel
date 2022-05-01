@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Music\Song\Song;
-use App\Words\WordCloud;
+use App\Jukebox\Song\SongInterface as Song;
+use App\Music\Dictionary\WordCloudInterface as WordCloud;
 use DB;
 use Exception;
 use Illuminate\Console\Command;
@@ -34,14 +34,28 @@ class UpdateLyrics extends Command {
     protected $url = "http://api.chartlyrics.com/apiv1.asmx/";
 
     /**
-     * Create a new command instance.
+     * The song interface
      *
+     * @var App\Jukebox\Song\SongInterface
      */
-    public function __construct()
+    private $song;
+
+    /**
+     * The wordCloud interface
+     *
+     * @var App\Music\Dictionary\WordCloudInterface
+     */
+    private $wordCloud;
+    /**
+     * Constructor
+     */
+    public function __construct(Song $song, WordCloud $wordCloud)
     {
         parent::__construct();
+        $this->song = $song;
+        $this->wordCloud = $wordCloud;
+        libxml_use_internal_errors(true);
     }
-
     /**
      * Execute the console command.
      *
@@ -72,7 +86,7 @@ class UpdateLyrics extends Command {
             'Run-D.M.C'                 => 'Run-D.M.C.',
             'Pink'                      => 'P!nk',
         ];
-        $song = DB::select("select s.id, title, artist, s.notes from songs s left join artist_song ass on ass.song_id = s.id left join artists a on ass.artist_id = a.id where s.id > ? and lyrics is NULL LIMIT 1", [$id]);
+        $song = $this->song->retrieveSongs(['id' => $id]);
 
         if (isset($song[0]->id)):
 
@@ -99,12 +113,9 @@ class UpdateLyrics extends Command {
                     $this->info($artist . ' : ' . $song[0]->title);
                     $save = $this->ask('Save the lyrics?');
                      if ($save === 'y'):
-                        $_song = Song::find($song[0]->id);
-                        $word_cloud = new WordCloud();
-                        $word_cloud->process($lyric, 'add', $song[0]->id);
-                        $_song->lyrics = $lyric;
-                        $_song->save();
-                        $this->info("SAVED");
+                        $lyric = $this->wordCloud->process($lyric, 'add', $song[0]->id);
+                        $song[0]->lyrics = $lyric;
+                        $song[0]->save();
                     else:
                         $this->info("Ignoring");
                     endif;
@@ -159,6 +170,11 @@ class UpdateLyrics extends Command {
         $response = $this->executeCurlRequest($this->url . "SearchLyricDirect?artist=" . urlencode($artist) . "&song=" . urlencode($song));
         $this->info($this->url . "SearchLyricDirect?artist=" . urlencode($artist) . "&song=" . urlencode($song));
         $xml = simplexml_load_string($response);
+
+        if (false === $xml) {
+            return false;
+        }
+
         if (isset($xml) && ! empty($xml->Lyric)):
             $this->info("LYRIC ARTIST: " . $xml->LyricArtist);
             $this->info("LYRIC SONG: " . $xml->LyricSong);
@@ -180,6 +196,11 @@ class UpdateLyrics extends Command {
         $this->info("Wide Search");
         $response = $this->executeCurlRequest($this->url . "SearchLyric?artist=" . urlencode($artist) . "&song=" . urlencode($song));
         $xml = simplexml_load_string($response);
+
+        if (false === $xml) {
+            return false;
+        }
+
         if (isset($xml->SearchLyricResult) && ! empty($xml->SearchLyricResult)):
             foreach ($xml->SearchLyricResult as $result):
                 $this->info("Result Artist: " . $result->Artist);

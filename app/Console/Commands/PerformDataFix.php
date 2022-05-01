@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Category\Category;
-use App\Music\Song\Song;
-use App\Words\WordCloud;
+use App\Music\Dictionary\CategoryInterface as Category;
+use App\Jukebox\Song\SongInterface as Song;
+use App\Music\Dictionary\WordCloudInterface as WordCloud;
 use DB;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Redis;
@@ -45,14 +45,36 @@ class PerformDataFix extends Command
     private $media_directory;
 
     /**
-     * Create a new command instance.
+     * The song interface
      *
-     * @return void
+     * @var App\Jukebox\Song\SongInterface
      */
-    public function __construct()
+    private $song;
+
+    /**
+     * The wordCloud interface
+     *
+     * @var App\Music\Dictionary\WordCloudInterface
+     */
+    private $wordCloud;
+
+    /**
+     * The category interface
+     *
+     * @var App\Music\Dictionary\CategoryInterface
+     */
+    private $category;
+
+    /**
+     * Constructor
+     */
+    public function __construct(Song $song, WordCloud $wordCloud, Category $category)
     {
-        $this->media_directory = Redis::get('media_directory');
         parent::__construct();
+        $this->media_directory = Redis::get('media_directory');
+        $this->song = $song;
+        $this->wordCloud = $wordCloud;
+        $this->category = $category;
     }
 
     /*
@@ -73,7 +95,7 @@ class PerformDataFix extends Command
         endif;
 
         if ($this->options['fix-categories']):
-            $this->fixCategories();
+            $this->info('This function is obsolete');
         endif;
     }
 
@@ -84,9 +106,9 @@ class PerformDataFix extends Command
      */
     private function reportMissingSongs()
     {
-        foreach (Song::all() as $song):
+        foreach ($this->song->all(false) as $song):
             if (! Storage::disk(config('filesystems.partition'))->has($this->media_directory . $song->location)):
-                Log::info($song->artist->artist . ' ' . $song->title . ' LOCATION: ' . $song->location . ' does not exist');
+                Log::info($song->artists[0]->artist . ' ' . $song->title . ' LOCATION: ' . $song->location . ' does not exist');
             endif;
         endforeach;
     }
@@ -98,7 +120,7 @@ class PerformDataFix extends Command
      */
     private function updateArtistPivotTable()
     {
-        foreach (Song::all() as $song):
+        foreach ($this->song->all() as $song):
             DB::insert('insert into artist_song (song_id, artist_id) values (?, ?)', [$song->id, $song->artist_id]);
         endforeach;
     }
@@ -109,13 +131,13 @@ class PerformDataFix extends Command
     private function fixCategories()
     {
         // Retrieve categories
-        $records = Category::all();
+        $records = $this->category->all();
         $categories = [];
         foreach($records as $record) {
             $categories[$record->category] = $record->id;
         }
         // Insert category id into pivot table
-        $wordCloud = WordCloud::select('id', 'category')->whereNotNull('category')->where('category', '<>', '')->get();
+        $wordCloud = $this->wordCloud->wordCloud();
         foreach ($wordCloud as $word):
             DB::table('word_category')->insert(['word_cloud_id' => $word->id, 'category_id' => $categories[$word->category]]);
         endforeach;

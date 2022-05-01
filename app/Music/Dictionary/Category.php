@@ -2,11 +2,19 @@
 
 namespace App\Music\Dictionary;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class Category extends Model
+class Category implements CategoryInterface
 {
+
+    /**
+     * Get categories
+     *
+     */
+    public function all(array $constraints = null)
+    {
+        return CategoryModel::get();
+    }
 
     /**
      * Get categories

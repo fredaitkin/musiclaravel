@@ -73,9 +73,13 @@ class Song implements SongInterface
      *
      * @return array
      */
-    public function all()
+    public function all($view = true)
     {
-        return SongModel::paginate(10);
+        if ($view):
+            return SongModel::paginate(10);
+        else:
+            return SongModel::all();
+        endif;
     }
 
     /**
@@ -330,13 +334,28 @@ class Song implements SongInterface
             ->whereNotIn('album', [
                 'Turkish Groove', 'African Women', 'Bocelli Greatest Hits', 'Buena Vista Social Club', 'Everything Is Possible!',
                 "Edith Piaf - 20 'French' Hit Singles",
-            ]);
-            // ->whereNotIn('lyrics', ['unavailable', 'Instrumental', 'inapplicable']);
+            ])
+            ->whereNotIn('lyrics', ['unavailable', 'Instrumental', 'inapplicable']);
 
         if ($song_ids):
             $query->whereIn('songs.id', $song_ids);
         endif;
 
         return $query->get()->toArray();
+    }
+
+    public function retrieveSongs(array $constraints = [])
+    {
+        $query = SongModel::select('songs.*')->with('artists:artist');
+        if (isset($constraints['id'])):
+            $query->where('songs.id', $constraints['id']);
+        endif;
+        if (isset($constraints['ids'])):
+            $query->whereIn('songs.id', $constraints['ids']);
+        endif;
+        if (isset($constraints['cover_art_empty'])):
+            $query->whereNull('songs.cover_art');
+        endif;
+        return $query->get();
     }
 }

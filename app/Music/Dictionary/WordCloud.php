@@ -92,6 +92,16 @@ class WordCloud implements WordCloudInterface
     }
 
     /**
+     * Get word cloud
+     *
+     * @return Response
+     */
+    public function wordCloud(array $contraints = null)
+    {
+        return WordCloudModel::get();
+    }
+
+    /**
      * Retrieve songs (and artists) that feature a word.
      * TODO Separate into song attribute ++
      */
@@ -304,7 +314,7 @@ class WordCloud implements WordCloudInterface
      */
     private function removeWords($id) {
         foreach($this->words as $word => $count):
-            $wordCloud = self::whereRaw('LOWER(word) = ?', $word)->first();
+            $wordCloud = WordCloudModel::whereRaw('LOWER(word) = ?', $word)->first();
             if($wordCloud):
                 $wordCloud->attributes['count'] = $wordCloud->attributes['count'] - $count;
                 $wordCloud->save();
@@ -321,11 +331,11 @@ class WordCloud implements WordCloudInterface
      */
     private function addWords($id) {
         foreach($this->words as $word => $count):
-            $wordCloud = self::whereRaw('LOWER(word) = ?', mb_strtolower($word))->first();
+            $wordCloud = WordCloudModel::whereRaw('LOWER(word) = ?', mb_strtolower($word))->first();
             if($wordCloud):
-                $wordCloud->attributes['count'] = $wordCloud->attributes['count'] + $count;
+                $wordCloud->count += $count;
             else:
-                $wordCloud = self::create([
+                $wordCloud = WordCloudModel::create([
                     'word' => $word,
                     'is_word' => $this->isWord($word),
                     'created_at' => Carbon::now(),

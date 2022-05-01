@@ -13,7 +13,7 @@ class WordNet implements WordInterface
      */
     public function isWord($w)
     {
-        $word = WordNet::where(["word" => $w])->get()->first();
+        $word = WordNetModel::where(["word" => $w])->get()->first();
         return isset($word);
     }
 
@@ -21,7 +21,7 @@ class WordNet implements WordInterface
     {
         $dictionary = [];
 
-        $word = static::where(["word" => $w])->get();
+        $word = WordNetModel::where(["word" => $w])->get();
 
         if (empty($word[0])):
             return $dictionary;

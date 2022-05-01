@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Music\Song\Song;
+use App\Jukebox\Song\SongInterface as Song;
 use Exception;
 use Illuminate\Console\Command;
 use Log;
@@ -34,12 +34,19 @@ class UpdateSongs extends Command {
     protected $url = "http://api.chartlyrics.com/apiv1.asmx/";
 
     /**
-     * Create a new command instance.
+     * The song interface
      *
+     * @var App\Jukebox\Song\SongInterface
      */
-    public function __construct()
+    private $song;
+
+    /**
+     * Constructor
+     */
+    public function __construct(Song $song)
     {
         parent::__construct();
+        $this->song = $song;
     }
 
     /**
@@ -73,12 +80,7 @@ class UpdateSongs extends Command {
     protected function updateLyrics($ids)
     {
 
-        $query = Song::leftJoin('artists', 'songs.artist_id', '=', 'artists.id')
-            ->select('songs.id', 'songs.title', 'songs.notes','artist');
-        if ($ids):
-            $query->whereIn('songs.id', $ids);
-        endif;
-        $songs = $query->get();
+        $songs = $this->song->retrieveSongs(['ids' => $ids]);
 
         foreach ($songs as $song):
 
@@ -116,14 +118,7 @@ class UpdateSongs extends Command {
     protected function updateCoverArt($ids)
     {
 
-        $query = Song::leftJoin('artists', 'songs.artist_id', '=', 'artists.id')
-            ->select('songs.id', 'songs.title', 'songs.notes','artist')
-            ->whereNull('songs.cover_art')
-            ->whereRaw('LENGTH(songs.lyrics) < 20');
-        if ($ids):
-            $query->whereIn('songs.id', $ids);
-        endif;
-        $songs = $query->get();
+        $songs = $this->song->retrieveSongs(['ids' => $ids, 'cover_art_empty' => true]);
 
         foreach ($songs as $song):
 
@@ -181,15 +176,20 @@ class UpdateSongs extends Command {
      * @param string $song Song title
      */
     private function directSearch($artist, $song) {
-        $lyric = [];
+        $this->info("Direct Search");
 
         $response = $this->executeCurlRequest($this->url . "SearchLyricDirect?artist=" . urlencode($artist) . "&song=" . urlencode($song));
+        $this->info($this->url . "SearchLyricDirect?artist=" . urlencode($artist) . "&song=" . urlencode($song));
         $xml = simplexml_load_string($response);
         if (isset($xml) && ! empty($xml->Lyric)):
-            $lyric = ['lyric' => (string) $xml->Lyric, 'cover_art' => (string) $xml->LyricCovertArtUrl ?? ''];
+            $this->info("LYRIC ARTIST: " . $xml->LyricArtist);
+            $this->info("LYRIC SONG: " . $xml->LyricSong);
+            if (strcasecmp($artist, (string) $xml->LyricArtist) === 0 && strcasecmp($song, (string) $xml->LyricSong) === 0):
+                return (string) $xml->Lyric;
+            endif;
         endif;
 
-        return $lyric;
+        return false;
     }
 
     /**
@@ -199,22 +199,27 @@ class UpdateSongs extends Command {
      * @param string $song Song title
      */
     private function search($artist, $song) {
-        $lyric = [];
-
+        $this->info("Wide Search");
         $response = $this->executeCurlRequest($this->url . "SearchLyric?artist=" . urlencode($artist) . "&song=" . urlencode($song));
         $xml = simplexml_load_string($response);
         if (isset($xml->SearchLyricResult) && ! empty($xml->SearchLyricResult)):
-
             foreach ($xml->SearchLyricResult as $result):
+                $this->info("Result Artist: " . $result->Artist);
+                $this->info("Result Song: " . $result->Song);
                 if (strcasecmp($artist, $result->Artist) === 0):
                     if (strcasecmp($song, $result->Song) === 0):
-                        $lyric = $this->getLyric($result->LyricId, $result->LyricChecksum);
+                        $this->info("Getting lyrics");
+                        $this->info("Lyric ID: " . $result->LyricId);
+                        $this->info("LyricChecksum: " . $result->LyricChecksum);
+                        if ($result->LyricId > 0 && ! empty($result->LyricChecksum)):
+                            return $this->getLyric($result->LyricId, $result->LyricChecksum);
+                        endif;
                     endif;
                 endif;
             endforeach;
         endif;
 
-        return $lyric;
+        return false;
     }
 
     /**
@@ -224,15 +229,15 @@ class UpdateSongs extends Command {
      * @param string $checksum Checksum
      */
     private function getLyric($id, $checksum) {
-        $lyric = [];
-
         $response = $this->executeCurlRequest($this->url . "GetLyric?lyricId=" . $id . "&lyricCheckSum=" . $checksum);
-        $xml = simplexml_load_string($response);
-        if (isset($xml) && ! empty($xml->Lyric)):
-            $lyric = ['lyric' => (string) $xml->Lyric, 'cover_art' => (string) $xml->LyricCovertArtUrl ?? ''];
+        if (strpos($response, '<') === 0):
+            $xml = simplexml_load_string($response);
+            return (string) $xml->Lyric;
+        else:
+            $this->info($response);
         endif;
 
-        return $lyric;
+        return false;
     }
 
 }
