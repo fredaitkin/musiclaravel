@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Jukebox\Song\SongInterface as Song;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class GenreRestController extends Controller
 {

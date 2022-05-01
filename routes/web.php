@@ -73,9 +73,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('genres/songs', 'GenreResourceController@songs');
 
     // Lyric routes
-    Route::get('lyrics/{id}', 'LyricController@show');
+    Route::get('lyrics/{id}', 'LyricRestController@index');
 
-    Route::post('lyrics', 'LyricController@store');
+    Route::post('lyrics', 'LyricRestController@store');
 
     // Image routes
     Route::get('cover/{id}', 'ImageAPIController@coverArt');

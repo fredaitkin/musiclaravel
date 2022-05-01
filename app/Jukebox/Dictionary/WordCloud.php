@@ -316,7 +316,7 @@ class WordCloud implements WordCloudInterface
         foreach($this->words as $word => $count):
             $wordCloud = WordCloudModel::whereRaw('LOWER(word) = ?', $word)->first();
             if($wordCloud):
-                $wordCloud->attributes['count'] = $wordCloud->attributes['count'] - $count;
+                $wordCloud->count = $wordCloud->count - $count;
                 $wordCloud->save();
                 $wordCloud->songs()->detach(['song' => $id]);
             endif;
