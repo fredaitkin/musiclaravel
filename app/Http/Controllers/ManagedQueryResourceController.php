@@ -3,25 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Music\Song\Song;
+use App\Jukebox\Song\SongInterface as Song;
 use Illuminate\Http\Request;
 
-class ManagedQueryController extends Controller
+class ManagedQueryResourceController extends Controller
 {
 
     /**
-     * Display page
+     * The song interface
      *
-     * @param  Request $request
-     * @return Response
+     * @var App\Jukebox\Song\SongInterface
      */
-    public function index(Request $request)
+    private $song;
+
+    /**
+     * Constructor
+     */
+    public function __construct(Song $song)
     {
-        $queries = [
-            '' => 'Please Select',
-            '1' => 'Words in Songs',
-        ];
-        return view('managed_query', ['queries' => $queries]);
+        $this->song = $song;
     }
 
     /**
@@ -54,7 +54,7 @@ class ManagedQueryController extends Controller
     private function wordsInSongs($words)
     {
         $results = [];
-        $songs = Song::select('id', 'title', 'lyrics')->where('lyrics', 'like', '%' . $words . '%')->get();
+        $songs = $this->song->getSongsByLyric($words);
         $results['headings'] = ['ID', 'TITLE', 'PHRASE'];
         $results['rows'] = [];
         foreach($songs as $song):

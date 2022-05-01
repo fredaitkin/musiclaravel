@@ -1,10 +1,13 @@
 <?php 
 
-namespace App\Music\AudioFile;
+namespace App\Jukebox\AudioFile;
 
-class MP3 implements AudioFileInterface {
+class AudioFile implements AudioFileInterface {
 
-    const FILE_TYPE = 'mp3';
+    /**
+     * @var string
+     */
+    private $file_type;
 
     /**
      * @var string
@@ -26,18 +29,21 @@ class MP3 implements AudioFileInterface {
      */
     private $file_info;
 
-	/**
+    /**
      * @param string $location
      * @param string $filename
      * @param bool $is_compilation
      * @param array $file_info
+     * @param string $file_type
      */
-    function __construct(String $location, String $filename, bool $is_compilation, array $file_info)
+    function create($location, $filename, $is_compilation, array $file_info, $file_type = null)
     {
         $this->location = $location;
         $this->filename = $filename;
         $this->is_compilation = $is_compilation;
         $this->file_info = $file_info;
+        $this->file_type = $file_type;
+        return $this;
     }
 
     /**
@@ -46,19 +52,12 @@ class MP3 implements AudioFileInterface {
      * @return string
      */
     public function title() {
-        $title = $this->file_info["tags"]["id3v2"]["title"][0] ?? '';
-        return replaceSpecialFileSystemChars($title);
-    }
-
-
-    /**
-     * Return song artist.
-     *
-     * @return string
-     */
-    public function artist() {
-        $artist = $this->file_info["tags"]["id3v2"]["artist"][0] ?? '';
-        return replaceSpecialFileSystemChars($artist);
+        $title = '';
+        $idx = strrpos($this->filename, '.');
+        if ( $idx !== false ) {
+            $title = substr($this->filename, 0, $idx );
+        }
+        return $title;
     }
 
     /**
@@ -67,7 +66,7 @@ class MP3 implements AudioFileInterface {
      * @return integer
      */
     public function year() {
-        return $this->file_info["tags"]["id3v2"]["year"][0] ?? 9999;
+        return 9999;
     }
 
     /**
@@ -76,32 +75,25 @@ class MP3 implements AudioFileInterface {
      * @return string
      */
     public function fileType() {
-        return self::FILE_TYPE;
+        return $this->file_type;
+    }
+
+    public function artist() {
+        return null;
+    }
+
+        public function album() {
+        return null;
     }
 
 
     /**
-     * Return song album.
-     *
-     * @return string
-     */
-    public function album() {
-        $album = $this->file_info["tags"]["id3v2"]["album"][0] ?? 'Unknown Album';
-        if(! empty($album)):
-            $album = replaceSpecialFileSystemChars($album);
-        else:
-            $album = 'Unknown Album';
-        endif;
-        return $album;
-    }
-
-    /**
-     * Require the track_no method is implemented.
+     * Return track_no.
      *
      * @return string
      */
     public function trackNo() {
-        return $this->file_info["tags"]["id3v2"]["track_number"][0] ?? '';
+        return '';
     }
 
     /**
@@ -110,7 +102,7 @@ class MP3 implements AudioFileInterface {
      * @return string
      */
     public function genre() {
-        return $this->file_info["tags"]["id3v2"]["genre"][0] ?? '';
+        return '';
     }
 
     /**
@@ -119,11 +111,11 @@ class MP3 implements AudioFileInterface {
      * @return integer
      */
     public function fileSize() {
-        return $this->file_info["filesize"] ?? 0;
+        return $this->file_info['filesize'] ?? 0;
     }
 
     /**
-     * Return composer.
+     * Require the composer method is implemented.
      *
      * @return string
      */
@@ -132,16 +124,16 @@ class MP3 implements AudioFileInterface {
     }
         
     /**
-     * Return the playtime.
+     * Return playtime.
      *
      * @return string
      */
     public function playtime() {
-        return $this->file_info["playtime_string"] ?? '';  
+        return $this->file_info['playtime_string'] ?? '';  
     }
 
     /**
-     * Return the file location.
+     * Return file location.
      *
      * @return string
      */
@@ -155,11 +147,7 @@ class MP3 implements AudioFileInterface {
      * @return string
      */
     public function notes() {
-        $notes = '';
-        if($this->is_compilation):
-           $notes = $this->file_info["tags"]["id3v2"]["artist"][0];
-        endif;
-        return $notes;
+        return '';
     }
 
     /**

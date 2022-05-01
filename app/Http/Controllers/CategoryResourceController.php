@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Music\Dictionary\CategoryInterface as Category;
+use App\Jukebox\Dictionary\CategoryInterface as Category;
 use Illuminate\Http\Request;
 
 class CategoryResourceController extends Controller
@@ -11,7 +11,7 @@ class CategoryResourceController extends Controller
     /**
      * The Category interface
      *
-     * @var App\Music\Dictionary\CategoryInterface
+     * @var App\Jukebox\Dictionary\CategoryInterface
      */
     private $category;
 

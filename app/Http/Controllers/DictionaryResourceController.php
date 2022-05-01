@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Music\Dictionary\WordInterface as WordMed;
-use App\Music\Dictionary\WordInterface as WordNet;
+use App\Jukebox\Dictionary\WordInterface as WordMed;
+use App\Jukebox\Dictionary\WordInterface as WordNet;
 use Illuminate\Http\Request;
 
 class DictionaryResourceController extends Controller
@@ -12,14 +12,14 @@ class DictionaryResourceController extends Controller
     /**
      * The WordMed interface
      *
-     * @var App\Music\Dictionary\WordInterface
+     * @var App\Jukebox\Dictionary\WordInterface
      */
     private $wordMed;
 
     /**
      * The WordNet interface
      *
-     * @var App\Music\Dictionary\WordInterface
+     * @var App\Jukebox\Dictionary\WordInterface
      */
     private $wordNet;
 

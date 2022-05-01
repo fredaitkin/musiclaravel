@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Music\Dictionary;
+namespace App\Jukebox\Dictionary;
 
-use App\Words\WordNet;
+use App\JukeBox\Dictionary\WordNetModel;
 use Illuminate\Database\Eloquent\Model;
 
 class GlossaryNetModel extends Model

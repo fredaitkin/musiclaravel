@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Music\Song\Song;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
 
-class QueryAPIController extends Controller
+class QueryResourceController extends Controller
 {
 
     /**
@@ -19,16 +18,16 @@ class QueryAPIController extends Controller
      */
     public function query(Request $request)
     {
-        $query = $request->myquery;
+        // $query = $request->myquery;
         $results = '';
         $count = 0;
         $show_cols = isset($request->show_cols);
-        if (!empty($query)):
+        if (!empty($request->myquery)):
             try {
-                if (stripos($query, 'delete') !== false):
+                if (stripos($request->myquery, 'delete') !== false):
                     throw new Exception('This operation is not allowed');
                 endif;
-                $rows = DB::select($query);
+                $rows = DB::select($request->myquery);
                 foreach($rows as $row):
                     $row = (array) $row;
                     foreach($row as $col => $val):
@@ -46,7 +45,7 @@ class QueryAPIController extends Controller
             }
         endif;
         return view('query', [
-            'query' => $query,
+            'myquery' => $request->myquery,
             'results' => $results,
             'show_cols' => $show_cols,
         ]);

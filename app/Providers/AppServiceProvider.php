@@ -40,23 +40,38 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            'App\Music\Dictionary\WordCloudInterface',
-            'App\Music\Dictionary\WordCloud',
+            'App\Jukebox\Dictionary\WordCloudInterface',
+            'App\Jukebox\Dictionary\WordCloud',
         );
 
         $this->app->bind(
-            'App\Music\Dictionary\WordInterface',
-            'App\Music\Dictionary\WordNet',
+            'App\Jukebox\Dictionary\WordInterface',
+            'App\Jukebox\Dictionary\WordNet',
         );
 
         $this->app->bind(
-            'App\Music\Dictionary\WordInterface',
-            'App\Music\Dictionary\WordMed',
+            'App\Jukebox\Dictionary\WordInterface',
+            'App\Jukebox\Dictionary\WordMed',
         );
 
         $this->app->bind(
-            'App\Music\Dictionary\CategoryInterface',
-            'App\Music\Dictionary\Category',
+            'App\Jukebox\Dictionary\CategoryInterface',
+            'App\Jukebox\Dictionary\Category',
+        );
+
+        $this->app->bind(
+            'App\Jukebox\AudioFile\AudioFileInterface',
+            'App\Jukebox\AudioFile\AudioFile',
+        );
+
+        $this->app->bind(
+            'App\Jukebox\AudioFile\AudioFileInterface',
+            'App\Jukebox\AudioFile\MP3',
+        );
+
+        $this->app->bind(
+            'App\Jukebox\AudioFile\AudioFileInterface',
+            'App\Jukebox\AudioFile\MP4',
         );
 
     }

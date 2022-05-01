@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Music\Artist\Artist;
-use App\Music\AudioFile\AudioFile;
-use App\Music\AudioFile\MP3;
-use App\Music\AudioFile\MP4;
+use App\Jukebox\Artist\ArtistInterface as Artist;
+use App\Jukebox\AudioFile\AudioFileInterface as AudioFile;
+use App\Jukebox\AudioFile\AudioFileInterface as MP3;
+use App\Jukebox\AudioFile\AudioFileInterface as MP4;
 use App\Jukebox\Song\SongInterface as Song;
 use Exception;
 use getID3;
@@ -16,7 +16,7 @@ use Log;
 use Redirect;
 use Storage;
 
-class UtilitiesController extends Controller
+class UtilitiesResourceController extends Controller
 {
 
     private $ID3_extractor;
@@ -43,6 +43,34 @@ class UtilitiesController extends Controller
     private $count;
 
     /**
+     * The artist interface
+     *
+     * @var App\Jukebox\Artist\ArtistInterface
+     */
+    private $artist;
+
+    /**
+     * The audiofile interface
+     *
+     * @var App\Jukebox\AudioFile\AudioFileInterface
+     */
+    private $audioFile;
+
+    /**
+     * The audiofile interface
+     *
+     * @var App\Jukebox\AudioFile\AudioFileInterface
+     */
+    private $mp3;
+
+    /**
+     * The audiofile interface
+     *
+     * @var App\Jukebox\AudioFile\AudioFileInterface
+     */
+    private $mp4;
+
+    /**
      * The song interface
      *
      * @var App\Jukebox\Song\SongInterface
@@ -52,22 +80,16 @@ class UtilitiesController extends Controller
      /**
      * Constructor
      */
-    public function __construct(Song $song)
+    public function __construct(Artist $artist, AudioFile $audioFile, AudioFile $mp3, AudioFile $mp4, Song $song)
     {
         $this->ID3_extractor = new getID3;
         $this->media_directory = Redis::get('media_directory');
         $this->partition_root = config('filesystems.disks')[config('filesystems.partition')]['root'];
+        $this->artist = $artist;
+        $this->audioFile = $audioFile;
+        $this->mp3 = $mp3;
+        $this->mp4 = $mp4;
         $this->song = $song;
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        return view('utilities', ['media_directory' => $this->media_directory]);
     }
 
     /**
@@ -171,9 +193,9 @@ class UtilitiesController extends Controller
 
     private function processArtist(string $item) {
         $artist_arr = [basename($item), 1, 'To Set'];
-        $artist_id = Artist::getID($artist_arr[0]);
+        $artist_id = $this->artist->getID($artist_arr[0]);
         if(! $artist_id):
-            $artist_id = Artist::dynamicStore($artist_arr);
+            $artist_id = $this->artist->dynamicStore($artist_arr);
         endif;
         return $artist_id;
     }
@@ -185,7 +207,7 @@ class UtilitiesController extends Controller
         endif;
         $album_exists = $this->song->doesAlbumExist($artist_id, $album_name);
         if(! $album_exists):
-            $is_compilation = Artist::isCompilation($artist_id);
+            $is_compilation = $this->artist->isCompilation($artist_id);
             $scan_songs = glob($album . '/*');
             foreach($scan_songs as $song):
                 if($this->song->isSong($song)):
@@ -196,8 +218,8 @@ class UtilitiesController extends Controller
                     // If the song is in a compilation but the artist does not exist, add the artist.
                     if($song_info->isCompilation()):
                         if(! empty($song_info->notes())):
-                            if(! Artist::getID($song_info->notes())):
-                                Artist::dynamicStore([$song_info->notes(), 1, 'To Set']);
+                            if(! $this->artist->getID($song_info->notes())):
+                                $this->artist->dynamicStore([$song_info->notes(), 1, 'To Set']);
                             endif;
                         endif;
                     endif;
@@ -209,7 +231,7 @@ class UtilitiesController extends Controller
     private function processSong(int $artist_id, string $song) {
         $song_exists = $this->song->doesSongExist($artist_id, $song);
         if(! $song_exists):
-            $is_compilation = Artist::isCompilation($artist_id);
+            $is_compilation = $this->artist->isCompilation($artist_id);
             $song_info = $this->retrieveSongInfo($song, basename($song), $is_compilation);
             $this->song->dynamicStore($song, 'To Set', $artist_id, $song_info);
             $this->count++;
@@ -233,12 +255,12 @@ class UtilitiesController extends Controller
                 throw new Exception("Error processing " . $song . ": unknown artist");
             endif;
 
-            $artist_id = Artist::getID($song_info->artist());
+            $artist_id = $this->artist->getID($song_info->artist());
 
             // Process artist
             if(! $artist_id):
                 // Create artist in database.
-                $artist_id = Artist::dynamicStore([$song_info->artist(), 1, 'To Set']);
+                $artist_id = $this->artist->dynamicStore([$song_info->artist(), 1, 'To Set']);
             endif;
 
             // Make artist folder
@@ -294,13 +316,13 @@ class UtilitiesController extends Controller
 
         switch($file_info['fileformat']):
             case "mp3":
-                $song = new MP3($path, $filename, $is_compilation, $file_info);
+                $song = $this->mp3->create($path, $filename, $is_compilation, $file_info);
                 break;
             case "mp4":
-                $song = new MP4($path, $filename, $is_compilation, $file_info);
+                $song = $this->mp4->create($path, $filename, $is_compilation, $file_info);
                 break;
             default:
-                $song = new AudioFile($file_info['fileformat'], $path, $filename, $is_compilation, $file_info);
+                $song = $this->audioFile->create($path, $filename, $is_compilation, $file_info, $file_info['fileformat']);
                 break;
         endswitch;
         return $song;

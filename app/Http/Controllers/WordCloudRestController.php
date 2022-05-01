@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Music\Dictionary\WordCloudInterface as WordCloud;
+use App\Jukebox\Dictionary\WordCloudInterface as WordCloud;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -13,7 +13,7 @@ class WordCloudRestController extends Controller
     /**
      * The wordcloude interface
      *
-     * @var App\Music\Dictionary\WordCloudInterface
+     * @var App\Jukebox\Dictionary\WordCloudInterface
      */
     private $wordcloud;
 

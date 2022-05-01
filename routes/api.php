@@ -16,20 +16,3 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::group([
-    'middleware' => [
-        'auth.mymusic.api',
-    ],
-], function () {
-
-    // Route::get('songs', 'SongController@all')->name('songs');
-
-    // Route::get('playlists', 'PlaylistController@playlists')->name('playlists');
-
-    // Route::post('playlists', 'PlaylistController@save')->name('playlists.save');
-
-    // Route::get('playlists/songs', 'PlaylistController@songs')->name('playlists.songs');
-
-});
-

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Redis;
 
 use Storage;
 
-class SettingsController extends Controller
+class SettingsRestController extends Controller
 {
 
     /**
@@ -22,12 +22,12 @@ class SettingsController extends Controller
     }
 
     /**
-     * Save settings
+     * Store settings
      *
      * @param  Request $request
      * @return Response
      */
-    public function settings(Request $request)
+    public function store(Request $request)
     {
         try {
 

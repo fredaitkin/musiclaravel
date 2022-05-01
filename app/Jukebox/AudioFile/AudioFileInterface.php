@@ -1,8 +1,10 @@
 <?php 
 
-namespace App\Music\AudioFile;
+namespace App\Jukebox\AudioFile;
 
 interface AudioFileInterface {
+
+    public function create($location, $filename, $is_compilation, array $file_info, $file_type = null);
 
     /**
      * Require the title method is implemented.
@@ -17,6 +19,20 @@ interface AudioFileInterface {
      * @return integer
      */
     public function year();
+
+    /**
+     * Require the artist method is implemented.
+     *
+     * @return string
+     */
+    public function artist();
+
+    /**
+     * Require the album method is implemented.
+     *
+     * @return string
+     */
+    public function album();
 
     /**
      * Require the fileType method is implemented.
@@ -73,5 +89,12 @@ interface AudioFileInterface {
      * @return string
      */
     public function notes();
+
+     /**
+     * Require the iscompilation method is implemented.
+     *
+     * @return bool
+     */
+    public function isCompilation();
 
 }

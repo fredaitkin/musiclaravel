@@ -41,6 +41,11 @@ interface SongInterface
     // public function updateLyrics($request);
 
     /**
+    * Get song genres
+    */
+    public function getGenres();
+
+    /**
      * Does the album exist
      *
      * @param integer $id Artist id

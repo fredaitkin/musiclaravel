@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Music\Song\Song;
+use App\Jukebox\Song\Song;
 use Cache;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Response;

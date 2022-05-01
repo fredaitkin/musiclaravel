@@ -4,7 +4,7 @@ $(document).ready(function() {
 
         let genre = $(this).parent().prev('td').find('div').text();
 
-        let url = '/internalapi/genres/songs?genre=' + encodeURIComponent(genre);
+        let url = APP_URL + '/genres/songs?genre=' + encodeURIComponent(genre);
 
         fetch(url)
             .then(

@@ -68,7 +68,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('playlists/songs', 'PlaylistResourceController@songs');
 
     // Genres routes
-    Route::get('genres', 'GenreController@index');
+    Route::get('genres', 'GenreRestController@index');
+
+    Route::get('genres/songs', 'GenreResourceController@songs');
 
     // Lyric routes
     Route::get('lyrics/{id}', 'LyricController@show');
@@ -80,7 +82,6 @@ Route::middleware(['auth'])->group(function () {
 
     // Word Cloud routes
     Route::get('word-cloud', 'WordCloudRestController@index');
-        // Route::get('word-cloud', 'WordCloudController@songs');
 
     Route::get('word-cloud/{id}', 'WordCloudRestController@edit');
 
@@ -95,38 +96,25 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-Route::middleware(['auth'])->prefix('internalapi')->group(function () {
-
-    // Route::get('genres/songs', 'GenreController@songs');
-
-
-
-
-    // Route::get('lyrics/artist', 'LyricController@artist');
-
-
- });
-
-
 Route::group(['middleware' => 'role:super-user'], function() {
 
     // Utilties/Configuration Routes
 
-    Route::get("utilities", ["uses" => "UtilitiesController@index"])->name('utilities.utilities');
+    Route::get("utilities", ["uses" => "UtilitiesRestController@index"])->name('utilities.utilities');
 
-    Route::post("load", ["uses" => "UtilitiesController@loadSongs"])->name('utilities.load');
+    Route::post("load", ["uses" => "UtilitiesResourceController@loadSongs"])->name('utilities.load');
 
-    Route::get("settings", "SettingsController@index");
+    Route::get("settings", "SettingsRestController@index");
 
-    Route::post('settings', 'SettingsController@settings');
+    Route::post('settings', 'SettingsRestController@store');
 
-    Route::get('query', 'QueryController@index');
+    Route::get('query', 'QueryRestController@index');
 
-    Route::post('query', 'QueryAPIController@query');
+    Route::post('query', 'QueryResourceController@query');
 
-    Route::get('managed-query', 'ManagedQueryController@index');
+    Route::get('managed-query', 'ManagedQueryRestController@index');
 
-    Route::post('managed-query', 'ManagedQueryController@query');
+    Route::post('managed-query', 'ManagedQueryResourceController@query');
 });
 
 Auth::routes();

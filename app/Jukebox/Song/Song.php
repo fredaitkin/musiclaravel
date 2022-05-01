@@ -73,12 +73,16 @@ class Song implements SongInterface
      *
      * @return array
      */
-    public function all($view = true)
+    public function all($view = true, $constraints = array())
     {
         if ($view):
             return SongModel::paginate(10);
         else:
-            return SongModel::all();
+            $query = SongModel::select('songs.*');
+            if (isset($constraints['genre'])):
+                $query->where('genre', $constraints['genre']);
+            endif;
+            return $query->get();
         endif;
     }
 
@@ -209,6 +213,14 @@ class Song implements SongInterface
     }
 
     /**
+    * Get song genres
+    */
+    public function getGenres()
+    {
+        return SongModel::select('genre')->where('genre', '>', '')->groupBy('genre')->get();
+    }
+
+    /**
     * Get artist's albums
     *
     * @param int $id
@@ -275,7 +287,7 @@ class Song implements SongInterface
     * @param string $lyric
     */
     public function getSongsByLyric($lyric) {
-        return Song::where('lyrics', 'LIKE', "%{$lyric}%");
+        return SongModel::where('lyrics', 'LIKE', "%{$lyric}%")->get();
     }
 
     public function songs(Request $request)

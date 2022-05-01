@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Music\Dictionary;
+namespace App\Jukebox\Dictionary;
 
 class WordNet implements WordInterface
 {

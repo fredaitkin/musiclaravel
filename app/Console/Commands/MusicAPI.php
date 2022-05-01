@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Music\Artist\Artist;
-use App\Music\Song\Song;
+use App\Jukebox\Song\SongModel as Song;
 use Exception;
 use Illuminate\Console\Command;
 use Log;
@@ -64,6 +64,9 @@ class MusicAPI extends Command {
     {
         $options = $this->options();
 
+        $this->info('Needs to be updated to work with new table structures');
+        exit;
+
         $ids = null;
         if(! empty($options['ids'])):
             $ids = explode(',', $options['ids']);
@@ -115,7 +118,7 @@ class MusicAPI extends Command {
                                 else:
                                     Log::info('Updating year to : ' . $year);
                                     $song->year = $year;
-                                    $song->save();
+                                    // $song->save();
                                 endif;
                             endif;
                         else:

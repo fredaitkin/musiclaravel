@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Jukebox\Song\Song;
 use Illuminate\Http\Request;
 
-class QueryController extends Controller
+class ManagedQueryRestController extends Controller
 {
 
     /**
@@ -16,7 +17,11 @@ class QueryController extends Controller
      */
     public function index(Request $request)
     {
-        return view('query', ['show_cols' => 1]);
+        $queries = [
+            '' => 'Please Select',
+            '1' => 'Words in Songs',
+        ];
+        return view('managed_query', ['queries' => $queries]);
     }
 
 }
