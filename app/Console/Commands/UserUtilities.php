@@ -68,7 +68,7 @@ class UserUtilities extends Command {
                 $permissions = User::find($user['id'])->permissions->toArray();
                 $users[$key]['permissions'] = array_column($permissions, 'name');
             endforeach;
-            var_dump($users);
+            $this->info(json_encode($users));
         endif;
 
         if ($this->options['create']):
@@ -76,7 +76,7 @@ class UserUtilities extends Command {
         endif;
 
         if ($this->options['list-r']):
-            var_dump(Role::all()->toArray());
+            $this->info(json_encode(Role::all()->toArray()));
         endif;
 
         if ($this->options['create-r']):
@@ -84,7 +84,7 @@ class UserUtilities extends Command {
         endif;
 
         if ($this->options['list-p']):
-            var_dump(Permission::all()->toArray());
+            $this->info(json_encode(Permission::all()->toArray()));
         endif;
 
         if ($this->options['create-p']):

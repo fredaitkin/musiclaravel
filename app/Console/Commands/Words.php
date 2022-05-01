@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Jukebox\Dictionary\WordCloudInterface as WordCloud;
+use App\Jukebox\Dictionary\WordInterface as WordMed;
+use App\Jukebox\Dictionary\WordInterface as WordNet;
 use App\Jukebox\Song\SongInterface as Song;
-use App\Music\Dictionary\WordCloudInterface as WordCloud;
-use App\Music\Dictionary\WordInterface as WordMed;
-use App\Music\Dictionary\WordInterface as WordNet;
 use Exception;
 use Illuminate\Console\Command;
 use Log;
@@ -53,21 +53,21 @@ class Words extends Command {
     /**
      * The wordcloud interface
      *
-     * @var App\Music\Dictionary\WordCloudInterface
+     * @var App\Jukebox\Dictionary\WordCloudInterface
      */
     private $wordCloud;
 
     /**
      * The word interface
      *
-     * @var App\Music\Dictionary\WordInterface
+     * @var App\Jukebox\Dictionary\WordInterface
      */
     private $wordMed;
 
     /**
      * The word interface
      *
-     * @var App\Music\Dictionary\WordInterface
+     * @var App\Jukebox\Dictionary\WordInterface
      */
     private $wordNet;
 

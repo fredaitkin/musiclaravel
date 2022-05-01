@@ -2,9 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Jukebox\Dictionary\WordCloudInterface as WordCloud;
 use App\Jukebox\Song\SongInterface as Song;
-use App\Music\Dictionary\WordCloudInterface as WordCloud;
-use DB;
 use Exception;
 use Illuminate\Console\Command;
 use Log;
@@ -43,7 +42,7 @@ class UpdateLyrics extends Command {
     /**
      * The wordCloud interface
      *
-     * @var App\Music\Dictionary\WordCloudInterface
+     * @var App\Jukebox\Dictionary\WordCloudInterface
      */
     private $wordCloud;
     /**

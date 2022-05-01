@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Music\Dictionary\CategoryInterface as Category;
+use App\Jukebox\Dictionary\CategoryInterface as Category;
+use App\Jukebox\Dictionary\WordCloudInterface as WordCloud;
 use App\Jukebox\Song\SongInterface as Song;
-use App\Music\Dictionary\WordCloudInterface as WordCloud;
 use DB;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Redis;
@@ -54,14 +54,14 @@ class PerformDataFix extends Command
     /**
      * The wordCloud interface
      *
-     * @var App\Music\Dictionary\WordCloudInterface
+     * @var App\Jukebox\Dictionary\WordCloudInterface
      */
     private $wordCloud;
 
     /**
      * The category interface
      *
-     * @var App\Music\Dictionary\CategoryInterface
+     * @var App\Jukebox\Dictionary\CategoryInterface
      */
     private $category;
 

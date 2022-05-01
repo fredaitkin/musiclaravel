@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class Song implements SongInterface
 {
     /**
-     * Create a song.
+     * Create or update a song.
      *
      * @param Request $request
      */
@@ -125,7 +125,7 @@ class Song implements SongInterface
     {
         $model = new SongModel();
 
-        if (!isset($song['id']) || !is_numeric($song['id'])):
+        if (! isset($song['id']) || ! is_numeric($song['id'])):
             throw new Exception('A numeric song id is required');
         endif;
 
@@ -290,6 +290,11 @@ class Song implements SongInterface
         return SongModel::where('lyrics', 'LIKE', "%{$lyric}%")->get();
     }
 
+    /**
+     * Retrieve songs via Request params
+     *
+     * @param Request $request
+     */
     public function songs(Request $request)
     {
         if (isset($request->id)):
@@ -333,7 +338,13 @@ class Song implements SongInterface
         return $query->get();
     }
 
-    public function retrieveEnglishLyrics(array $song_ids = null)
+    /**
+     * Retrieve songs with English lyrics.
+     *
+     * @param array $ids
+     *   Song ids.
+     */
+    public function retrieveEnglishLyrics(array $ids = null)
     {
         $query = SongModel::select('songs.id', 'title', 'lyrics')
             ->join('artist_song', 'songs.id', '=', 'artist_song.song_id')
@@ -349,13 +360,18 @@ class Song implements SongInterface
             ])
             ->whereNotIn('lyrics', ['unavailable', 'Instrumental', 'inapplicable']);
 
-        if ($song_ids):
-            $query->whereIn('songs.id', $song_ids);
+        if ($ids):
+            $query->whereIn('songs.id', $ids);
         endif;
 
         return $query->get()->toArray();
     }
 
+    /**
+     * Retrieve songs via array params
+     *
+     * @param array $constraints
+     */
     public function retrieveSongs(array $constraints = [])
     {
         $query = SongModel::select('songs.*')->with('artists:artist');

@@ -73,7 +73,7 @@ class BackupDatabase extends Command
 
             if ($this->commit):
                 $message = $options['m'] ?? 'db backup';
-                exec("git commit -m '$message' storage/backups/mymusic.sql");
+                exec("git commit -m '{$message}' storage/backups/mymusic.sql");
                 exec("git push");
             endif;
 

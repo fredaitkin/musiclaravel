@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Music\Artist\Artist;
+use App\Jukebox\Artist\Artist;
 use App\Jukebox\Song\SongModel as Song;
 use Exception;
 use Illuminate\Console\Command;
