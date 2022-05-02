@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Jukebox\Song\Song;
+use App\Jukebox\Song\SongInterface as Song;
 use Cache;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 
-class ImageAPIController extends Controller
+class ImageResourceController extends Controller
 {
     /**
      * The media directory
@@ -19,16 +19,24 @@ class ImageAPIController extends Controller
     private $media_directory;
 
     /**
+     * The song interface
+     *
+     * @var App\Jukebox\Song\SongInterface
+     */
+    private $song;
+
+    /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(Song $song)
     {
         $this->media_directory = Redis::get('media_directory');
+        $this->song = $song;
     }
 
     public function coverArt($id) {
         if (! Cache::store('redis')->has('song_photo_' . $id)):
-            $song = Song::find($id);
+            $song = $this->song->get($id);
             $location = explode('/', $song->location);
             // Handle MAC and Win directory structures.
             if (count($location) < 2):

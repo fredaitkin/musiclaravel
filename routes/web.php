@@ -80,7 +80,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('lyrics', 'LyricRestController@store');
 
     // Image routes
-    Route::get('cover/{id}', 'ImageAPIController@coverArt');
+    Route::get('image/cover/{id}', 'ImageResourceController@coverArt');
 
     // Word Cloud routes
     Route::get('word-cloud', 'WordCloudRestController@index');
