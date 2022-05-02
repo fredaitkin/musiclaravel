@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Console\Commands\Words;
-use App\Words\WordCloud;
+use App\Jukebox\Dictionary\WordCloud;
 use Tests\TestCase;
 
 class WordTest extends TestCase
@@ -15,6 +15,7 @@ class WordTest extends TestCase
      */
     public function testSetCaseTest()
     {
+        // FIXME to work with new class structures.
         $command = new Words();
         $word_info = $command->setCaseInfo('Abdul');
         $this->assertEquals('Abdul', $word_info['word']);
@@ -105,6 +106,7 @@ class WordTest extends TestCase
     {
         $wordCloud = new WordCloud();
         $wordCloud->processWord('U.S.A.​');
+        // Get words used to return a class array of words
         $this->assertEquals('USA', array_key_first($wordCloud->get_words()));
     }
 }

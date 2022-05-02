@@ -37,24 +37,6 @@ interface WordCloudInterface
      *
      * @return array
      */
-    public function get_words();
-
-    /**
-     * Remove words from word cloud.
-     *
-     * @param int $id
-     *   The song id.
-     */
-    // private function removeWords($id);
-
-    /**
-     * Add words to the word cloud.
-     *
-     * @param int $id
-     *   The song id.
-     */
-    // private function addWords($id);
-
-    // private function isWord($w) ;
+    public function getWords(array $constraints);
 
 }

@@ -32,7 +32,7 @@ class WordCloud implements WordCloudInterface
     {
         $filter = $request->query('filter');
 
-        if (! empty($filter)) {
+        if (! empty($filter)):
             $words = WordCloudModel::sortable()
                 ->select('word_cloud.*')
                 ->leftJoin('word_category', 'word_cloud.id', '=', 'word_category.word_cloud_id')
@@ -41,10 +41,10 @@ class WordCloud implements WordCloudInterface
                 ->orWhere('category.category', 'like', '%' . $filter . '%')
                 ->groupBy('id')
                 ->paginate(10);
-        } else {
+        else:
             $words = WordCloudModel::sortable()
                 ->paginate(10);
-        }
+        endif;
 
         return $words;
     }
@@ -78,9 +78,9 @@ class WordCloud implements WordCloudInterface
             $request->categories = [];
         endif;
         // Name quick set.
-        if (isset($request->set_name)) {
+        if (isset($request->set_name)):
             $request->categories[] = 24;
-        }
+        endif;
         $inserts = array_diff($request->categories, $model->category_array);
         foreach($inserts as $id):
             $model->categories()->attach(['category_id' => $id]);
@@ -114,7 +114,6 @@ class WordCloud implements WordCloudInterface
 
         $data = [];
         foreach($songs as $song):
-            // $song = DB::table('songs')->select('*')->where('id', $song->song_id)->get();
             // TODO take out of WordCloud model
             $song = Song::find($song->song_id);
             $data[] = array('id' => $song->id, 'song' => $song->title, 'artist' => $song->artists[0]->artist, 'lyrics' => $song->lyrics);
@@ -275,12 +274,12 @@ class WordCloud implements WordCloudInterface
         $word = trim($word, $chars_to_trim);
         if (! empty($word) && ! preg_match('/^[-]+$/', $word)):
             // 'accattone'
-            if($word[0] == "'" && $word[strlen($word) - 1] == "'") {
+            if($word[0] == "'" && $word[strlen($word) - 1] == "'"):
                 $word = substr($word, 1, strlen($word) - 2);
-                if ($word === 'n') {
+                if ($word === 'n'):
                     $word = "'n";
-                }
-            }
+                endif;
+            endif;
             if (! isset($this->words[$word])):
                 $this->words[$word] = 1;
             else:
@@ -290,23 +289,12 @@ class WordCloud implements WordCloudInterface
     }
 
     /**
-     * Retrieve the words
-     *
-     * @return array
-     */
-    public function get_words()
-    {
-        return $this->words;
-    }
-
-    /**
      * Update a word in the word cloud.
      *
      * @param array $word
      */
     public function dynamicStore(array $word)
     {
-
         // Add validation
         $model = new WordCloudModel();
         $model->word = $word['word'];
@@ -342,7 +330,7 @@ class WordCloud implements WordCloudInterface
      *
      * @param int $id
      *   The song id.
-     */
+     */ 
     private function addWords($id) {
         foreach($this->words as $word => $count):
             $wordCloud = WordCloudModel::whereRaw('LOWER(word) = ?', mb_strtolower($word))->first();

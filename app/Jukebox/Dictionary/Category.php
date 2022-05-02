@@ -24,9 +24,9 @@ class Category implements CategoryInterface
     public function categories(Request $request)
     {
         $data = [];
-        if ($request->has('q')) {
+        if ($request->has('q')):
             $data = CategoryModel::select('id', 'category as text')->where('category', 'LIKE', '%' . $request->q . '%')->get();
-        }
+        endif;
         return response()->json($data);
     }
 

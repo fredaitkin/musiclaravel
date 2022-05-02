@@ -13,5 +13,11 @@ interface WordInterface
      */
     public function isWord($w);
 
+    /**
+     * Get dictionary definition for word/
+     *
+     * @param string $w Word
+     * @return array
+     */
     public function getDictionary($w);
 }

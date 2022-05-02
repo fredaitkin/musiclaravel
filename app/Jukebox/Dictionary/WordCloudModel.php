@@ -104,18 +104,6 @@ class WordCloudModel extends Model
     }
 
     /**
-     * Word cloud category ids
-     */
-    public function getCategoryIdsAttribute()
-    {
-        $categories = [];
-        foreach ($this->categories as $category) {
-            $categories[] = $category->id;
-        }
-        return implode(',', $categories);
-    }
-
-    /**
      * Get the category ids as an array
      * @return string
      */
@@ -126,18 +114,6 @@ class WordCloudModel extends Model
             $categories[] = $category->id;
         }
         return $categories;
-    }
-
-    /**
-     * Get variant as word
-     *
-     * @return string
-     */
-    public function getVariantAttribute()
-    {
-        $word = json_decode($this);
-        $variant = WordCloudModel::select('word')->where('id', $word->variant_of)->get()->toArray();
-        return $variant[0]['word'] ?? '';
     }
 
     /**
