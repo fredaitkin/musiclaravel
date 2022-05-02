@@ -9,7 +9,7 @@ class ManagedQueryRestController extends Controller
 {
 
     /**
-     * Display page
+     * Display managed query page.
      *
      * @param  Request $request
      * @return Response

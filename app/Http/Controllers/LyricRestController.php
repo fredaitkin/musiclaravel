@@ -34,6 +34,22 @@ class LyricRestController extends Controller
     }
 
     /**
+     * Show the song lyrics
+     *
+     * @param int $id
+     * @return string
+     */
+    public function index($id)
+    {
+        $song = $this->song->get($id);
+        if ($song):
+            return view('lyrics', ['song' => $song]);
+        else:
+            abort(404);
+        endif;
+    }
+
+    /**
      * Store song lyrics in the database
      *
      * @param Request request
@@ -56,23 +72,5 @@ class LyricRestController extends Controller
 
         return redirect('/songs');
     }
-
-    /**
-     * Show the song lyrics
-     *
-     * @param int $id
-     * @return string
-     */
-    public function index($id)
-    {
-        $song = $this->song->get($id);
-        if ($song):
-            return view('lyrics', ['song' => $song]);
-        else:
-            abort(404);
-        endif;
-    }
-
-
 
 }
