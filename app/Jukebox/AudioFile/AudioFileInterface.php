@@ -4,8 +4,6 @@ namespace App\Jukebox\AudioFile;
 
 interface AudioFileInterface {
 
-    public function create($location, $filename, $is_compilation, array $file_info, $file_type = null);
-
     /**
      * Require the title method is implemented.
      *

@@ -35,13 +35,12 @@ class MP4 implements AudioFileInterface {
      * @param array $file_info
      * @param string $file_type
      */
-    function create($location, $filename, $is_compilation, array $file_info, $file_type = null)
+    function __construct($location, $filename, $is_compilation, array $file_info, $file_type = null)
     {
         $this->location = $location;
         $this->filename = $filename;
         $this->is_compilation = $is_compilation;
         $this->file_info = $file_info;
-        return $this;
     }
 
     /**

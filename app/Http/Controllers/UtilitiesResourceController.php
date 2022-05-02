@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Jukebox\Artist\ArtistInterface as Artist;
-use App\Jukebox\AudioFile\AudioFileInterface as AudioFile;
-use App\Jukebox\AudioFile\AudioFileInterface as MP3;
-use App\Jukebox\AudioFile\AudioFileInterface as MP4;
+use App\Jukebox\AudioFile\AudioFile;
+use App\Jukebox\AudioFile\MP3;
+use App\Jukebox\AudioFile\MP4;
 use App\Jukebox\Song\SongInterface as Song;
 use Exception;
 use getID3;
@@ -50,27 +50,6 @@ class UtilitiesResourceController extends Controller
     private $artist;
 
     /**
-     * The audiofile interface
-     *
-     * @var App\Jukebox\AudioFile\AudioFileInterface
-     */
-    private $audioFile;
-
-    /**
-     * The audiofile interface
-     *
-     * @var App\Jukebox\AudioFile\AudioFileInterface
-     */
-    private $mp3;
-
-    /**
-     * The audiofile interface
-     *
-     * @var App\Jukebox\AudioFile\AudioFileInterface
-     */
-    private $mp4;
-
-    /**
      * The song interface
      *
      * @var App\Jukebox\Song\SongInterface
@@ -80,15 +59,12 @@ class UtilitiesResourceController extends Controller
      /**
      * Constructor
      */
-    public function __construct(Artist $artist, AudioFile $audioFile, AudioFile $mp3, AudioFile $mp4, Song $song)
+    public function __construct(Artist $artist, Song $song)
     {
         $this->ID3_extractor = new getID3;
         $this->media_directory = Redis::get('media_directory');
         $this->partition_root = config('filesystems.disks')[config('filesystems.partition')]['root'];
         $this->artist = $artist;
-        $this->audioFile = $audioFile;
-        $this->mp3 = $mp3;
-        $this->mp4 = $mp4;
         $this->song = $song;
     }
 
@@ -316,13 +292,13 @@ class UtilitiesResourceController extends Controller
 
         switch($file_info['fileformat']):
             case "mp3":
-                $song = $this->mp3->create($path, $filename, $is_compilation, $file_info);
+                $song = new MP3($path, $filename, $is_compilation, $file_info);
                 break;
             case "mp4":
-                $song = $this->mp4->create($path, $filename, $is_compilation, $file_info);
+                $song = new MP4($path, $filename, $is_compilation, $file_info);
                 break;
             default:
-                $song = $this->audioFile->create($path, $filename, $is_compilation, $file_info, $file_info['fileformat']);
+                $song = new AudioFile($path, $filename, $is_compilation, $file_info, $file_info['fileformat']);
                 break;
         endswitch;
         return $song;

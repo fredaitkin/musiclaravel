@@ -32,13 +32,12 @@ class MP3 implements AudioFileInterface {
      * @param bool $is_compilation
      * @param array $file_info
      */
-    function create($location, $filename, $is_compilation, array $file_info)
+    function __construct($location, $filename, $is_compilation, array $file_info)
     {
         $this->location = $location;
         $this->filename = $filename;
         $this->is_compilation = $is_compilation;
         $this->file_info = $file_info;
-        return $this;
     }
 
     /**
