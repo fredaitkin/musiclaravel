@@ -1,8 +1,17 @@
 <?php
 
+/**
+ * WordNetModel is a simple class that sits on a "vendor" dictionary.
+ * 
+ * The MySQL database is a large lexical database of English nouns, verbs,
+ * adjectives and adverbs group into sets of cognitve synonyms (synsets).
+ *
+ * The dictionary was created by Princeton University
+ * https://wordnet.princeton.edu/ WordNet. Princeton University. 2010.
+ */
+
 namespace App\Jukebox\Dictionary;
 
-use App\Words\GlossaryNet;
 use Illuminate\Database\Eloquent\Model;
 
 class WordNetModel extends Model
@@ -52,7 +61,7 @@ class WordNetModel extends Model
      */
     public function glossary()
     {
-        return $this->hasOne(GlossaryNet::class, 'synset_id', 'synset_id');
+        return $this->hasOne(GlossaryNetModel::class, 'synset_id', 'synset_id');
     }
 
 }

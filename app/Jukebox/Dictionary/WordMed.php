@@ -2,8 +2,7 @@
 
 namespace App\Jukebox\Dictionary;
 
-
-class WordMed implements WordInterface
+class WordMed
 {
 
     /**
@@ -12,13 +11,13 @@ class WordMed implements WordInterface
      * @param string $w Word
      * @return boolean
      */
-    public function isWord($w)
+    public static function isWord($w)
     {
         $word = WordMedModel::whereRAW('binary LOWER(word) = binary ?', $w)->get()->first();
         return isset($word);
     }
 
-    public function getDictionary($w)
+    public static function getDictionary($w)
     {
         $dictionary = [];
 

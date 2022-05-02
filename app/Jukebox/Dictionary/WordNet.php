@@ -2,7 +2,7 @@
 
 namespace App\Jukebox\Dictionary;
 
-class WordNet implements WordInterface
+class WordNet
 {
 
     /**
@@ -11,13 +11,13 @@ class WordNet implements WordInterface
      * @param string $w Word
      * @return boolean
      */
-    public function isWord($w)
+    public static function isWord($w)
     {
         $word = WordNetModel::where(["word" => $w])->get()->first();
         return isset($word);
     }
 
-    public function getDictionary($w)
+    public static function getDictionary($w)
     {
         $dictionary = [];
 

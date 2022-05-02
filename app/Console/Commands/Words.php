@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Jukebox\Dictionary\WordCloudInterface as WordCloud;
-use App\Jukebox\Dictionary\WordInterface as WordMed;
-use App\Jukebox\Dictionary\WordInterface as WordNet;
+use App\Jukebox\Dictionary\WordMed;
+use App\Jukebox\Dictionary\WordNet;
 use App\Jukebox\Song\SongInterface as Song;
 use Exception;
 use Illuminate\Console\Command;
@@ -58,29 +58,13 @@ class Words extends Command {
     private $wordCloud;
 
     /**
-     * The word interface
-     *
-     * @var App\Jukebox\Dictionary\WordInterface
-     */
-    private $wordMed;
-
-    /**
-     * The word interface
-     *
-     * @var App\Jukebox\Dictionary\WordInterface
-     */
-    private $wordNet;
-
-    /**
      * Constructor
      */
-    public function __construct(Song $song, WordCloud $wordCloud, WordMed $wordMed, WordNet $wordNet)
+    public function __construct(Song $song, WordCloud $wordCloud)
     {
         parent::__construct();
         $this->song = $song;
         $this->wordCloud = $wordCloud;
-        $this->wordMed = $wordMed;
-        $this->wordNet = $wordNet;
     }
 
     /**
@@ -485,10 +469,10 @@ class Words extends Command {
     // TODO move isWord to Dictionary?
     private function isWord($w) {
         try {
-            if ($this->wordNet->isWord($w)):
+            if (WordNet::isWord($w)):
                 return true;
             else:
-                return $this->wordMED->isWord($w);
+                return WordMed::isWord($w);
             endif;
         } catch (Exception $e) {
             return false;
