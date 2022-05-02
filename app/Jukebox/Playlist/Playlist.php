@@ -3,6 +3,7 @@
 namespace App\Jukebox\Playlist;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class Playlist implements PlaylistInterface
 {
@@ -23,10 +24,7 @@ class Playlist implements PlaylistInterface
      * @param int $id
      */
     public function get($name)
-    // public function get($id)
     {
-        // return ArtistModel::find($id);
-
         return PlaylistModel::where(['name' => $name])->get(['playlist'])->toArray();
     }
 
@@ -37,15 +35,15 @@ class Playlist implements PlaylistInterface
      */
     public function createOrUpdate(Request $request)
     {
-        // $validator = Validator::make($request->all(), [
-            // 'id'        => 'required|numeric',
-            // 'playlist'  => 'required|max:100',
-        // ]);
+        $validator = Validator::make($request->all(), [
+            'id'        => 'required|numeric',
+            'playlist'  => 'required|max:10',
+        ]);
 
         // Validate parameters
-        // if ($validator->fails()):
-            // return ['errors' => $validator->errors(), 'status_code' => 422];
-        // endif;
+        if ($validator->fails()):
+            return ['errors' => $validator->errors()->all(), 'status_code' => 422];
+        endif;
 
         $playlist = PlaylistModel::where(['name' => $request->playlist])->first();
         if (empty($playlist)):
@@ -61,6 +59,8 @@ class Playlist implements PlaylistInterface
         $existing_playlist[] = ['id' => $request->id, 'title' => $request->title];
         $playlist->playlist = json_encode($existing_playlist);
         $playlist->save();
+
+        return ['status_code' => 200];
     }
 
     /**

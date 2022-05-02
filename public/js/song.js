@@ -32,7 +32,7 @@ $(document).ready(function() {
         let song_title = $(this).attr('data-title');
 
         var url = APP_URL + '/playlists?all=true&notIn=' + song_id;
-console.log(url);
+
         fetch(url)
             .then(
                 function(response) {
@@ -56,8 +56,8 @@ console.log(url);
         let playlist_form = '<div>';
 
         playlist_form += '<div id="error_message" class="d-none alert alert-danger alert-dismissible fade show">';
-        playlist_form += 'Please select a playlist.';
-        playlist_form += '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+        playlist_form += '</div>';
+        playlist_form += '<div id="success_message" class="d-none alert alert-success alert-dismissible fade show">';
         playlist_form += '</div>';
 
         playlist_form += '<div>Add to Existing Playlist</div>';
@@ -86,6 +86,8 @@ console.log(url);
             },
             buttons: {
                 "Add": function() {
+                    $('#error_message').addClass('d-none');
+                    $('#success_message').addClass('d-none')
                     let playlist = $("#existing_playlist option:selected").val();
                     if (playlist == '') {
                         playlist = $('#new_playlist').val();
@@ -105,11 +107,14 @@ console.log(url);
                             })
                             .then(response => response.json())
                             .then(data => {
-                                alert('Song has been added');
-                                $(this).dialog("close");
+                                if (data.status_code == 200) {
+                                    $('#success_message').removeClass('d-none').text("Song has been added.");
+                                } else {
+                                    $('#error_message').removeClass('d-none').html(data.errors.join('<br>'));
+                                }
                             })
                             .catch((error) => {
-                                $('#error_message').removeClass('d-none').text("An error occurring adding the song");
+                                $('#error_message').removeClass('d-none').html("An error occurring adding the song");
                                 console.error('Error:', error);
                             });
                     }

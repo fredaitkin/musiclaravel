@@ -45,8 +45,7 @@ class PlaylistRestController extends Controller
      */
     public function store(Request $request)
     {
-        $this->playlist->createOrUpdate($request);
-        return ['status_code' => 200];
+        return $this->playlist->createOrUpdate($request);
     }
 
     /**
