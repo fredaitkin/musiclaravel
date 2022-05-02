@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Jukebox\Dictionary\WordCloudInterface as WordCloud;
-
 use Illuminate\Http\Request;
 
 class WordCloudRestController extends Controller
@@ -39,19 +38,18 @@ class WordCloudRestController extends Controller
                 'filter' => $request->query('filter'),
             ]);
 
-            if ($words->isEmpty()) {
+            if ($words->isEmpty()):
                 $view->withMessage('No words found. Try to search again!');
-            }
+            endif;
 
             return $view;
         endif;
 
         return $this->wordcloud->songs($request);
-
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the word.
      *
      * @param  int  $id
      * @return Response
@@ -76,7 +74,6 @@ class WordCloudRestController extends Controller
         $this->wordcloud->createOrUpdate($request);
         return view('word_cloud', [
             'word_cloud' => $this->wordcloud->all($request),
-            // 'word_cloud' => WordCloudModel::sortable()->paginate(10, '*', 'page', $request->page),
             'filter' => '',
         ]);
     }

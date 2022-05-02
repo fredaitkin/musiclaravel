@@ -30,7 +30,7 @@ class CategoryResourceController extends Controller
      */
     public function categories(Request $request)
     {
-        return $this->category->all($request);
+        return $this->category->categories($request);
     }
 
 }
