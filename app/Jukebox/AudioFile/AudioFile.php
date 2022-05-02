@@ -53,9 +53,9 @@ class AudioFile implements AudioFileInterface {
     public function title() {
         $title = '';
         $idx = strrpos($this->filename, '.');
-        if ( $idx !== false ) {
+        if ( $idx !== false ):
             $title = substr($this->filename, 0, $idx );
-        }
+        endif;
         return $title;
     }
 
@@ -77,14 +77,23 @@ class AudioFile implements AudioFileInterface {
         return $this->file_type;
     }
 
+    /**
+     * Return artist.
+     *
+     * @return string
+     */
     public function artist() {
-        return null;
+        return '';
     }
 
-        public function album() {
-        return null;
+    /**
+     * Return album.
+     *
+     * @return string
+     */
+    public function album() {
+        return '';
     }
-
 
     /**
      * Return track_no.

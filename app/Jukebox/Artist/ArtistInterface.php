@@ -75,6 +75,11 @@ interface ArtistInterface
     */
     public function searchByName($search);
 
+    /**
+    * Search for artists by name
+    *
+    * @param string $search
+    */
     public function getArtistAlbums($id);
 
 }

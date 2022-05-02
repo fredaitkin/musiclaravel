@@ -35,11 +35,11 @@ class Artist implements ArtistInterface
      */
     public function getAllArtists(array $fields = null)
     {
-        if ($fields) {
+        if ($fields):
             return ArtistModel::all($fields);
-        } else {
+        else:
             return ArtistModel::all();
-        }
+        endif;
     }
 
     /**
@@ -93,9 +93,9 @@ class Artist implements ArtistInterface
     public function getID($artist_name)
     {
         $artist = ArtistModel::where("artist", $artist_name)->first();
-        if ($artist) {
+        if ($artist):
             return $artist->toArray()['id'];
-        }
+        endif;
         return false;
     }
 
