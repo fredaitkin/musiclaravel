@@ -10,19 +10,23 @@ interface SongInterface
     /**
      * Create a song.
      *
-     * @param Request $request
+     * @param  Request  $request
+     * @return void
      */
     public function createOrUpdate(Request $request);
 
     /**
      * Retrieve a song.
      *
-     * @param int $id
+     * @param  int $id
+     * @return \App\Jukebox\Song\SongModel
      */
     public function get($id);
 
     /**
      * Retrieve all songs;
+     *
+     * @return array
      */
     public function all();
 
@@ -30,47 +34,49 @@ interface SongInterface
     * Remove the song
     *
     * @param  int  $id
+    * @return void
     */
     public function delete($id);
 
     /**
-     * Update song lyrics.
-     *
-     * @param Request $request
-     */
-    // public function updateLyrics($request);
-
-    /**
     * Get song genres
+    *
+    * @return array 
     */
     public function getGenres();
 
     /**
      * Does the album exist
      *
-     * @param integer $id Artist id
-     * @param string $album_name Album name
-     * @return boolean
+     * @param  int  $id
+     * @param  string  $album_name
+     * @return bool
      */
     public function doesAlbumExist($id, $album_name);
 
     /**
      * Does the song exist
      *
-     * @param integer $id Artist id
-     * @param string $title Song title
-     * @return boolean
+     * @param  int  $id
+     * @param  string $title
+     * @return bool
      */
     public function doesSongExist($id, $title);
 
     /**
     * Returns all song titles
     *
-    * @param string $album Restrict via album.
-    * @return Collection Eloquent collection of song titles.
+    * @param  string  $album
+    * @return \Illuminate\Database\Eloquent\Collection|static[]
     */
     public function getSongTitles(string $album = null);
 
+    /**
+    * Is the file a song.
+    *
+    * @param  string  $file
+    * @return bool
+    */
     public function isSong($file);
 
     /**
@@ -78,15 +84,17 @@ interface SongInterface
     *
     * Retrieves the songs from the artist's albums and compilation albums.
     *
-    * @param int $id
-    * @param string $artist
+    * @param  int  $id
+    * @param  string  $artist
+    * @return \Illuminate\Database\Eloquent\Collection|static[]
     */
     public function getArtistSongs($id, $artist);
 
     /**
     * Retrieve album songs by song id.
     *
-    * @param int $id
+    * @param  int  $id
+    * @return \Illuminate\Database\Eloquent\Collection|static[]
     */
     public function getAlbumSongsBySongID($id);
 
@@ -94,9 +102,16 @@ interface SongInterface
     * Search for songs
     *
     * @param string $query
+    * @return \Illuminate\Database\Eloquent\Collection|static[]
     */
     public function search($query);
 
+    /**
+    * Retrieve songs
+    *
+    * @param  Request $request
+    * @return \Illuminate\Database\Eloquent\Collection|static[]
+    */
     public function songs(Request $request);
 
 }
