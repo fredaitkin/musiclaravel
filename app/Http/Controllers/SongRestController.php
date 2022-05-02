@@ -81,7 +81,7 @@ class SongRestController extends Controller
             $cover_art = $cover_art['api'];
         endif;
         if (empty($cover_art)):
-            $cover_art = '/cover/' . $song->id;
+            $cover_art = '/image/cover/' . $song->id;
         endif;
         return view('song', [
             'song'          => $song,
