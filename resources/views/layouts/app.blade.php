@@ -13,9 +13,6 @@
     <!-- Scripts -->
     <script type="text/javascript">
         var APP_URL = {!! json_encode(url('/')) !!};
-        var LYRICS_API_URL = '{{ env("LYRICS_API_URL") }}';
-        var LYRICS_API_HOST = '{{ env("LYRICS_API_HOST") }}';
-        var LYRICS_API_KEY = '{{ env("LYRICS_API_KEY") }}';
     </script>
 
     <script src="{{ asset('js/app.js') }}"></script>
