@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jukebox\Song\SongInterface as Song;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
-use Illuminate\Support\Facades\Validator;
 use Storage;
 
 class SongResourceController extends Controller
@@ -46,7 +43,7 @@ class SongResourceController extends Controller
     {
         return view('song', [
             'title'         => 'Add New Song',
-            'file_types'    => ['mp3', 'm4'], // move to config
+            'file_types'    => array_merge(['' => 'Please Select...'], config('audio_file_formats')),
             'song_exists'   => false,
             'cover_art'     => false,
         ]);
@@ -63,11 +60,10 @@ class SongResourceController extends Controller
         $q = $request->q;
 
         if ($q != ""):
-            $data = $this->retrieveSongs($q);
-        else:
-            $data = $this->retrieveSongs(session()->get('songs_query'));
+            session()->put('songs_query', $q);
         endif;
-
+        
+        $data = $this->song->search(session()->get('songs_query'));
         if ($data):
             // Data object can be a null, a view or a paginator
             if (get_class($data) === 'Illuminate\View\View'):
@@ -82,53 +78,6 @@ class SongResourceController extends Controller
         else:
             return view('songs')->withMessage('No songs found. Try to search again!');
         endif;
-    }
-
-    /**
-     * Retrieve songs
-     *
-     * @param  string $query
-     * @return array
-     */
-    protected function retrieveSongs($query) {
-        if ($query != "") {
-            session()->put('songs_query', $query);
-            if (stripos( $query, 'SELECT') === 0) {
-                return $this->adminSearch($query);
-            } else {
-                return $this->song->search($query);
-            }
-        }
-    }
-
-     /**
-     * Perform admin search on songs
-     *
-     * @param  string $query
-     * @return Response
-     */
-    public function adminSearch(string $query)
-    {
-        if (! isValidReadQuery($query)) {
-            abort(403, 'Unauthorized action.');
-        }
-
-        try {
-            $songs = DB::select($query);
-
-        } catch (\Illuminate\Database\QueryException $ex) {
-            $songs = [];
-        }
-        $paginate = new LengthAwarePaginator($songs, count($songs), 10, 1, [
-            'path' =>  request()->url(),
-            'query' => request()->query(),
-        ]);
-
-        if (count($songs) > 0) {
-            return view('songs', ['q' => $query, 'songs' => $paginate]);
-        } else {
-            return view('songs', ['q'  => $query, 'songs' => $paginate])->withMessage('No songs found. Try to search again!');
-        }
     }
 
     public function play($id)
@@ -149,44 +98,4 @@ class SongResourceController extends Controller
         }
     }
 
-    /**
-     * Retrieve all songs by various criteria
-     *
-     * @param Request
-     * @return Response
-     */
-    public function all(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'id'        => 'numeric',
-            'artist_id' => 'numeric',
-            'offset'    => 'numeric',
-            'limit'     => 'numeric',
-        ]);
-
-        // Validate parameters
-        if ($validator->fails()):
-            return ['errors' => $validator->errors(), 'status_code' => 422];
-        endif;
-
-        if (isset($request->id)) {
-            if (isset($request->album)) {
-                // Get songs in an album by song id
-                $songs = Song::getAlbumSongsBySongID($request->id);
-            } else {
-                // Get song
-                $songs = Song::find($request->id);
-            }
-        } else {
-            // Get all songs
-            $songs = Song::songs($request);
-        }
-
-        return ['songs' => $songs, 'status_code' => 200];
-    }
-
-    public function song($id)
-    {
-        return ['song' => Song::find($id), 'status_code' => 200];
-    }
 }
