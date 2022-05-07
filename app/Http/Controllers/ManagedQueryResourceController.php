@@ -54,7 +54,7 @@ class ManagedQueryResourceController extends Controller
     private function wordsInSongs($words)
     {
         $results = [];
-        $songs = $this->song->getSongsByLyric($words);
+        $songs = $this->song->allByConstraints(['lyrics' => $words]);
         $results['headings'] = ['ID', 'TITLE', 'PHRASE'];
         $results['rows'] = [];
         foreach($songs as $song):

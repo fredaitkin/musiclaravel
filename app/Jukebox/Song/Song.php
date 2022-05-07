@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 class Song implements SongInterface
 {
 
+    /** Basic Routines */
+
     /**
      * Retrieve a song.
      *
@@ -62,6 +64,10 @@ class Song implements SongInterface
 
         if (isset($constraints['cover_art_empty'])):
             $query->whereNull('cover_art');
+        endif;
+
+        if (isset($constraints['lyrics'])):
+            $query->where('lyrics', 'LIKE', "%{$constraints['lyrics']}%");
         endif;
 
         return $query->get();
@@ -120,6 +126,26 @@ class Song implements SongInterface
     }
 
     /**
+    * Search for songs
+    *
+    * @param string $query
+    */
+    public function search($query) {
+        return SongModel::select('songs.*')
+            ->whereHas('artists', function($q) use($query) {
+                $q->where('artist', 'LIKE', '%' . $query . '%');
+            })
+            ->orWhere('title', 'LIKE', '%' . $query . '%')
+            ->orWhere('album', 'LIKE', '%' . $query . '%')
+            ->orWhere('songs.notes', 'LIKE', '%' . $query . '%')
+            ->paginate()
+            ->appends(['q' => $query])
+            ->setPath('');
+    }
+
+    /** Utility Routines */
+
+    /**
      * Create a song via the music loading process.
      *
      * @param string path
@@ -147,28 +173,6 @@ class Song implements SongInterface
         $model->save();
 
         $model->artists()->attach(['artist' => $artist_id]);
-    }
-
-    /**
-     * Update a song.
-     *
-     * @param array $song
-     */
-    public function updateSong(array $song)
-    {
-        $model = new SongModel();
-
-        if (! isset($song['id']) || ! is_numeric($song['id'])):
-            throw new Exception('A numeric song id is required');
-        endif;
-
-        $model = $model->find($song['id']);
-
-        if (isset($song['lyrics'])):
-            $model->lyrics = $song['lyrics'];
-        endif;
-
-        $model->update();
     }
 
     /**
@@ -209,7 +213,6 @@ class Song implements SongInterface
         return false;
     }
 
-
     /**
     * Is this file an audio file type?
     *
@@ -220,13 +223,7 @@ class Song implements SongInterface
         return in_array($extension, config('audio_file_formats'));
     }
 
-    /**
-    * Get song genres
-    */
-    public function getGenres()
-    {
-        return SongModel::select('genre')->where('genre', '>', '')->groupBy('genre')->get();
-    }
+    /** Artist Routines */
 
     /**
     * Retrieve artist's songs.
@@ -258,31 +255,36 @@ class Song implements SongInterface
             ->get();
     }
 
+    /** Other Routines */
+
     /**
-    * Search for songs
-    *
-    * @param string $query
-    */
-    public function search($query) {
-        return SongModel::select('songs.*')
-            ->whereHas('artists', function($q) use($query) {
-                $q->where('artist', 'LIKE', '%' . $query . '%');
-            })
-            ->orWhere('title', 'LIKE', '%' . $query . '%')
-            ->orWhere('album', 'LIKE', '%' . $query . '%')
-            ->orWhere('songs.notes', 'LIKE', '%' . $query . '%')
-            ->paginate()
-            ->appends(['q' => $query])
-            ->setPath('');
+     * Update a song.
+     *
+     * @param array $song
+     */
+    public function updateSong(array $song)
+    {
+        $model = new SongModel();
+
+        if (! isset($song['id']) || ! is_numeric($song['id'])):
+            throw new Exception('A numeric song id is required');
+        endif;
+
+        $model = $model->find($song['id']);
+
+        if (isset($song['lyrics'])):
+            $model->lyrics = $song['lyrics'];
+        endif;
+
+        $model->update();
     }
 
     /**
-    * Get songs by lyric
-    *
-    * @param string $lyric
+    * Get song genres
     */
-    public function getSongsByLyric($lyric) {
-        return SongModel::where('lyrics', 'LIKE', "%{$lyric}%")->get();
+    public function getGenres()
+    {
+        return SongModel::select('genre')->where('genre', '>', '')->groupBy('genre')->get();
     }
 
     /**
