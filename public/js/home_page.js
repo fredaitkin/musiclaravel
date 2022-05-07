@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     $("a[name='shuffle_songs']").click(function() {
-        var url = '/internalapi/songs';
+        var url = APP_URL + '/songs?all';
 
         fetch(url)
             .then(
@@ -11,7 +11,7 @@ $(document).ready(function() {
                         return;
                     }
                     response.json().then(function(data) {
-                        play_songs("EVERYBODY SHUFFLIN...", data.songs);
+                        play_songs("EVERYBODY SHUFFLIN...", data);
                     });
                 }
             )
