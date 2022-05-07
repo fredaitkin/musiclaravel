@@ -41,9 +41,9 @@ class ArtistRestController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('artists', ['artists' => $this->artist->all()]);
+        return view('artists', ['artists' => $this->artist->all($request)]);
     }
 
     /**

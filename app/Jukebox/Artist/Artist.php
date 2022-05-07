@@ -7,15 +7,7 @@ use Illuminate\Http\Request;
 class Artist implements ArtistInterface
 {
 
-    /**
-     * Returns artists
-     *
-     * @return LengthAwarePaginator Paginated list of artists.
-     */
-    public function all()
-    {
-        return ArtistModel::orderBy('artist')->paginate();
-    }
+    /** Basic Routines */
 
     /**
      * Retrieve an artist.
@@ -28,18 +20,15 @@ class Artist implements ArtistInterface
     }
 
     /**
-     * Returns all artists
+     * Returns artists
      *
-     * @param array $fields Specific fields to retrieve.
-     * @return Collection Eloquent collection of artists.
+     * @param  Request $request
+     *
+     * @return LengthAwarePaginator Paginated list of artists.
      */
-    public function getAllArtists(array $fields = null)
+    public function all(Request $request)
     {
-        if ($fields):
-            return ArtistModel::all($fields);
-        else:
-            return ArtistModel::all();
-        endif;
+        return ArtistModel::orderBy('artist')->paginate();
     }
 
     /**
@@ -68,6 +57,22 @@ class Artist implements ArtistInterface
         
         $model->save();
     }
+
+    /**
+    * Search for artists
+    *
+    * @param string $query
+    */
+    public function search($query) {
+        return ArtistModel::select('artists.*')
+            ->where('artist', 'LIKE', '%' . $query . '%')
+            ->orWhere('country', 'LIKE', '%' . $query . '%')
+            ->paginate()
+            ->appends(['q' => $query])
+            ->setPath('');
+    }
+
+    /** Utility Routines */
 
     /**
     * Create an artist via the music loading process.
@@ -111,30 +116,7 @@ class Artist implements ArtistInterface
         return $artist['artist'] === 'Compilations';
     }
 
-    /**
-     * Remove the artist and all their songs from the database
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        ArtistModel::findOrFail($id)->delete();
-    }
-
-    /**
-    * Search for artists
-    *
-    * @param string $query
-    */
-    public function search($query) {
-        return ArtistModel::select('artists.*')
-            ->where('artist', 'LIKE', '%' . $query . '%')
-            ->orWhere('country', 'LIKE', '%' . $query . '%')
-            ->paginate()
-            ->appends(['q' => $query])
-            ->setPath('');
-    }
+    /** AJAX Routines */
 
     /**
     * Search for artists by name
@@ -146,6 +128,8 @@ class Artist implements ArtistInterface
             ->where('artist', 'LIKE', '%' . $search . '%')
             ->get();
     }
+
+    /** Other Routines */
 
     /**
     * Get artist's albums

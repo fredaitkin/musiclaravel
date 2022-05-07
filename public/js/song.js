@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('.artists').select2({
         placeholder: 'Please Select',
         ajax: {
-          url: '/artist-select-ajax',
+          url: '/artist-autocomplete',
           dataType: 'json',
           delay: 250,
           processResults: function (data) {

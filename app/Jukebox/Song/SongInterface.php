@@ -8,14 +8,6 @@ interface SongInterface
 {
 
     /**
-     * Create a song.
-     *
-     * @param  Request  $request
-     * @return void
-     */
-    public function createOrUpdate(Request $request);
-
-    /**
      * Retrieve a song.
      *
      * @param  int $id
@@ -38,6 +30,22 @@ interface SongInterface
      * @return array
      */
     public function allByConstraints(array $constraints);
+
+    /**
+     * Create a song.
+     *
+     * @param  Request  $request
+     * @return void
+     */
+    public function createOrUpdate(Request $request);
+
+    /**
+    * Search for songs
+    *
+    * @param string $query
+    * @return \Illuminate\Database\Eloquent\Collection|static[]
+    */
+    public function search($query);
 
     /**
     * Get song genres
@@ -82,13 +90,5 @@ interface SongInterface
     * @return \Illuminate\Database\Eloquent\Collection|static[]
     */
     public function getArtistSongs($id, $artist);
-
-    /**
-    * Search for songs
-    *
-    * @param string $query
-    * @return \Illuminate\Database\Eloquent\Collection|static[]
-    */
-    public function search($query);
 
 }

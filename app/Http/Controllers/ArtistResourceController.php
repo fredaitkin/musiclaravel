@@ -80,7 +80,7 @@ class ArtistResourceController extends Controller
      *
      * @return Response
      */
-    public function artist_ajax(Request $request)
+    public function artist_autocomplete(Request $request)
     {
         $data = [];
 

@@ -8,26 +8,35 @@ interface ArtistInterface
 {
 
     /**
+     * Retrieve an artist.
+     *
+     * @param  int $id
+     * @return \App\Jukebox\Artist\ArtistModel
+     */
+    public function get($id);
+
+    /**
      * Returns artists
+     *
+     * @param  Request $request
      *
      * @return LengthAwarePaginator Paginated list of artists.
      */
-    public function all();
-
-    /**
-     * Returns all artists
-     *
-     * @param array $fields Specific fields to retrieve.
-     * @return Collection Eloquent collection of artists.
-     */
-    public function getAllArtists(array $fields = null);
+    public function all(Request $request);
 
     /**
      * Create or update an artist.
      *
-     * @param Request $request
+     * @param Request  $request
      */
     public function createOrUpdate(Request $request);
+
+    /**
+    * Search for artists
+    *
+    * @param string $query
+    */
+    public function search($query);
 
     /**
     * Create an artist via the music loading process.
@@ -52,21 +61,6 @@ interface ArtistInterface
      * @return boolean
      */
     public function isCompilation($id);
-
-    /**
-     * Remove the artist and all their songs from the database
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id);
-
-    /**
-    * Search for artists
-    *
-    * @param string $query
-    */
-    public function search($query);
 
     /**
     * Search for artists by name
