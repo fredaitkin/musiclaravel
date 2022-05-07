@@ -32,12 +32,12 @@ interface SongInterface
     public function all(Request $request);
 
     /**
-    * Remove the song
-    *
-    * @param  int  $id
-    * @return void
-    */
-    public function delete($id);
+     * Retrieve all songs;
+     *
+     * @param  array $constraints
+     * @return array
+     */
+    public function allByConstraints(array $constraints);
 
     /**
     * Get song genres

@@ -6,57 +6,6 @@ use Illuminate\Http\Request;
 
 class Song implements SongInterface
 {
-    /**
-     * Create or update a song.
-     *
-     * @param Request $request
-     */
-    public function createOrUpdate(Request $request)
-    {
-        $validator = $request->validate([
-            'title' => 'required|max:255',
-            'album' => 'required|max:255',
-            'year'  => 'required|integer',
-        ]);
-
-        if (isset($request->id)):
-            $model = SongModel::find($request->id);
-        else:
-            $model = new SongModel();
-        endif;
-
-        $model->title = $request->title;
-        $model->album = $request->album;
-        $model->year = $request->year;
-        $model->file_type = $request->file_type;
-        $model->track_no = $request->track_no;
-        $model->genre = $request->genre;
-        $model->location = $request->location;
-        $model->filesize = $request->filesize ?? 0;
-        $model->composer = $request->composer;
-        $model->playtime = $request->playtime;
-        $model->notes = $request->notes;
-
-        $model->save();
-
-        // Make any updates to artist/s
-        $existing_artists = [];
-        foreach($model->artists as $artist) {
-            $existing_artists[] = $artist->id;
-        }
-
-        if (empty($request->artists)):
-            $request->artists = [];
-        endif;
-        $inserts = array_diff($request->artists, $existing_artists);
-        foreach($inserts as $artist):
-            $model->artists()->attach(['artist' => $artist]);
-        endforeach;
-        $deletes = array_diff($existing_artists, $request->artists);
-        foreach($deletes as $artist):
-            $model->artists()->detach(['artist' => $artist]);
-        endforeach;
-    }
 
     /**
      * Retrieve a song.
@@ -116,6 +65,58 @@ class Song implements SongInterface
         endif;
 
         return $query->get();
+    }
+
+    /**
+     * Create or update a song.
+     *
+     * @param Request $request
+     */
+    public function createOrUpdate(Request $request)
+    {
+        $validator = $request->validate([
+            'title' => 'required|max:255',
+            'album' => 'required|max:255',
+            'year'  => 'required|integer',
+        ]);
+
+        if (isset($request->id)):
+            $model = SongModel::find($request->id);
+        else:
+            $model = new SongModel();
+        endif;
+
+        $model->title = $request->title;
+        $model->album = $request->album;
+        $model->year = $request->year;
+        $model->file_type = $request->file_type;
+        $model->track_no = $request->track_no;
+        $model->genre = $request->genre;
+        $model->location = $request->location;
+        $model->filesize = $request->filesize ?? 0;
+        $model->composer = $request->composer;
+        $model->playtime = $request->playtime;
+        $model->notes = $request->notes;
+
+        $model->save();
+
+        // Make any updates to artist/s
+        $existing_artists = [];
+        foreach($model->artists as $artist) {
+            $existing_artists[] = $artist->id;
+        }
+
+        if (empty($request->artists)):
+            $request->artists = [];
+        endif;
+        $inserts = array_diff($request->artists, $existing_artists);
+        foreach($inserts as $artist):
+            $model->artists()->attach(['artist' => $artist]);
+        endforeach;
+        $deletes = array_diff($existing_artists, $request->artists);
+        foreach($deletes as $artist):
+            $model->artists()->detach(['artist' => $artist]);
+        endforeach;
     }
 
     /**
@@ -208,16 +209,6 @@ class Song implements SongInterface
         return false;
     }
 
-    /**
-    * Remove the song
-    *
-    * @param  int  $id
-    */
-    public function delete($id)
-    {
-        $model = new SongModel();
-        $model = $model->find($id)->delete();
-    }
 
     /**
     * Is this file an audio file type?

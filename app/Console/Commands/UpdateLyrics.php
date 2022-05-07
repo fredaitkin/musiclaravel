@@ -85,36 +85,36 @@ class UpdateLyrics extends Command {
             'Run-D.M.C'                 => 'Run-D.M.C.',
             'Pink'                      => 'P!nk',
         ];
-        $song = $this->song->retrieveSongs(['id' => $id]);
+        $song = $this->song->get($id);
 
-        if (isset($song[0]->id)):
+        if (isset($song->id)):
 
-            if (isset($artists_names[$song[0]->artist])):
-                $song[0]->artist = $artists_names[$song[0]->artist];
+            if (isset($artists_names[$song->artist])):
+                $song->artist = $artists_names[$song->artist];
             endif;
 
             try {
-                $artist = $song[0]->artist;
+                $artist = $song->artist;
                 if ($artist == 'Compilations'):
-                    $artist = trim($song[0]->notes);
+                    $artist = trim($song->notes);
                 endif;
                 $this->info("ARTIST: " . $artist);
-                $this->info("TITLE: " . $song[0]->title);
-                $this->info("ID: " . $song[0]->id);
-                $lyric = $this->directSearch($artist, $song[0]->title);
+                $this->info("TITLE: " . $song->title);
+                $this->info("ID: " . $song->id);
+                $lyric = $this->directSearch($artist, $song->title);
                 if (! $lyric):
-                    $lyric = $this->search($artist, $song[0]->title);
+                    $lyric = $this->search($artist, $song->title);
                 endif;
 
                 if (! empty($lyric)):
                     $this->info($lyric);
                     $this->info("");
-                    $this->info($artist . ' : ' . $song[0]->title);
+                    $this->info($artist . ' : ' . $song->title);
                     $save = $this->ask('Save the lyrics?');
                      if ($save === 'y'):
-                        $lyric = $this->wordCloud->process($lyric, 'add', $song[0]->id);
-                        $song[0]->lyrics = $lyric;
-                        $song[0]->save();
+                        $lyric = $this->wordCloud->process($lyric, 'add', $song->id);
+                        $song->lyrics = $lyric;
+                        $song->save();
                     else:
                         $this->info("Ignoring");
                     endif;
@@ -122,11 +122,11 @@ class UpdateLyrics extends Command {
 
             } catch (Exception $e) {
 
-                Log::info($song[0]->title . ' ' . $artist);
+                Log::info($song->title . ' ' . $artist);
                 Log::info($e->getMessage());
             }
 
-             $this->info("ID: " . $song[0]->id);
+             $this->info("ID: " . $song->id);
 
         endif;
 

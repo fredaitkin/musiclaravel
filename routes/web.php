@@ -33,8 +33,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('song/{id}', 'SongRestController@edit');
 
-    Route::delete('song/{id}', 'SongRestController@destroy');
-
     Route::any('songs/search', 'SongResourceController@search');
 
     Route::get('song', 'SongResourceController@add');
