@@ -106,7 +106,7 @@ class PerformDataFix extends Command
      */
     private function reportMissingSongs()
     {
-        foreach ($this->song->all(false) as $song):
+        foreach ($this->song->allByConstraints() as $song):
             if (! Storage::disk(config('filesystems.partition'))->has($this->media_directory . $song->location)):
                 Log::info($song->artists[0]->artist . ' ' . $song->title . ' LOCATION: ' . $song->location . ' does not exist');
             endif;
@@ -120,7 +120,7 @@ class PerformDataFix extends Command
      */
     private function updateArtistPivotTable()
     {
-        foreach ($this->song->all() as $song):
+        foreach ($this->song->allByConstraints() as $song):
             DB::insert('insert into artist_song (song_id, artist_id) values (?, ?)', [$song->id, $song->artist_id]);
         endforeach;
     }

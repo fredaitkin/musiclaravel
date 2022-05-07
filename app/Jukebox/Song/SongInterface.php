@@ -26,9 +26,10 @@ interface SongInterface
     /**
      * Retrieve all songs;
      *
+     * @param  Request $request
      * @return array
      */
-    public function all();
+    public function all(Request $request);
 
     /**
     * Remove the song
@@ -64,14 +65,6 @@ interface SongInterface
     public function doesSongExist($id, $title);
 
     /**
-    * Returns all song titles
-    *
-    * @param  string  $album
-    * @return \Illuminate\Database\Eloquent\Collection|static[]
-    */
-    public function getSongTitles(string $album = null);
-
-    /**
     * Is the file a song.
     *
     * @param  string  $file
@@ -91,27 +84,11 @@ interface SongInterface
     public function getArtistSongs($id, $artist);
 
     /**
-    * Retrieve album songs by song id.
-    *
-    * @param  int  $id
-    * @return \Illuminate\Database\Eloquent\Collection|static[]
-    */
-    public function getAlbumSongsBySongID($id);
-
-    /**
     * Search for songs
     *
     * @param string $query
     * @return \Illuminate\Database\Eloquent\Collection|static[]
     */
     public function search($query);
-
-    /**
-    * Retrieve songs
-    *
-    * @param  Request $request
-    * @return \Illuminate\Database\Eloquent\Collection|static[]
-    */
-    public function songs(Request $request);
 
 }

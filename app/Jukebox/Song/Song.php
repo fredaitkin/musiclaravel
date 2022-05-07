@@ -73,17 +73,49 @@ class Song implements SongInterface
      *
      * @return array
      */
-    public function all($view = true, $constraints = array())
+    public function all(Request $request)
     {
-        if ($view):
+        if (empty($request->all()) || $request->has('page')):
             return SongModel::paginate(10);
         else:
-            $query = SongModel::select('songs.*');
-            if (isset($constraints['genre'])):
-                $query->where('genre', $constraints['genre']);
-            endif;
-            return $query->get();
+            return $this->allByConstraints($request->all());
         endif;
+    }
+
+    /**
+     * Get a list of all songs by constraints.
+     *
+     * @return array
+     */
+    public function allByConstraints(array $constraints = [])
+    {
+        $query = SongModel::select('songs.*')->with('artists:artist');
+
+        // Play album query;
+        if (isset($constraints['id']) && isset($constraints['album']) && $constraints['album'] == 'true'):
+            // FIXME handle common album names like Greatest Hits
+            $id = $constraints['id'];
+            $query->where('album', function($q2)  use ($id)
+                {
+                    $q2->from('songs')
+                      ->select('album')
+                      ->where('id', '=', $id);
+                });
+        endif;
+
+        if (isset($constraints['genre'])):
+            $query->where('genre', $constraints['genre']);
+        endif;
+
+        if (isset($constraints['ids'])):
+            $query->whereIn('id', $constraints['ids']);
+        endif;
+
+        if (isset($constraints['cover_art_empty'])):
+            $query->whereNull('cover_art');
+        endif;
+
+        return $query->get();
     }
 
     /**
@@ -177,21 +209,6 @@ class Song implements SongInterface
     }
 
     /**
-    * Returns all song titles
-    *
-    * @param string $album Restrict via album.
-    * @return Collection Eloquent collection of song titles.
-    */
-    public function getSongTitles($album = null)
-    {
-        if($album):
-            return SongModel::where('album', '=', $album)->get(['title']);
-        else:
-            return SongModel::all(['title']);
-        endif;
-    }
-
-    /**
     * Remove the song
     *
     * @param  int  $id
@@ -251,22 +268,6 @@ class Song implements SongInterface
     }
 
     /**
-    * Retrieve album songs by song id.
-    *
-    * @param int $id
-    */
-    public function getAlbumSongsBySongID($id) {
-        return SongModel::select('id', 'title', 'album')
-            ->where('album', function($q2)  use ($id)
-                {
-                    $q2->from('songs')
-                      ->select('album')
-                      ->where('id', '=', $id);
-                })
-            ->get();
-    }
-
-    /**
     * Search for songs
     *
     * @param string $query
@@ -291,54 +292,6 @@ class Song implements SongInterface
     */
     public function getSongsByLyric($lyric) {
         return SongModel::where('lyrics', 'LIKE', "%{$lyric}%")->get();
-    }
-
-    /**
-     * Retrieve songs via Request params
-     *
-     * @param Request $request
-     */
-    public function songs(Request $request)
-    {
-        if (isset($request->id)):
-            $query = SongModel::select('songs.*')->with('artists:artist')->where('id', '=', $request->id);
-        elseif (isset($request->all)):
-            $query = SongModel::select('songs.*')->with('artists:artist');   
-        else:
-            $query = SongModel::select('id', 'title', 'lyrics')->with('artists:artist');
-        endif;
-
-        if(isset($request->album)):
-            $query->where('album', '=', $request->album);
-            if (isset($request->id) && $request->album == 'true'):
-                // FIXME handle common album names like Greatest Hits
-                $id = $request->id;
-                $query = SongModel::select('id', 'title', 'album')
-                    ->where('album', function($q2)  use ($id)
-                        {
-                            $q2->from('songs')
-                              ->select('album')
-                              ->where('id', '=', $id);
-                        });
-            endif;
-        endif;
-
-        if(isset($request->artist_id)):
-            $artist_id = $request->artist_id;
-            $query = SongModel::with(['artists' => function($q) use ($artist_id) {
-                $q->where('artist_id', '=', $artist_id);
-            }],);
-        endif;
-
-        if(isset($request->artist)):
-            $query->orWhere("songs.notes", '=', $request->artist);
-        endif;
-
-        if(isset($request->offset) && isset($request->limit)):
-            $query->skip($request->offset)->take($request->limit);
-        endif;
-
-        return $query->get();
     }
 
     /**
@@ -370,23 +323,4 @@ class Song implements SongInterface
         return $query->get()->toArray();
     }
 
-    /**
-     * Retrieve songs via array params
-     *
-     * @param array $constraints
-     */
-    public function retrieveSongs(array $constraints = [])
-    {
-        $query = SongModel::select('songs.*')->with('artists:artist');
-        if (isset($constraints['id'])):
-            $query->where('songs.id', $constraints['id']);
-        endif;
-        if (isset($constraints['ids'])):
-            $query->whereIn('songs.id', $constraints['ids']);
-        endif;
-        if (isset($constraints['cover_art_empty'])):
-            $query->whereNull('songs.cover_art');
-        endif;
-        return $query->get();
-    }
 }

@@ -31,7 +31,7 @@ class GenreResourceController extends Controller
      */
     public function songs(Request $request)
     {
-        $songs = $this->song->all(false, ['genre' => $request->genre]);
+        $songs = $this->song->all($request);
         return ['songs' => $songs, 'status_code' => 200];
     }
 

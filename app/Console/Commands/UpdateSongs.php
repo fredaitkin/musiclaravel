@@ -80,8 +80,7 @@ class UpdateSongs extends Command {
     protected function updateLyrics($ids)
     {
 
-        $songs = $this->song->retrieveSongs(['ids' => $ids]);
-
+        $songs = $this->song->allByConstraints(['ids' => $ids]);
         foreach ($songs as $song):
 
             try {
@@ -118,8 +117,7 @@ class UpdateSongs extends Command {
     protected function updateCoverArt($ids)
     {
 
-        $songs = $this->song->retrieveSongs(['ids' => $ids, 'cover_art_empty' => true]);
-
+        $songs = $this->song->allByConstraints(['ids' => $ids, 'cover_art_empty' => true]);
         foreach ($songs as $song):
 
             try {

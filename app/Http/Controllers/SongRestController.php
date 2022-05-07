@@ -41,12 +41,12 @@ class SongRestController extends Controller
      */
     public function index(Request $request)
     {
+        $songs = $this->song->all($request);
         if (empty($request->all()) || $request->has('page')):
-            $songs = $this->song->all();
             return view('songs', ['songs' => $songs]);
         endif;
 
-        return $this->song->songs($request);
+        return $songs;
     }
 
     /**
