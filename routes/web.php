@@ -88,8 +88,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('word-cloud-autocomplete', 'WordCloudResourceController@autocomplete');
 
     // Category routes
-    Route::get('categories/ajax', 'CategoryResourceController@categories');
+    Route::get('categories-autocomplete', 'CategoryResourceController@autocomplete');
 
+    // Dictionary routes
     Route::get('dictionary', 'DictionaryResourceController@dictionary');
 
 });

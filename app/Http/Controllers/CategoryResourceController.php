@@ -28,9 +28,9 @@ class CategoryResourceController extends Controller
      *
      * @return Response
      */
-    public function categories(Request $request)
+    public function autocomplete(Request $request)
     {
-        return $this->category->categories($request);
+        return $this->category->allByConstraints(['q' => $request->q]);
     }
 
 }

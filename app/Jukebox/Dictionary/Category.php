@@ -11,9 +11,25 @@ class Category implements CategoryInterface
      * Get categories
      *
      */
-    public function all(array $constraints = null)
+    public function all(Request $request)
     {
-        return CategoryModel::get();
+        if (empty($request->all())):
+            return CategoryModel::get();
+        else:
+            return $this->allByConstraints($request->all());
+        endif;
+    }
+
+    /**
+     * Get a list of categories by constraints.
+     *
+     * @return array
+     */
+    public function allByConstraints(array $constraints = [])
+    {
+        if (isset($constraints['q'])):
+            return $this->getJsonResults($constraints['q']);
+        endif;
     }
 
     /**
@@ -21,12 +37,9 @@ class Category implements CategoryInterface
      *
      * @return Response
      */
-    public function categories(Request $request)
+    private function getJsonResults($q)
     {
-        $data = [];
-        if ($request->has('q')):
-            $data = CategoryModel::select('id', 'category as text')->where('category', 'LIKE', '%' . $request->q . '%')->get();
-        endif;
+        $data = CategoryModel::select('id', 'category as text')->where('category', 'LIKE', '%' . $q . '%')->get();
         return response()->json($data);
     }
 

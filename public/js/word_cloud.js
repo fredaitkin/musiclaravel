@@ -32,7 +32,7 @@ $(document).ready(function() {
     $('.categories').select2({
         placeholder: 'Please Select',
         ajax: {
-          url: '/categories/ajax',
+          url: '/categories-autocomplete',
           dataType: 'json',
           delay: 250,
           processResults: function (data) {

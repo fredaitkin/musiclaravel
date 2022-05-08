@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 
 interface CategoryInterface
 {
-
-    public function all();
-
-    public function categories(Request $request);
+    /* 
+     * Retrieve all categories
+     *
+     * @param  Request $request
+     */
+    public function all(Request $request);
 
 }

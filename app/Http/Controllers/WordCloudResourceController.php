@@ -31,11 +31,7 @@ class WordCloudResourceController extends Controller
      */
     public function autocomplete(Request $request)
     {
-        $words = $this->wordCloud->allByConstraints(['like' => $request->search]);
-        $data = [];
-        foreach($words as $word):
-            $data[] = ['value' => $word->id, 'label' => $word->word];
-        endforeach;
-        return response()->json($data);
+        return $this->wordCloud->allByConstraints(['like' => $request->search]);
     }
+
 }
