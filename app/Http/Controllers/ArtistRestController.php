@@ -43,7 +43,12 @@ class ArtistRestController extends Controller
      */
     public function index(Request $request)
     {
-        return view('artists', ['artists' => $this->artist->all($request)]);
+        $artists = $this->artist->all($request);
+        if (empty($request->all()) || $request->has('page')):
+            return view('artists', ['artists' => $artists]);
+        endif;
+
+        return $artists;
     }
 
     /**

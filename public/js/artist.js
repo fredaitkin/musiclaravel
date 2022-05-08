@@ -29,10 +29,10 @@ $(document).ready(function() {
 
     $("input[name='play_songs']").click(function() {
         let artist_id = $(this).attr('id');
-        artist_id = artist_id.replace("play-songs-", "");
+        let id = artist_id.replace("play-songs-", "");
         let artist = $(this).closest('tr').find('div[name="artist_name"]').text();
 
-        let url = APP_URL + '/artist/songs/' + artist_id;
+        let url = APP_URL + '/artists?id=' + id;
 
         fetch(url)
             .then(
@@ -41,9 +41,8 @@ $(document).ready(function() {
                         console.log('Looks like there was a problem. Status Code: ' + response.status);
                         return;
                     }
-                    response.json().then(function(songs) {
-                        console.log(songs);
-                        display_jukebox(artist, songs);
+                    response.json().then(function(data) {
+                        display_jukebox(artist, data[0].songs);
                     });
                 }
             )
