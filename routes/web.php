@@ -51,7 +51,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::any('artists/search', 'ArtistResourceController@search');
 
-    Route::get('artist-autocomplete', 'ArtistResourceController@artist_autocomplete');
+    Route::get('artist-autocomplete', 'ArtistResourceController@autocomplete');
 
     Route::get('artist/songs/{id}', 'ArtistResourceController@songs');
 

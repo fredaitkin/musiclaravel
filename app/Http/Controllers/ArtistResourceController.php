@@ -76,11 +76,11 @@ class ArtistResourceController extends Controller
     }
 
     /**
-     * Return artists ajax
+     * Return autocompleted list of artists.
      *
      * @return Response
      */
-    public function artist_autocomplete(Request $request)
+    public function autocomplete(Request $request)
     {
         $data = [];
 

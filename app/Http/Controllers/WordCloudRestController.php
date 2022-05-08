@@ -30,22 +30,19 @@ class WordCloudRestController extends Controller
      */
     public function index(Request $request)
     {
+        $words = $this->wordcloud->all($request);
         if (empty($request->all()) || $request->has('page') || $request->has('filter')):
-            $words = $this->wordcloud->all($request);
-
             $view = view('word_cloud', [
                 'word_cloud' => $words,
                 'filter' => $request->query('filter'),
             ]);
-
             if ($words->isEmpty()):
                 $view->withMessage('No words found. Try to search again!');
             endif;
-
             return $view;
         endif;
 
-        return $this->wordcloud->songs($request);
+        return $words;
     }
 
     /**

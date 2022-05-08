@@ -6,11 +6,6 @@ interface WordCloudInterface
 {
 
     /**
-     * Set word format and type.
-     */
-    public function setWord($word);
-
-    /**
      * Process the song lyrics.
      *
      * @param string $word
@@ -31,12 +26,5 @@ interface WordCloudInterface
      * @return array
      */
     public function processWord($word);
-
-    /**
-     * Retrieve the words
-     *
-     * @return array
-     */
-    public function getWords(array $constraints);
 
 }

@@ -70,19 +70,6 @@ class WordTest extends TestCase
     }
 
     /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testWordCloudTest()
-    {
-        $wordCloud = new WordCloud();
-        $word_info = $wordCloud->setWord('Ireland');
-        $this->assertEquals('Ireland', $word_info['word']);
-        $this->assertEquals('country', $word_info['category']);
-    }
-
-    /**
      * String only contains dashes
      *
      * @return void

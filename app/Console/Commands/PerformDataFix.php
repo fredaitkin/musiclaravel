@@ -137,7 +137,7 @@ class PerformDataFix extends Command
             $categories[$record->category] = $record->id;
         }
         // Insert category id into pivot table
-        $wordCloud = $this->wordCloud->wordCloud();
+        $wordCloud = $this->wordCloud->allByConstraints();
         foreach ($wordCloud as $word):
             DB::table('word_category')->insert(['word_cloud_id' => $word->id, 'category_id' => $categories[$word->category]]);
         endforeach;

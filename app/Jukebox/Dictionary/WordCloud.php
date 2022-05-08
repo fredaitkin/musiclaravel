@@ -2,9 +2,7 @@
 
 namespace App\Jukebox\Dictionary;
 
-use App\Jukebox\Song\SongModel as Song;
 use Carbon\Carbon;
-use DB;
 use Illuminate\Http\Request;
 use Watson\Rememberable\Rememberable;
 
@@ -12,6 +10,8 @@ class WordCloud implements WordCloudInterface
 {
 
     use Rememberable;
+
+    /** Basic Routines */
 
     /**
      * Retrieve a word.
@@ -30,23 +30,35 @@ class WordCloud implements WordCloudInterface
      */
     public function all(Request $request)
     {
-        $filter = $request->query('filter');
-
-        if (! empty($filter)):
-            $words = WordCloudModel::sortable()
-                ->select('word_cloud.*')
-                ->leftJoin('word_category', 'word_cloud.id', '=', 'word_category.word_cloud_id')
-                ->leftJoin('category', 'word_category.category_id', '=', 'category.id')
-                ->where('word', 'like', '%' . $filter . '%')
-                ->orWhere('category.category', 'like', '%' . $filter . '%')
-                ->groupBy('id')
-                ->paginate(10);
+        if (empty($request->all()) || $request->has('page')):
+            return WordCloudModel::paginate(10);
         else:
-            $words = WordCloudModel::sortable()
-                ->paginate(10);
+            return $this->allByConstraints($request->all());
+        endif;
+    }
+
+    /**
+     * Get a list of words in wordcloud by constraints.
+     *
+     * @return array
+     */
+    public function allByConstraints(array $constraints = [])
+    {
+        $query = WordCloudModel::select('word_cloud.*');
+
+        if (! empty($constraints['filter'])):
+            return $this->getFilteredResults($constraints['filter']);
         endif;
 
-        return $words;
+        if (isset($constraints['songs']) && isset($constraints['id'])):
+            return $this->getJsonResults($constraints['id']);
+        endif;
+
+        if (isset($constraints['like'])):
+            $query->where("word", "LIKE", "%{$constraints['like']}%");
+        endif;
+
+        return $query->get();
     }
 
     /**
@@ -70,7 +82,7 @@ class WordCloud implements WordCloudInterface
         $model->word = $request->word;
         $model->is_word = $request->is_word ? 1 : 0;
         $model->variant_of = $request->variant_of;
-        
+
         $model->save();
 
         // Make any updates to categories
@@ -91,138 +103,29 @@ class WordCloud implements WordCloudInterface
         endforeach;
     }
 
+    /** Utility Routines */
+
     /**
-     * Get word cloud
+     * Update a word in the word cloud.
      *
-     * @return Response
+     * @param array $word
      */
-    public function wordCloud(array $contraints = null)
+    public function dynamicStore(array $word)
     {
-        return WordCloudModel::get();
-    }
+        // Add validation
+        $model = new WordCloudModel();
+        $model->word = $word['word'];
+        $model->is_word = $word['is_word'];
+        
+        $model->save();
 
-    /**
-     * Retrieve songs (and artists) that feature a word.
-     * TODO Separate into song attribute ++
-     */
-    public function songs(Request $request)
-    {
-        $songs = DB::table('song_word_cloud')
-             ->select('song_id')
-             ->where('word_cloud_id', $request->get('id'))
-             ->get();
-
-        $data = [];
-        foreach($songs as $song):
-            // TODO take out of WordCloud model
-            $song = Song::find($song->song_id);
-            $data[] = array('id' => $song->id, 'song' => $song->title, 'artist' => $song->artists[0]->artist, 'lyrics' => $song->lyrics);
+        // Add word song references
+        foreach($word['song_ids'] as $song_id):
+            $wordCloud->songs()->attach(['song' => $song_id]);
         endforeach;
-
-        usort($data, [$this, 'sortSongs']);
-
-        return json_encode($data);
     }
 
-    /**
-     * Sort an array of songs by song title.
-     */
-    private function sortSongs($a, $b)
-    {
-        return strcmp($a["song"], $b["song"]);
-    }
-
-    /**
-     * Set word format and type.
-     */
-    public function setWord($word)
-    {
-        $word = mb_strtolower($word);
-
-        if (isset(config('countries_expanded')[$word])):
-            return ['word' => config('countries_expanded')[$word], 'category' => 'country'];
-        endif;
-
-        if (isset(config('states_expanded')[$word])):
-            return ['word' => config('states_expanded')[$word], 'category' => 'state'];
-        endif;
-
-        if (isset(config('towns')[$word])):
-            return ['word' => config('towns')[$word], 'category' => 'town'];
-        endif;
-
-        if (isset(config('places')[$word])):
-            return ['word' => config('places')[$word], 'category' => 'places'];
-        endif;
-
-        if (isset(config('streets')[$word])):
-            return ['word' => config('streets')[$word], 'category' => 'street'];
-        endif;
-
-        if (isset(config('months_expanded')[$word])):
-            return ['word' => config('months_expanded')[$word], 'category' => 'month'];
-        endif;
-
-        if (isset(config('days_expanded')[$word])):
-            return ['word' => config('days_expanded')[$word], 'category' => 'day'];
-        endif;
-
-        if (isset(config('names')[$word])):
-            return ['word' => config('names')[$word], 'category' => 'name'];
-        endif;
-
-        if (isset(config('honorifics')[$word])):
-            return ['word' => config('honorifics')[$word], 'category' => 'honorific'];
-        endif;
-
-        if (isset(config('brands')[$word])):
-            return ['word' => config('brands')[$word], 'category' => 'brand'];
-        endif;
-
-        if (isset(config('organisations')[$word])):
-            return ['word' => config('organisations')[$word], 'category' => 'organisation'];
-        endif;
-
-        if (isset(config('acronyms')[$word])):
-            return ['word' => config('acronyms')[$word]['uppercase'], 'category' => 'acronym'];
-        endif;
-
-        if (isset(config('religions')[$word])):
-            return ['word' => config('religions')[$word], 'category' => 'religion'];
-        endif;
-
-        if (isset(config('alphabet')[$word])):
-            return ['word' => config('alphabet')[$word], 'category' => 'alphabet'];
-        endif;
-
-        if (isset(config('capitalized')[$word])):
-            return ['word' => config('capitalized')[$word], 'category' => 'capitalized'];
-        endif;
-
-        if (isset(config('language')[$word])):
-            return ['word' => config('language')[$word], 'category' => 'language'];
-        endif;
-
-        if (in_array($word, config('made_up'))):
-            return ['word' => config('made_up')[$word], 'category' => 'made_up'];
-        endif;
-
-        return ['word' => $word, 'category' => ''];
-    }
-
-    /**
-     * Get words.
-     *
-     * @param array $contraints
-     */
-    public function getWords(array $constraints)
-    {
-        $query = WordCloudModel::select("*");
-        if (isset($constraints['like'])):
-            $query->where("word", "LIKE", "%{$constraints['like']}%");
-        endif;
-        return $query->get();
-    }
+    /** Other Routines */
 
     /**
      * Process the song lyrics.
@@ -289,26 +192,6 @@ class WordCloud implements WordCloudInterface
     }
 
     /**
-     * Update a word in the word cloud.
-     *
-     * @param array $word
-     */
-    public function dynamicStore(array $word)
-    {
-        // Add validation
-        $model = new WordCloudModel();
-        $model->word = $word['word'];
-        $model->is_word = $word['is_word'];
-        
-        $model->save();
-
-        // Add word song references
-        foreach($word['song_ids'] as $song_id):
-            $wordCloud->songs()->attach(['song' => $song_id]);
-        endforeach;
-    }
-
-    /**
      * Remove words from word cloud.
      *
      * @param int $id
@@ -347,6 +230,45 @@ class WordCloud implements WordCloudInterface
             $wordCloud->save();
             $wordCloud->songs()->attach(['song' => $id]);
         endforeach;
+    }
+
+    /**
+     * A filtered, paginated list of words.
+     *
+     * @param string $filtered
+     */
+    private function getFilteredResults($filter)
+    {
+        return WordCloudModel::select('word_cloud.*')
+            ->leftJoin('word_category', 'word_cloud.id', '=', 'word_category.word_cloud_id')
+            ->leftJoin('category', 'word_category.category_id', '=', 'category.id')
+            ->where('word', 'like', '%' . $filter . '%')
+            ->orWhere('category.category', 'like', '%' . $filter . '%')
+            ->groupBy('id')
+            ->paginate(10);
+    }
+
+    /**
+     * A json encoded list of songs that use the word.
+     *
+     * @param int $ind
+     */
+    private function getJsonResults($id)
+    {
+        $wordCloud = WordCloudModel::find($id);
+        foreach($wordCloud->songs as $song):
+            $data[] = array('id' => $song->id, 'song' => $song->title, 'artist' => $song->artists[0]->artist, 'lyrics' => $song->lyrics);
+        endforeach;
+        usort($data, [$this, 'sortSongs']);
+        return json_encode($data);
+    }
+
+    /**
+     * Sort an array of songs by song title.
+     */
+    private function sortSongs($a, $b)
+    {
+        return strcmp($a["song"], $b["song"]);
     }
 
     private function isWord($w) {
