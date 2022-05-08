@@ -29,12 +29,11 @@ class PlaylistRestController extends Controller
      */
     public function index(Request $request)
     {
-        if (empty($request->all())):
-            $playlists = $this->playlist->all($request);
+        $playlists = $this->playlist->all($request);
+        if (empty($request->all()) || $request->has('page')):
             return view('playlists', ['playlists' => $playlists]);
         endif;
-
-        return $this->playlist->playlists($request);
+        return $playlists;
     }
 
     /**
@@ -54,9 +53,9 @@ class PlaylistRestController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy(Request $request, $playlist)
+    public function delete(Request $request, $playlist)
     {
-        $this->playlist->destroy($playlist);
+        $this->playlist->delete($playlist);
         return view('playlists', ['playlists' => $this->playlist->all($request)]);
     }
 

@@ -4,7 +4,7 @@ $(document).ready(function() {
 
         let playlist = $(this).parent().prev('td').find('div').text();
 
-        let url = APP_URL + '/playlists/songs?playlist=' + encodeURIComponent(playlist);
+        let url = APP_URL + '/playlists?playlist=' + encodeURIComponent(playlist);
 
         fetch(url)
             .then(
@@ -14,7 +14,7 @@ $(document).ready(function() {
                         return;
                     }
                     response.json().then(function(data) {
-                        display_jukebox(playlist, data.songs);
+                        display_jukebox(playlist, JSON.parse(data[0].playlist));
                     });
                 }
             )

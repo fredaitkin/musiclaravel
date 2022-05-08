@@ -9,23 +9,44 @@ class Playlist implements PlaylistInterface
 {
 
     /**
+     * Retrieve a playlist.
+     *
+     * @param string $name
+     */
+    public function get($name)
+    {
+        return PlaylistModel::where(['name' => $name])->get(['playlist'])->toArray();
+    }
+
+    /**
      * Returns playlists
      *
      * @return LengthAwarePaginator Paginated list of artists.
      */
     public function all(Request $request)
     {
-        return PlaylistModel::get(['name']);
+        if (empty($request->all()) || $request->has('page')):
+            return PlaylistModel::get(['name']);
+        else:
+            return $this->allByConstraints($request->all());
+        endif;
     }
 
     /**
-     * Retrieve an artist.
+     * Get a list of all playlist by constraints.
      *
-     * @param int $id
+     * @return array
      */
-    public function get($name)
+    public function allByConstraints(array $constraints = [])
     {
-        return PlaylistModel::where(['name' => $name])->get(['playlist'])->toArray();
+        $query = PlaylistModel::select('*');
+        if (isset($constraints['playlist'])):
+            $query->where('name', $constraints['playlist']);
+        endif;
+        if (isset($constraints['notIn'])):
+            $query->where('playlist', 'not like', '%"id": "' . intval($constraints['notIn']) . '"%');
+        endif;
+        return $query->get();
     }
 
     /**
@@ -51,11 +72,12 @@ class Playlist implements PlaylistInterface
         endif;
         $playlist->name = $request->playlist;
 
-        if(isset($playlist->playlist)) {
+        if(isset($playlist->playlist)):
             $existing_playlist = (array) json_decode($playlist->playlist);
-        } else {
+        else:
             $playlist->playlist = [];
-        }
+        endif;
+
         $existing_playlist[] = ['id' => $request->id, 'title' => $request->title];
         $playlist->playlist = json_encode($existing_playlist);
         $playlist->save();
@@ -64,28 +86,12 @@ class Playlist implements PlaylistInterface
     }
 
     /**
-     * Returns playlists
-     *
-     * @return LengthAwarePaginator Paginated list of artists.
-     */
-    public function playlists(Request $request)
-    {
-        if (isset($request->all)):
-            $query = PlaylistModel::select('name');
-            if (isset($request->notIn)):
-                $query->where('playlist', 'not like', '%"id": "' . intval($request->notIn) . '"%');
-            endif;
-            return $query->get();
-        endif;
-    }
-
-    /**
      * Remove the playlist
      *
      * @param  int  $id
      * @return Response
      */
-    public function destroy($name)
+    public function delete($name)
     {
         PlaylistModel::where(['name' => $name])->delete();
     }

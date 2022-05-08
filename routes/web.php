@@ -63,9 +63,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('playlists', 'PlaylistRestController@store');
 
-    Route::delete('playlists/{playlist}', 'PlaylistRestController@destroy')->name('playlists.destroy');
-
-    Route::get('playlists/songs', 'PlaylistResourceController@songs');
+    Route::delete('playlists/{playlist}', 'PlaylistRestController@delete')->name('playlists.delete');
 
     // Genres routes
     Route::get('genres', 'GenreRestController@index');
