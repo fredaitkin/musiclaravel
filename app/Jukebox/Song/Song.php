@@ -54,6 +54,18 @@ class Song implements SongInterface
                 });
         endif;
 
+        if (isset($constraints['artist'])):
+            $artist = $constraints['artist'];
+            $exact_match = isset($constraints['exact_match']);
+            $query->whereHas('artists', function($q) use($artist, $exact_match) {
+                if($exact_match):
+                    $q->where('artist', $artist);
+                else:
+                    $q->where('artist', 'LIKE', '%' . $artist . '%');
+                endif;
+            });
+        endif;
+
         if (isset($constraints['genre'])):
             $query->where('genre', $constraints['genre']);
         endif;
@@ -72,6 +84,14 @@ class Song implements SongInterface
 
         if (isset($constraints['lyrics'])):
             $query->where('lyrics', 'LIKE', "%{$constraints['lyrics']}%");
+        endif;
+
+        if(isset($constraints['exempt'])):
+            $query->whereNotIn('songs.id', explode(',', $constraints['exempt']));
+        endif;
+
+        if(isset($constraints['lyrics_empty'])):
+            $query->whereIn('lyrics', ['','unavailable']);
         endif;
 
         return $query->get();

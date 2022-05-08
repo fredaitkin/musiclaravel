@@ -2,8 +2,8 @@ $(document).ready(function() {
 
     $("#lyrics").click(function() {
 
-        let url = '/internalapi/lyrics/artist?artist=' + $("#artist").val() +
-            '&empty=true' +
+        let url = '/songs?artist=' + $("#artist").val() +
+            '&lyrics_empty=true' +
             '&exact_match=' + $('#exact_match').is(':checked') +
             '&exempt=' + $('#exempt').val();
 

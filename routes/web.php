@@ -71,7 +71,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('genres/songs', 'GenreResourceController@songs');
 
     // Lyric routes
-    Route::get('lyrics/{id}', 'LyricRestController@index');
+    Route::get('lyrics/{id}', 'LyricRestController@edit');
 
     Route::post('lyrics', 'LyricRestController@store');
 

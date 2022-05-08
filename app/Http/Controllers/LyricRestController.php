@@ -33,23 +33,29 @@ class LyricRestController extends Controller
         $this->wordCloud = $wordCloud;
     }
 
+
+    /**
+     * Display lyrics
+     *
+     * @return Response
+     */
+    public function index(Request $request)
+    {
+        return $this->song->all($request);
+    }
+
     /**
      * Show the song lyrics
      *
      * @param int $id
      * @return string
      */
-    public function index($id)
+    public function edit($id)
     {
-        $song = $this->song->get($id);
-        if ($song):
-            return view('lyrics', ['song' => $song]);
-        else:
-            abort(404);
-        endif;
+        return view('lyrics', ['song' => $this->song->get($id)]);
     }
 
-    /**
+   /**
      * Store song lyrics in the database
      *
      * @param Request request

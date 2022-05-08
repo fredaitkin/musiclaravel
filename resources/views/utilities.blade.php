@@ -102,5 +102,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/the_works.js') }}"></script>
+    <script src="{{ asset('js/admin.js') }}"></script>
 @endsection
