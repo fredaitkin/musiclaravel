@@ -132,4 +132,5 @@
 
 @section('scripts')
     <script src="{{ asset('js/artist.js') }}"></script>
+    <script src="{{ asset('js/song.js') }}"></script>
 @endsection

@@ -16,7 +16,7 @@
     </script>
 
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/utilities.js') }}"></script>
+    <script src="{{ asset('js/song.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">

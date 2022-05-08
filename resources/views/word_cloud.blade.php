@@ -92,7 +92,8 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/word_clouds.js') }}"></script>
+    <script src="{{ asset('js/dictionary.js') }}"></script>
+    <script src="{{ asset('js/word_cloud.js') }}"></script>
 @endsection
 
 @section('styles')

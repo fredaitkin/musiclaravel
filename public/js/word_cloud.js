@@ -1,55 +1,63 @@
 $(document).ready(function() {
 
-    $("#capitalize").click(function() {
-        $("#word").val($("#word").val()[0].toUpperCase() + $("#word").val().slice(1));
-    });
+  $("input[name='songs']").click(function() {
+    let word_id = $(this).attr('id');
+    word_id = word_id.replace("songs-", "");
+    var url = APP_URL + '/word-cloud?songs=true&id=' + word_id;
 
-    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-    $( "#variant" ).autocomplete({
-        source: function( request, response ) {
-            // Fetch data
-            $.ajax({
-                url:"/word-cloud-autocomplete",
-                type: 'post',
-                dataType: "json",
-                data: {
-                   _token: CSRF_TOKEN,
-                   search: request.term
-                },
-                success: function( data ) {
-                    response( data );
-                }
-            });
-        },
-        select: function (event, ui) {
-            // Set selection
-            $('#variant').val(ui.item.label);
-            $('#variant_of').val(ui.item.value);
-           return false;
+    fetch(url)
+      .then(
+        function(response) {
+          if (response.status !== 200) {
+            console.log('Looks like there was a problem. Status Code: ' + response.status);
+            return;
+          }
+          response.json().then(function(data) {
+            display_song_form(data);
+          });
         }
+      )
+      .catch(function(err) {
+        console.log('Fetch Error: ', err);
     });
 
-    $('.categories').select2({
-        placeholder: 'Please Select',
-        ajax: {
-          url: '/categories-autocomplete',
-          dataType: 'json',
-          delay: 250,
-          processResults: function (data) {
-            return {
-              results: data
-            };
-          },
-          cache: true
-        }
-    });
-
-    if ($("#categories_json").val() != undefined) {
-        var categories = JSON.parse($("#categories_json").val());
-        $.each(categories, function(i, category) {
-            let set_category = $("<option selected='selected'></option>").val(category.id).text(category.category);
-            $(".categories").append(set_category).trigger('change');
-        });
-    }
+  });
 
 });
+
+function display_song_form(data) {
+  let form = '<div>';
+  $.each(data, function(i, song) {
+    form += '<div>' +
+      '<div style="width:50%;float:left" id="' + song.id + '" class="song"><a class="songs" href="#">' + song.song.substr(0, 50) + '</a></div>' +
+      '<div style="width:50%;float:left">' + song.artist + '</div>' +
+      '<div id="modal-' + song.id + '" style="display:none;white-space:pre;">' + song.lyrics + '</div>' +
+      '</div>';
+  });
+  form += '</div>';
+
+  $(form).dialog({
+    title: 'Songs',
+    close: function() {
+      $(this).remove()
+    },
+    modal: false,
+    width: 700,
+    open : function() {
+      $('div.ui-dialog').addClass('ui-dialog-jukebox');
+    }
+  });
+
+  $('.song').click(function() {
+      var modal_div = 'modal-' + $(this).attr('id');
+      $('#' + modal_div).dialog({
+        modal : true ,
+        title: $(this).text(),
+        height : 700,
+        width : 400,
+        open : function() {
+          $("[aria-describedby=" + modal_div + "]").addClass('ui-dialog-lyrics');
+        },
+      });
+  });
+}

@@ -37,7 +37,7 @@
                                         </td>
                                         <td>
                                             {{ csrf_field() }}
-                                            <a href="#" name="play">play</a>
+                                            <a href="#" name="play_genre">play</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -54,5 +54,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/genre.js') }}"></script>
+    <script src="{{ asset('js/song.js') }}"></script>
 @endsection

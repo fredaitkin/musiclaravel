@@ -44,14 +44,11 @@ class Song implements SongInterface
 
         // Play album query;
         if (isset($constraints['id']) && isset($constraints['album']) && $constraints['album'] == 'true'):
-            // FIXME handle common album names like Greatest Hits
-            $id = $constraints['id'];
-            $query->where('album', function($q2)  use ($id)
-                {
-                    $q2->from('songs')
-                      ->select('album')
-                      ->where('id', '=', $id);
-                });
+            return $this->getAlbumSongs($constraints['id']);
+        endif;
+
+        if (isset($constraints['id'])):
+            $query->where('id', $constraints['id']);
         endif;
 
         if (isset($constraints['artist'])):
@@ -338,6 +335,26 @@ class Song implements SongInterface
         endif;
 
         return $query->get()->toArray();
+    }
+
+    /**
+     * Retrieve songs for an album
+     *
+     * @param array $constraints
+     *
+     * @return array
+     */
+    private function getAlbumSongs($song_id)
+    {
+        // FIXME handle common album names like Greatest Hits
+        return SongModel::select('songs.*')
+            ->where('album', function($q2)  use ($song_id)
+                {
+                    $q2->from('songs')
+                      ->select('album')
+                      ->where('id', '=', $song_id);
+                })
+            ->get();
     }
 
 }

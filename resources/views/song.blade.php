@@ -148,6 +148,8 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('js/artist.js') }}"></script>
+    <script src="{{ asset('js/playlist.js') }}"></script>
     <script src="{{ asset('js/song.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 @endsection
