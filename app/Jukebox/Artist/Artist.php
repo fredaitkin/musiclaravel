@@ -28,7 +28,23 @@ class Artist implements ArtistInterface
      */
     public function all(Request $request)
     {
-        return ArtistModel::orderBy('artist')->paginate();
+        if (empty($request->all()) || $request->has('page')):
+            return ArtistModel::orderBy('artist')->paginate();
+        else:
+            return $this->allByConstraints($request->all());
+        endif;
+    }
+
+    /**
+     * Get a list of artists by constraints.
+     *
+     * @return array
+     */
+    public function allByConstraints(array $constraints = [])
+    {
+        if (isset($constraints['q'])):
+            return $this->getJsonResults($constraints['q']);
+        endif;
     }
 
     /**
@@ -143,6 +159,19 @@ class Artist implements ArtistInterface
             $albums[$song->album] = $song->album;
         endforeach;
         return $albums;
+    }
+
+    /**
+     * Return json list of artists.
+     *
+     * @return Response
+     */
+    private function getJsonResults($artist)
+    {
+        $data = ArtistModel::select('id', 'artist as text')
+            ->where('artist', 'LIKE', '%' . $artist . '%')
+            ->get();
+        return response()->json($data);
     }
 
 }

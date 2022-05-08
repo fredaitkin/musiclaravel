@@ -82,13 +82,7 @@ class ArtistResourceController extends Controller
      */
     public function autocomplete(Request $request)
     {
-        $data = [];
-
-        if ($request->has('q')):
-            $data = $this->artist->searchByName($request->q);
-        endif;
-
-        return response()->json($data);
+        return $this->artist->allByConstraints(['q' => $request->q]);
     }
 
     /**
