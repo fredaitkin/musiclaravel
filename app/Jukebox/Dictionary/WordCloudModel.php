@@ -97,9 +97,9 @@ class WordCloudModel extends Model
     public function getCategoryDisplayAttribute()
     {
         $categories = [];
-        foreach ($this->categories as $category) {
+        foreach ($this->categories as $category):
             $categories[] = $category->category;
-        }
+        endforeach;
         return implode(',', $categories);
     }
 
@@ -110,9 +110,9 @@ class WordCloudModel extends Model
     public function getCategoryArrayAttribute()
     {
         $categories = [];
-        foreach ($this->categories as $category) {
+        foreach ($this->categories as $category):
             $categories[] = $category->id;
-        }
+        endforeach;
         return $categories;
     }
 

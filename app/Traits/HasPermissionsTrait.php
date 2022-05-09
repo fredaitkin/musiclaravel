@@ -10,9 +10,9 @@ trait HasPermissionsTrait {
    public function givePermissionsTo(... $permissions) {
 
     $permissions = $this->getAllPermissions($permissions);
-    if($permissions === null) {
+    if($permissions === null):
       return $this;
-    }
+    endif;
     $this->permissions()->saveMany($permissions);
     return $this;
   }
@@ -38,21 +38,21 @@ trait HasPermissionsTrait {
 
   public function hasPermissionThroughRole($permission) {
 
-    foreach ($permission->roles as $role){
-      if($this->roles->contains($role)) {
+    foreach ($permission->roles as $role):
+      if($this->roles->contains($role)):
         return true;
-      }
-    }
+      endif;
+    endforeach;
     return false;
   }
 
   public function hasRole( ... $roles ) {
 
-    foreach ($roles as $role) {
-      if ($this->roles->contains('slug', $role)) {
+    foreach ($roles as $role):
+      if ($this->roles->contains('slug', $role)):
         return true;
-      }
-    }
+      endif;
+    endforeach;
     return false;
   }
 

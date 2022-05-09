@@ -64,11 +64,11 @@ class ManagedQueryResourceController extends Controller
             endif;
             $phrase = substr($song->lyrics, $pos, 150);
             $phrase = str_replace(["\r\n", "\n", "\\"], [' ', ' ', ''], $phrase);
-            if (stripos($phrase, $words) !== 0) {
+            if (stripos($phrase, $words) !== 0):
                 // Strip start to get whole word
                 $start_pos = strpos($phrase, " ");
                 $phrase = substr($phrase, $start_pos);
-            }
+            endif;
             // Strip end to get whole word.
             $end_pos = strrpos($phrase, " ");
             $phrase = substr($phrase, 0, $end_pos);

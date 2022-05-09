@@ -7,7 +7,6 @@ use App\Jukebox\Dictionary\WordCloudInterface as WordCloud;
 use App\Jukebox\Song\SongInterface as Song;
 use DB;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Redis;
 use Storage;
 
 class PerformDataFix extends Command

@@ -504,12 +504,12 @@ class Words extends Command {
         $word = trim($word, $chars_to_trim);
         if (! empty($word) && ! preg_match('/^[-]+$/', $word)):
             // 'accattone'
-            if($word[0] == "'" && $word[strlen($word) - 1] == "'") {
+            if($word[0] == "'" && $word[strlen($word) - 1] == "'"):
                 $word = substr($word, 1, strlen($word) - 2);
-                if ($word === 'n') {
+                if ($word === 'n'):
                     $word = "'n";
-                }
-            }
+                endif;
+            endif;
             // Retain capitilisation for countries, months, names etc
             $word_info = $this->setCaseInfo($word);
             if (! empty($word_info)):

@@ -170,9 +170,9 @@ class UpdateLyrics extends Command {
         $this->info($this->url . "SearchLyricDirect?artist=" . urlencode($artist) . "&song=" . urlencode($song));
         $xml = simplexml_load_string($response);
 
-        if (false === $xml) {
+        if (false === $xml):
             return false;
-        }
+        endif;
 
         if (isset($xml) && ! empty($xml->Lyric)):
             $this->info("LYRIC ARTIST: " . $xml->LyricArtist);
@@ -196,9 +196,9 @@ class UpdateLyrics extends Command {
         $response = $this->executeCurlRequest($this->url . "SearchLyric?artist=" . urlencode($artist) . "&song=" . urlencode($song));
         $xml = simplexml_load_string($response);
 
-        if (false === $xml) {
+        if (false === $xml):
             return false;
-        }
+        endif;
 
         if (isset($xml->SearchLyricResult) && ! empty($xml->SearchLyricResult)):
             foreach ($xml->SearchLyricResult as $result):

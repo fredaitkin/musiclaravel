@@ -129,9 +129,9 @@ class Song implements SongInterface
 
         // Make any updates to artist/s
         $existing_artists = [];
-        foreach($model->artists as $artist) {
+        foreach($model->artists as $artist):
             $existing_artists[] = $artist->id;
-        }
+        endforeach;
 
         if (empty($request->artists)):
             $request->artists = [];

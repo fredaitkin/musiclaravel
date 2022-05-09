@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Jukebox\Song\SongInterface as Song;
 use Cache;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 

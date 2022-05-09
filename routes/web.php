@@ -47,8 +47,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('artist/{id}', 'ArtistRestController@edit');
 
-    Route::delete('artist/{id}', 'ArtistRestController@destroy')->name('artist.destroy');
-
     Route::any('artists/search', 'ArtistResourceController@search');
 
     Route::get('artist-autocomplete', 'ArtistResourceController@autocomplete');
@@ -63,7 +61,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('playlists', 'PlaylistRestController@store');
 
-    Route::delete('playlists/{playlist}', 'PlaylistRestController@delete')->name('playlists.delete');
+    Route::delete('playlists/{playlist}', 'PlaylistRestController@destroy')->name('playlists.destroy');
 
     // Genres routes
     Route::get('genres', 'GenreRestController@index');

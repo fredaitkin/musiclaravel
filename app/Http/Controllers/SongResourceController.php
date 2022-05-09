@@ -75,17 +75,17 @@ class SongResourceController extends Controller
         $song = $this->song->get($id);
         $location = config('filesystems.media_directory') . $song->location;
         // TODO what to do with wma files
-        if (Storage::disk(config('filesystems.partition'))->has($location)) {
+        if (Storage::disk(config('filesystems.partition'))->has($location)):
             $contents = Storage::disk(config('filesystems.partition'))->get($location);
             $response = response($contents, 200)
                 ->header("Content-Type", 'audio/mpeg')
                 ->header("Content-transfer-encoding", 'binary')
                 ->header("Accept-Ranges", "bytes");
-            if ($song->filesize) {
+            if ($song->filesize):
                 $response->header("Content-Length", $song->filesize);
-            }
+            endif;
             return $response;
-        }
+        endif;
     }
 
 }

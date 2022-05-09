@@ -53,7 +53,7 @@ class PlaylistRestController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function delete(Request $request, $playlist)
+    public function destroy(Request $request, $playlist)
     {
         $this->playlist->delete($playlist);
         return view('playlists', ['playlists' => $this->playlist->all($request)]);
