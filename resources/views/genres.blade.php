@@ -45,7 +45,7 @@
                         </table>
                     </div>
                     <div class="col" style="background: linear-gradient(to top, black, transparent 90%);">
-                        <img class="night-image" src="{{ asset('img/nightswimming.png') }}" alt="genre">
+                        <img class="night-image" src="{{ asset('img/skeleton.jpg') }}" alt="genre">
                     </div>
                 </div>
             </div>

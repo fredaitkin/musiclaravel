@@ -27,15 +27,15 @@
 
     <div class="mysounds-home-page-div">
         @auth
-            <div><a href="{{ url('/songs') }}">Songs</a></div>
-            <div><a href="{{ url('/artists') }}">Artists</a></div>
-            <div><a href="{{ url('/playlists') }}">Playlists</a></div>
-            <div><a href="#" name="shuffle_songs">Shuffle Songs</a></div>
-            <div><a href="{{ url('/genres') }}">Genres</a></div>
-            <div><a href="{{ url('/word-cloud') }}">Word Cloud</a></div>
+            <div><a href="{{ url('/songs') }}"><h3>Songs</h3></a></div>
+            <div><a href="{{ url('/artists') }}"><h3>Artists</h3></a></div>
+            <div><a href="{{ url('/playlists') }}"><h3>Playlists</h3></a></div>
+            <div><a href="#" name="shuffle_songs"><h3>Shuffle Songs</h3></a></div>
+            <div><a href="{{ url('/genres') }}"><h3>Genres</h3></a></div>
+            <div><a href="{{ url('/word-cloud') }}"><h3>Word Cloud</h3></a></div>
             <div>
                 <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                    Logout
+                    <h3>Logout</h3>
                 </a>
             </div>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

@@ -21,7 +21,7 @@
                 margin: 0;
             }
             body {
-                background: url({{ asset('img/nightswimming.jpg') }});
+                background: url({{ asset('img/skeleton.jpg') }});
                 background-size: cover;
                 border: 10px solid white;
                 border-radius: 25px;
@@ -56,10 +56,11 @@
                 color: white;
                 font-weight: bold;
                 font-style: italic;
+                margin-bottom: 400px;
             }
 
             .links > a {
-                color: white;
+                color: black;
                 padding: 0 25px;
                 font-size: 12px;
                 font-weight: 600;
@@ -73,7 +74,7 @@
             }
         </style>
     </head>
-    <body background='storage/nightswimming.jpg'>
+    <body background='storage/skelton.jpg'>
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -85,14 +86,14 @@
                         <a href="{{ url('/genres') }}">Genres</a>
                         <a href="{{ url('/word-cloud') }}">Word Cloud</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                        <a class="brightness(85%)" href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>
                     @endauth
                 </div>
             @endif
 
-            <div class="content">
-                <div class="title m-b-md">
+            <div>
+                <div class="title">
                     Music
                 </div>
             </div>

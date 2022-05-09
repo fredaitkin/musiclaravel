@@ -53,7 +53,7 @@
                         </table>
                     </div>
                     <div class="col">
-                        <img class="night-image" src="{{ asset('img/nightswimming.png') }}" alt="genre">
+                        <img class="night-image-playlist" src="{{ asset('img/skeleton.jpg') }}" alt="genre">
                     </div>
                 </div>
             </div>
