@@ -8,7 +8,6 @@ use App\Jukebox\Song\SongInterface as Song;
 use DB;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Redis;
-use Log;
 use Storage;
 
 class PerformDataFix extends Command
@@ -38,13 +37,6 @@ class PerformDataFix extends Command
     private $options;
 
     /**
-     * The media directory
-     *
-     * @var string
-     */
-    private $media_directory;
-
-    /**
      * The song interface
      *
      * @var App\Jukebox\Song\SongInterface
@@ -71,7 +63,6 @@ class PerformDataFix extends Command
     public function __construct(Song $song, WordCloud $wordCloud, Category $category)
     {
         parent::__construct();
-        $this->media_directory = Redis::get('media_directory');
         $this->song = $song;
         $this->wordCloud = $wordCloud;
         $this->category = $category;
@@ -107,8 +98,8 @@ class PerformDataFix extends Command
     private function reportMissingSongs()
     {
         foreach ($this->song->allByConstraints() as $song):
-            if (! Storage::disk(config('filesystems.partition'))->has($this->media_directory . $song->location)):
-                Log::info($song->artists[0]->artist . ' ' . $song->title . ' LOCATION: ' . $song->location . ' does not exist');
+            if (! Storage::disk(config('filesystems.partition'))->has(config('filesystems.media_directory') . $song->location)):
+                $this->info($song->artists[0]->artist . ' ' . $song->title . ' LOCATION: ' . $song->location . ' does not exist');
             endif;
         endforeach;
     }

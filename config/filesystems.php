@@ -93,4 +93,14 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Media directory
+    |--------------------------------------------------------------------------
+    |
+    | Directory where music files are stored.
+    |
+    */
+
+    'media_directory' => env('MEDIA_DIRECTORY', 'music/'),
 ];

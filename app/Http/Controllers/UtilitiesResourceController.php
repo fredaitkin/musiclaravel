@@ -11,7 +11,6 @@ use App\Jukebox\Song\SongInterface as Song;
 use Exception;
 use getID3;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
 use Log;
 use Redirect;
 use Storage;
@@ -20,13 +19,6 @@ class UtilitiesResourceController extends Controller
 {
 
     private $ID3_extractor;
-
-    /**
-     * The media directory
-     *
-     * @var string
-     */
-    private $media_directory;
 
     /**
      * The file system root
@@ -62,7 +54,7 @@ class UtilitiesResourceController extends Controller
     public function __construct(Artist $artist, Song $song)
     {
         $this->ID3_extractor = new getID3;
-        $this->media_directory = Redis::get('media_directory');
+        $this->media_directory = config('filesystems.media_directory');
         $this->partition_root = config('filesystems.disks')[config('filesystems.partition')]['root'];
         $this->artist = $artist;
         $this->song = $song;
@@ -134,7 +126,7 @@ class UtilitiesResourceController extends Controller
      */
     private function processMediaDirectory() {
         $result = [];
-        $scan_items = glob(Redis::get('media_directory') . '/*');
+        $scan_items = glob($this->media_directory . '/*');
         foreach($scan_items as $item):
             if(is_dir($item)):
                 $artist_id = $this->processArtist($item);
@@ -258,7 +250,7 @@ class UtilitiesResourceController extends Controller
             if(! $this->song->doesSongExist($artist_id, $song_info->title())):
                 Log::info("Adding and moving song " . $song_info->title());
                 $new_song_location = $song_info->artist() . "\\" . $song_info->album() . DIRECTORY_SEPARATOR . $song_info->title() . "." . $song_info->fileType();
-                // Create song in datathis->media_directory.
+                // Create song in database
                 $this->song->dynamicStore($new_song_location, $song_info->album(), $artist_id, $song_info);
                 Storage::disk(config('filesystems.partition'))->move(str_replace($this->partition_root, '', $song), $this->media_directory . $new_song_location);
             else:

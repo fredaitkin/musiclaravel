@@ -11,12 +11,6 @@ use Illuminate\Support\Facades\Storage;
 
 class ImageResourceController extends Controller
 {
-    /**
-     * The media directory
-     *
-     * @var string
-     */
-    private $media_directory;
 
     /**
      * The song interface
@@ -30,7 +24,6 @@ class ImageResourceController extends Controller
      */
     public function __construct(Song $song)
     {
-        $this->media_directory = Redis::get('media_directory');
         $this->song = $song;
     }
 
@@ -42,7 +35,7 @@ class ImageResourceController extends Controller
             if (count($location) < 2):
                 $location = explode('\\', $song->location);
             endif;
-            $location = $this->media_directory . $location[0] . DIRECTORY_SEPARATOR . $location[1];
+            $location = config('filesystems.media_directory') . $location[0] . DIRECTORY_SEPARATOR . $location[1];
             $files = Storage::disk(config('filesystems.partition'))->files($location);
             $path = null;
             if (count($files) > 0):

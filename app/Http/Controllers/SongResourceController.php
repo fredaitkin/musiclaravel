@@ -4,19 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Jukebox\Song\SongInterface as Song;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
 use Storage;
 
 class SongResourceController extends Controller
 {
-
-    /**
-     * The media directory
-     *
-     * @var string
-     */
-    // TODO make me a trait?
-    private $media_directory;
 
     /**
      * The song interface
@@ -30,7 +21,6 @@ class SongResourceController extends Controller
      */
     public function __construct(Song $song)
     {
-        $this->media_directory = Redis::get('media_directory');
         $this->song = $song;
     }
 
@@ -83,7 +73,7 @@ class SongResourceController extends Controller
     public function play($id)
     {
         $song = $this->song->get($id);
-        $location = $this->media_directory . $song->location;
+        $location = config('filesystems.media_directory') . $song->location;
         // TODO what to do with wma files
         if (Storage::disk(config('filesystems.partition'))->has($location)) {
             $contents = Storage::disk(config('filesystems.partition'))->get($location);
