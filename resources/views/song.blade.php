@@ -15,9 +15,9 @@
             <div class="form-group">
                 <div class="col-sm-3">
                     <a href="/song/play/{{ $song->id }}" target="_blank">play</a>
-                    <i class="fa fa-music" style="color:green;"></i>
-                    <i class="fa fa-music" style="color:green;"></i>
-                    <i class="fa fa-music" style="color:green;"></i>
+                    <i class="fa fa-music" style="color:peru;"></i>
+                    <i class="fa fa-music" style="color:peru;"></i>
+                    <i class="fa fa-music" style="color:peru;"></i>
                 </div>
             </div>
             @endif
