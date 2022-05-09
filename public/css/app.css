@@ -14765,3 +14765,7 @@ th.sortable a {
 th.sortable a:hover {
   color: white !important;
 }
+
+input[type=checkbox] {
+  accent-color: peru;
+}
