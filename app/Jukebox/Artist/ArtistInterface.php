@@ -11,23 +11,30 @@ interface ArtistInterface
      * Retrieve an artist.
      *
      * @param  int $id
-     * @return \App\Jukebox\Artist\ArtistModel
+     * @return Illuminate\Database\Eloquent\Collection
      */
     public function get($id);
 
     /**
-     * Returns artists
+     * Retrieve artists
      *
      * @param  Request $request
-     *
-     * @return LengthAwarePaginator Paginated list of artists.
+     * @return Illuminate\Database\Eloquent\Collection
      */
     public function all(Request $request);
 
     /**
+     * Retrieve artists
+     *
+     * @param  array $constraints
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public function allByConstraints(array $constraints);
+
+    /**
      * Create or update an artist.
      *
-     * @param Request  $request
+     * @param  Request $request
      */
     public function createOrUpdate(Request $request);
 
@@ -35,44 +42,47 @@ interface ArtistInterface
     * Search for artists
     *
     * @param string $query
+    * @return Illuminate\Database\Eloquent\Collection
     */
     public function search($query);
 
     /**
     * Create an artist via the music loading process.
     *
-    * @param array $artist
-    * @return integer
+    * @param  array $artist
+    * @return int
     */
     public function dynamicStore(array $artist);
 
     /**
      * Does the artist exist
      *
-     * @param  string $artist_name Artist name
-     * @return boolean
+     * @param  string $artist_name
+     * @return mixed
      */
     public function getID($artist_name);
 
     /**
      * Is the "artist" a Compilation?
      *
-     * @param integer $id Artist id
-     * @return boolean
+     * @param  int $id
+     * @return bool
      */
     public function isCompilation($id);
 
     /**
-    * Search for artists by name
+    * Retrieve an artistsby name
     *
-    * @param string $search
+    * @param  string $search
+    * @return Illuminate\Database\Eloquent\Collection
     */
     public function searchByName($search);
 
     /**
-    * Search for artists by name
+    * Retrieve artists albums
     *
-    * @param string $search
+    * @param  int $id
+    * @return array
     */
     public function getArtistAlbums($id);
 

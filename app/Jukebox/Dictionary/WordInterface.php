@@ -8,16 +8,17 @@ interface WordInterface
     /**
      * Is this a word.
      *
-     * @param string $w Word
-     * @return boolean
+     * @param  string $w
+     * @return bool
      */
-    public function isWord($w);
+    public static function isWord($w);
 
     /**
-     * Get dictionary definition for word/
+     * Get dictionary definition for word
      *
-     * @param string $w Word
+     * @param  string $w
      * @return array
      */
     public function getDictionary($w);
+
 }

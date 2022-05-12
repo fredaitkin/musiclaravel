@@ -19,15 +19,15 @@ interface SongInterface
      * Retrieve all songs;
      *
      * @param  Request $request
-     * @return array
+     * @return Illuminate\Database\Eloquent\Collection
      */
     public function all(Request $request);
 
     /**
-     * Retrieve all songs;
+     * Retrieve all songs
      *
      * @param  array $constraints
-     * @return array
+     * @return Illuminate\Database\Eloquent\Collection
      */
     public function allByConstraints(array $constraints);
 
@@ -43,22 +43,26 @@ interface SongInterface
     * Search for songs
     *
     * @param string $query
-    * @return \Illuminate\Database\Eloquent\Collection|static[]
+    * @return \Illuminate\Database\Eloquent\Collection
     */
     public function search($query);
 
     /**
-    * Get song genres
-    *
-    * @return array 
-    */
-    public function getGenres();
+     * Create a song via the music loading process.
+     *
+     * @param  string path
+     * @param  string album_name
+     * @param  int artist_it
+     * @param  array ID3 song array
+     * @return void
+     */
+    public function dynamicStore($path, $album_name, $artist_id, $song);
 
     /**
      * Does the album exist
      *
-     * @param  int  $id
-     * @param  string  $album_name
+     * @param  integer $id Artist id
+     * @param  string $album_name Album name
      * @return bool
      */
     public function doesAlbumExist($id, $album_name);
@@ -66,16 +70,17 @@ interface SongInterface
     /**
      * Does the song exist
      *
-     * @param  int  $id
-     * @param  string $title
+     * @param  int $id Artist id
+     * @param  string $title Song title
      * @return bool
      */
+
     public function doesSongExist($id, $title);
 
     /**
-    * Is the file a song.
+    * Is this file an audio file type?
     *
-    * @param  string  $file
+    * @param  string $file
     * @return bool
     */
     public function isSong($file);
@@ -85,10 +90,40 @@ interface SongInterface
     *
     * Retrieves the songs from the artist's albums and compilation albums.
     *
-    * @param  int  $id
-    * @param  string  $artist
-    * @return \Illuminate\Database\Eloquent\Collection|static[]
+    * @param  int $id
+    * @param  string $artist
+    * @return \Illuminate\Database\Eloquent\Collection
     */
     public function getArtistSongs($id, $artist);
 
+    /**
+    * Retrieve artist's songs from compilations.
+    *
+    * @param  string $artist
+    * @return \Illuminate\Database\Eloquent\Collection
+    */
+    public function getArtistCompilationSongs($artist);
+
+    /**
+     * Update a song.
+     *
+     * @param  array $song
+     * @return void
+     */
+    public function updateSong(array $song);
+
+    /**
+    * Get song genres
+    *
+    * @return \Illuminate\Database\Eloquent\Collection
+    */
+    public function getGenres();
+
+    /**
+     * Retrieve songs with English lyrics.
+     *
+     * @param  array $ids
+     * @return array
+     */
+    public function retrieveEnglishLyrics(array $ids = null);
 }

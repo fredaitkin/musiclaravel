@@ -106,7 +106,7 @@ class WordCloud implements WordCloudInterface
     /** Utility Routines */
 
     /**
-     * Update a word in the word cloud.
+     * Create a word via utility.
      *
      * @param array $word
      */
@@ -159,8 +159,6 @@ class WordCloud implements WordCloudInterface
      *
      * @param string $word
      *   The word.
-     *
-     * @return array
      */
     public function processWord($word) {
         // Clean up text.
