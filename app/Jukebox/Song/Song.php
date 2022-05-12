@@ -27,7 +27,7 @@ class Song implements SongInterface
     public function all(Request $request)
     {
         if (empty($request->all()) || $request->has('page')):
-            return SongModel::paginate(10);
+            return SongModel::paginate();
         else:
             return $this->allByConstraints($request->all());
         endif;
@@ -305,7 +305,7 @@ class Song implements SongInterface
     */
     public function getGenres()
     {
-        return SongModel::select('genre')->where('genre', '>', '')->groupBy('genre')->get();
+        return SongModel::select('genre')->where('genre', '>', '')->groupBy('genre')->paginate();
     }
 
     /**

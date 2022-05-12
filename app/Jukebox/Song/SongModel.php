@@ -122,6 +122,13 @@ class SongModel extends Model
     protected $guarded = [];
 
     /**
+     * The number of records to return for pagination.
+     *
+     * @var int
+     */
+    protected $perPage = 10;
+
+    /**
     * Song artists
     */
     public function artists()
