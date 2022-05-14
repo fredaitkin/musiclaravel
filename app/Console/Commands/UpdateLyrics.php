@@ -6,7 +6,7 @@ use App\Jukebox\Dictionary\WordCloudInterface as WordCloud;
 use App\Jukebox\Song\SongInterface as Song;
 use Exception;
 use Illuminate\Console\Command;
-use Log;
+use Illuminate\Support\Facades\Http;
 
 class UpdateLyrics extends Command {
 
@@ -89,12 +89,12 @@ class UpdateLyrics extends Command {
 
         if (isset($song->id)):
 
-            if (isset($artists_names[$song->artist])):
-                $song->artist = $artists_names[$song->artist];
+            $artist = $song->artists[0]->artist;
+            if (isset($artists_names[$artist])):
+                $artist = $artists_names[$artist];
             endif;
 
             try {
-                $artist = $song->artist;
                 if ($artist == 'Compilations'):
                     $artist = trim($song->notes);
                 endif;
@@ -110,7 +110,7 @@ class UpdateLyrics extends Command {
                     $this->info($lyric);
                     $this->info("");
                     $this->info($artist . ' : ' . $song->title);
-                    $save = $this->ask('Save the lyrics?');
+                    $save = $this->ask('Save the lyrics? (y/n)');
                      if ($save === 'y'):
                         $lyric = $this->wordCloud->process($lyric, 'add', $song->id);
                         $song->lyrics = $lyric;
@@ -122,8 +122,8 @@ class UpdateLyrics extends Command {
 
             } catch (Exception $e) {
 
-                Log::info($song->title . ' ' . $artist);
-                Log::info($e->getMessage());
+                $this->error($song->title . ' ' . $artist);
+                $this->error($e->getMessage());
             }
 
              $this->info("ID: " . $song->id);
@@ -132,41 +132,17 @@ class UpdateLyrics extends Command {
 
     }
 
-    private function executeCurlRequest($url) {
-        $curl = curl_init();
-
-        curl_setopt_array($curl, [
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => array("Content-type: text/xml"),
-        ]);
-
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
-        if ($err):
-            throw new Exception($err);
-        endif;
-
-        return $response;
-    }
-
     /**
      * Perform direct search via API.
      *
-     * @param string $artist Song artist
-     * @param string $song Song title
+     * @param  string $artist Song artist
+     * @param  string $song Song title
+     * @return mixed Lyrics or false
      */
     private function directSearch($artist, $song) {
         $this->info("Direct Search");
 
-        $response = $this->executeCurlRequest($this->url . "SearchLyricDirect?artist=" . urlencode($artist) . "&song=" . urlencode($song));
+        $response = Http::get($this->url . "SearchLyricDirect?artist=" . urlencode($artist) . "&song=" . urlencode($song));
         $this->info($this->url . "SearchLyricDirect?artist=" . urlencode($artist) . "&song=" . urlencode($song));
         $xml = simplexml_load_string($response);
 
@@ -188,12 +164,13 @@ class UpdateLyrics extends Command {
     /**
      * Perform broader search via API.
      *
-     * @param string $artist Song artist
-     * @param string $song Song title
+     * @param  string $artist Song artist
+     * @param  string $song Song title
+     * @return mixed Lyrics or false
      */
     private function search($artist, $song) {
         $this->info("Wide Search");
-        $response = $this->executeCurlRequest($this->url . "SearchLyric?artist=" . urlencode($artist) . "&song=" . urlencode($song));
+        $response = Http::get($this->url . "SearchLyric?artist=" . urlencode($artist) . "&song=" . urlencode($song));
         $xml = simplexml_load_string($response);
 
         if (false === $xml):
@@ -223,11 +200,12 @@ class UpdateLyrics extends Command {
     /**
      * Retrieve lyric by id via API.
      *
-     * @param string $id Chart Lyric Id
-     * @param string $checksum Checksum
+     * @param  string $id Chart Lyric Id
+     * @param  string $checksum Checksum
+     * @return mixed Lyrics or false.
      */
     private function getLyric($id, $checksum) {
-        $response = $this->executeCurlRequest($this->url . "GetLyric?lyricId=" . $id . "&lyricCheckSum=" . $checksum);
+        $response = Http::get($this->url . "GetLyric?lyricId=" . $id . "&lyricCheckSum=" . $checksum);
         if (strpos($response, '<') === 0):
             $xml = simplexml_load_string($response);
             return (string) $xml->Lyric;
