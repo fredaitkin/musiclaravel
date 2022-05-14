@@ -5,7 +5,7 @@ $(document).ready(function() {
     let id = artist_id.replace("play-songs-", "");
     let artist = $(this).closest('tr').find('div[name="artist_name"]').text();
 
-    let url = APP_URL + '/artists?id=' + id;
+    let url = APP_URL + '/artists?id=' + id + '&songs=true';
 
     fetch(url)
       .then(
@@ -15,7 +15,7 @@ $(document).ready(function() {
             return;
           }
           response.json().then(function(data) {
-            display_jukebox(artist, data[0].songs);
+            display_jukebox(artist, data);
           });
         }
       )

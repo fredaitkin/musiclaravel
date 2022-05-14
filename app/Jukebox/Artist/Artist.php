@@ -43,6 +43,11 @@ class Artist implements ArtistInterface
     public function allByConstraints(array $constraints = [])
     {
         $query = ArtistModel::select('artists.*')->with('songs');
+
+        if (isset($constraints['id']) && isset($constraints['songs'])):
+            $artists = $query->where('id', $constraints['id'])->get();
+            return $artists[0]->all_songs;
+        endif;
         if (isset($constraints['q'])):
             return $this->getJsonResults($constraints['q']);
         endif;

@@ -81,10 +81,30 @@ class ArtistModel extends Model
 
     /**
      * Artist songs
+     *
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function songs()
     {
         return $this->belongsToMany('App\Jukebox\Song\SongModel', 'artist_song', 'artist_id', 'song_id');
+    }
+
+    /**
+     * Artist songs in a compilation.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function compilation_songs() {
+        return $this->hasMany('App\Jukebox\Song\SongModel', 'notes', 'artist');
+    }
+
+    /**
+     * All artist songs.
+     *
+     * @return array
+     */
+    public function getAllSongsAttribute() {
+        return $this->songs->merge($this->compilation_songs);
     }
 
 }
