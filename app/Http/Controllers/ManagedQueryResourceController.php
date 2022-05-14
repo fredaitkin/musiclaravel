@@ -72,7 +72,7 @@ class ManagedQueryResourceController extends Controller
             // Strip end to get whole word.
             $end_pos = strrpos($phrase, " ");
             $phrase = substr($phrase, 0, $end_pos);
-            $phrase = str_replace($words, "<strong class='text-success'>" . $words . "</strong>", $phrase);
+            $phrase = str_replace($words, "<strong class='peru'>" . $words . "</strong>", $phrase);
             $results['rows'][] = [$song->id, strlen($song->title) < 25 ? $song->title : str_pad(substr($song->title, 0, 25), 30, "."), trim($phrase)];
         endforeach;
         return $results;
