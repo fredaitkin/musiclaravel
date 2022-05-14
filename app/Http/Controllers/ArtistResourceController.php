@@ -85,16 +85,4 @@ class ArtistResourceController extends Controller
         return $this->artist->allByConstraints(['q' => $request->q]);
     }
 
-    /**
-     * Retrieve artist songs.
-     *
-     * @return Response
-     */
-    public function songs($id) {
-        $artist = $this->artist->get($id);
-        $artist_songs = $artist->songs;
-        $compilation_songs = $this->song->getArtistCompilationSongs($artist->artist);
-        $combined_songs = $artist_songs->merge($compilation_songs);
-        return response()->json($combined_songs);
-    }
 }
