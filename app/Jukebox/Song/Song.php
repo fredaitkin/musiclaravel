@@ -328,21 +328,21 @@ class Song implements SongInterface
     /**
      * Retrieve songs for an album
      *
-     * @param array $constraints
+     * @param int $song_id
      *
      * @return array
      */
     private function getAlbumSongs($song_id)
     {
-        // FIXME handle common album names like Greatest Hits
-        return SongModel::select('songs.*')
-            ->where('album', function($q2)  use ($song_id)
-                {
-                    $q2->from('songs')
-                      ->select('album')
-                      ->where('id', '=', $song_id);
-                })
-            ->get();
+        $song = SongModel::find($song_id);
+        $songs = $song->artists[0]->songs;
+        foreach($songs as $k => $v):
+            if ($v->album != $song->album):
+                unset($songs[$k]);
+            endif;
+        endforeach;
+        // Reset index to 0.
+        return $songs->values();
     }
 
 }
