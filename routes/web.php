@@ -51,8 +51,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('artist-autocomplete', 'ArtistResourceController@autocomplete');
 
-    Route::get('artist/songs/{id}', 'ArtistResourceController@songs');
-
     Route::get('artist', 'ArtistResourceController@add');
 
     // Playlist routes

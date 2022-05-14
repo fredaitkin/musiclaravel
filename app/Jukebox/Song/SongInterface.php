@@ -97,14 +97,6 @@ interface SongInterface
     public function getArtistSongs($id, $artist);
 
     /**
-    * Retrieve artist's songs from compilations.
-    *
-    * @param  string $artist
-    * @return \Illuminate\Database\Eloquent\Collection
-    */
-    public function getArtistCompilationSongs($artist);
-
-    /**
      * Update a song.
      *
      * @param  array $song
