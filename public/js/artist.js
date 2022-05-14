@@ -25,20 +25,22 @@ $(document).ready(function() {
 
   });
 
-  $('.artists').select2({
-    placeholder: 'Please Select',
-    ajax: {
-      url: '/artist-autocomplete',
-      dataType: 'json',
-      delay: 250,
-      processResults: function (data) {
-        return {
-          results: data
-        };
-      },
-      cache: true
-    }
-  });
+  if ($('.artists').length) {
+    $('.artists').select2({
+      placeholder: 'Please Select',
+      ajax: {
+        url: '/artist-autocomplete',
+        dataType: 'json',
+        delay: 250,
+        processResults: function (data) {
+          return {
+            results: data
+          };
+        },
+        cache: true
+      }
+    });
+  }
 
   if ($("#artist_json").val() != undefined) {
     var artists = JSON.parse($("#artist_json").val());
