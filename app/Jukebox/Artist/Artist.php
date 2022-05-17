@@ -54,6 +54,9 @@ class Artist implements ArtistInterface
         if (isset($constraints['id'])):
             $query->where('id', $constraints['id']);
         endif;
+        if (isset($constraints['photo_empty'])):
+            $query->whereNull('photo');
+        endif;
         return $query->get();
     }
 

@@ -42,7 +42,7 @@ class Song implements SongInterface
     {
         $query = SongModel::select('songs.*')->with('artists:artist');
 
-        // Play album query;
+        // Get songs for an album
         if (isset($constraints['id']) && isset($constraints['album']) && $constraints['album'] == 'true'):
             return $this->getAlbumSongs($constraints['id']);
         endif;
@@ -61,6 +61,10 @@ class Song implements SongInterface
                     $q->where('artist', 'LIKE', '%' . $artist . '%');
                 endif;
             });
+        endif;
+
+        if (isset($constraints['year'])):
+            $query->where('year', $constraints['year']);
         endif;
 
         if (isset($constraints['genre'])):

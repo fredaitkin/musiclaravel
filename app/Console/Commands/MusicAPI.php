@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Jukebox\Artist\Artist;
-use App\Jukebox\Song\SongModel as Song;
+use App\Jukebox\Artist\ArtistInterface as Artist;
+use App\Jukebox\Song\SongInterface as Song;
 use Exception;
 use Illuminate\Console\Command;
-use Log;
+use Illuminate\Support\Facades\Http;
 
 class MusicAPI extends Command {
 
@@ -20,7 +20,6 @@ class MusicAPI extends Command {
                             {--photos : Get song photos}
                             {--ids= : Comma separated list of song ids}
                             {--id= : Artist id}
-                            {--artist= : Artist}
                             {--track= : Track}';
 
     /**
@@ -45,13 +44,29 @@ class MusicAPI extends Command {
     protected $deezer_host;
 
     /**
+     * The song interface
+     *
+     * @var App\Jukebox\Song\SongInterface
+     */
+    private $song;
+
+    /**
+     * The artist interface
+     *
+     * @var App\Jukebox\Artist\ArtistInterface
+     */
+    private $artist;
+
+    /**
      * Create a new command instance.
      *
      */
-    public function __construct()
+    public function __construct(Song $song, Artist $artist)
     {
         $this->x_rapid_api_key = config('app.x_rapid_api_key');
         $this->deezer_host = config('app.deezer_host');
+        $this->song = $song;
+        $this->artist = $artist;
         parent::__construct();
     }
 
@@ -63,9 +78,6 @@ class MusicAPI extends Command {
     public function handle()
     {
         $options = $this->options();
-
-        $this->info('Needs to be updated to work with new table structures');
-        exit;
 
         $ids = null;
         if(! empty($options['ids'])):
@@ -79,11 +91,10 @@ class MusicAPI extends Command {
         if(! empty($options['photos'])):
             if(! empty($options['id'])):
                 $id = $options['id'];
-                $artist = $options['artist'];
                 $track = $options['track'];
-                $this->getPhotoForArtist($id, $artist, $track);
+                $this->getPhotoForArtist($id, $track);
             else:
-                $this->updatePhotos($ids);
+                $this->updatePhotos();
             endif;
         endif;
     }
@@ -91,22 +102,23 @@ class MusicAPI extends Command {
     /**
      * Update song year.
      *
+     * @param  string $ids
+     * @return void
      */
     protected function updateSongYear($ids)
     {
-        $query = Song::leftJoin('artists', 'songs.artist_id', '=', 'artists.id')
-            ->select('songs.id', 'songs.title', 'artist')
-            ->where('songs.year', 9999);
+        $constraints = ['year' => 9999];
         if ($ids):
-            $query->whereIn('songs.id', $ids);
+            $constraints[0]['ids'] = $ids;
         endif;
-        $songs = $query->get();
+        $songs = $this->song->allByConstraints($constraints);
 
         foreach ($songs as $song):
-            Log::info($song->id . ':' . $song->title);
+           $this->info($song->id . ':' . $song->title);
             try {
-                $track = $this->search($song->title, $song->artist);
+                $track = $this->search($song->title, $song->artists[0]->artist);
                 if ($track):
+                    $track_info = $this->track($track->id);
                     if ($track_info):
                         if (isset($track_info->release_date) && isset($track_info->album->release_date)):
                             if (strlen($track_info->release_date) == 10 && strlen($track_info->album->release_date) == 10):
@@ -114,144 +126,151 @@ class MusicAPI extends Command {
                                 $album_year = substr($track_info->album->release_date, 0, 4);
                                 $diff = abs($year - $album_year);
                                 if ($diff > 2):
-                                    Log::info('Disparity in release dates: ' . $year . ' ' . $album_year);
+                                    $this->info('Disparity in release dates: ' . $year . ' ' . $album_year);
                                 else:
-                                    Log::info('Updating year to : ' . $year);
+                                    $this->info('Updating year to : ' . $year);
                                     $song->year = $year;
-                                    // $song->save();
+                                    $song->save();
                                 endif;
                             endif;
                         else:
-                            Log::info('Issues with dates');
-                            Log::info($track_info);
+                            $this->info('Issues with dates');
+                            $this->info($track_info);
                         endif;
                     else:
-                        Log::info('Not found');
+                        $this->info('Not found');
                     endif;
                 endif;
             } catch (Exception $e) {
-                Log::info($e->getMessage());
+                $this->error($e->getMessage());
             }
-
         endforeach;
 
     }
 
     /**
-     * Update artist photos and genres.
+     * Update artists photos and genres.
      *
+     * @return void
      */
-    protected function updatePhotos($ids)
+    protected function updatePhotos()
     {
-        $records = Artist::select('id', 'artist')->whereNull('photo')->get();
-        $artists = [];
-        foreach ($records as $record):
-            $songs = Song::select('title')->where('artist_id', $record->id)->limit(5)->get();
-            if (count($songs) > 0):
-                $artists[$record->id] = ['artist' => $record->artist, 'songs' => []];
-                foreach ($songs as $song):
-                    $artists[$record->id]['songs'][] = $song->title;
-                endforeach;
-            endif;
-        endforeach;
+        $constraints = ['photo_empty' => true];
+        $artists = $this->artist->allByConstraints($constraints);
 
-        foreach ($artists as $id => $artist):
-            echo " " . strtoupper($artist['artist']);
-            $continue = true;
-            while($continue):
-                if (! empty($artist['songs'])):
-                    $song = array_pop($artist['songs']);
-                else:
-                    $continue = false;
-                endif;
-                if ($continue):
-                    try {
-                        Log::info($artist['artist'] . ':' . $song);
-                        $track = $this->search($song, $artist['artist']);
-                        if ($track):
-                            Log::info("Track");
-                            Log::info(print_r($track,true));
-                            $photo = $track->artist->picture_big ?? '';
-                            $album_info = $this->album($track->album->id);
-                            Log::info("Album");
-                            Log::info(print_r($album_info,true));
-                            $genres = [];
-                            if (isset($album_info->genres->data)):
-                                foreach($album_info->genres->data as $genre):
-                                    $genres[] = $genre->name;
-                                endforeach;
-                            endif;
-                            if (! empty($photo) || ! empty($genres)):
-                                echo " GOTCHA!!! ";
-                                $continue = false;
-                                $a = Artist::find($id);
-                                $a->photo = $photo;
-                                $a->genres = implode(',', $genres);
-                                $a->save();
-                            endif;
+        foreach ($artists as $artist):
+            $this->info(" " . strtoupper($artist['artist']));
+            foreach ($artist->songs as $song):
+                try {
+                    $artist_name = $artist['artist'];
+                    if ($this->artistNotFound($artist_name)):
+                        continue;
+                    endif;
+                    $this->info($artist_name . ':' . $song->title);
+                    $track = $this->search($song->title, $artist_name);
+                    if ($track):
+                        $this->info("Track");
+                        $this->info(print_r($track,true));
+                        $photo = $track->artist->picture_big ?? '';
+                        $album_info = $this->album($track->album->id);
+                        $this->info("Album");
+                        $this->info(print_r($album_info,true));
+                        $genres = [];
+                        if (isset($album_info->genres->data)):
+                            foreach($album_info->genres->data as $genre):
+                                $genres[] = $genre->name;
+                            endforeach;
                         endif;
-                    } catch (Exception $e) {
-                        Log::info($e->getMessage());
-                    }
-                endif;
-            endwhile;
+                        if (! empty($photo) || ! empty($genres)):
+                            $artist->photo = $photo;
+                            $artist->genres = implode(',', $genres);
+                            $artist->save();
+                            continue 2;
+                        endif;
+                    endif;
+                } catch (Exception $e) {
+                    $this->info($e->getMessage());
+                }
+            endforeach;
         endforeach;
     }
 
-    protected function getPhotoForArtist($id, $artist, $title) {
+    /**
+     * Update artist photos and genres.
+     *
+     * @param  int $id Artist id
+     * @param  string $title Song title
+     * @return void
+     *
+     */
+    protected function getPhotoForArtist($id, $title) {
         try {
-            $track = $this->search($title, $artist);
-            if ($track):
-                Log::info("Track");
-                Log::info(print_r($track,true));
-                $photo = $track->artist->picture_big ?? '';
-                $album_info = $this->album($track->album->id);
-                Log::info("Album");
-                Log::info(print_r($album_info,true));
-                $genres = [];
-                if (isset($album_info->genres->data)):
-                    foreach($album_info->genres->data as $genre):
-                        $genres[] = $genre->name;
-                    endforeach;
-                endif;
-                if (! empty($photo) || ! empty($genres)):
-                    $a = Artist::find($id);
-                    $a->photo = $photo;
-                    $a->genres = implode(',', $genres);
-                    $a->save();
+            $artist = $this->artist->get($id);
+            if (isset($artist->artist)):
+                $track = $this->search($title, $artist->artist);
+                if ($track):
+                    $this->info("Track");
+                    $this->info(print_r($track,true));
+                    $photo = $track->artist->picture_big ?? '';
+                    $album_info = $this->album($track->album->id);
+                    $this->info("Album");
+                    $this->info(print_r($album_info,true));
+                    $genres = [];
+                    if (isset($album_info->genres->data)):
+                        foreach($album_info->genres->data as $genre):
+                            $genres[] = $genre->name;
+                        endforeach;
+                    endif;
+                    if (! empty($photo) || ! empty($genres)):
+                        $artist->photo = $photo;
+                        $artist->genres = implode(',', $genres);
+                    endif;
                 endif;
             endif;
         } catch (Exception $e) {
-            Log::info($e->getMessage());
+            $this->error($e->getMessage());
         }
     }
 
-    private function executeCurlRequest($url) {
-        $curl = curl_init();
+    /**
+     * Artist does not exist in Deezer
+     *
+     * Previous runs have shown that the following artists do not exist in
+     * Deezer.
+     *
+     * @param  string $artist
+     * @return bool
+     */
+    private function artistNotFound($artist) {
+        return (in_array($artist, [
+            'Compilations',
+            'G.I.T',
+            'Gabriel Meyers',
+            'Harem Turkish Percussion Group',
+            'Hot Box',
+            'Ministry Of Sound',
+            'West Side Story',
+            'Sri Chinmoy',
+            'Uncle Bill',
+            'Unknown Artist',
+        ]));
+    }
 
-        curl_setopt_array($curl, [
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => array(
-                "X-RapidAPI-Key: " . $this->x_rapid_api_key,
-                "X-RapidAPI-Host: " . $this->deezer_host,
-            ),
-        ]);
-
-        $response = curl_exec($curl);
-        $response = json_decode($response);
-
-        if (isset($response->error)):
-            throw new Exception($response->error->message);
+    /**
+     * Make get request
+     *
+     * @param  string $url
+     * @return mixed
+     */
+    private function getRequest($url) {
+        $response = Http::withHeaders([
+            "X-RapidAPI-Key" => $this->x_rapid_api_key,
+            "X-RapidAPI-Host" =>  $this->deezer_host,
+        ])->get($url);
+        if ($response->getStatusCode() == 200):
+            return json_decode($response->getBody());
         endif;
-
-        return $response;
+        return false;
     }
 
     /**
@@ -259,18 +278,17 @@ class MusicAPI extends Command {
      *
      * @param string $song Song title
      * @param string $artist Song artist
+     * @return bool|array
      */
     private function search($title, $artist) {
-        $response = $this->executeCurlRequest('https://' . $this->deezer_host . '/search' . "?q=" . urlencode($title));
-
-        if (isset($response->data)) {
-            foreach($response->data as $track) {
-                if ($artist == $track->artist->name) {
+        $body = $this->getRequest('https://' . $this->deezer_host . '/search' . "?q=" . urlencode($title));
+        if ($body):
+            foreach($body->data as $track):
+                if ($track->artist->name == $artist):
                     return $track;
-                }
-            }
-        }
-
+                endif;
+            endforeach;
+        endif;
         return false;
     }
 
@@ -280,7 +298,7 @@ class MusicAPI extends Command {
      * @param int $id Track id
      */
     private function track($id) {
-        return $this->executeCurlRequest('https://' . $this->deezer_host . '/track/' . $id);
+        return $this->getRequest('https://' . $this->deezer_host . '/track/' . $id);
     }
 
     /**
@@ -289,7 +307,7 @@ class MusicAPI extends Command {
      * @param int $id Track id
      */
     private function album($id) {
-        return $this->executeCurlRequest('https://' . $this->deezer_host . '/album/' . $id);
+        return $this->getRequest('https://' . $this->deezer_host . '/album/' . $id);
     }
 
     /**
@@ -298,7 +316,7 @@ class MusicAPI extends Command {
      * @param int $id Track id
      */
     private function artist($id) {
-        return $this->executeCurlRequest('https://' . $this->deezer_host . '/artist/' . $id);
+        return $this->getRequest('https://' . $this->deezer_host . '/artist/' . $id);
     }
 
 }
