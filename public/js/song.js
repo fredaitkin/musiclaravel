@@ -118,7 +118,7 @@ $(document).ready(function() {
 
   });
 
-  $("#lyrics").click(function() {
+  $("#get_lyrics").click(function() {
       let url = '/songs?artist=' + $("#artist").val() +
         '&lyrics_empty=true' +
         '&exact_match=' + $('#exact_match').is(':checked') +

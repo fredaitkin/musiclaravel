@@ -90,7 +90,7 @@
                     </div>
 
                     <div class="form-group col-sm-2 mt-auto">
-                        <button type="button" class="btn btn-primary" id="lyrics">Get</button>
+                        <button type="button" class="btn btn-primary" id="get_lyrics">Get</button>
                     </div>
 
                 </div>

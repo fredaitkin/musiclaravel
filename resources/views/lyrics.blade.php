@@ -8,7 +8,7 @@
 
         @include('common.errors')
 
-        <form action="/lyrics" method="POST" class="form-horizontal">
+        <form action="/song" method="POST" class="form-horizontal">
             {{ csrf_field() }}
 
             <div class="form-group">
@@ -21,6 +21,7 @@
                 @if ( ! empty($song->id))
                     <div class="col-sm-offset-3 col-sm-6">
                         <input type="hidden" name="id" id="id" value="{{ $song->id }}">
+                        <input type="hidden" name="lyric_update" id="lyric_update" value="true">
                         <button type="submit" class="btn btn-primary">Update</button>
                         <a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>
                     </div>

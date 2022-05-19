@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jukebox\Song\SongInterface as Song;
+use App\Jukebox\Dictionary\WordCloudInterface as WordCloud;
 use Illuminate\Http\Request;
 use Storage;
 
@@ -17,11 +18,19 @@ class SongRestController extends Controller
     private $song;
 
     /**
+     * The wordCloud interface
+     *
+     * @var App\Jukebox\Dictionary\WordCloudInterface
+     */
+    private $wordCloud;
+
+    /**
      * Constructor
      */
-    public function __construct(Song $song)
+    public function __construct(Song $song, WordCloud $wordCloud)
     {
         $this->song = $song;
+        $this->wordCloud = $wordCloud;
     }
 
     /**
@@ -36,18 +45,34 @@ class SongRestController extends Controller
             return view('songs', ['songs' => $songs]);
         endif;
 
+        if (isset($request->lyrics) && isset($request->id)):
+            return view('lyrics', ['song' => $this->song->get($request->id)]);
+        endif;
+
         return $songs;
     }
 
     /**
-     * Store a newly created song in the database
+     * Store a newly or update a song in the database
      *
      * @param Request request
      * @return Response
      */
     public function store(Request $request)
     {
-        $this->song->createOrUpdate($request);
+        if (isset($request->lyric_update)):
+            // Lyrics only update.
+            $song = $this->song->get($request->id);
+            if ($request->lyrics != $song->lyrics):
+                $this->wordCloud->process($request->lyrics, 'subtract', $request->id);
+                $this->wordCloud->process($request->lyrics, 'add', $request->id);
+                $song->lyrics = $request->lyrics;
+                $song->save();
+            endif;
+        else:
+            $this->song->createOrUpdate($request);
+        endif;
+
         return redirect('/songs');
     }
 
