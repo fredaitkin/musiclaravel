@@ -46,7 +46,9 @@
                 right: 15px;
                 top: 40px;
             }
-
+            .top-right a {
+                color: peru !important;
+            }
             .content {
                 text-align: center;
             }
