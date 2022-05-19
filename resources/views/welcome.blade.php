@@ -43,8 +43,8 @@
 
             .top-right {
                 position: absolute;
-                right: 10px;
-                top: 18px;
+                right: 15px;
+                top: 40px;
             }
 
             .content {
