@@ -127,8 +127,8 @@ return [
     |
     */
 
-    'admin_email' => env('ADMIN_EMAIL'),
+    'admin_email' => env('ADMIN_EMAIL', 'example@com'),
 
-    'report_email' => env('REPORT_EMAIL'),
+    'report_email' => env('REPORT_EMAIL', 'example@com'),
 
 ];
