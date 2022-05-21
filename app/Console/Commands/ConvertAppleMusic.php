@@ -4,6 +4,9 @@ namespace App\Console\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ConvertAppleMusic extends Command
 {
@@ -13,6 +16,7 @@ class ConvertAppleMusic extends Command
      * @var string
      */
     protected $signature = 'ffmpeg:convert
+                            {--list : List songs in mp4 format}
                             {--song= : The song with directory}
                             {--dir= : The song directory}';
 
@@ -50,11 +54,21 @@ class ConvertAppleMusic extends Command
                 exit;
             endif;
 
+            if (isset($options['list'])):
+                $root_dir = Config::get('filesystems.disks')[Config::get('filesystems.partition')]['root'];
+                $media_dir = Config::get('filesystems.media_directory');
+                $iter = new \GlobIterator($root_dir . $media_dir . '*/*/*.mp4');
+                foreach($iter as $file){
+                    Log::info($file);
+                }
+            endif;
+
             if (isset($options['song'])):
                 if (strpos($options['song'], '.mp4') !== false):
                     $new_file = str_replace('.mp4', '.mp3', $options['song']);
                     $command = 'ffmpeg -i "' . $options['song'] . '" "' . $new_file . '"';
                     exec($command);
+                    $this->info('The song has been converted.');
                 endif;
             endif;
 
@@ -74,9 +88,10 @@ class ConvertAppleMusic extends Command
                         endif;
                     endif;
                 endforeach;
+                $this->info('The songs have been converted.');
             endif;
 
-            $this->info('The songs have been converted.');
+
         } catch (Exception $e) {
             $this->error('The conversion process has been failed: ' . $e->getMessage());
         }
