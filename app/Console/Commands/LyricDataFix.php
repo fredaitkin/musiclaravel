@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Jukebox\Song\SongInterface as Song;
 use Exception;
 use Illuminate\Console\Command;
-use Log;
 
 class LyricDataFix extends Command {
 
@@ -57,7 +56,7 @@ class LyricDataFix extends Command {
             if(! empty($options['r'])):
                 $this->replaceLyric($options['s'], $options['r'], $options['c'], $options['id']);
             else:
-                $this->getLyric($options['s'], $options['c'], $options['id']);
+                $this->cleanLyric($options['s'], $options['c'], $options['id']);
             endif;
         endif;
     }
@@ -65,40 +64,33 @@ class LyricDataFix extends Command {
     /**
      * Find and clean lyrics
      *
+     * @param  string $str String to remove
+     * @param  bool $clean Whether to remove the string from the lyric.
+     * @param  int $id Specific song.
+     * @return void
+     *
      */
-    protected function getLyric($str, $clean, $id = NULL)
+    protected function cleanLyric($str, $clean, $id = NULL)
     {
         $songs = [];
         if ($id):
-            $songs[] = $this->song->get($id)->toArray();
+            $songs[] = $this->song->get($id);
         else:
             $songs = $this->song->getSongsByLyric($str)->toArray();
         endif;
 
         foreach ($songs as $song):
             try {
-                $offset = 0;
-                $lyric = $song['lyrics'];
-                while ($pos = strpos($lyric, $str, $offset)):
-                    $start = strrpos(substr($lyric, 0, $pos), PHP_EOL);
-                    $end = stripos(substr($lyric, $pos), PHP_EOL);
-                    if (empty($end)):
-                        $end = strlen($lyric);
-                    endif;
-                    $target = substr($lyric, $start, $end + ($pos - $start));
-                    $lyric = str_replace($target, '', $lyric);
-                    $offset = $pos + 1;
-                endwhile;
+                $lyric = str_replace($str, '', $song['lyrics']);
             } catch (Exception $e) {
-                Log::info($e->getMessage());
+                $this->error($e->getMessage());
             }
 
-            Log::info($song);
-            Log::info($lyric ?? 'No match');
+            $this->info($lyric ?? 'No match');
 
             if ($clean):
-                $song_arr = ['id' => $song['id'], 'lyrics' => $lyric];
-                $this->song->updateSong($song_arr);
+                $song->lyrics = $lyric;
+                $song->save();
                 $this->info("Song {$song['id']} was updated");
             endif;
         endforeach;
@@ -107,6 +99,11 @@ class LyricDataFix extends Command {
     /**
      * Replace words in lyrics
      *
+     * @param  string $str String to replace
+     * @param  string $repl Replacement string
+     * @param  bool $clean Whether to replace the string in the lyric.
+     * @param  int $id Specific song.
+     * @return void
      */
     protected function replaceLyric($str, $repl, $clean, $id)
     {
@@ -117,12 +114,12 @@ class LyricDataFix extends Command {
             $lyric = $song['lyrics'];
             $lyric = str_replace($str, $repl, $lyric);
 
-            Log::info($song);
-            Log::info($lyric);
+            $this->info($lyric);
 
             if ($clean):
-                $song_arr = ['id' => $song['id'], 'lyrics' => $lyric];
-                $this->song->updateSong($song_arr);
+                $song->lyrics = $lyric;
+                $song->save();
+                $this->info("Song {$song['id']} was updated");
             endif;
         endif;
     }
