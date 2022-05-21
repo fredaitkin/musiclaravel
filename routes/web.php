@@ -61,12 +61,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('playlists/{playlist}', 'PlaylistRestController@destroy')->name('playlists.destroy');
 
-    // Genres routes
-    Route::get('genres', 'GenreRestController@index');
-
-    Route::get('genres/songs', 'GenreResourceController@songs');
-
-
     // Image routes
     Route::get('image/cover/{id}', 'ImageResourceController@coverArt');
 

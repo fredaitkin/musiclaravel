@@ -42,7 +42,7 @@
                     <a class="navbar-brand" href="{{ url('/playlists') }}">
                          {{ __('Playlists') }}
                     </a>
-                    <a class="navbar-brand" href="{{ url('/genres') }}">
+                    <a class="navbar-brand" href="{{ url('/songs?genres=true') }}">
                          {{ __('Genres') }}
                     </a>
                     <a class="navbar-brand" href="{{ url('/word-cloud') }}">

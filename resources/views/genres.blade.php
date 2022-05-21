@@ -43,7 +43,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $genres->links() }} 
+                        {{ $genres->withPath('songs?genres=true')->links() }}
                     </div>
                     <div class="col" style="background: linear-gradient(to top, black, transparent 90%);">
                         <img class="w-100 h-100" src="{{ asset('img/skeleton.jpg') }}" alt="genre">

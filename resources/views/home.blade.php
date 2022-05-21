@@ -31,7 +31,7 @@
             <div><a href="{{ url('/artists') }}"><h3>Artists</h3></a></div>
             <div><a href="{{ url('/playlists') }}"><h3>Playlists</h3></a></div>
             <div><a href="#" name="shuffle_songs"><h3>Shuffle Songs</h3></a></div>
-            <div><a href="{{ url('/genres') }}"><h3>Genres</h3></a></div>
+            <div><a href="{{ url('/songs?genres=true') }}"><h3>Genres</h3></a></div>
             <div><a href="{{ url('/word-cloud') }}"><h3>Word Cloud</h3></a></div>
             <div>
                 <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">

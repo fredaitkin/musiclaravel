@@ -41,12 +41,16 @@ class SongRestController extends Controller
     public function index(Request $request)
     {
         $songs = $this->song->all($request);
-        if (empty($request->all()) || $request->has('page')):
+        if (empty($request->all()) || ($request->has('page') && !isset($request->genres))):
             return view('songs', ['songs' => $songs]);
         endif;
 
         if (isset($request->lyrics) && isset($request->id)):
             return view('lyrics', ['song' => $this->song->get($request->id)]);
+        endif;
+
+        if (isset($request->genres)):
+            return view('genres', ['genres' => $this->song->getGenres()]);
         endif;
 
         return $songs;
