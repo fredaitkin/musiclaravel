@@ -3,7 +3,7 @@
 namespace App\Jukebox\Dictionary;
 
 /**
- * WordNetModel is a simple class that sits on a open source dictionary.
+ * DictionaryPlainTextModel is a simple class that sits on a open source dictionary.
  * 
  * The MySQL English Dictionary A dictionary with 176023 entries.
  * See https://sourceforge.net/projects/mysqlenglishdictionary/
@@ -14,7 +14,7 @@ namespace App\Jukebox\Dictionary;
 
 use Illuminate\Database\Eloquent\Model;
 
-class WordMedModel extends Model
+class DictionaryPlainTextModel extends Model
 {
 
     protected $connection = 'mysql2';
@@ -41,5 +41,17 @@ class WordMedModel extends Model
      * @var string
      */
     protected $definition;
+
+    /**
+     * Word glossary
+     */
+    public function getGlossaryAttribute()
+    {
+        $glossary = [];
+        foreach($word as $definition):
+            $glossary[] = ['type' => $definition['wordtype'], 'definition' => $definition['definition']];
+        endforeach;
+        return $glossary;
+    }
 
 }

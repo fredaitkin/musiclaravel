@@ -1,7 +1,7 @@
 <?php
 
 /**
- * WordNetModel is a simple class that sits on a "vendor" dictionary.
+ * DictionaryModel is a simple class that sits on a "vendor" dictionary.
  * 
  * The MySQL database is a large lexical database of English nouns, verbs,
  * adjectives and adverbs group into sets of cognitve synonyms (synsets).
@@ -14,7 +14,7 @@ namespace App\Jukebox\Dictionary;
 
 use Illuminate\Database\Eloquent\Model;
 
-class WordNetModel extends Model
+class DictionaryModel extends Model
 {
 
     protected $connection = 'mysql3';
@@ -61,7 +61,14 @@ class WordNetModel extends Model
      */
     public function glossary()
     {
-        return $this->hasOne(GlossaryNetModel::class, 'synset_id', 'synset_id');
+        return $this->hasOne(GlossaryModel::class, 'synset_id', 'synset_id');
     }
+
+    /**
+     * Get the companion dictionary definition for the word.
+     */
+    public function companion() {
+       return $this->setConnection('mysql2')->hasMany(DictionaryPlainTextModel::class, 'word', 'word');
+   }
 
 }

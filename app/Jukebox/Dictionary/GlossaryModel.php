@@ -2,10 +2,10 @@
 
 namespace App\Jukebox\Dictionary;
 
-use App\JukeBox\Dictionary\WordNetModel;
+use App\JukeBox\Dictionary\DictionaryModel;
 use Illuminate\Database\Eloquent\Model;
 
-class GlossaryNetModel extends Model
+class GlossaryModel extends Model
 {
 
     protected $connection = 'mysql3';
@@ -29,7 +29,7 @@ class GlossaryNetModel extends Model
      */
     public function word()
     {
-        return $this->belongsTo(WordNetModel::class);
+        return $this->belongsTo(DictionaryModel::class);
     }
 
 }

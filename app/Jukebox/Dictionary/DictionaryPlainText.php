@@ -2,7 +2,7 @@
 
 namespace App\Jukebox\Dictionary;
 
-class WordMed
+class DictionaryPlainText
 {
 
     /**
@@ -11,17 +11,17 @@ class WordMed
      * @param string $w Word
      * @return boolean
      */
-    public static function isWord($w)
+    public function isWord($w)
     {
-        $word = WordMedModel::whereRAW('binary LOWER(word) = binary ?', $w)->get()->first();
+        $word = DictionaryPlainTextModel::whereRAW('binary LOWER(word) = binary ?', $w)->get()->first();
         return isset($word);
     }
 
-    public static function getDictionary($w)
+    public function getDictionary($w)
     {
         $dictionary = [];
 
-        $word = WordMedModel::whereRAW('binary LOWER(word) = binary ?', $w)->get();
+        $word = DictionaryPlainTextModel::whereRAW('binary LOWER(word) = binary ?', $w)->get();
 
         if (empty($word[0])):
             return $dictionary;

@@ -13,8 +13,7 @@ $(document).ready(function() {
             return;
           }
           response.json().then(function(data) {
-            console.log(data);
-            display_dictionary_form(word, data);
+            display_dictionary_form(word, data.glossary);
           });
         }
       )
@@ -28,11 +27,9 @@ $(document).ready(function() {
 
 function display_dictionary_form(word, data) {
   let form = '<div>';
-  $.each(data, function(i, dictionary) {
-    $.each(dictionary.glossary, function(j, glossary) {
+  $.each(data, function(i, glossary) {
       form += '<div style="width:10%;float:left">' + glossary.type + '</div>';
       form += '<div style="width:90%;float:left">' + glossary.definition + '</div>';
-    });
   });
   form += '</div>';
 

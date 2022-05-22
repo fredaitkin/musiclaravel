@@ -2,9 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Jukebox\Dictionary\DictionaryInterface as Dictionary;
 use App\Jukebox\Dictionary\WordCloudInterface as WordCloud;
-use App\Jukebox\Dictionary\WordMed;
-use App\Jukebox\Dictionary\WordNet;
 use App\Jukebox\Song\SongInterface as Song;
 use Exception;
 use Illuminate\Console\Command;
@@ -51,6 +50,13 @@ class Words extends Command {
     private $song;
 
     /**
+     * The dictionary interface
+     *
+     * @var App\Jukebox\Dictionary\DictionaryInterface
+     */
+    private $dictionary;
+
+    /**
      * The wordcloud interface
      *
      * @var App\Jukebox\Dictionary\WordCloudInterface
@@ -60,10 +66,11 @@ class Words extends Command {
     /**
      * Constructor
      */
-    public function __construct(Song $song, WordCloud $wordCloud)
+    public function __construct(Song $song, Dictionary $dictionary, WordCloud $wordCloud)
     {
         parent::__construct();
         $this->song = $song;
+        $this->dictionary = $dictionary;
         $this->wordCloud = $wordCloud;
     }
 
@@ -466,19 +473,6 @@ class Words extends Command {
         Log::info("Finished");
     }
 
-    // TODO move isWord to Dictionary?
-    private function isWord($w) {
-        try {
-            if (WordNet::isWord($w)):
-                return true;
-            else:
-                return WordMed::isWord($w);
-            endif;
-        } catch (Exception $e) {
-            return false;
-        }
-    }
-
     /**
      * Process the word and populate the word cloud.
      * 
@@ -535,12 +529,12 @@ class Words extends Command {
         foreach($this->word_cloud as $w) {
             try {
                 // Is this a real word?
-                $is_word = $this->isWord($w['word']);
+                $is_word = $this->dictionary->isWord($w['word']);
                 if (! $is_word):
                     // Check if it is possible a plural.
                     if (substr($w['word'], -1) === 's'):
                         // Try again.
-                        $is_word = $this->isWord(substr($w['word'], 0, -1));
+                        $is_word = $this->dictionary->isWord(substr($w['word'], 0, -1));
                     endif;
                 endif;
                 $w['is_word'] = $is_word;
@@ -560,12 +554,12 @@ class Words extends Command {
     private function logWordCloud() {
         ksort($this->word_cloud);
         foreach($this->word_cloud as $w => $v) {
-            $is_word = $this->isWord($w);
+            $is_word = $this->dictionary->isWord($w);
             if (! $is_word):
                 // Check if it is possible a plural.
                 if (substr($w, -1) === 's'):
                     // Try again.
-                    $is_word = $this->isWord(substr($w, 0, -1));
+                    $is_word = $this->dictionary->isWord(substr($w, 0, -1));
                 endif;
             endif;
             $v['is_word'] = $is_word;

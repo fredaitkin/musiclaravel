@@ -2,12 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Jukebox\Dictionary\WordMed;
-use App\Jukebox\Dictionary\WordNet;
+use App\Jukebox\Dictionary\DictionaryInterface as Dictionary;
 use Illuminate\Http\Request;
 
 class DictionaryResourceController extends Controller
 {
+
+    /**
+     * The dictionary interface
+     *
+     * @var App\Jukebox\Dictionary\DictionaryInterface
+     */
+    private $dictionary;
+
+    /**
+     * Constructor
+     */
+    public function __construct(Dictionary $dictionary)
+    {
+        $this->dictionary = $dictionary;
+    }
 
     /**
      * Display dictionary information for a word
@@ -16,10 +30,7 @@ class DictionaryResourceController extends Controller
      */
     public function dictionary(Request $request)
     {
-        $dictionaries = [];
-        $dictionaries[] = WordMed::getDictionary($request->get('word'));
-        $dictionaries[] = WordNet::getDictionary($request->get('word'));
-        return $dictionaries;
+        return $this->dictionary->getDictionary($request->get('word'));
     }
 
 }

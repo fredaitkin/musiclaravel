@@ -2,7 +2,7 @@
 
 namespace App\Jukebox\Dictionary;
 
-interface WordInterface
+interface DictionaryInterface
 {
 
     /**
@@ -11,10 +11,18 @@ interface WordInterface
      * @param  string $w
      * @return bool
      */
-    public static function isWord($w);
+    public function isWord($w);
 
     /**
-     * Get dictionary definition for word
+     * Get the word.
+     *
+     * @param  string $w
+     * @return array
+     */
+    public function getWord($w);
+
+    /**
+     * Get definition for word
      *
      * @param  string $w
      * @return array

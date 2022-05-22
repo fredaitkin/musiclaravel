@@ -2,6 +2,7 @@
 
 namespace App\Jukebox\Dictionary;
 
+use App\Jukebox\Dictionary\DictionaryInterface as Dictionary;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Watson\Rememberable\Rememberable;
@@ -10,6 +11,21 @@ class WordCloud implements WordCloudInterface
 {
 
     use Rememberable;
+
+    /**
+     * The dictionary interface
+     *
+     * @var App\Jukebox\Dictionary\DictionaryInterface
+     */
+    private $dictionary;
+
+    /**
+     * Constructor
+     */
+    public function __construct(Dictionary $dictionary)
+    {
+        $this->dictionary = $dictionary;
+    }
 
     /** Basic Routines */
 
@@ -220,7 +236,7 @@ class WordCloud implements WordCloudInterface
             else:
                 $wordCloud = WordCloudModel::create([
                     'word' => $word,
-                    'is_word' => $this->isWord($word),
+                    'is_word' => $this->dictionary->isWord($word),
                     'created_at' => Carbon::now(),
                     'count' => $count,
                 ]);
@@ -267,18 +283,6 @@ class WordCloud implements WordCloudInterface
     private function sortSongs($a, $b)
     {
         return strcmp($a["song"], $b["song"]);
-    }
-
-    private function isWord($w) {
-        try {
-            if (WordNet::isWord($w)):
-                return true;
-            else:
-                return WordMED::isWord($w);
-            endif;
-        } catch (Exception $e) {
-            return false;
-        }
     }
 
 }
