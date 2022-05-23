@@ -48,6 +48,9 @@ class Artist implements ArtistInterface
             $artists = $query->where('id', $constraints['id'])->get();
             return $artists[0]->all_songs;
         endif;
+        if (isset($constraints['artist'])):
+            $query->where('artist', $constraints['artist']);
+        endif;
         if (isset($constraints['q'])):
             return $this->getJsonResults($constraints['q']);
         endif;

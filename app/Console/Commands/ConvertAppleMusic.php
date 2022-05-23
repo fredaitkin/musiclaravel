@@ -2,9 +2,12 @@
 
 namespace App\Console\Commands;
 
+use App\Jukebox\Artist\ArtistInterface as Artist;
+use App\Jukebox\Song\SongInterface as Song;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 
 class ConvertAppleMusic extends Command
@@ -42,13 +45,32 @@ class ConvertAppleMusic extends Command
     protected $media_dir;
 
     /**
+     * The song interface
+     *
+     * @var App\Jukebox\Song\SongInterface
+     */
+    private $song;
+
+    /**
+     * The artist interface
+     *
+     * @var App\Jukebox\Artist\ArtistInterface
+     */
+    private $artist;
+
+    /**
      * Create a new command instance.
+     *
+     * @param App\Jukebox\Artist\ArtistInterface $artist
+     * @param App\Jukebox\Song\SongInterface $song
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Artist $artist, Song $song)
     {
         parent::__construct();
+        $this->artist = $artist;
+        $this->song = $song;
         $this->root_dir = Config::get('filesystems.disks')[Config::get('filesystems.partition')]['root'];
         $this->media_dir = Config::get('filesystems.media_directory');
     }
@@ -64,15 +86,20 @@ class ConvertAppleMusic extends Command
 
             $options = $this->options();
 
-            // Does the ffmpeg tool exist?
+            // Do the ff tools exist?
             $return = shell_exec(sprintf("which %s", escapeshellarg('ffmpeg')));
             if (! $return):
                 $this->error('The command ffmpeg does not exist or is not configured on your system');
                 exit;
             endif;
+            $return = shell_exec(sprintf("which %s", escapeshellarg('ffprobe')));
+            if (! $return):
+                $this->error('The command ffprobe does not exist or is not configured on your system');
+                exit;
+            endif;
 
             // Log a list of mp4 songs.
-            if (isset($options['list'])):
+            if ($options['list']):
                 $iter = new \GlobIterator($this->root_dir . $this->media_dir . '*/*/*.mp4');
                 foreach($iter as $file){
                     Log::info($file);
@@ -111,22 +138,48 @@ class ConvertAppleMusic extends Command
 
             // Convert songs by an artist.
             if (isset($options['artist'])):
-                if (! is_dir($this->root_dir . $this->media_dir . $options['artist'])):
-                    $this->error('Invalid diretory path for artist');
-                    exit;
-                endif;
-
-                $iter = new \GlobIterator($this->root_dir . $this->media_dir . $options['artist'] . '/*/*.mp4');
-                foreach ($iter as $file):
-                    $this->info($file);
-                    $new_file = str_replace('.mp4', '.mp3', $file);
-                    $command = 'ffmpeg -i "' . $file . '" "' . $new_file . '"';
-                    exec($command);
-                endforeach;
+                $this->processArtist($options['artist']);
             endif;
 
         } catch (Exception $e) {
             $this->error('The conversion process has been failed: ' . $e->getMessage());
         }
+    }
+
+    /**
+    * Process artist directory
+    *
+    * Convert mp4 files, update the song filesize and location, and delete the
+    * mp4 version.
+    *
+    * @param string $artist_name
+    */
+    function processArtist($artist_name)
+    {
+        $artists = $this->artist->allByConstraints(['artist' => $artist_name]);
+        if (count($artists) > 0):
+            $songs = $artists[0]->songs;
+            foreach($songs as $song):
+                try {
+                    if (strpos($song->location, 'mp4') !== false):
+                        $song->location = str_replace("\\", DIRECTORY_SEPARATOR, $song->location);
+                        $mp4_file = $this->root_dir . $this->media_dir . $song->location;
+                        $mp3_file = str_replace('.mp4', '.mp3', $mp4_file);
+                        $command = 'ffmpeg -i "' . $mp4_file . '" "' . $mp3_file . '"';
+                        exec($command);
+                        $command = 'ffprobe -v quiet -print_format json -show_format "' . $mp3_file . '"';
+                        $details = shell_exec($command);
+                        $details = json_decode($details);
+                        $song->location = str_replace('.mp4', '.mp3', $song->location);
+                        $song->filesize = $details->format->size;
+                        $song->save();
+                        File::delete($mp4_file);
+                    endif;
+                } catch (Exception $e) {
+                   $this->info($command);
+                   exit;
+                }
+            endforeach;
+        endif;
     }
 }
