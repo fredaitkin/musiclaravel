@@ -38,7 +38,8 @@ $(document).ready(function() {
             return;
           }
           response.json().then(function(data) {
-            play_songs("EVERYBODY SHUFFLIN...", data);
+            var songs = shuffle(data);
+            display_jukebox("EVERYBODY SHUFFLIN...", songs);
           });
         }
       )
@@ -255,68 +256,3 @@ function display_jukebox(title, songs) {
   });
 }
 
-function play_songs(title, songs) {
-  let song_url = APP_URL + '/song/play/';
-
-  songs = shuffle(songs);
-
-  let jukebox_form = '<div class="audio">';
-  jukebox_form += '<figure>';
-  jukebox_form += '<figcaption id="song_title">' +  songs[0].title + ' - ' + songs[0].artists[0].artist + '</figcaption>';
-  jukebox_form += '<audio controls src="' + song_url + songs[0].id + '" type="audio/mpeg">Your browser does not support the<code>audio</code> element.</audio>';
-  jukebox_form += '</figure>';
-  jukebox_form += '<button class="next">Next</button>';
-  jukebox_form += '<textarea id="lyrics" style="white-space:pre;" rows="20" cols="70">' + get_lyrics(songs[0]) + '</textarea>';
-  jukebox_form += '</div>';
-
-  $(jukebox_form).dialog({
-    title: title,
-    close: function() {
-      $(this).remove()
-    },
-    modal: false,
-    width: 500,
-    open : function() {
-
-      $('div.ui-dialog').addClass('ui-dialog-jukebox');
-
-      // Remove song that is already set
-      song = songs.shift();
-
-      // Play
-      let audio = $(this).find('audio').get(0);
-      audio.play();
-
-      audio.addEventListener('ended',function() {
-        next_song(audio);
-      });
-
-      let next = $(this).find('button.next').get(0);
-      next.addEventListener('click', function() {
-        next_song(audio);
-      });
-
-      function next_song(audio) {
-        // Get next song
-        song = songs.shift();
-        if (song !== undefined) {
-          audio.src = song_url + song.id;
-          $("#song_title").text(song.title + ' - ' + song.artists[0].artist);
-          $("#lyrics").val(get_lyrics(song));
-          audio.pause();
-          audio.load();
-          var playPromise = audio.play();
-
-          if (playPromise !== undefined) {
-            playPromise.then(function() {
-                // Automatic playback started!
-            }).catch(function(error) {
-                // Automatic playback failed.
-                next_song(audio);
-            });
-          }
-        }
-      }
-    }
-  });
-}
