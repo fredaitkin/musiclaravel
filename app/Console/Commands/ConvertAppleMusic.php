@@ -21,6 +21,7 @@ class ConvertAppleMusic extends Command
                             {--list : List songs in mp4 format}
                             {--song= : The song to convert}
                             {--artist= : The artist to convert}
+                            {--all : All artists}
                             {--album-dir= : The album directory}';
 
     /**
@@ -141,6 +142,11 @@ class ConvertAppleMusic extends Command
                 $this->processArtist($options['artist']);
             endif;
 
+            // Convert songs by all artists.
+            if (isset($options['all'])):
+                $this->processAllArtists();
+            endif;
+
         } catch (Exception $e) {
             $this->error('The conversion process has been failed: ' . $e->getMessage());
         }
@@ -163,10 +169,50 @@ class ConvertAppleMusic extends Command
                 try {
                     if (strpos($song->location, 'mp4') !== false):
                         $song->location = str_replace("\\", DIRECTORY_SEPARATOR, $song->location);
+                        echo $song->location;
                         $mp4_file = $this->root_dir . $this->media_dir . $song->location;
                         $mp3_file = str_replace('.mp4', '.mp3', $mp4_file);
-                        $command = 'ffmpeg -i "' . $mp4_file . '" "' . $mp3_file . '"';
-                        exec($command);
+                        // $command = 'ffmpeg -i "' . $mp4_file . '" "' . $mp3_file . '"';
+                        // exec($command);
+                        $command = 'ffprobe -v quiet -print_format json -show_format "' . $mp4_file . '"';
+                        // $command = 'ffprobe -v quiet -print_format json -show_format "' . $mp3_file . '"';
+                        $details = shell_exec($command);
+                        $details = json_decode($details);
+                        var_dump($details);exit;
+                        $song->location = str_replace('.mp4', '.mp3', $song->location);
+                        $song->filesize = $details->format->size;
+                        // $song->save();
+                        // File::delete($mp4_file);
+                    endif;
+                } catch (Exception $e) {
+                   $this->info($command);
+                   exit;
+                }
+            endforeach;
+        endif;
+    }
+
+    /**
+    * Process artists
+    *
+    * Convert mp4 files, update the song filesize and location, and delete the
+    * mp4 version.
+    *
+    */
+    function processAllArtists()
+    {
+        $artists = $this->artist->allByConstraints();
+        foreach($artists as $artist):
+            echo $artist->artist . ' ';
+            $songs = $artist->songs;
+            foreach($songs as $song):
+                try {
+                    if (strpos($song->location, 'mp4') !== false):
+                        $song->location = str_replace("\\", DIRECTORY_SEPARATOR, $song->location);
+                        $mp4_file = $this->root_dir . $this->media_dir . $song->location;
+                        $mp3_file = str_replace('.mp4', '.mp3', $mp4_file);
+                        $command = 'ffmpeg -i "' . $mp4_file . '" "' . $mp3_file . '" -report -loglevel error';
+                        $success = exec($command);
                         $command = 'ffprobe -v quiet -print_format json -show_format "' . $mp3_file . '"';
                         $details = shell_exec($command);
                         $details = json_decode($details);
@@ -176,10 +222,12 @@ class ConvertAppleMusic extends Command
                         File::delete($mp4_file);
                     endif;
                 } catch (Exception $e) {
-                   $this->info($command);
-                   exit;
+                    Log::info($artist->artist);
+                    Log::info($song->location);
+                    Log::info($command);
+                    Log::info($e->getMessage());
                 }
             endforeach;
-        endif;
+        endforeach;
     }
 }
