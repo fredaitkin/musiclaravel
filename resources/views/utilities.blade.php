@@ -100,7 +100,3 @@
 
     </div>
 @endsection
-
-@section('scripts')
-    <script src="{{ asset('js/song.js') }}"></script>
-@endsection
