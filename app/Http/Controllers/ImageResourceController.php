@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Controller to handle image requests
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -8,6 +15,11 @@ use Cache;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * ImageResourceController handles image requests.
+ *
+ * Get song cover art from storage.
+ */
 class ImageResourceController extends Controller
 {
 
@@ -20,12 +32,21 @@ class ImageResourceController extends Controller
 
     /**
      * Constructor
+     *
+     * @param App\Jukebox\Song\SongInterface $song The song object
      */
     public function __construct(Song $song)
     {
         $this->song = $song;
     }
 
+    /**
+     * Retrieve song cover art.
+     *
+     * @param int $id The song id
+     *
+     * @return Response
+     */
     public function coverArt($id)
     {
         if (! Cache::store('redis')->has('song_photo_' . $id)) :
