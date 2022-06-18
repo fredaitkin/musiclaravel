@@ -43,7 +43,7 @@ class ArtistRestController extends Controller
      * Constructor
      *
      * @param App\Jukebox\Artist\ArtistInterface $artist The artist interface
-     * @param App\Jukebox\Song\SongInterface $song The song interface
+     * @param App\Jukebox\Song\SongInterface     $song   The song interface
      */
     public function __construct(Artist $artist, Song $song)
     {
@@ -54,7 +54,7 @@ class ArtistRestController extends Controller
     /**
      * Display artists
      *
-     * @param Request $request Request object
+     * @param Illuminate\Http\Request $request Request object
      *
      * @return Response
      */
@@ -81,7 +81,7 @@ class ArtistRestController extends Controller
     /**
      * Store a newly created artist in the database
      *
-     * @param Request $request Request object
+     * @param Illuminate\Http\Request $request Request object
      *
      * @return Response
      */
@@ -124,8 +124,8 @@ class ArtistRestController extends Controller
     /**
      * Remove the artist and all their songs from the database
      *
-     * @param Request $request Request object
-     * @param int $id Song id
+     * @param Illuminate\Http\Request $request Request object
+     * @param int                     $id      Song id
      *
      * @return Response
      */

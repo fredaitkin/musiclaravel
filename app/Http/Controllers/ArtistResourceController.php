@@ -39,7 +39,7 @@ class ArtistResourceController extends Controller
      * Constructor
      *
      * @param App\Jukebox\Artist\ArtistInterface $artist The artist interface
-     * @param App\Jukebox\Song\SongInterface $song The song interface
+     * @param App\Jukebox\Song\SongInterface     $song   The song interface
      */
     public function __construct(Artist $artist, Song $song)
     {
