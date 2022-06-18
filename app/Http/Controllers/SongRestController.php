@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Controller to handle standard REST requests for songs
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Http\Controllers;
 
 use App\Jukebox\Song\SongInterface as Song;
@@ -7,6 +14,11 @@ use App\Jukebox\Dictionary\WordCloudInterface as WordCloud;
 use Illuminate\Http\Request;
 use Storage;
 
+/**
+ * SongRestController handles song requests.
+ *
+ * Get songs, save songs.
+ */
 class SongRestController extends Controller
 {
 
@@ -26,6 +38,9 @@ class SongRestController extends Controller
 
     /**
      * Constructor
+     *
+     * @param App\Jukebox\Song\SongInterface $song The song interface
+     * @param App\Jukebox\Dictionary\WordCloudInterface $wordCloud The wordCloud interface
      */
     public function __construct(Song $song, WordCloud $wordCloud)
     {
@@ -35,6 +50,8 @@ class SongRestController extends Controller
 
     /**
      * Display songs
+     *
+     * @param Request $request Request object
      *
      * @return mixed
      */
@@ -59,7 +76,8 @@ class SongRestController extends Controller
     /**
      * Store a newly or update a song in the database
      *
-     * @param Request request
+     * @param Request $request Request object
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -83,7 +101,8 @@ class SongRestController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id Song id
+     *
      * @return Response
      */
     public function edit($id)
@@ -102,14 +121,16 @@ class SongRestController extends Controller
         if (empty($cover_art)):
             $cover_art = '/image/cover/' . $song->id;
         endif;
-        return view('song', [
+        return view(
+            'song', [
             'song'          => $song,
             'title'         => $song->title,
             'cover_art'     => $cover_art,
             'artists'       => json_encode($song->artists),
             'file_types'    => config('audio_file_formats'),
             'song_exists'   => Storage::disk(config('filesystems.partition'))->has(config('filesystems.media_directory') . $song->location),
-        ]);
+            ]
+        );
     }
 
 }

@@ -13,5 +13,6 @@
         <exclude name="PEAR.Commenting.ClassComment.MissingLicenseTag"/>
         <exclude name="PEAR.Commenting.ClassComment.MissingLinkTag"/>
         <exclude name="PEAR.NamingConventions.ValidVariableName.PrivateNoUnderscore"/>
+        <exclude name="PEAR.ControlStructures.MultiLineCondition.SpaceBeforeOpenBrace"/>
     </rule>
 </ruleset>
