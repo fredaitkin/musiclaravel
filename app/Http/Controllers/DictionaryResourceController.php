@@ -1,10 +1,20 @@
 <?php
 
+/**
+ * Controller for dictionary requests
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Http\Controllers;
 
 use App\Jukebox\Dictionary\DictionaryInterface as Dictionary;
 use Illuminate\Http\Request;
 
+/**
+ * DictionaryResourceController handles dictionary requests
+ */
 class DictionaryResourceController extends Controller
 {
 
@@ -17,6 +27,8 @@ class DictionaryResourceController extends Controller
 
     /**
      * Constructor
+     *
+     * @param App\Jukebox\Dictionary\DictionaryInterface $dictionary Dictionary interface
      */
     public function __construct(Dictionary $dictionary)
     {
@@ -25,6 +37,8 @@ class DictionaryResourceController extends Controller
 
     /**
      * Display dictionary information for a word
+     *
+     * @param Illuminate\Http\Request $request Request object
      *
      * @return Response
      */

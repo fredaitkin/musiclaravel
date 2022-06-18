@@ -1,10 +1,20 @@
 <?php
 
+/**
+ * Controller for category requests
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Http\Controllers;
 
 use App\Jukebox\Dictionary\CategoryInterface as Category;
 use Illuminate\Http\Request;
 
+/**
+ * CategoryResourceController handles category requests.
+ */
 class CategoryResourceController extends Controller
 {
 
@@ -17,6 +27,8 @@ class CategoryResourceController extends Controller
 
     /**
      * Constructor
+     *
+     * @param App\Jukebox\Dictionary\CategoryInterface $category Category interface
      */
     public function __construct(Category $category)
     {
@@ -25,6 +37,8 @@ class CategoryResourceController extends Controller
 
     /**
      * Return categories
+     *
+     * @param Illuminate\Http\Request $request Request object
      *
      * @return Response
      */

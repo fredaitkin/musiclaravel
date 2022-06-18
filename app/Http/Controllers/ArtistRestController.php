@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Controller for artist requests
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Http\Controllers;
 
 use App\Jukebox\Artist\ArtistInterface as Artist;
@@ -8,6 +15,11 @@ use App\Traits\StoreImageTrait;
 use Illuminate\Http\Request;
 use URL;
 
+/**
+ * ArtistRestController handles artist REST requests.
+ *
+ * Standard artist REST requests such as get, post, delete
+ */
 class ArtistRestController extends Controller
 {
 
@@ -29,6 +41,9 @@ class ArtistRestController extends Controller
 
     /**
      * Constructor
+     *
+     * @param App\Jukebox\Artist\ArtistInterface $artist The artist interface
+     * @param App\Jukebox\Song\SongInterface $song The song interface
      */
     public function __construct(Artist $artist, Song $song)
     {
@@ -38,6 +53,8 @@ class ArtistRestController extends Controller
 
     /**
      * Display artists
+     *
+     * @param Request $request Request object
      *
      * @return Response
      */
@@ -64,7 +81,8 @@ class ArtistRestController extends Controller
     /**
      * Store a newly created artist in the database
      *
-     * @param Request $request
+     * @param Request $request Request object
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -76,7 +94,8 @@ class ArtistRestController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id Song id
+     *
      * @return Response
      */ 
     public function edit($id)
@@ -91,19 +110,23 @@ class ArtistRestController extends Controller
                 $artist->photo = URL::to('/') . '/storage/artists/' . $artist->photo;
             endif;
         endif;
-        return view('artist', [
-            'title'     => $artist->artist,
-            'artist'    => $artist,
-            'albums'    => $albums,
-            'songs'     => $this->song->getArtistSongs($id, $artist->artist),
-            'countries' => array_merge(['' => 'Please Select...'], config('countries')),
-        ]);
+        return view(
+            'artist', [
+                'title'     => $artist->artist,
+                'artist'    => $artist,
+                'albums'    => $albums,
+                'songs'     => $this->song->getArtistSongs($id, $artist->artist),
+                'countries' => array_merge(['' => 'Please Select...'], config('countries')),
+            ]
+        );
     }
 
     /**
      * Remove the artist and all their songs from the database
      *
-     * @param  int  $id
+     * @param Request $request Request object
+     * @param int $id Song id
+     *
      * @return Response
      */
     public function destroy(Request $request, $id)
