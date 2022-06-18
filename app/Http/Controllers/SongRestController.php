@@ -15,9 +15,9 @@ use Illuminate\Http\Request;
 use Storage;
 
 /**
- * SongRestController handles song requests.
+ * SongRestController handles song REST requests.
  *
- * Get songs, save songs.
+ * Standard song REST requests such as get, post
  */
 class SongRestController extends Controller
 {
@@ -39,8 +39,8 @@ class SongRestController extends Controller
     /**
      * Constructor
      *
-     * @param App\Jukebox\Song\SongInterface $song The song interface
-     * @param App\Jukebox\Dictionary\WordCloudInterface $wordCloud The wordCloud interface
+     * @param App\Jukebox\Song\SongInterface            $song      Song interface
+     * @param App\Jukebox\Dictionary\WordCloudInterface $wordCloud WordCloud interface
      */
     public function __construct(Song $song, WordCloud $wordCloud)
     {
@@ -51,7 +51,7 @@ class SongRestController extends Controller
     /**
      * Display songs
      *
-     * @param Request $request Request object
+     * @param Illuminate\Http\Request $request Request object
      *
      * @return mixed
      */
@@ -76,7 +76,7 @@ class SongRestController extends Controller
     /**
      * Store a newly or update a song in the database
      *
-     * @param Request $request Request object
+     * @param Illuminate\Http\Request $request Request object
      *
      * @return Response
      */

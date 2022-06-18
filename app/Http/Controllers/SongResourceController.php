@@ -1,11 +1,23 @@
 <?php
 
+/**
+ * Controller for song requests
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Http\Controllers;
 
 use App\Jukebox\Song\SongInterface as Song;
 use Illuminate\Http\Request;
 use Storage;
 
+/**
+ * SongResourceController handles song requests.
+ *
+ * Handles song requests such as add, search, play
+ */
 class SongResourceController extends Controller
 {
 
@@ -18,6 +30,8 @@ class SongResourceController extends Controller
 
     /**
      * Constructor
+     *
+     * @param App\Jukebox\Song\SongInterface $song Song interface
      */
     public function __construct(Song $song)
     {
@@ -31,18 +45,21 @@ class SongResourceController extends Controller
      */
     public function add()
     {
-        return view('song', [
-            'title'         => 'Add New Song',
-            'file_types'    => array_merge(['' => 'Please Select...'], config('audio_file_formats')),
-            'song_exists'   => false,
-            'cover_art'     => false,
-        ]);
+        return view(
+            'song', [
+                'title'         => 'Add New Song',
+                'file_types'    => array_merge(['' => 'Please Select...'], config('audio_file_formats')),
+                'song_exists'   => false,
+                'cover_art'     => false,
+            ]
+        );
     }
 
     /**
      * Search for song.
      *
-     * @param Request
+     * @param Illuminate\Http\Request $request Request object
+     *
      * @return Response
      */
     public function search(Request $request)
@@ -70,6 +87,13 @@ class SongResourceController extends Controller
         endif;
     }
 
+    /**
+     * Play a song.
+     *
+     * @param int $id Song id
+     *
+     * @return Response
+     */
     public function play($id)
     {
         $song = $this->song->get($id);

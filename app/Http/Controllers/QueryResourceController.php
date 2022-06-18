@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Controller for query requests
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -7,13 +14,19 @@ use DB;
 use Exception;
 use Illuminate\Http\Request;
 
+/**
+ * QueryResourceController handles query requests.
+ *
+ * Retrieves query results
+ */
 class QueryResourceController extends Controller
 {
 
     /**
      * Run query
      *
-     * @param  Request $request
+     * @param Illuminate\Http\Request $request Request object
+     *
      * @return Response
      */
     public function query(Request $request)
@@ -44,11 +57,13 @@ class QueryResourceController extends Controller
                 $results = $e->getMessage() . "\n";
             }
         endif;
-        return view('query', [
-            'myquery' => $request->myquery,
-            'results' => $results,
-            'show_cols' => $show_cols,
-        ]);
+        return view(
+            'query', [
+                'myquery' => $request->myquery,
+                'results' => $results,
+                'show_cols' => $show_cols,
+            ]
+        );
     }
 
 }

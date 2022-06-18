@@ -1,11 +1,21 @@
 <?php
 
+/**
+ * Controller to handle query requests
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Jukebox\Song\SongInterface as Song;
 use Illuminate\Http\Request;
 
+/**
+ * ManagedQueryResourceController handles predefined query requests.
+ */
 class ManagedQueryResourceController extends Controller
 {
 
@@ -18,6 +28,8 @@ class ManagedQueryResourceController extends Controller
 
     /**
      * Constructor
+     *
+     * @param App\Jukebox\Song\SongInterface $song Song interface
      */
     public function __construct(Song $song)
     {
@@ -27,7 +39,8 @@ class ManagedQueryResourceController extends Controller
     /**
      * Run query
      *
-     * @param  Request $request
+     * @param Illuminate\Http\Request $request Request object
+     *
      * @return Response
      */
     public function query(Request $request)
@@ -37,20 +50,29 @@ class ManagedQueryResourceController extends Controller
             '1' => 'Words in Songs',
         ];
         if (isset($request->predefined_query)):
-            switch($request->predefined_query):
+            switch ($request->predefined_query):
                 case 1:
                     $results = $this->wordsInSongs($request->params);
                     break;
             endswitch;
         endif;
-        return view('managed_query', [
-            'predefined_query' => $request->predefined_query,
-            'params' => $request->params,
-            'queries' => $queries,
-            'results' => $results ?? "Nothing returned",
-        ]);
+        return view(
+            'managed_query', [
+                'predefined_query' => $request->predefined_query,
+                'params' => $request->params,
+                'queries' => $queries,
+                'results' => $results ?? "Nothing returned",
+            ]
+        );
     }
 
+    /**
+     * Retrieve the songs and lyrics that contain a phrase
+     *
+     * @param string $words The phrase or words.
+     *
+     * @return array
+     */
     private function wordsInSongs($words)
     {
         $results = [];

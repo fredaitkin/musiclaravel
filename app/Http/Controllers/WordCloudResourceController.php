@@ -1,10 +1,22 @@
 <?php
 
+/**
+ * Controller for wordCloud requests
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Http\Controllers;
 
 use App\Jukebox\Dictionary\WordCloudInterface as WordCloud;
 use Illuminate\Http\Request;
 
+/**
+ * WordCloudResourceController handles wordCloud requests.
+ *
+ * Handles wordCloud requests.
+ */
 class WordCloudResourceController extends Controller
 {
 
@@ -17,6 +29,8 @@ class WordCloudResourceController extends Controller
 
     /**
      * Constructor
+     *
+     * @param App\Jukebox\Dictionary\WordCloudInterface $wordCloud WordCloud interface
      */
     public function __construct(WordCloud $wordCloud)
     {
@@ -27,7 +41,9 @@ class WordCloudResourceController extends Controller
     /**
      * Search for word.
      *
-     * @return \Illuminate\Http\Response
+     * @param Illuminate\Http\Request $request Request object
+     *
+     * @return Response
      */
     public function autocomplete(Request $request)
     {

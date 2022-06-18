@@ -1,10 +1,22 @@
 <?php
 
+/**
+ * Controller for playlist requests
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Http\Controllers;
 
 use App\Jukebox\Playlist\PlaylistInterface as Playlist;
 use Illuminate\Http\Request;
 
+/**
+ * PlaylistRestController handles playlist REST requests.
+ *
+ * Standard playlist REST requests such as get, post, delete
+ */
 class PlaylistRestController extends Controller
 {
 
@@ -17,6 +29,8 @@ class PlaylistRestController extends Controller
 
     /**
      * Constructor
+     *
+     * @param App\Jukebox\Playlist\PlaylistInterface $playlist Playlist interface
      */
     public function __construct(Playlist $playlist)
     {
@@ -25,6 +39,9 @@ class PlaylistRestController extends Controller
 
     /**
      * Display playlists
+     *
+     * @param Illuminate\Http\Request $request Request object
+     *
      * @return mixed
      */
     public function index(Request $request)
@@ -39,7 +56,8 @@ class PlaylistRestController extends Controller
     /**
      * Add songs to a playlist
      *
-     * @param Request $request
+     * @param Illuminate\Http\Request $request Request object
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -50,7 +68,9 @@ class PlaylistRestController extends Controller
     /**
      * Remove the playlist
      *
-     * @param  int  $id
+     * @param Illuminate\Http\Request $request  Request object
+     * @param string                  $playlist Playlist name
+     *
      * @return Response
      */
     public function destroy(Request $request, $playlist)

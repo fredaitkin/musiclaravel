@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Controller for utility requests
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -15,6 +21,11 @@ use Log;
 use Redirect;
 use Storage;
 
+/**
+ * UtilitiesResourceController handles utility requests.
+ *
+ * Handles utility requests such as load songs, process artist directory.
+ */
 class UtilitiesResourceController extends Controller
 {
 
@@ -48,8 +59,11 @@ class UtilitiesResourceController extends Controller
      */
     private $song;
 
-     /**
+    /**
      * Constructor
+     *
+     * @param App\Jukebox\Artist\ArtistInterface $artist Artist interface
+     * @param App\Jukebox\Song\SongInterface     $song   Song interface
      */
     public function __construct(Artist $artist, Song $song)
     {
@@ -63,7 +77,8 @@ class UtilitiesResourceController extends Controller
     /**
      * Load songs
      *
-     * @param  Request $request
+     * @param Illuminate\Http\Request $request Request object
+     *
      * @return Response
      */
     public function loadSongs(Request $request)
@@ -112,11 +127,13 @@ class UtilitiesResourceController extends Controller
             return view('utilities')->withErrors([$e->getMessage()]);
         }
         return Redirect::route('utilities.utilities')
-            ->with([
+            ->with(
+                [
                 'msg' => $this->count . ' songs have been loaded',
                 'random_directory' => $request->random_directory,
                 'artist_directory' => $request->artist_directory,
-            ]);
+                ]
+            );
     }
 
     /**
@@ -124,7 +141,8 @@ class UtilitiesResourceController extends Controller
      *
      * @return Result
      */
-    private function processMediaDirectory() {
+    private function processMediaDirectory()
+    {
         $result = [];
         $scan_items = glob($this->media_directory . '/*');
         foreach($scan_items as $item):
@@ -143,10 +161,13 @@ class UtilitiesResourceController extends Controller
     /**
      * Loop over sub directories and insert artists and songs
      *
-     * @param  string $path
-     * @return Result
+     * @param string $artist_dir Artist directory
+     * @param int    $artist_id  Artist id
+     *
+     * @return void
      */
-    private function processArtistDirectory(string $artist_dir, int $artist_id) {
+    private function processArtistDirectory(string $artist_dir, int $artist_id)
+    {
         $scan_albums = glob($this->partition_root . $this->media_directory . $artist_dir . '/*');
         foreach($scan_albums as $album):
             if(is_dir($album)):
@@ -159,7 +180,15 @@ class UtilitiesResourceController extends Controller
         endforeach;
     }
 
-    private function processArtist(string $item) {
+    /**
+     * Process artist
+     *
+     * @param string $item Artist name
+     *
+     * @return int
+     */
+    private function processArtist(string $item)
+    {
         $artist_arr = [basename($item), 1, 'To Set'];
         $artist_id = $this->artist->getID($artist_arr[0]);
         if(! $artist_id):
@@ -168,7 +197,17 @@ class UtilitiesResourceController extends Controller
         return $artist_id;
     }
 
-    private function processAlbum(string $artist, string $album, int $artist_id) {
+    /**
+     * Process album
+     *
+     * @param string $artist    Artist name
+     * @param string $album     Artist album
+     * @param int    $artist_id Artist id
+     *
+     * @return int
+     */
+    private function processAlbum(string $artist, string $album, int $artist_id)
+    {
         $album_name = basename($album);
         if(preg_match('/[\[\]]/', $album_name)):
             throw new Exception("Album directory contains square brackets");
@@ -196,7 +235,16 @@ class UtilitiesResourceController extends Controller
         endif;
     }
 
-    private function processSong(int $artist_id, string $song) {
+    /**
+     * Process song
+     *
+     * @param int    $artist_id Artist id
+     * @param string $song      Song title
+     *
+     * @return void
+     */
+    private function processSong(int $artist_id, string $song)
+    {
         $song_exists = $this->song->doesSongExist($artist_id, $song);
         if(! $song_exists):
             $is_compilation = $this->artist->isCompilation($artist_id);
@@ -211,8 +259,11 @@ class UtilitiesResourceController extends Controller
      * move the songs into the media library
      *
      * @param String $song Song name including path
+     *
+     * @return void
      */
-    private function processSongAndArtist(string $song) {
+    private function processSongAndArtist(string $song)
+    {
         try {
             Log::info("Processing " . $song);
             $song_info = $this->retrieveSongInfo($song, basename($song), false);
@@ -266,12 +317,14 @@ class UtilitiesResourceController extends Controller
     /**
      * Retrieve song info via ID3
      *
-     * @param string $path Full file path
-     * @param string $filename Filename
+     * @param string  $path           Full file path
+     * @param string  $filename       Filename
      * @param boolean $is_compilation Is song part of a compilation ablum
+     *
      * @return array
      */
-    private function retrieveSongInfo($path, $filename, $is_compilation) {
+    private function retrieveSongInfo($path, $filename, $is_compilation)
+    {
         $file_info = $this->ID3_extractor->analyze($path);
 
         if(isset($file_info['error'])):
@@ -283,15 +336,15 @@ class UtilitiesResourceController extends Controller
         endif;
 
         switch($file_info['fileformat']):
-            case "mp3":
-                $song = new MP3($path, $filename, $is_compilation, $file_info);
-                break;
-            case "mp4":
-                $song = new MP4($path, $filename, $is_compilation, $file_info);
-                break;
-            default:
-                $song = new AudioFile($path, $filename, $is_compilation, $file_info, $file_info['fileformat']);
-                break;
+        case "mp3":
+            $song = new MP3($path, $filename, $is_compilation, $file_info);
+            break;
+        case "mp4":
+            $song = new MP4($path, $filename, $is_compilation, $file_info);
+            break;
+        default:
+            $song = new AudioFile($path, $filename, $is_compilation, $file_info, $file_info['fileformat']);
+            break;
         endswitch;
         return $song;
     }

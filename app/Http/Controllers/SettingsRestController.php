@@ -1,9 +1,21 @@
 <?php
 
+/**
+ * Controller for settings requests
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
+/**
+ * SettingsRestController handles settings REST requests.
+ *
+ * Standard settings REST requests such as get
+ */
 class SettingsRestController extends Controller
 {
 
