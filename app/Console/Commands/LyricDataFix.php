@@ -1,12 +1,23 @@
 <?php
 
+/**
+ * LyricDataFix.php
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Console\Commands;
 
 use App\Jukebox\Song\SongInterface as Song;
 use Exception;
 use Illuminate\Console\Command;
 
-class LyricDataFix extends Command {
+/**
+ * Tools to clean up lyrics via the command line
+ */
+class LyricDataFix extends Command
+{
 
     /**
      * The name and signature of the console command.
@@ -37,6 +48,7 @@ class LyricDataFix extends Command {
     /**
      * Create a new command instance.
      *
+     * @param App\Jukebox\Song\SongInterface $song Song interface
      */
     public function __construct(Song $song)
     {
@@ -64,13 +76,13 @@ class LyricDataFix extends Command {
     /**
      * Find and clean lyrics
      *
-     * @param  string $str String to remove
-     * @param  bool $clean Whether to remove the string from the lyric.
-     * @param  int $id Specific song.
-     * @return void
+     * @param string $str   String to remove
+     * @param bool   $clean Whether to remove the string from the lyric.
+     * @param int    $id    Specific song.
      *
+     * @return void
      */
-    protected function cleanLyric($str, $clean, $id = NULL)
+    protected function cleanLyric($str, $clean, $id = null)
     {
         $songs = [];
         if ($id):
@@ -99,10 +111,11 @@ class LyricDataFix extends Command {
     /**
      * Replace words in lyrics
      *
-     * @param  string $str String to replace
-     * @param  string $repl Replacement string
-     * @param  bool $clean Whether to replace the string in the lyric.
-     * @param  int $id Specific song.
+     * @param string $str   String to replace
+     * @param string $repl  Replacement string
+     * @param bool   $clean Whether to replace the string in the lyric.
+     * @param int    $id    Specific song.
+     *
      * @return void
      */
     protected function replaceLyric($str, $repl, $clean, $id)

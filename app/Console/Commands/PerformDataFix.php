@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * PerformDataFix.php
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Console\Commands;
 
 use App\Jukebox\Dictionary\CategoryInterface as Category;
@@ -9,6 +16,9 @@ use DB;
 use Illuminate\Console\Command;
 use Storage;
 
+/**
+ * Tools to fix Jukebox data via the command line
+ */
 class PerformDataFix extends Command
 {
     /**
@@ -58,6 +68,10 @@ class PerformDataFix extends Command
 
     /**
      * Constructor
+     *
+     * @param App\Jukebox\Song\SongInterface            $song      Song interface
+     * @param App\Jukebox\Dictionary\WordCloudInterface $wordCloud WordCloud interface
+     * @param App\Jukebox\Dictionary\CategoryInterface  $category  Category interface
      */
     public function __construct(Song $song, WordCloud $wordCloud, Category $category)
     {
@@ -67,7 +81,7 @@ class PerformDataFix extends Command
         $this->category = $category;
     }
 
-    /*
+    /**
      * Execute the console command.
      *
      * @return mixed
@@ -116,16 +130,18 @@ class PerformDataFix extends Command
     }
 
     /**
-     * Move categories to pivit table
+     * Move categories to piv0t table
+     *
+     * @return void
      */
     private function fixCategories()
     {
         // Retrieve categories
         $records = $this->category->all();
         $categories = [];
-        foreach($records as $record) {
+        foreach ($records as $record):
             $categories[$record->category] = $record->id;
-        }
+        endforeach;
         // Insert category id into pivot table
         $wordCloud = $this->wordCloud->allByConstraints();
         foreach ($wordCloud as $word):

@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Words.php
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Console\Commands;
 
 use App\Jukebox\Dictionary\DictionaryInterface as Dictionary;
@@ -9,7 +16,11 @@ use Exception;
 use Illuminate\Console\Command;
 use Log;
 
-class Words extends Command {
+/**
+ * Process words via the command line
+ */
+class Words extends Command
+{
 
     /**
      * The name and signature of the console command.
@@ -65,6 +76,10 @@ class Words extends Command {
 
     /**
      * Constructor
+     *
+     * @param App\Jukebox\Song\SongInterface             $song       Song interface
+     * @param App\Jukebox\Dictionary\DictionaryInterface $dictionary Dictionary interface
+     * @param App\Jukebox\Dictionary\WordCloudInterface  $wordCloud  WordCloud interface
      */
     public function __construct(Song $song, Dictionary $dictionary, WordCloud $wordCloud)
     {
@@ -105,10 +120,12 @@ class Words extends Command {
     /**
      * Get word by formatted case and return type of word.
      * 
-     * @param string $word
-     *   The word.
+     * @param string $word The word.
+     *
+     * @return array
      */
-    public function setCaseInfo($word) {
+    public function setCaseInfo($word)
+    {
         $tmp_word = mb_strtolower($word);
 
         $country = $this->getCountry($tmp_word);
@@ -200,11 +217,13 @@ class Words extends Command {
 
     /**
      * Get country.
-     * @param string $word
-     *   The word
-     * @return array
+     *
+     * @param string $word The word
+     *
+     * @return mixed
      */
-    private function getCountry($word) {
+    private function getCountry($word)
+    {
         if (isset(config('countries_expanded')[$word])):
             return ['word' => config('countries_expanded')[$word], 'type' => 'country'];
         else:
@@ -214,11 +233,13 @@ class Words extends Command {
 
     /**
      * Get state.
-     * @param string $word
-     *   The word
-     * @return array
+     *
+     * @param string $word The word
+     *
+     * @return mixed
      */
-    private function getState($word) {
+    private function getState($word)
+    {
         if (isset(config('states_expanded')[$word])):
             return ['word' => config('states_expanded')[$word], 'type' => 'state'];
         else:
@@ -228,11 +249,13 @@ class Words extends Command {
 
     /**
      * Get town.
-     * @param string $word
-     *   The word
-     * @return array
+     *
+     * @param string $word The word
+     *
+     * @return mixed
      */
-    private function getTown($word) {
+    private function getTown($word)
+    {
         if (isset(config('towns')[$word])):
             return ['word' => config('towns')[$word], 'type' => 'town'];
         else:
@@ -242,11 +265,13 @@ class Words extends Command {
 
     /**
      * Get place
-     * @param string $word
-     *   The word
-     * @return array
+     *
+     * @param string $word The word
+     *
+     * @return mixed
      */
-    private function getPlace($word) {
+    private function getPlace($word)
+    {
         if (isset(config('places')[$word])):
             return ['word' => config('places')[$word], 'type' => 'place'];
         else:
@@ -256,11 +281,13 @@ class Words extends Command {
 
     /**
      * Get street
-     * @param string $word
-     *   The word
-     * @return array
+     *
+     * @param string $word The word
+     *
+     * @return mixed
      */
-    private function getStreet($word) {
+    private function getStreet($word)
+    {
         if (isset(config('streets')[$word])):
             return ['word' => config('streets')[$word], 'type' => 'street'];
         else:
@@ -270,11 +297,13 @@ class Words extends Command {
 
     /**
      * Get month
-     * @param string $word
-     *   The word
-     * @return array
+     *
+     * @param string $word The word
+     *
+     * @return mixed
      */
-    private function getMonth($word) {
+    private function getMonth($word)
+    {
         if (isset(config('months_expanded')[$word])):
             return ['word' => config('months_expanded')[$word], 'type' => 'month'];
         else:
@@ -284,11 +313,13 @@ class Words extends Command {
 
     /**
      * Get day
-     * @param string $word
-     *   The word
-     * @return array
+     *
+     * @param string $word The word
+     *
+     * @return mixed
      */
-    private function getDay($word) {
+    private function getDay($word)
+    {
         if (isset(config('days_expanded')[$word])):
             return ['word' => config('days_expanded')[$word], 'type' => 'day'];
         else:
@@ -298,11 +329,13 @@ class Words extends Command {
 
     /**
      * Get formatted name if it is a name?
-     * @param string $word
-     *   The word
-     * @return array
+     *
+     * @param string $word The word
+     *
+     * @return mixed
      */
-    private function getPersonName($word) {
+    private function getPersonName($word)
+    {
         //Ho Chi Minh, Chou En-Lai, Christina Applegate, Clarence Thomas, Santa Claus, Kurt Cobain, Leonard Cohen, John Coltrane, Perry Como, Billy Connolly, Sean Connery, Don Corleone etc
         if (isset(config('names')[$word])):
             return ['word' => config('names')[$word], 'type' => 'name'];
@@ -313,11 +346,13 @@ class Words extends Command {
 
     /**
      * Get honorific
-     * @param string $word
-     *   The word
-     * @return array
+     *
+     * @param string $word The word
+     *
+     * @return mixed
      */
-    private function getHonorific($word) {
+    private function getHonorific($word)
+    {
         if (isset(config('honorifics')[$word])):
             return ['word' => config('honorifics')[$word], 'type' => 'honorific'];
         else:
@@ -327,11 +362,13 @@ class Words extends Command {
 
     /**
      * Get religion
-     * @param string $word
-     *   The word
-     * @return array
+     *
+     * @param string $word The word
+     *
+     * @return mixed
      */
-    private function getReligion($word) {
+    private function getReligion($word)
+    {
         if (isset(config('religions')[$word])):
             return ['word' => config('religions')[$word], 'type' => 'religion'];
         else:
@@ -341,11 +378,13 @@ class Words extends Command {
 
     /**
      * Get alphabet
-     * @param string $word
-     *   The word
-     * @return bool
+     *
+     * @param string $word The word
+     *
+     * @return mixed
      */
-    private function getAlphabet($word) {
+    private function getAlphabet($word)
+    {
         if (isset(config('alphabet')[$word])):
             return ['word' => config('alphabet')[$word], 'type' => 'alphabet'];
         else:
@@ -355,11 +394,13 @@ class Words extends Command {
 
     /**
      * Get capitalized
-     * @param string $word
-     *   The word
-     * @return bool
+     *
+     * @param string $word The word
+     *
+     * @return mixed
      */
-    private function getCapitalized($word) {
+    private function getCapitalized($word)
+    {
         if (isset(config('capitalized')[$word])):
             return ['word' => config('capitalized')[$word], 'type' => 'capitalized'];
         else:
@@ -369,11 +410,13 @@ class Words extends Command {
 
     /**
      * Is the word a country?
-     * @param string $word
-     *   The word
-     * @return bool
+     *
+     * @param string $word The word
+     *
+     * @return mixed
      */
-    private function getAcronym($word) {
+    private function getAcronym($word)
+    {
         if (isset(config('acronyms')[$word])):
             return ['word' => config('acronyms')[$word]['uppercase'], 'type' => config('acronyms')[$word]['type']];
         else:
@@ -383,11 +426,13 @@ class Words extends Command {
 
     /**
      * Get brand
-     * @param string $word
-     *   The word
-     * @return array
+     *
+     * @param string $word The word
+     *
+     * @return mixed
      */
-    private function getBrand($word) {
+    private function getBrand($word)
+    {
         if (isset(config('brands')[$word])):
             return ['word' => config('brands')[$word], 'type' => 'brand'];
         else:
@@ -397,11 +442,13 @@ class Words extends Command {
 
     /**
      * Get organisation
-     * @param string $word
-     *   The word
-     * @return array
+     *
+     * @param string $word The word
+     *
+     * @return mixed
      */
-    private function getOrganisation($word) {
+    private function getOrganisation($word)
+    {
         if (isset(config('organisations')[$word])):
             return ['word' => config('organisations')[$word], 'type' => 'organisation'];
         else:
@@ -411,11 +458,13 @@ class Words extends Command {
 
     /**
      * Get language
-     * @param string $word
-     *   The word
-     * @return array
+     *
+     * @param string $word The word
+     *
+     * @return mixed
      */
-    private function getLanguage($word) {
+    private function getLanguage($word)
+    {
         if (isset(config('languages')[$word])):
             return ['word' => $word, 'type' => config('languages')[$word]];
         else:
@@ -425,20 +474,23 @@ class Words extends Command {
 
     /**
      * Is the word made up or nonsense?
-     * @param string $word
-     *   The word
+     *
+     * @param string $word The word
+     *
      * @return bool
      */
-    private function isMadeUp($word) {
+    private function isMadeUp($word)
+    {
         return in_array($word, config('made_up'));
     }
 
     /**
      * Get word cloud.
-     * @param array $song_ids
-     *   Limit word search by song ids.
-     * @param array $artist_ids
-     *   Limit word search by artist ids.
+     *
+     * @param array $song_ids   Limit word search by song ids.
+     * @param array $artist_ids Limit word search by artist ids.
+     *
+     * @return void
      */
     private function getWordCloud($song_ids, $artist_ids)
     {
@@ -454,7 +506,7 @@ class Words extends Command {
 
                 foreach ($words as $word):
                     $this->processWord($word, $song['id']);
-                  endforeach;
+                endforeach;
 
             } catch (Exception $e) {
                 Log::info($e->getMessage());
@@ -476,14 +528,13 @@ class Words extends Command {
     /**
      * Process the word and populate the word cloud.
      * 
-     * @param string $word
-     *   The word.
-     * @param int $id
-     *   The song id.
+     * @param string $word The word.
+     * @param int    $id   The song id.
      * 
-     * @return array
+     * @return void
      */
-    private function processWord($word, $id) {
+    private function processWord($word, $id)
+    {
         // Clean up text.
         $chars_to_replace = [',', '.', '"', ' ', '!', '?', '[', ']', '(', ')', '{', '}', '&', "''", '*', ';', '…', '~'];
         $word = str_replace(
@@ -524,9 +575,12 @@ class Words extends Command {
 
     /**
      * Save word cloud to the database.
+     *
+     * @return void
      */
-    private function storeWordCloud() {
-        foreach($this->word_cloud as $w) {
+    private function storeWordCloud()
+    {
+        foreach ($this->word_cloud as $w):
             try {
                 // Is this a real word?
                 $is_word = $this->dictionary->isWord($w['word']);
@@ -545,15 +599,18 @@ class Words extends Command {
             } catch (Exception $e) {
                 Log::error($e->getMessage());
             }
-        }
+        endforeach;
     }
 
     /**
      * Log word cloud.
+     *
+     * @return void
      */
-    private function logWordCloud() {
+    private function logWordCloud()
+    {
         ksort($this->word_cloud);
-        foreach($this->word_cloud as $w => $v) {
+        foreach ($this->word_cloud as $w => $v):
             $is_word = $this->dictionary->isWord($w);
             if (! $is_word):
                 // Check if it is possible a plural.
@@ -567,7 +624,7 @@ class Words extends Command {
             $v['song_ids'] = array_unique($v['song_ids']);
             Log::info($w);
             Log::info($v);
-        }
+        endforeach;
     }
 
 }

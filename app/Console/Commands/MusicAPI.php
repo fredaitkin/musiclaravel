@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * MusicAPI.php
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Console\Commands;
 
 use App\Jukebox\Artist\ArtistInterface as Artist;
@@ -8,7 +15,11 @@ use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
-class MusicAPI extends Command {
+/**
+ * Use the Deezer API to get song information via the command line
+ */
+class MusicAPI extends Command
+{
 
     /**
      * The name and signature of the console command.
@@ -60,6 +71,8 @@ class MusicAPI extends Command {
     /**
      * Create a new command instance.
      *
+     * @param App\Jukebox\Song\SongInterface     $song   Song interface
+     * @param App\Jukebox\Artist\ArtistInterface $artist Artist interface
      */
     public function __construct(Song $song, Artist $artist)
     {
@@ -102,7 +115,8 @@ class MusicAPI extends Command {
     /**
      * Update song year.
      *
-     * @param  string $ids
+     * @param string $ids Song ids
+     *
      * @return void
      */
     protected function updateSongYear($ids)
@@ -114,7 +128,7 @@ class MusicAPI extends Command {
         $songs = $this->song->allByConstraints($constraints);
 
         foreach ($songs as $song):
-           $this->info($song->id . ':' . $song->title);
+            $this->info($song->id . ':' . $song->title);
             try {
                 $track = $this->search($song->title, $song->artists[0]->artist);
                 if ($track):
@@ -170,11 +184,11 @@ class MusicAPI extends Command {
                     $track = $this->search($song->title, $artist_name);
                     if ($track):
                         $this->info("Track");
-                        $this->info(print_r($track,true));
+                        $this->info(print_r($track, true));
                         $photo = $track->artist->picture_big ?? '';
                         $album_info = $this->album($track->album->id);
                         $this->info("Album");
-                        $this->info(print_r($album_info,true));
+                        $this->info(print_r($album_info, true));
                         $genres = [];
                         if (isset($album_info->genres->data)):
                             foreach($album_info->genres->data as $genre):
@@ -198,23 +212,24 @@ class MusicAPI extends Command {
     /**
      * Update artist photos and genres.
      *
-     * @param  int $id Artist id
-     * @param  string $title Song title
-     * @return void
+     * @param int    $id    Artist id
+     * @param string $title Song title
      *
+     * @return void
      */
-    protected function getPhotoForArtist($id, $title) {
+    protected function getPhotoForArtist($id, $title)
+    {
         try {
             $artist = $this->artist->get($id);
             if (isset($artist->artist)):
                 $track = $this->search($title, $artist->artist);
                 if ($track):
                     $this->info("Track");
-                    $this->info(print_r($track,true));
+                    $this->info(print_r($track, true));
                     $photo = $track->artist->picture_big ?? '';
                     $album_info = $this->album($track->album->id);
                     $this->info("Album");
-                    $this->info(print_r($album_info,true));
+                    $this->info(print_r($album_info, true));
                     $genres = [];
                     if (isset($album_info->genres->data)):
                         foreach($album_info->genres->data as $genre):
@@ -238,11 +253,14 @@ class MusicAPI extends Command {
      * Previous runs have shown that the following artists do not exist in
      * Deezer.
      *
-     * @param  string $artist
+     * @param string $artist Artist
+     *
      * @return bool
      */
-    private function artistNotFound($artist) {
-        return (in_array($artist, [
+    private function artistNotFound($artist)
+    {
+        return (in_array(
+            $artist, [
             'Compilations',
             'G.I.T',
             'Gabriel Meyers',
@@ -253,20 +271,25 @@ class MusicAPI extends Command {
             'Sri Chinmoy',
             'Uncle Bill',
             'Unknown Artist',
-        ]));
+            ]
+        ));
     }
 
     /**
      * Make get request
      *
-     * @param  string $url
+     * @param string $url API request url
+     *
      * @return mixed
      */
-    private function getRequest($url) {
-        $response = Http::withHeaders([
+    private function getRequest($url)
+    {
+        $response = Http::withHeaders(
+            [
             "X-RapidAPI-Key" => $this->x_rapid_api_key,
             "X-RapidAPI-Host" =>  $this->deezer_host,
-        ])->get($url);
+            ]
+        )->get($url);
         if ($response->getStatusCode() == 200):
             return json_decode($response->getBody());
         endif;
@@ -276,11 +299,13 @@ class MusicAPI extends Command {
     /**
      * Perform broad search via API.
      *
-     * @param string $song Song title
+     * @param string $title  Song title
      * @param string $artist Song artist
+     *
      * @return bool|array
      */
-    private function search($title, $artist) {
+    private function search($title, $artist)
+    {
         $body = $this->getRequest('https://' . $this->deezer_host . '/search' . "?q=" . urlencode($title));
         if ($body):
             foreach($body->data as $track):
@@ -296,8 +321,11 @@ class MusicAPI extends Command {
      * Get track info via API.
      *
      * @param int $id Track id
+     *
+     * @return bool|array
      */
-    private function track($id) {
+    private function track($id)
+    {
         return $this->getRequest('https://' . $this->deezer_host . '/track/' . $id);
     }
 
@@ -305,8 +333,11 @@ class MusicAPI extends Command {
      * Get album info via API.
      *
      * @param int $id Track id
+     *
+     * @return bool|array
      */
-    private function album($id) {
+    private function album($id)
+    {
         return $this->getRequest('https://' . $this->deezer_host . '/album/' . $id);
     }
 
@@ -314,8 +345,11 @@ class MusicAPI extends Command {
      * Get artist info via API.
      *
      * @param int $id Track id
+     *
+     * @return bool|array
      */
-    private function artist($id) {
+    private function artist($id)
+    {
         return $this->getRequest('https://' . $this->deezer_host . '/artist/' . $id);
     }
 

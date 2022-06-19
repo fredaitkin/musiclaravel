@@ -1,12 +1,23 @@
 <?php
 
+/**
+ * CreateClient.php
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Console\Commands;
 
 use App\Music\Client\Client as Client;
 use Exception;
 use Illuminate\Console\Command;
 
-class CreateClient extends Command {
+/**
+ * Create client via the command line
+ */
+class CreateClient extends Command
+{
 
     /**
      * The name and signature of the console command.
@@ -26,7 +37,6 @@ class CreateClient extends Command {
 
     /**
      * Create a new command instance.
-     *
      */
     public function __construct()
     {
@@ -89,10 +99,10 @@ class CreateClient extends Command {
     /**
      * Create a client.
      *
-     * @param string $client_name
-     * The client name.
-     * @param string $encrypted_token
-     * The client token.
+     * @param string $client_name     The client name
+     * @param string $encrypted_token The client token
+     *
+     * @return void
      */
     public function createClient($client_name, $encrypted_token)
     {

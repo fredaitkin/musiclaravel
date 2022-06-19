@@ -1,11 +1,21 @@
 <?php
 
+/**
+ * LoadDatabase.php
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Console\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
 use Log;
 
+/**
+ * Load the Jukebox database via the command line
+ */
 class LoadDatabase extends Command
 {
     /**

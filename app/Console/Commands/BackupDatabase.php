@@ -1,10 +1,20 @@
 <?php
 
+/**
+ * BackupDatabase.php
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Console\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
 
+/**
+ * Backup the Jukebox database via the command line
+ */
 class BackupDatabase extends Command
 {
     /**

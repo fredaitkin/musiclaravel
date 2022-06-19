@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * UpdateLyrics.php
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Console\Commands;
 
 use App\Jukebox\Dictionary\WordCloudInterface as WordCloud;
@@ -8,7 +15,11 @@ use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
-class UpdateLyrics extends Command {
+/**
+ * Use the api.chartlyrics API to update song lyrics via the command line
+ */
+class UpdateLyrics extends Command
+{
 
     /**
      * The name and signature of the console command.
@@ -45,8 +56,12 @@ class UpdateLyrics extends Command {
      * @var App\Jukebox\Dictionary\WordCloudInterface
      */
     private $wordCloud;
+
     /**
      * Constructor
+     *
+     * @param App\Jukebox\Song\SongInterface            $song      Song interface
+     * @param App\Jukebox\Dictionary\WordCloudInterface $wordCloud WordCloud interface
      */
     public function __construct(Song $song, WordCloud $wordCloud)
     {
@@ -76,6 +91,9 @@ class UpdateLyrics extends Command {
     /**
      * Update song lyrics.
      *
+     * @param int $id Song id
+     *
+     * @return void
      */
     protected function updateLyrics($id)
     {
@@ -111,7 +129,7 @@ class UpdateLyrics extends Command {
                     $this->info("");
                     $this->info($artist . ' : ' . $song->title);
                     $save = $this->ask('Save the lyrics? (y/n)');
-                     if ($save === 'y'):
+                    if ($save === 'y'):
                         $lyric = $this->wordCloud->process($lyric, 'add', $song->id);
                         $song->lyrics = $lyric;
                         $song->save();
@@ -135,11 +153,13 @@ class UpdateLyrics extends Command {
     /**
      * Perform direct search via API.
      *
-     * @param  string $artist Song artist
-     * @param  string $song Song title
-     * @return mixed Lyrics or false
+     * @param string $artist Song artist
+     * @param string $song   Song title
+     *
+     * @return mixed
      */
-    private function directSearch($artist, $song) {
+    private function directSearch($artist, $song)
+    {
         $this->info("Direct Search");
 
         $response = Http::get($this->url . "SearchLyricDirect?artist=" . urlencode($artist) . "&song=" . urlencode($song));
@@ -164,11 +184,13 @@ class UpdateLyrics extends Command {
     /**
      * Perform broader search via API.
      *
-     * @param  string $artist Song artist
-     * @param  string $song Song title
-     * @return mixed Lyrics or false
+     * @param string $artist Song artist
+     * @param string $song   Song title
+     *
+     * @return mixed
      */
-    private function search($artist, $song) {
+    private function search($artist, $song)
+    {
         $this->info("Wide Search");
         $response = Http::get($this->url . "SearchLyric?artist=" . urlencode($artist) . "&song=" . urlencode($song));
         $xml = simplexml_load_string($response);
@@ -200,11 +222,13 @@ class UpdateLyrics extends Command {
     /**
      * Retrieve lyric by id via API.
      *
-     * @param  string $id Chart Lyric Id
-     * @param  string $checksum Checksum
-     * @return mixed Lyrics or false.
+     * @param string $id       Chart Lyric Id
+     * @param string $checksum Checksum
+     *
+     * @return mixed
      */
-    private function getLyric($id, $checksum) {
+    private function getLyric($id, $checksum)
+    {
         $response = Http::get($this->url . "GetLyric?lyricId=" . $id . "&lyricCheckSum=" . $checksum);
         if (strpos($response, '<') === 0):
             $xml = simplexml_load_string($response);

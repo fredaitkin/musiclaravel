@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * UserUtilities.php
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Console\Commands;
 
 use App\User\PermissionModel as Permission;
@@ -8,7 +15,11 @@ use App\User\UserModel as User;
 use Exception;
 use Illuminate\Console\Command;
 
-class UserUtilities extends Command {
+/**
+ * Tools to perform various user utilities via the command line
+ */
+class UserUtilities extends Command
+{
 
     /**
      * The name and signature of the console command.
@@ -44,7 +55,6 @@ class UserUtilities extends Command {
 
     /**
      * Create a new command instance.
-     *
      */
     public function __construct()
     {
@@ -96,6 +106,8 @@ class UserUtilities extends Command {
 
     /**
      * Create a user.
+     *
+     * @return void
      */
     public function createUser()
     {
@@ -155,7 +167,7 @@ class UserUtilities extends Command {
             $user->password = bcrypt($pw);
             $user->save();
 
-            $user_role = Role::where('slug','user')->first();
+            $user_role = Role::where('slug', 'user')->first();
             $user->roles()->attach($user_role);
 
             $this->info('The user has been created successfully.');
@@ -167,6 +179,8 @@ class UserUtilities extends Command {
 
     /**
      * Create a role.
+     *
+     * @return void
      */
     public function createRole()
     {
@@ -187,7 +201,13 @@ class UserUtilities extends Command {
 
     }
 
-    public function validateRetrieveNameSlug() {
+    /**
+     * Validate name
+     *
+     * @return array
+     */
+    public function validateRetrieveNameSlug()
+    {
         if(isset($this->options['name'])):
             $name = $this->options['name'];
         else:
@@ -217,6 +237,8 @@ class UserUtilities extends Command {
 
     /**
      * Create a permission.
+     *
+     * @return void
      */
     public function createPermission()
     {
@@ -239,9 +261,11 @@ class UserUtilities extends Command {
 
     /**
      * Add role to user.
+     *
+     * @return void
      */
     public function addUserRole()
-    {   // TODO
+    {
         try {
 
             if(isset($this->options['name'])):
@@ -298,7 +322,7 @@ class UserUtilities extends Command {
             $user->password = bcrypt($pw);
             $user->save();
 
-            $user_role = Role::where('slug','user')->first();
+            $user_role = Role::where('slug', 'user')->first();
             $user->roles()->attach($user_role);
 
             $this->info('The user has been created successfully.');

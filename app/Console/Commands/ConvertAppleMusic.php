@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * ConvertAppleMusic.php
+ *
+ * @package Jukebox
+ * @author  Melissa Aitkin
+ */
+
 namespace App\Console\Commands;
 
 use App\Jukebox\Artist\ArtistInterface as Artist;
@@ -10,6 +17,9 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * Use ffmpeg tools to convert Apple files via the command line
+ */
 class ConvertAppleMusic extends Command
 {
     /**
@@ -62,8 +72,8 @@ class ConvertAppleMusic extends Command
     /**
      * Create a new command instance.
      *
-     * @param App\Jukebox\Artist\ArtistInterface $artist
-     * @param App\Jukebox\Song\SongInterface $song
+     * @param App\Jukebox\Artist\ArtistInterface $artist Artist interface
+     * @param App\Jukebox\Song\SongInterface     $song   Song interface
      *
      * @return void
      */
@@ -102,7 +112,7 @@ class ConvertAppleMusic extends Command
             // Log a list of mp4 songs.
             if ($options['list']):
                 $iter = new \GlobIterator($this->root_dir . $this->media_dir . '*/*/*.mp4');
-                foreach($iter as $file){
+                foreach ($iter as $file) {
                     Log::info($file);
                 }
             endif;
@@ -153,13 +163,15 @@ class ConvertAppleMusic extends Command
     }
 
     /**
-    * Process artist directory
-    *
-    * Convert mp4 files, update the song filesize and location, and delete the
-    * mp4 version.
-    *
-    * @param string $artist_name
-    */
+     * Process artist directory
+     *
+     * Convert mp4 files, update the song filesize and location, and delete the
+     * mp4 version.
+     *
+     * @param string $artist_name Artist name
+     *
+     * @return void
+     */
     function processArtist($artist_name)
     {
         $artists = $this->artist->allByConstraints(['artist' => $artist_name]);
@@ -185,20 +197,21 @@ class ConvertAppleMusic extends Command
                         // File::delete($mp4_file);
                     endif;
                 } catch (Exception $e) {
-                   $this->info($command);
-                   exit;
+                    $this->info($command);
+                    exit;
                 }
             endforeach;
         endif;
     }
 
     /**
-    * Process artists
-    *
-    * Convert mp4 files, update the song filesize and location, and delete the
-    * mp4 version.
-    *
-    */
+     * Process artists
+     *
+     * Convert mp4 files, update the song filesize and location, and delete the
+     * mp4 version.
+     *
+     * @return void
+     */
     function processAllArtists()
     {
         $artists = $this->artist->allByConstraints();
