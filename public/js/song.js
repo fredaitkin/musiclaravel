@@ -140,7 +140,7 @@ $(document).ready(function() {
                   for (i = 0; i < songs.length; i++) {
                     var search = $("#artist").val() + ' ' + songs[i].title + ' lyrics';
                     window.open("https://www.google.com/search?q=" + encodeURIComponent(search), '_blank');
-                    window.open("/lyrics/" + songs[i].id);
+                    window.open("songs?lyrics=true & id=" + songs[i].id);
                     if (i == 2) {
                       break;
                     }

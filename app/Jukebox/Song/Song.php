@@ -53,9 +53,9 @@ class Song implements SongInterface
 
         if (isset($constraints['artist'])):
             $artist = $constraints['artist'];
-            $exact_match = isset($constraints['exact_match']);
+            $exact_match = $constraints['exact_match'];
             $query->whereHas('artists', function($q) use($artist, $exact_match) {
-                if($exact_match):
+                if ($exact_match == 'true'):
                     $q->where('artist', $artist);
                 else:
                     $q->where('artist', 'LIKE', '%' . $artist . '%');
