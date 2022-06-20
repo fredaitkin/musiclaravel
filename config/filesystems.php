@@ -91,6 +91,11 @@ return [
             // 'root'   => '/var/www/', when using Docker
             'root'   => '/Users/Shared/',
         ],
+
+        'partitionAndroid' => [
+            'driver' => 'local',
+            'root'   => '~/storage/',
+        ],
     ],
 
     /*
