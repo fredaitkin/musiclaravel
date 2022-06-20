@@ -94,7 +94,7 @@ return [
 
         'partitionAndroid' => [
             'driver' => 'local',
-            'root'   => '~/storage/',
+            'root'   => '/storage/emulated/0/',
         ],
     ],
 
