@@ -109,6 +109,7 @@ class Song implements SongInterface
             'title' => 'required|max:255',
             'album' => 'required|max:255',
             'year'  => 'required|integer',
+            'rank'  => 'nullable|integer|between:1,5',
         ]);
 
         if (isset($request->id)):
@@ -128,6 +129,8 @@ class Song implements SongInterface
         $model->composer = $request->composer;
         $model->playtime = $request->playtime;
         $model->notes = $request->notes;
+        $model->rank = $request->rank;
+        $model->do_not_play = isset($request->do_not_play);
 
         $model->save();
 
