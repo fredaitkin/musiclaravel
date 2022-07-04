@@ -129,6 +129,36 @@
 
             </div>
 
+            <div class="row w-75">
+
+                <div class="col">
+                    <label for="rank" class="control-label">Rank</label>
+                    <div class="pb-1">
+                         <select class="form-control" name="rank">
+                            <option value=""></option>
+                            @for ($i = 1; $i <= 5; $i++)
+                                <option value="{{ $i }}" @if ( ! empty($song->rank) && ($song->rank == $i)) selected @endif>{{ $i }}</option>
+                            @endfor
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <label for="last_played" class="control-label">Last Played</label>
+                    <div class="pb-1">
+                        <input type="text" name="last_played" id="last_played" class="form-control" @if ( ! empty($song->last_played)) value="{{ $song->last_played }}" @endif>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <label for="file_type" class="control-label">Don't Play</label>
+                    <div class="pb-1">
+                        <input type="checkbox" name="do_not_play" id="do_not_play" @if (!empty($song->do_not_play) && ($song->do_not_play)) checked @endif>
+                    </div>
+                </div>
+
+            </div>
+
             <div class="row">
                 <div class="col">
                     @if ( ! empty($song->id))
