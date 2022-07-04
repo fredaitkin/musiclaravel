@@ -3,6 +3,7 @@
 namespace App\Jukebox\Artist;
 
 use Illuminate\Http\Request;
+use Storage;
 
 class Artist implements ArtistInterface
 {
@@ -86,7 +87,14 @@ class Artist implements ArtistInterface
         $model->country = $request->country;
         $model->group_members = $request->group_members;
         $model->notes = $request->notes;
-        
+
+        if (empty($model->photo)):
+            if (! empty($request->photo)):
+                $image = strtolower($request->artist) . '.' . $request->photo->extension();
+                Storage::disk('public')->putFileAs('artists', $request->photo, $image);
+                $model->photo = $image;
+            endif;
+        endif;
         $model->save();
     }
 
