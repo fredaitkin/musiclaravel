@@ -14678,6 +14678,21 @@ a:hover {
   padding-right: 0%;
 }
 
+.mysounds-mobile-home-page {
+  background-image: url("/img/skeleton.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: white;
+}
+
+.mysounds-mobile-home-page-div {
+  margin-top: 70%;
+  padding-top: 45%;
+  padding-left: 80%;
+  padding-bottom: 20%;
+  padding-right: 8%;
+}
+
 .ui-dialog-titlebar {
   color: white;
   background-color: black;
