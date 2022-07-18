@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ConvertAppleMusic.php
+ * FFMPEG.php
  *
  * @package Jukebox
  * @author  Melissa Aitkin
@@ -18,9 +18,11 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 
 /**
- * Use ffmpeg tools to convert Apple files via the command line
+ * Use ffmpeg tools to:
+ * - convert files to mp3 format
+ * - get file information such as file size and composer
  */
-class ConvertAppleMusic extends Command
+class FFMPEG extends Command
 {
     /**
      * The name and signature of the console command.
@@ -32,7 +34,8 @@ class ConvertAppleMusic extends Command
                             {--song= : The song to convert}
                             {--artist= : The artist to convert}
                             {--all : All artists}
-                            {--album-dir= : The album directory}';
+                            {--album-dir= : The album directory}
+                            {--probe : Get song information}';
 
     /**
      * The console command description.
@@ -153,8 +156,13 @@ class ConvertAppleMusic extends Command
             endif;
 
             // Convert songs by all artists.
-            if (isset($options['all'])):
+            if ($options['all']):
                 $this->processAllArtists();
+            endif;
+
+            // Get song information.
+            if ($options['probe']):
+                $this->getSongInformation();
             endif;
 
         } catch (Exception $e) {
@@ -181,20 +189,17 @@ class ConvertAppleMusic extends Command
                 try {
                     if (strpos($song->location, 'mp4') !== false):
                         $song->location = str_replace("\\", DIRECTORY_SEPARATOR, $song->location);
-                        echo $song->location;
                         $mp4_file = $this->root_dir . $this->media_dir . $song->location;
                         $mp3_file = str_replace('.mp4', '.mp3', $mp4_file);
-                        // $command = 'ffmpeg -i "' . $mp4_file . '" "' . $mp3_file . '"';
-                        // exec($command);
-                        $command = 'ffprobe -v quiet -print_format json -show_format "' . $mp4_file . '"';
-                        // $command = 'ffprobe -v quiet -print_format json -show_format "' . $mp3_file . '"';
+                        $command = 'ffmpeg -i "' . $mp4_file . '" "' . $mp3_file . '"';
+                        exec($command);
+                        $command = 'ffprobe -v quiet -print_format json -show_format "' . $mp3_file . '"';
                         $details = shell_exec($command);
                         $details = json_decode($details);
-                        var_dump($details);exit;
                         $song->location = str_replace('.mp4', '.mp3', $song->location);
                         $song->filesize = $details->format->size;
-                        // $song->save();
-                        // File::delete($mp4_file);
+                        $song->save();
+                        File::delete($mp4_file);
                     endif;
                 } catch (Exception $e) {
                     $this->info($command);
@@ -241,6 +246,38 @@ class ConvertAppleMusic extends Command
                     Log::info($e->getMessage());
                 }
             endforeach;
+        endforeach;
+    }
+
+    /**
+     * Get song information
+     *
+     * @return void
+     */
+    function getSongInformation()
+    {
+        $songs = $this->song->allByConstraints(['composer_empty' => true]);
+        foreach($songs as $song):
+            try {
+                $song->location = str_replace("\\", DIRECTORY_SEPARATOR, $song->location);
+                $file = $this->root_dir . $this->media_dir . $song->location;
+                $command = 'ffprobe -v quiet -print_format json -show_format "' . $file . '"';
+                $details = shell_exec($command);
+                $details = json_decode($details);
+                if (isset($details->format->tags->composer)):
+                    $composer = str_replace(', ', '/', $details->format->tags->composer);
+                    Log::info('COMPOSER:' . $details->format->tags->composer);
+                    if ($composer != $details->format->tags->composer):
+                        Log::info('COMPOSER:' . $composer);
+                    endif;
+                    // $song->filesize = $details->format->size;
+                    // $song->save();
+                endif;
+            } catch (Exception $e) {
+                Log::info($song->location);
+                Log::info($command);
+                Log::info($e->getMessage());
+            }
         endforeach;
     }
 }

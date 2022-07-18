@@ -95,6 +95,10 @@ class Song implements SongInterface
             $query->whereIn('lyrics', ['','unavailable']);
         endif;
 
+        if(isset($constraints['composer_empty'])):
+            $query->whereNull('composer');
+        endif;
+
         return $query->get();
     }
 
