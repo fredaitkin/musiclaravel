@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+  var device_type = $("meta[name='device-type']").attr("content");
+
   $("#album").change(function() {
 
     var url = APP_URL + '/songs?album=' + encodeURIComponent($('#album').val());
@@ -39,7 +41,7 @@ $(document).ready(function() {
           }
           response.json().then(function(data) {
             var songs = shuffle(data);
-            display_jukebox("EVERYBODY SHUFFLIN...", songs);
+            display_jukebox("EVERYBODY SHUFFLIN...", songs, device_type);
           });
         }
       )
@@ -63,7 +65,7 @@ $(document).ready(function() {
               return;
             }
             response.json().then(function(data) {
-              display_jukebox(data[0].album, data);
+              display_jukebox(data[0].album, data, device_type);
             });
           }
       )
@@ -86,7 +88,7 @@ $(document).ready(function() {
             return;
           }
           response.json().then(function(data) {
-            display_jukebox(data[0].album, data);
+            display_jukebox(data[0].album, data, device_type);
           });
         }
       )
@@ -109,7 +111,7 @@ $(document).ready(function() {
             return;
           }
           response.json().then(function(data) {
-            display_jukebox(genre, data);
+            display_jukebox(genre, data, device_type);
           });
         }
       )
@@ -184,7 +186,7 @@ function get_lyrics(song) {
   return lyrics;
 }
 
-function display_jukebox(title, songs) {
+function display_jukebox(title, songs, device_type) {
   let song_url = APP_URL + '/song/play/';
   let jukebox_form = '<div class="audio">';
   jukebox_form += '<figure>';
@@ -205,7 +207,7 @@ function display_jukebox(title, songs) {
       $(this).remove()
     },
     modal: false,
-    width: 500,
+    width: device_type == 'desktop' ? 500 : 200,
     open : function() {
 
       $('div.ui-dialog').addClass('ui-dialog-jukebox');
