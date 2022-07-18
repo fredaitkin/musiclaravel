@@ -79,7 +79,7 @@ function display_playlist_form(song_id, song_title, playlists) {
   $(playlist_form).dialog({
     title: 'Playlists',
     modal: false,
-    width: 500,
+    width: '85%',
     open : function() {
       $('div.ui-dialog').addClass('ui-dialog-jukebox');
       $('div.ui-dialog-buttonpane').addClass('ui-dialog-jukebox');

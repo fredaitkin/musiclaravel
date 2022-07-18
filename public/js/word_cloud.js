@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+  var device_type = $("meta[name='device-type']").attr("content");
+
   $("input[name='songs']").click(function() {
     let word_id = $(this).attr('id');
     word_id = word_id.replace("songs-", "");
@@ -13,7 +15,7 @@ $(document).ready(function() {
             return;
           }
           response.json().then(function(data) {
-            display_song_form(data);
+            display_song_form(data, device_type);
           });
         }
       )
@@ -25,7 +27,7 @@ $(document).ready(function() {
 
 });
 
-function display_song_form(data) {
+function display_song_form(data, device_type) {
   let form = '<div>';
   $.each(data, function(i, song) {
     form += '<div>' +
@@ -42,7 +44,7 @@ function display_song_form(data) {
       $(this).remove()
     },
     modal: false,
-    width: 700,
+    width: device_type == 'desktop' ? 700 : 330,
     open : function() {
       $('div.ui-dialog').addClass('ui-dialog-jukebox');
     }
@@ -53,8 +55,8 @@ function display_song_form(data) {
       $('#' + modal_div).dialog({
         modal : true ,
         title: $(this).text(),
-        height : 700,
-        width : 400,
+        height :device_type == 'desktop' ? 700 : 500,
+        width : device_type == 'desktop' ? 400 : 300,
         open : function() {
           $("[aria-describedby=" + modal_div + "]").addClass('ui-dialog-lyrics');
         },

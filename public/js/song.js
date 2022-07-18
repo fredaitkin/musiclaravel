@@ -207,7 +207,7 @@ function display_jukebox(title, songs, device_type) {
       $(this).remove()
     },
     modal: false,
-    width: device_type == 'desktop' ? 500 : 200,
+    width: device_type == 'desktop' ? 500 : 330,
     open : function() {
 
       $('div.ui-dialog').addClass('ui-dialog-jukebox');
