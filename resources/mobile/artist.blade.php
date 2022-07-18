@@ -49,12 +49,6 @@
                             <label for="disbanded" class="control-label">@if (!empty($artist->is_group) && ($artist->is_group)) Disbanded @else Active To @endif</label>
                             <input type="text" name="disbanded" id="disbanded" class="form-control" value=@if (old('disbanded')) {{ old('disbanded') }} @elseif (!empty($artist->disbanded)) {{ $artist->disbanded }} @endif>
                         </div>
-                        <div class="col-sm-2">
-                            <label for="is_group" class="control-label">Is Group</label>
-                            <div>
-                                <input type="checkbox" name="is_group" id="song-is_group" @if (!empty($artist->is_group) && ($artist->is_group)) checked @endif>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
