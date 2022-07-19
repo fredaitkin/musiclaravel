@@ -37,8 +37,8 @@
 
                     <thead>
                         <th scope='col' class='sortable'>@sortablelink('word')</th>
-                        <th scope='col' class='sortable'>@sortablelink('category')</th>
-                        <th scope='col' class='sortable'>@sortablelink('count')</th>
+                        <th scope='col' class='sortable'>@sortablelink('category', 'Cat')</th>
+                        <th scope='col' class='sortable'>@sortablelink('count', 'Cnt')</th>
                         <th></th>
                         <th></th>
                      </thead>
