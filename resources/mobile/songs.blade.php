@@ -50,8 +50,9 @@
                         <tbody>
                             @foreach ($songs as $song)
                                 <tr class="mysounds-tr">
-                                    <td class="table-text">
-                                        <div>{{ $song->title }}</div>
+                                    <td>
+                                        {{ csrf_field() }}
+                                        <a href="/song/{{ $song->id }}">{{ $song->title }}</a>
                                     </td>
                                     <td class="table-text">
                                         <div>
@@ -59,20 +60,19 @@
                                         </div>
                                     </td>
                                     <td>
-                                        {{ csrf_field() }}
-                                        <a href="/song/{{ $song->id }}">edit</a>
-                                    </td>
-                                    <td>
                                        <input type="button" class="btn btn-link btn-mysounds" name="play" id="play-{{ $song->id }}" value="play">
                                     </td>
                                     <td>
                                        <input type="button" class="btn btn-link btn-mysounds" name="play_album" id="play-album-{{ $song->id }}" value="play album">
                                     </td>
+                                    <td>
+                                       <input type="button" class="btn btn-link btn-mysounds" name="playlist" id="playlist-{{ $song->id }}" data-title="{{ $song->title }}" value="add to playlist">
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $songs->links() }}
+                    {{ $songs->onEachSide(0)->links() }}
                 @endif
             </div>
         </div>
