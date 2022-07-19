@@ -28,7 +28,7 @@
                     <label for="filter" class="col-sm-3 col-form-label">Filter</label>
                     <input type="text" class="form-control" id="filter" name="filter" placeholder="Word/Category" value="{{ $filter }}">
                   </div>
-                  <button type="submit" class="btn btn-primary">
+                  <button type="submit" class="btn btn-primary ml-1 mt-4">
                     <i class="fa fa-search"></i>
                   </button>
                 </form>
@@ -71,11 +71,16 @@
                         @endforeach
                     </tbody>
                 </table>
-                  <div class="form-inline">
+
+                <div class="ml-2">
                     {{ $word_cloud->appends(['filter' => $filter])->links() }}
-                     <form class="form-inline" method="GET">
+                </div>
+
+                <form class="form-inline" method="GET">
+                    <div class="input-group w-50 mt-1">
                         <input type="text" class="form-control" id="page" name="page" size=10>
                         <input type="submit" class="btn btn-secondary" id="go" value="Go">
+                    </div>
                     </form>
                 </div>
             </div>
