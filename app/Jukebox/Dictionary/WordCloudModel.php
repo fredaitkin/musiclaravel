@@ -83,6 +83,13 @@ class WordCloudModel extends Model
     protected $guarded = [];
 
     /**
+     * The number of records to return for pagination.
+     *
+     * @var int
+     */
+    protected $perPage = 10;
+
+    /**
      * Word cloud categories
      */
     public function categories()

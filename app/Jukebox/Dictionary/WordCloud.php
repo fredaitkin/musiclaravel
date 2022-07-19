@@ -47,7 +47,7 @@ class WordCloud implements WordCloudInterface
     public function all(Request $request)
     {
         if (empty($request->all()) || ($request->has('page') && ! $request->has('filter'))):
-            return WordCloudModel::paginate(10);
+            return WordCloudModel::paginate();
         else:
             return $this->allByConstraints($request->all());
         endif;
