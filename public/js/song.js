@@ -219,8 +219,6 @@ function display_jukebox(title, songs, device_type) {
       $("#song-" + previous_id).addClass('font-weight-bold');
       // Play
       let audio = $(this).find('audio').get(0);
-      audio.play();
-
       let next = $(this).find('button.next').get(0);
 
       audio.addEventListener('ended',function() {
@@ -235,6 +233,22 @@ function display_jukebox(title, songs, device_type) {
         $('button.next').hide();
       }
 
+      play(audio, next);
+
+      function play(audio, next) {
+        var playPromise = audio.play();
+        // In browsers that don’t yet support this functionality,
+        // playPromise won’t be defined.
+        if (playPromise !== undefined) {
+          playPromise.then(function() {
+            // Automatic playback started!
+          }).catch(function(error) {
+            // Automatic playback failed, try next song.
+            next.click();
+          });
+        }
+      }
+
       function next_song(audio, next, previous_id) {
         // Get next song
         song = songs.shift();
@@ -246,7 +260,7 @@ function display_jukebox(title, songs, device_type) {
           $("#song-" + previous_id).addClass('font-weight-bold');
           audio.pause();
           audio.load();
-          audio.play();
+          play(audio, next);
           return previous_id;
         } else {
           next.disabled = true;
