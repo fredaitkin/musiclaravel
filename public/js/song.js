@@ -51,7 +51,7 @@ $(document).ready(function() {
 
   });
 
-  $("input[name='play_album']").click(function() {
+  $("span[name='play_album']").click(function() {
     let song_id = $(this).attr('id');
     song_id = song_id.replace("play-album-", "");
 
@@ -75,7 +75,7 @@ $(document).ready(function() {
 
   });
 
-  $("input[name='play']").click(function() {
+  $("span[name='play']").click(function() {
     let song_id = $(this).attr('id');
     song_id = song_id.replace("play-", "");
 

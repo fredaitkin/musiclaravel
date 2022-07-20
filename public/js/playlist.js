@@ -24,7 +24,7 @@ $(document).ready(function() {
 
   });
 
-  $("input[name='playlist']").click(function() {
+  $("span[name='playlist']").click(function() {
 
     let song_id = $(this).attr('id');
     song_id = song_id.replace("playlist-", "");
