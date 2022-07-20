@@ -73,7 +73,7 @@
                 </table>
 
                 <div class="ml-2">
-                    {{ $word_cloud->appends(['filter' => $filter])->onEachSide(0)->links() }}
+                    {{ $word_cloud->appends(['filter' => $filter])->onEachSide(1)->links() }}
                 </div>
 
                 <form class="form-inline" method="GET">

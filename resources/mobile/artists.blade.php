@@ -43,18 +43,14 @@
                         <thead>
                             <th>Artist</th>
                             <th>&nbsp;</th>
-                            <th>&nbsp;</th>
                         </thead>
 
                         <tbody>
                             @foreach ($artists as $artist)
                                 <tr class="mysounds-tr">
-                                    <td class="table-text">
-                                        <div name="artist_name">{{ $artist->artist }}</div>
-                                    </td>
                                     <td>
                                         {{ csrf_field() }}
-                                        <a href="/artist/{{ $artist->id }}">edit</a>
+                                        <a href="/artist/{{ $artist->id }}">{{ $artist->artist }}</a>
                                     </td>
                                     <td>
                                        <input type="button" class="btn btn-link btn-mysounds" name="play_songs" id="play-songs-{{ $artist->id }}" value="play songs">
@@ -63,19 +59,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                {{ $artists->onEachSide(1)->links() }} 
                 @endif
-                {{ $artists->links() }} 
             </div>
-        </div>
-
-        <div>
-            @if (Route::has('login'))
-                <div class="col-sm-3">
-                    @auth
-                        <a href="{{ url('/artist') }}">Add</a>
-                    @endauth
-                </div>
-            @endif
         </div>
 
 @endsection
