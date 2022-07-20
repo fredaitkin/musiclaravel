@@ -66,25 +66,15 @@
                                        <input type="button" class="btn btn-link btn-mysounds" name="play_album" id="play-album-{{ $song->id }}" value="play album">
                                     </td>
                                     <td>
-                                       <input type="button" class="btn btn-link btn-mysounds" name="playlist" id="playlist-{{ $song->id }}" data-title="{{ $song->title }}" value="add to playlist">
+                                       <input type="button" class="btn btn-link btn-mysounds" name="playlist" id="playlist-{{ $song->id }}" data-title="{{ $song->title }}" value="+ playlist">
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $songs->onEachSide(0)->links() }}
+                    {{ $songs->onEachSide(1)->links() }}
                 @endif
             </div>
-        </div>
-
-        <div>
-            @if (Route::has('login'))
-                <div class="col-sm-3">
-                    @auth
-                        <a href="{{ url('/song') }}">Add</a>
-                    @endauth
-                </div>
-            @endif
         </div>
 
 @endsection
