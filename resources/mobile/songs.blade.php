@@ -15,16 +15,12 @@
             </div>
         @endif
 
-        <div class="col-sm-3">
-            <h6>Current Songs</h6>
-        </div>
-
         <div class="panel-body">
             <form action="/songs/search" method="POST" role="search">
                 {{ csrf_field() }}
                 <div class="input-group col-sm-6 pb-2">
                     <input type="text" class="form-control" name="q" placeholder="Search songs"  @if (!empty($q)) value="{{ $q }}" @endif>
-                    <span class="input-group-btn">
+                    <span class="input-group-btn pl-1">
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-search"></i>
                         </button>
