@@ -16,7 +16,7 @@
         @endif
 
         <div class="col-sm-3">
-            <h5>Current Songs</h5>
+            <h6>Current Songs</h6>
         </div>
 
         <div class="panel-body">

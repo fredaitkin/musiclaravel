@@ -25,18 +25,16 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app-mobile.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        <nav class="navbar navbar-expand-sm navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/home') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <a class="navbar-brand" href="{{ url('/songs') }}">
-                    {{ __('Songs') }}
-                </a>
                 @auth
+                    <a class="navbar-brand" href="{{ url('/songs') }}">
+                        {{ __('Songs') }}
+                    </a>
                     <a class="navbar-brand" href="{{ url('/artists') }}">
                          {{ __('Artists') }}
                     </a>
@@ -69,40 +67,6 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                    @auth
-                                        @if ( Auth::user()->hasRole('super-user'))
-                                            <a class="dropdown-item" href="{{ url('/query') }}">
-                                                 {{ __('Queries') }}
-                                            </a>
-                                            <a class="dropdown-item" href="{{ url('/managed-query') }}">
-                                                 {{ __('Managed Queries') }}
-                                            </a>
-                                            <a class="dropdown-item" href="{{ url('/utilities') }}">
-                                                 {{ __('Utilities') }}
-                                            </a>
-                                            <a class="dropdown-item" href="{{ url('/settings') }}">
-                                                 {{ __('Settings') }}
-                                            </a>
-                                        @endif
-                                    @endauth
-                                </div>
                             </li>
                         @endguest
                     </ul>
