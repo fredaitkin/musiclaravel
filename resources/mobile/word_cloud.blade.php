@@ -36,9 +36,9 @@
                 <table class="table table-striped mysounds-table">
 
                     <thead>
-                        <th scope='col' class='sortable'>@sortablelink('word')</th>
-                        <th scope='col' class='sortable'>@sortablelink('category', 'Cat')</th>
-                        <th scope='col' class='sortable'>@sortablelink('count', 'Cnt')</th>
+                        <th scope='col'>Word</th>
+                        <th scope='col'>category</th>
+                        <th scope='col'>Count</th>
                         <th></th>
                         <th></th>
                      </thead>
