@@ -258,7 +258,6 @@ class WordCloud implements WordCloudInterface
             ->leftJoin('category', 'word_category.category_id', '=', 'category.id')
             ->where('word', 'like', '%' . $filter . '%')
             ->orWhere('category.category', 'like', '%' . $filter . '%')
-            ->groupBy('id')
             ->paginate(10);
     }
 
