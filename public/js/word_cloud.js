@@ -32,7 +32,7 @@ function display_song_form(data, device_type) {
   $.each(data, function(i, song) {
     title = (song.song.length > 20) ? song.song.substr(0, 20) + '...' : song.song; 
     form += '<div>' +
-      '<div style="width:50%;float:left" id="' + song.id + '" class="song"><a class="songs" href="#">' + title + '</a></div>' +
+      '<div style="width:50%;float:left" id="' + song.id + '" song="' + song.song + '" class="song"><a class="songs" href="#">' + title + '</a></div>' +
       '<div style="width:50%;float:left">' + song.artist + '</div>' +
       '<div id="modal-' + song.id + '" style="display:none;white-space:pre;">' + song.lyrics + '</div>' +
       '</div>';
@@ -55,7 +55,7 @@ function display_song_form(data, device_type) {
       var modal_div = 'modal-' + $(this).attr('id');
       $('#' + modal_div).dialog({
         modal : true ,
-        title: $(this).text(),
+        title: $(this).attr('song'),
         height :device_type == 'desktop' ? 700 : 500,
         width : device_type == 'desktop' ? 400 : 300,
         open : function() {
