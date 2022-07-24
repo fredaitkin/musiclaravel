@@ -32,19 +32,19 @@
         <nav class="navbar navbar-expand-sm navbar-light navbar-laravel">
             <div class="container">
                 @auth
-                    <a class="navbar-brand" href="{{ url('/songs') }}">
-                        {{ __('Songs') }}
+                    <a class="navbar-brand {{ Request::is('songs') && Request::input('genres') != 'true' ? 'active' : '' }}" href="{{ url('/songs') }}">
+                        {{ __('Songs') }}   {{ Request::segment(2) }} 
                     </a>
-                    <a class="navbar-brand" href="{{ url('/artists') }}">
+                    <a class="navbar-brand {{ Request::is('artists') ? 'active' : '' }}" href="{{ url('/artists') }}">
                          {{ __('Artists') }}
                     </a>
-                    <a class="navbar-brand" href="{{ url('/playlists') }}">
+                    <a class="navbar-brand {{ Request::is('playlists') ? 'active' : '' }}" href="{{ url('/playlists') }}">
                          {{ __('Playlists') }}
                     </a>
-                    <a class="navbar-brand" href="{{ url('/songs?genres=true') }}">
+                    <a class="navbar-brand {{ Request::input('genres') == 'true' ? 'active' : '' }}" href="{{ url('/songs?genres=true') }}">
                          {{ __('Genres') }}
                     </a>
-                    <a class="navbar-brand" href="{{ url('/word-cloud') }}">
+                    <a class="navbar-brand {{ Request::is('word-cloud') ? 'active' : '' }}" href="{{ url('/word-cloud') }}">
                          {{ __('Word Cloud') }}
                     </a>
                 @endif
