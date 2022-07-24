@@ -67,8 +67,8 @@
         {{ $word_cloud->appends(['filter' => $filter])->onEachSide(0)->links() }}
     </div>
 
-        <form class="form-inline" method="GET">
-            <div class="ml-3 mt-1">
+        <form method="GET">
+            <div class="d-flex ml-3 mt-1 w-25">
             <input type="text" class="form-control" id="page" name="page" size=10>
             <input type="submit" class="btn btn-secondary" id="go" value="Go">
             </div>
