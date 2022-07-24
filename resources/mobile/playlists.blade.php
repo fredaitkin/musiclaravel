@@ -14,10 +14,6 @@
             <p>{{ $message }}</p>
         @endif
 
-        <div class="col-sm-3">
-            <h5>Playlists</h5>
-        </div>
-
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="row">
