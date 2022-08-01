@@ -31,46 +31,21 @@
     <div id="app">
         <nav class="navbar navbar-expand-sm navbar-light navbar-laravel">
             <div class="container">
-                @auth
-                    <a class="navbar-brand {{ Request::is('songs') && Request::input('genres') != 'true' ? 'active' : '' }}" href="{{ url('/songs') }}">
-                        {{ __('Songs') }}   {{ Request::segment(2) }} 
-                    </a>
-                    <a class="navbar-brand {{ Request::is('artists') ? 'active' : '' }}" href="{{ url('/artists') }}">
-                         {{ __('Artists') }}
-                    </a>
-                    <a class="navbar-brand {{ Request::is('playlists') ? 'active' : '' }}" href="{{ url('/playlists') }}">
-                         {{ __('Playlists') }}
-                    </a>
-                    <a class="navbar-brand {{ Request::input('genres') == 'true' ? 'active' : '' }}" href="{{ url('/songs?genres=true') }}">
-                         {{ __('Genres') }}
-                    </a>
-                    <a class="navbar-brand {{ Request::is('word-cloud') ? 'active' : '' }}" href="{{ url('/word-cloud') }}">
-                         {{ __('Word Cloud') }}
-                    </a>
-                @endif
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
+                <a class="navbar-brand {{ Request::is('songs') && Request::input('genres') != 'true' ? 'active' : '' }}" href="{{ url('/songs') }}">
+                    {{ __('Songs') }}   {{ Request::segment(2) }} 
+                </a>
+                <a class="navbar-brand {{ Request::is('artists') ? 'active' : '' }}" href="{{ url('/artists') }}">
+                     {{ __('Artists') }}
+                </a>
+                <a class="navbar-brand {{ Request::is('playlists') ? 'active' : '' }}" href="{{ url('/playlists') }}">
+                     {{ __('Playlists') }}
+                </a>
+                <a class="navbar-brand {{ Request::input('genres') == 'true' ? 'active' : '' }}" href="{{ url('/songs?genres=true') }}">
+                     {{ __('Genres') }}
+                </a>
+                <a class="navbar-brand {{ Request::is('word-cloud') ? 'active' : '' }}" href="{{ url('/word-cloud') }}">
+                     {{ __('Word Cloud') }}
+                </a>
             </div>
         </nav>
 

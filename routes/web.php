@@ -19,7 +19,9 @@ Route::get('404', function () {
     return abort(404);
 });
 
-Route::middleware(['auth'])->group(function () {
+$auth = (config('view.device') === 'mobile') ? 'guest' : 'auth';
+
+Route::middleware([$auth])->group(function () {
 
     // Home route
 

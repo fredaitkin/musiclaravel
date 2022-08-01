@@ -8,9 +8,11 @@ $Agent = new Agent();
 if ($Agent->isMobile()) {
     // you're a mobile device
     $viewLocation = 'mobile';
+    $device = 'mobile';
 } else {
     // you're a desktop device, or something similar
     $viewLocation = 'views';
+    $device = 'desktop';
 }
 
 return [
@@ -42,5 +44,16 @@ return [
     */
 
     'compiled' => realpath(storage_path('framework/views')),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Device
+    |--------------------------------------------------------------------------
+    |
+    | Simplistic flag to signify a mobile device versus a desktop device.
+    |
+    */
+
+    'device' => $device,
 
 ];

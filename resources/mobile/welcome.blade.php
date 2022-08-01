@@ -78,21 +78,12 @@
     </head>
     <body background='storage/skelton.jpg'>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                        <a href="{{ url('/songs') }}">Songs</a>
-                        <a href="{{ url('/artists') }}">Artists</a>
-                        <a href="{{ url('/playlists') }}">Playlists</a>
-                        <a href="{{ url('/songs?genres=true') }}">Genres</a>
-                        <a href="{{ url('/word-cloud') }}">Word Cloud</a>
-                    @else
-                        <a class="brightness(85%)" href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
+            <div class="top-right links">
+                <a href="{{ url('/songs') }}">Songs</a>
+                <a href="{{ url('/artists') }}">Artists</a>
+                <a href="{{ url('/playlists') }}">Playlists</a>
+                <a href="{{ url('/songs?genres=true') }}">Genres</a>
+            </div>
 
             <div>
                 <div class="title">
