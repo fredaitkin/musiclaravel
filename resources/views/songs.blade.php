@@ -81,13 +81,13 @@
                                         <a href="/song/{{ $song->id }}">edit</a>
                                     </td>
                                     <td>
-                                       <input type="button" class="btn btn-link btn-mysounds" name="play" id="play-{{ $song->id }}" value="play">
+                                       <span name="play" id="play-{{ $song->id }}"><i class="fa fa-play"></i></span>
                                     </td>
                                     <td>
-                                       <input type="button" class="btn btn-link btn-mysounds" name="play_album" id="play-album-{{ $song->id }}" value="play album">
+                                       <span name="play_album" id="play-album-{{ $song->id }}"><i class="fa fa-play"></i></span>
                                     </td>
                                     <td>
-                                       <input type="button" class="btn btn-link btn-mysounds" name="playlist" id="playlist-{{ $song->id }}" data-title="{{ $song->title }}" value="add to playlist">
+                                       <span name="playlist" id="playlist-{{ $song->id }}" data-title="{{ $song->title }}"><i class="fa fa-list"></i></span>
                                     </td>
                                     <td>
                                         <a target="_blank" href="/songs?lyrics=true&id={{ $song->id }}">lyrics</a>
