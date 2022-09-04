@@ -34,6 +34,10 @@
                                         </td>
                                         <td>
                                             {{ csrf_field() }}
+                                            <a href="/playlists/{{ $playlist->name }}">edit</a>
+                                        </td>
+                                        <td>
+                                            {{ csrf_field() }}
                                             <a href="#" name="play">play</a>
                                         </td>
                                         <td>
