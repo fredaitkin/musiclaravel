@@ -119,7 +119,7 @@ function display_playlist_form(song_id, song_title, playlists) {
             });
           }
         },
-        Cancel: function() {
+        Close: function() {
             $( this ).dialog( "close" );
         }
       }
