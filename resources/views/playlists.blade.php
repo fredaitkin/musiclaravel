@@ -28,6 +28,7 @@
                                 <th>Title</th>
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
+                                <th>&nbsp;</th>
                             </thead>
 
                             <tbody>
@@ -36,6 +37,10 @@
                                         <td class="table-text">
                                             <div name="playlist-title">{{ $playlist->name }}</div>
                                         </td>
+                                        <td>
+                                            {{ csrf_field() }}
+                                        <a href="/playlists/{{ $playlist->name }}">edit</a>
+                                    </td>
                                         <td>
                                             {{ csrf_field() }}
                                             <a href="#" name="play">play</a>

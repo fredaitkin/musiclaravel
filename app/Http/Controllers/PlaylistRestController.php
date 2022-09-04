@@ -66,6 +66,49 @@ class PlaylistRestController extends Controller
     }
 
     /**
+     * Edit playlist
+     *
+     * @param Illuminate\Http\Request $request Request object
+     * @param string                  $name    Playlist list name
+     *
+     * @return mixed
+     */
+    public function edit(Request $request, $name)
+    {
+        $playlist = $this->playlist->allByConstraints(['playlist' => $name]);
+        return view(
+            'playlist', [
+                'playlist' => $name,
+                'songs' => (array) json_decode($playlist[0]->playlist),
+            ]
+        );
+    }
+
+    /**
+     * Update playlist
+     *
+     * @param Illuminate\Http\Request $request Request object
+     * @param string                  $name    Playlist name
+     * @param int                     $id      Song id
+     *
+     * @return mixed
+     */
+    public function update(Request $request, $name, $id)
+    {
+        $playlist = $this->playlist->allByConstraints(['playlist' => $name]);
+        $playlist = $playlist[0];
+        $songs = (array) json_decode($playlist->playlist);
+        foreach($songs as $idx => $song):
+            if ($song->id === $id):
+                unset($songs[$idx]);
+            endif;
+        endforeach;
+        $playlist->playlist = json_encode($songs);
+        $playlist->save();
+        return redirect()->route('playlists.edit', $name);
+    }
+
+    /**
      * Remove the playlist
      *
      * @param Illuminate\Http\Request $request  Request object
