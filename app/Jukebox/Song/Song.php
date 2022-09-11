@@ -75,6 +75,10 @@ class Song implements SongInterface
             $query->where('album', $constraints['album']);
         endif;
 
+        if (isset($constraints['location'])):
+            $query->where('location', $constraints['location']);
+        endif;
+
         if (isset($constraints['ids'])):
             $query->whereIn('id', $constraints['ids']);
         endif;

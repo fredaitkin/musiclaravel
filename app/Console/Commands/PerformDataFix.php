@@ -28,6 +28,7 @@ class PerformDataFix extends Command
      */
     protected $signature = 'db:df
                             {--missing-songs : Report on missing songs}
+                            {--mss : Mismatched song details by storage}
                             {--resave-artists : Copy artist ids to pivot table}
                             {--fix-categories : Move category to pivot table}';
 
@@ -79,6 +80,8 @@ class PerformDataFix extends Command
         $this->song = $song;
         $this->wordCloud = $wordCloud;
         $this->category = $category;
+        $this->partition_root = config('filesystems.disks')[config('filesystems.partition')]['root'];
+        $this->media_directory = config('filesystems.media_directory');
     }
 
     /**
@@ -92,6 +95,10 @@ class PerformDataFix extends Command
 
         if ($this->options['missing-songs']):
             $this->reportMissingSongs();
+        endif;
+
+        if ($this->options['mss']):
+            $this->reportMissingSongsByStorage();
         endif;
 
         if ($this->options['resave-artists']):
@@ -146,6 +153,60 @@ class PerformDataFix extends Command
         $wordCloud = $this->wordCloud->allByConstraints();
         foreach ($wordCloud as $word):
             DB::table('word_category')->insert(['word_cloud_id' => $word->id, 'category_id' => $categories[$word->category]]);
+        endforeach;
+    }
+
+    /**
+     * Loop over media directory and check song information is correct.
+     *
+     * @return void
+     */
+    private function reportMissingSongsByStorage()
+    {
+        $scan_items = glob($this->partition_root . $this->media_directory . '*');
+        foreach($scan_items as $item):
+            if(is_dir($item)):
+                $this->processArtistDirectory($item);
+            endif;
+        endforeach;
+    }
+
+    /**
+     * Loop over artist directory and check song information is correct.
+     *
+     * @param string $artist_dir Artist directory
+     *
+     * @return void
+     */
+    private function processArtistDirectory(string $artist_dir)
+    {
+        $scan_albums = glob($artist_dir . '/*');
+        foreach($scan_albums as $album):
+            if(is_dir($album)):
+                $this->processAlbum($album);
+            endif;
+        endforeach;
+    }
+
+    /**
+     * Process album checking song location is correct
+     *
+     * @param string $album Artist album
+     *
+     * @return void
+     */
+    private function processAlbum(string $album)
+    {
+        $scan_songs = glob($album . '/*');
+        foreach($scan_songs as $title):
+            if($this->song->isSong($title)):
+                $location = str_replace($this->partition_root . $this->media_directory, '', $title);
+                // $location = str_replace($this->partition_root . $this->media_directory . DIRECTORY_SEPARATOR, '', $title);
+                $song = $this->song->allByConstraints(['location' => $location]);
+                if ($song->count() === 0):
+                    $this->info($location);
+                endif;
+            endif;
         endforeach;
     }
 }
