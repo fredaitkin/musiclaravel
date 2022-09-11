@@ -14,6 +14,7 @@ use App\Jukebox\Dictionary\WordCloudInterface as WordCloud;
 use App\Jukebox\Song\SongInterface as Song;
 use DB;
 use Illuminate\Console\Command;
+use Mail;
 use Storage;
 
 /**
@@ -163,12 +164,20 @@ class PerformDataFix extends Command
      */
     private function reportMissingSongsByStorage()
     {
+        $now = date('YmdHi');
+        $this->filename = 'report-' . $now . '.csv';
+        $this->report_title = 'File Location - ' . $now;
+        $this->records = [];
+
         $scan_items = glob($this->partition_root . $this->media_directory . '*');
         foreach($scan_items as $item):
             if(is_dir($item)):
                 $this->processArtistDirectory($item);
             endif;
         endforeach;
+
+        $this->createCSVReport($this->records, ['Song location']);
+        $this->sendFile();
     }
 
     /**
@@ -204,9 +213,67 @@ class PerformDataFix extends Command
                 // $location = str_replace($this->partition_root . $this->media_directory . DIRECTORY_SEPARATOR, '', $title);
                 $song = $this->song->allByConstraints(['location' => $location]);
                 if ($song->count() === 0):
-                    $this->info($location);
+                    $this->records[] = $location;
                 endif;
             endif;
         endforeach;
+    }
+
+    /**
+     * Create CSV file
+     *
+     * @param Array $records Report data $paramname
+     * @param Array $header  Report header
+     *
+     * @return void
+     */
+    protected function createCSVReport(array $records, array $header = null)
+    {
+        if (isset($records[0])):
+
+            $handle = fopen($this->filename, 'w');
+
+            // Add  report title
+            fputcsv($handle, [$this->report_title]);
+            fputcsv($handle, []);
+
+            // Add report header
+            if (! $header):
+                 $header = (array) $records[0];
+                 $header = array_keys($header);
+            endif;
+
+            fputcsv($handle, $header);
+
+            // Add report data
+            foreach($records as $record):
+                $record = (array) $record;
+                fputcsv($handle, array_values($record));
+            endforeach;
+
+            fclose($handle);
+            $this->info('The report has been run successfully.');
+
+        else:
+            $this->error('No records were returned by this query');
+        endif;
+
+    }
+
+    /**
+     * Send report via email
+     *
+     * @return void
+     */
+    protected function sendFile()
+    {
+        $data = ['report' => $this->report_title];
+        Mail::send(
+            'mail_report', $data, function ($message) {
+                $message->to(config('mail.report_email'), 'Report Email Address')->subject('MyMusic Report');
+                $message->attach(base_path() . DIRECTORY_SEPARATOR . $this->filename);
+                $message->from(config('mail.admin_email'), 'MyMusic');
+            }
+        );
     }
 }
