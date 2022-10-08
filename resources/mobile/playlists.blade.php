@@ -38,7 +38,7 @@
                                         </td>
                                         <td>
                                             {{ csrf_field() }}
-                                            <a href="#" name="play">play</a>
+                                            <a href="#" name="play" playlist="{{ $playlist->name }}">play</a>
                                         </td>
                                         <td>
                                             <form action="/playlists/{{ $playlist->name }}" method="POST">
