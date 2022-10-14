@@ -210,7 +210,8 @@ class PerformDataFix extends Command
         foreach($scan_songs as $title):
             if($this->song->isSong($title)):
                 $location = str_replace($this->partition_root . $this->media_directory, '', $title);
-                // $location = str_replace($this->partition_root . $this->media_directory . DIRECTORY_SEPARATOR, '', $title);
+                // This doesn't account for backwards versus forwards slashes which are still playable.
+                // Ani Di France Bob Womack - Change backwards to forwards?
                 $song = $this->song->allByConstraints(['location' => $location]);
                 if ($song->count() === 0):
                     $this->records[] = $location;
