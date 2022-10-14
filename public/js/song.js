@@ -160,6 +160,7 @@ $(document).ready(function() {
 
   $("button[name='reset']").click(function() {
     $(this).parent().parent().find('input').val('');
+    window.location.href = APP_URL + '/songs';
   });
 
   $("#shuffle").click(function() {
