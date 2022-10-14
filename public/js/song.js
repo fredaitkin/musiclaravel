@@ -158,6 +158,33 @@ $(document).ready(function() {
 
   });
 
+  $("button[name='reset']").click(function() {
+    $(this).parent().parent().find('input').val('');
+  });
+
+  $("#shuffle").click(function() {
+    var url = APP_URL + '/songs?all';
+
+    fetch(url)
+      .then(
+        function(response) {
+
+          if (response.status !== 200) {
+            console.log('Looks like there was a problem. Status Code: ' + response.status);
+            return;
+          }
+          response.json().then(function(data) {
+            var songs = shuffle(data);
+            display_jukebox("EVERYBODY SHUFFLIN...", songs, device_type);
+          });
+        }
+      )
+      .catch(function(err) {
+          console.log('Fetch Error: ', err);
+    });
+
+  });
+
 });
 
 function shuffle(array) {

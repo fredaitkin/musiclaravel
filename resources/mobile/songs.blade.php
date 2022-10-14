@@ -25,7 +25,17 @@
                             <i class="fa fa-search"></i>
                         </button>
                     </span>
-            </div>
+                    <span class="input-group-btn pl-1">
+                        <button type="button" class="btn btn-primary" name="reset">
+                            Reset
+                        </button>
+                    </span>
+                    <span class="input-group-btn pl-1">
+                        <button type="button" class="btn btn-primary" id="shuffle">
+                            Shuffle
+                        </button>
+                    </span>
+                </div>
             </form>
         </div>
 
@@ -85,5 +95,5 @@
 
 @section('styles')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet" />
 @endsection

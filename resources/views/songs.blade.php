@@ -31,7 +31,17 @@
                                 <i class="fa fa-search"></i>
                             </button>
                         </span>
-                </div>
+                        <span class="input-group-btn pl-1">
+                            <button type="button" class="btn btn-primary" name="reset">
+                                Reset
+                            </button>
+                        </span>
+                        <span class="input-group-btn pl-1">
+                            <button type="button" class="btn btn-primary" id="shuffle">
+                                Shuffle
+                            </button>
+                        </span>
+                    </div>
                 </form>
             </div>
 
