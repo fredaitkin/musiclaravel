@@ -78,8 +78,13 @@ function display_playlist_form(song_id, song_title, playlists) {
   $(playlist_form).dialog({
     title: 'Playlists',
     modal: false,
-    width: '50%',
     open : function() {
+      if ($('meta[name=device-type]').prop('content') == 'desktop') {
+        $(this).dialog("option", 'width', '30%');
+      } else {
+        $(this).dialog("option", 'width', '85%');
+      }
+
       $('div.ui-dialog').addClass('ui-dialog-jukebox');
       $('div.ui-dialog-buttonpane').addClass('ui-dialog-jukebox');
     },
