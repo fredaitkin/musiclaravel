@@ -16,6 +16,8 @@
             </div>
         @endif
 
+        <div id="success_message" class="d-none alert alert-success alert-dismissible fade show"></div>
+
         <div class="col-sm-3">
             <h5>Current Songs</h5>
         </div>

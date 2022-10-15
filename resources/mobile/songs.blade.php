@@ -15,6 +15,8 @@
             </div>
         @endif
 
+        <div id="success_message" class="d-none alert alert-success alert-dismissible fade show"></div>
+
         <div class="panel-body">
             <form action="/songs/search" method="POST" role="search">
                 {{ csrf_field() }}

@@ -53,19 +53,20 @@ $(document).ready(function() {
 function display_playlist_form(song_id, song_title, playlists) {
   let playlist_form = '<div>';
 
+  $('#success_message').addClass('d-none');
+
   playlist_form += '<div id="error_message" class="d-none alert alert-danger alert-dismissible fade show">';
   playlist_form += '</div>';
-  playlist_form += '<div id="success_message" class="d-none alert alert-success alert-dismissible fade show">';
-  playlist_form += '</div>';
 
-  playlist_form += '<div>Add to Existing Playlist</div>';
+  playlist_form += '<div>Add ' + song_title + '</div>';
+  playlist_form += '<div>Existing Playlist</div>';
   playlist_form += '<select id="existing_playlist">';
   playlist_form += '<option value="">Please Select</option>';
   $.each(playlists, function(index, playlist) {
     playlist_form += '<option value="' + playlist.name + '">' + playlist.name + '</option>';
   });
   playlist_form += '</select>';
-  playlist_form += '<div>Add to New Playlist</div>';
+  playlist_form += '<div>New Playlist</div>';
   playlist_form += '<input id="new_playlist"/>';
 
   playlist_form += '<input type="hidden" id="song_id" value="' + song_id + '"/>';
@@ -77,7 +78,7 @@ function display_playlist_form(song_id, song_title, playlists) {
   $(playlist_form).dialog({
     title: 'Playlists',
     modal: false,
-    width: '85%',
+    width: '50%',
     open : function() {
       $('div.ui-dialog').addClass('ui-dialog-jukebox');
       $('div.ui-dialog-buttonpane').addClass('ui-dialog-jukebox');
@@ -85,7 +86,6 @@ function display_playlist_form(song_id, song_title, playlists) {
     buttons: {
       "Add": function() {
           $('#error_message').addClass('d-none');
-          $('#success_message').addClass('d-none')
           let playlist = $("#existing_playlist option:selected").val();
           if (playlist == '') {
             playlist = $('#new_playlist').val();
@@ -93,7 +93,7 @@ function display_playlist_form(song_id, song_title, playlists) {
           if (playlist == '') {
             $('#error_message').removeClass('d-none');
           } else {
-            const data = {playlist: playlist, id: $('#song_id').val(), title: $('#song_title').val()};
+            var data = {playlist: playlist, id: $('#song_id').val(), title: $('#song_title').val()};
             fetch(url, {
               method: 'POST',
               headers: {
@@ -107,6 +107,8 @@ function display_playlist_form(song_id, song_title, playlists) {
               .then(data => {
                 if (data.status_code == 200) {
                     $('#success_message').removeClass('d-none').text("Song has been added.");
+                    $(this).dialog("close");
+                    $(this).dialog("destroy").remove();
                 } else {
                     $('#error_message').removeClass('d-none').html(data.errors.join('<br>'));
                 }
@@ -118,7 +120,8 @@ function display_playlist_form(song_id, song_title, playlists) {
           }
         },
         Close: function() {
-            $( this ).dialog( "close" );
+            $(this).dialog("close");
+            $(this).dialog("destroy").remove();
         }
       }
   })
