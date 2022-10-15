@@ -24,6 +24,7 @@
                                 <th>Title</th>
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
+                                <th>&nbsp;</th>
                             </thead>
 
                             <tbody>
