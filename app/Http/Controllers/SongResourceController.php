@@ -101,6 +101,7 @@ class SongResourceController extends Controller
         // TODO what to do with wma files
         if (Storage::disk(config('filesystems.partition'))->has($location)):
             $song->last_played = date("Y-m-d");
+            $song->played += 1;
             $song->update();
             $contents = Storage::disk(config('filesystems.partition'))->get($location);
             $response = response($contents, 200)
