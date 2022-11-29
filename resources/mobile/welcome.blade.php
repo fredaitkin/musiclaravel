@@ -21,10 +21,8 @@
                 margin: 0;
             }
             body {
-                background: url({{ asset('img/skeleton.jpg') }});
+                background: url({{ asset('img/skeleton_no_border.jpg') }});
                 background-size: cover;
-                border: 10px solid white;
-                border-radius: 25px;
             }
 
             .full-height {
