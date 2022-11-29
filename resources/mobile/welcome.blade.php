@@ -49,6 +49,10 @@
             .top-right a {
                 color: peru !important;
             }
+             .top-right a::after {
+                content: "\a";
+                white-space: pre;
+            }
             .content {
                 text-align: center;
             }
@@ -63,8 +67,8 @@
 
             .links > a {
                 color: black;
-                padding: 0 25px;
-                font-size: 12px;
+                padding-right: 5px;
+                font-size: 16px;
                 font-weight: 600;
                 letter-spacing: .1rem;
                 text-decoration: none;
