@@ -64,16 +64,15 @@
     </table>
 
     <div class="ml-4">
-        {{ $word_cloud->appends(['filter' => $filter])->onEachSide(0)->links() }}
+        {{ $word_cloud->appends(['filter' => $filter])->onEachSide(1)->links() }}
     </div>
 
-        <form method="GET">
-            <div class="d-flex ml-3 mt-1 w-50">
-            <input type="text" class="form-control" id="page" name="page" size=10>
-            <input type="submit" class="btn btn-secondary" id="go" value="Go">
-            </div>
-        </form>
-    </div>
+    <form method="GET">
+        <div class="d-flex ml-3 mt-1 w-25">
+        <input type="text" class="form-control" id="page" name="page" size=10>
+        <input type="submit" class="btn btn-primary" id="go" value="Go">
+        </div>
+    </form>
 
 @endsection
 

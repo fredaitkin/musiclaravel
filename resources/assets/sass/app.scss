@@ -48,6 +48,11 @@ a.active {
   color: peru!important;
 }
 
+.btn {
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
 .btn-link {
   color: peru;
 }
@@ -196,4 +201,8 @@ th.sortable a:hover {
 
 input[type='checkbox'] {
     accent-color: peru;
+}
+
+#go {
+    margin-left: 10px;
 }

@@ -42,7 +42,6 @@
         </div>
 
         @if (isset($songs) && $songs->count() > 0)
-            <div class="panel-body">
                 <table class="table table-striped mysounds-table">
 
                     <thead>
@@ -78,11 +77,17 @@
                         @endforeach
                     </tbody>
                 </table>
-            </div>
-    
-            <div class='ml-4'>
-                {{ $songs->onEachSide(0)->links() }}
-            </div>
+
+                <div class='ml-4'>
+                    {{ $songs->onEachSide(1)->links() }}
+                </div>
+
+            <form method="GET">
+                <div class="d-flex ml-4 mt-1 w-25">
+                <input type="text" class="form-control" id="page" name="page" size=10>
+                <input type="submit" class="btn btn-primary" id="go" value="Go">
+                </div>
+            </form>
         @endif
 
 @endsection

@@ -35,7 +35,7 @@
     </table>
 
     <div class='ml-4'>
-        {{ $genres->withPath('songs?genres=true')->onEachSide(0)->links() }}
+        {{ $genres->withPath('songs?genres=true')->onEachSide(1)->links() }}
     </div>
 
 @endsection

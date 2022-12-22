@@ -53,7 +53,7 @@
         </table>
 
         <div class='ml-4'>
-            {{ $artists->onEachSide(0)->links() }} 
+            {{ $artists->onEachSide(1)->links() }} 
         </div>
     @endif
 
