@@ -63,12 +63,12 @@
         </tbody>
     </table>
 
-    <div class="mobile ml-4">
+    <div class="mobile ml-2">
         {{ $word_cloud->appends(['filter' => $filter])->onEachSide(1)->links() }}
     </div>
 
     <form method="GET">
-        <div class="d-flex ml-3 mt-1 w-25">
+        <div class="d-flex mt-1 w-25">
         <input type="text" class="form-control" id="page" name="page" size=10>
         <input type="submit" class="btn btn-primary" id="go" value="Go">
         </div>

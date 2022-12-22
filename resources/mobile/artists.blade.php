@@ -52,7 +52,7 @@
             </tbody>
         </table>
 
-        <div class='mobile ml-4'>
+        <div class='mobile ml-2'>
             {{ $artists->onEachSide(1)->links() }} 
         </div>
     @endif
