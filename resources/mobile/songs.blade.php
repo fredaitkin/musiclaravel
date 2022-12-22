@@ -21,7 +21,7 @@
             <form action="/songs/search" method="POST" role="search">
                 {{ csrf_field() }}
                 <div class="input-group col-sm-6 pb-2">
-                    <input type="text" class="form-control" name="q" placeholder="Search songs"  @if (!empty($q)) value="{{ $q }}" @endif>
+                    <input type="text" class="form-control" name="q" placeholder="Search"  @if (!empty($q)) value="{{ $q }}" @endif>
                     <span class="input-group-btn pl-1">
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-search"></i>
@@ -42,7 +42,7 @@
         </div>
 
         @if (isset($songs) && $songs->count() > 0)
-                <table class="table table-striped mysounds-table">
+                <table class="table table-striped mysounds-table mobile-table">
 
                     <thead>
                         <th>Title</th>
@@ -54,7 +54,7 @@
 
                     <tbody>
                         @foreach ($songs as $song)
-                            <tr class="mysounds-tr">
+                            <tr class="mobile-mysounds-tr">
                                 <td>
                                     {{ csrf_field() }}
                                     <a href="/song/{{ $song->id }}">{{ $song->title }}</a>

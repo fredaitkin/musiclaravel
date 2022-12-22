@@ -24,7 +24,7 @@
         </div>
     </form>
 
-    <table class="table table-striped mysounds-table">
+    <table class="table table-striped mysounds-table mobile-table">
 
         <thead>
             <th scope='col'>Word</th>
@@ -36,7 +36,7 @@
 
         <tbody>
             @foreach ($word_cloud as $word)
-                <tr class="mysounds-tr">
+                <tr class="mobile-mysounds-tr">
                     <td class="table-text">
                         <div>
                             {{ csrf_field() }}
@@ -51,11 +51,11 @@
                         <div>{{ $word->count }}</div>
                     </td>
                     <td>
-                       <input type="button" class="btn btn-link btn-mysounds" name="songs" id="songs-{{ $word->id }}" value="songs">
+                       <input type="button" class="btn btn-link btn-mysounds btn-mobile" name="songs" id="songs-{{ $word->id }}" value="songs">
                     </td>
                     <td>
                         @if ($word->is_word)
-                            <input type="button" class="btn btn-link btn-mysounds" name="dictionary" id="dictionary-{{ $word->word }}" value="dictionary">
+                            <input type="button" class="btn btn-link btn-mysounds btn-mobile" name="dictionary" id="dictionary-{{ $word->word }}" value="dictionary">
                         @endif
                     </td>
                 </tr>
