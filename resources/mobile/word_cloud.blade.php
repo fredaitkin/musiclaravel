@@ -63,7 +63,7 @@
         </tbody>
     </table>
 
-    <div class="ml-4">
+    <div class="mobile ml-4">
         {{ $word_cloud->appends(['filter' => $filter])->onEachSide(1)->links() }}
     </div>
 
