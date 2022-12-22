@@ -78,7 +78,7 @@
                     </tbody>
                 </table>
 
-                <div class='ml-4'>
+                <div class='mobile ml-4'>
                     {{ $songs->onEachSide(1)->links() }}
                 </div>
 
