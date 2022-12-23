@@ -18,9 +18,8 @@
             <div class="form-group row">
                 <!-- first column -->
                 <div class="col">
-
                     <div class="row pb-2">
-                        <div class="col-sm-2">
+                        <div class="col-sm-2 pb-3">
                             <label for="founded" class="control-label">@if (!empty($artist->is_group) && ($artist->is_group)) Founded @else Active From @endif</label>
                             <input type="text" name="founded" id="founded" class="form-control" value=@if (old('founded')) {{ old('founded') }} @elseif (!empty($artist->founded)) {{ $artist->founded }} @endif>
                         </div>
@@ -29,19 +28,13 @@
                             <input type="text" name="disbanded" id="disbanded" class="form-control" value=@if (old('disbanded')) {{ old('disbanded') }} @elseif (!empty($artist->disbanded)) {{ $artist->disbanded }} @endif>
                         </div>
                     </div>
-
                 </div>
 
                 <!-- second column -->
-                <div class="col pt-4 pl-5">
-                    <div class="row pl-5">
-                        <div class="col">
-                            @if (isset($artist->photo))
-                                <img src="{{ $artist->photo }}" class="img-thumbnail img-fluid artist-photo" alt="artist photo">
-                            @endif
-                        </div>
-                    </div>
-
+                <div class="col pt-4 pl-3">
+                    @if (isset($artist->photo))
+                        <img src="{{ $artist->photo }}" class="img-thumbnail img-fluid artist-photo" alt="artist photo">
+                    @endif
                 </div>
             </div>
 

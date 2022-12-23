@@ -23,79 +23,73 @@
             @endif
 
             <div class="row">
-                <div class="col w-50">
-
-                    <label for="title" class="control-label">Title</label>
-                    <div class="pb-1">
-                        <input type="text" name="title" id="song-title" class="form-control" @if ( ! empty($song->title)) value="{{ $song->title }}" @endif>
-                    </div>
-
-                    <label for="album" class="control-label">Album</label>
-                    <div class="pb-1">
-                        <input type="text" name="album" id="song-album" class="form-control" @if ( ! empty($song->album)) value="{{ $song->album }}" @endif>
-                    </div>
-
+                <div class="col">
                     <label for="artist" class="control-label">Artist</label>
                     <div class="pb-1">
                         <select class="artists form-control" multiple="multiple" name="artists[]" id="artists"></select>
                     </div>
-                    <label for="year" class="control-label">Year</label>
-                    <div class="pb-4">
-                        <input type="text" name="year" id="song-year" class="form-control" @if ( ! empty($song->year)) value="{{ $song->year }}" @endif>
-                    </div>
+                </div>
+            </div>
 
+            <div class="form-group row">
+                <!-- first column -->
+                <div class="col">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label for="genre" class="control-label">Genre</label>
+                            <div class="pb-1">
+                                <input type="text" name="genre" id="song-genre" class="form-control" @if ( ! empty($song->genre)) value="{{ $song->genre }}" @endif>
+                            </div>
+                        </div>
+
+                       <div class="col-sm-2">
+                            <label for="playtime" class="control-label">Year</label>
+                            <div class="pb-1">
+                                <input type="text" name="playtime" id="song-year" class="form-control" @if ( ! empty($song->year)) value="{{ $song->year }}" @endif>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <label for="playtime" class="control-label">Rank</label>
+                            <div class="pb-1">
+                                 <select class="form-control" name="rank">
+                                    <option value=""></option>
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <option value="{{ $i }}" @if ( ! empty($song->rank) && ($song->rank == $i)) selected @endif>{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                        </div>
+                     </div>
                 </div>
 
-                <div class="col-md-7 w-50 pt-5">
-                    @if ($cover_art)
-                        <img class="pt-4 ml-5" src="{{ $cover_art }}" class="css-class" alt="alt text" style="width:60%">
+                <!-- second column -->
+                <div class="col pt-5 pl-3">
+                    @if (isset($cover_art))
+                        <img src="{{ $cover_art }}" class="css-class" alt="" style="width:90%">
                     @endif
                 </div>
-
             </div>
 
             <div class="row">
-
                 <div class="col">
-                    <label for="genre" class="control-label">Genre</label>
+                    <label for="album" class="control-label">Album</label>
                     <div class="pb-1">
-                        <input type="text" name="genre" id="song-genre" class="form-control" @if ( ! empty($song->genre)) value="{{ $song->genre }}" @endif>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <label for="playtime" class="control-label">Playtime</label>
-                    <div class="pb-1">
-                        <input type="text" name="playtime" id="song-playtime" class="form-control" @if ( ! empty($song->playtime)) value="{{ $song->playtime }}" @endif>
+                        <input type="text" name="album" id="song-album" class="form-control" @if ( ! empty($song->album)) value="{{ $song->album }}" @endif>
                     </div>
                 </div>
             </div>
 
             <div class="row">
-
                 <div class="col">
                     <label for="notes" class="control-label">Composer</label>
                     <div class="pb-2">
                         <textarea name="notes" id="composer" class="form-control" rows="1">@if (!empty($song->composer)){{ $song->composer }}@endif</textarea>
                     </div>
                 </div>
-
             </div>
 
             <div class="row">
-
-                <div class="col">
-                    <label for="rank" class="control-label">Rank</label>
-                    <div class="pb-1">
-                         <select class="form-control" name="rank">
-                            <option value=""></option>
-                            @for ($i = 1; $i <= 5; $i++)
-                                <option value="{{ $i }}" @if ( ! empty($song->rank) && ($song->rank == $i)) selected @endif>{{ $i }}</option>
-                            @endfor
-                        </select>
-                    </div>
-                </div>
-
                 <div class="col">
                     <label for="last_played" class="control-label">Last Played</label>
                     <div class="pb-1">
@@ -109,7 +103,6 @@
                         <input type="checkbox" name="do_not_play" id="do_not_play" @if (!empty($song->do_not_play) && ($song->do_not_play)) checked @endif>
                     </div>
                 </div>
-
             </div>
 
             <div class="row pt-2">
