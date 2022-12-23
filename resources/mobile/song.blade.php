@@ -27,6 +27,7 @@
                     <label for="artist" class="control-label">Artist</label>
                     <div class="pb-1">
                         <select class="artists form-control" multiple="multiple" name="artists[]" id="artists"></select>
+
                     </div>
                 </div>
             </div>
@@ -43,14 +44,14 @@
                         </div>
 
                        <div class="col-sm-2">
-                            <label for="playtime" class="control-label">Year</label>
+                            <label for="year" class="control-label">Year</label>
                             <div class="pb-1">
-                                <input type="text" name="playtime" id="song-year" class="form-control" @if ( ! empty($song->year)) value="{{ $song->year }}" @endif>
+                                <input type="text" name="year" id="song-year" class="form-control" @if ( ! empty($song->year)) value="{{ $song->year }}" @endif>
                             </div>
                         </div>
 
                         <div class="col-sm-2">
-                            <label for="playtime" class="control-label">Rank</label>
+                            <label for="rank" class="control-label">Rank</label>
                             <div class="pb-1">
                                  <select class="form-control" name="rank">
                                     <option value=""></option>
@@ -82,9 +83,9 @@
 
             <div class="row">
                 <div class="col">
-                    <label for="notes" class="control-label">Composer</label>
+                    <label for="composer" class="control-label">Composer</label>
                     <div class="pb-2">
-                        <textarea name="notes" id="composer" class="form-control" rows="1">@if (!empty($song->composer)){{ $song->composer }}@endif</textarea>
+                        <textarea name="composer" id="composer" class="form-control" rows="1">@if (!empty($song->composer)){{ $song->composer }}@endif</textarea>
                     </div>
                 </div>
             </div>
@@ -98,7 +99,7 @@
                 </div>
 
                 <div class="col">
-                    <label for="file_type" class="control-label">Don't Play</label>
+                    <label for="do_not_play" class="control-label">Don't Play</label>
                     <div class="pb-1">
                         <input type="checkbox" name="do_not_play" id="do_not_play" @if (!empty($song->do_not_play) && ($song->do_not_play)) checked @endif>
                     </div>
@@ -110,6 +111,13 @@
                     @if ( ! empty($song->id))
                         <input type="hidden" name="id" id="song-id" value="{{ $song->id }}">
                         <input type="hidden" name="artist_json" id="artist_json" value="{{ $artists }}">
+                        <input type="hidden" name="title" id="title" value="{{ $song->title }}">
+                        <input type="hidden" name="file_type" id="file_type" value="{{ $song->file_type }}">
+                        <input type="hidden" name="track_no" id="track_no" value="{{ $song->track_no }}">
+                        <input type="hidden" name="location" id="location" value="{{ $song->location }}">
+                        <input type="hidden" name="filesize" id="filesize" value="{{ $song->filesize }}">
+                        <input type="hidden" name="playtime" id="playtime" value="{{ $song->playtime }}">
+                        <input type="hidden" name="notes" id="notes" value="{{ $song->notes }}">
                         <button type="submit" class="btn btn-primary">Update</button>
                         <a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>
                     @else
