@@ -18,28 +18,7 @@
             <div class="form-group row">
                 <!-- first column -->
                 <div class="col">
-                    <div class="row pb-2">
-                        <div class="col">
-                            <label for="artist" class="control-label">Artist</label>
-                            <input type="text" name="artist" id="artist-artist" class="form-control" @if ( ! empty($artist->artist)) value="{{ $artist->artist }}" @endif>
-                        </div>
-                    </div>
-                    <div class="row pb-2">
-                        <div class="col">
-                            <label for="country" class="control-label">Country</label>
-                            <select class="form-control" name="country">
-                                @foreach ($countries as $country)
-                                    <option value="{{ $country }}" @if ( ! empty($artist->country) && ($artist->country == $country)) selected @endif>{{ $country }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row pb-2">
-                        <div class="col">
-                            <label for="location" class="control-label"> @if (!empty($artist->is_group) && ($artist->is_group))Based @else Born @endif</label>
-                            <input name="location" id="location" class="form-control" @if (!empty($artist->location)) value="{{ $artist->location }}"@endif/>
-                        </div>
-                    </div>
+
                     <div class="row pb-2">
                         <div class="col-sm-2">
                             <label for="founded" class="control-label">@if (!empty($artist->is_group) && ($artist->is_group)) Founded @else Active From @endif</label>
@@ -62,22 +41,24 @@
                             @endif
                         </div>
                     </div>
-                    <div class="row pt-5 pl-5">
-                        @if (isset($songs) && count($songs) > 0)
-                            <div class="col">
-                                Songs
-                                <ol id="songs" style="list-style-type:none">
-                                    @foreach ($songs as $id => $song)
-                                        @if ($id == 5)
-                                            <li>...</li>
-                                            @break
-                                        @endif
-                                        <li><a href="{{ url('/song') }}/{{ $song->id }}">{{ $song->title }}</a></li>
-                                    @endforeach
-                                </ol>
-                            </div>
-                        @endif
-                    </div>
+
+                </div>
+            </div>
+
+            <div class="row pb-2">
+                <div class="col">
+                    <label for="country" class="control-label">Country</label>
+                    <select class="form-control" name="country">
+                        @foreach ($countries as $country)
+                            <option value="{{ $country }}" @if ( ! empty($artist->country) && ($artist->country == $country)) selected @endif>{{ $country }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="row pb-2">
+                <div class="col">
+                    <label for="location" class="control-label"> @if (!empty($artist->is_group) && ($artist->is_group))Based @else Born @endif</label>
+                    <input name="location" id="location" class="form-control" @if (!empty($artist->location)) value="{{ $artist->location }}"@endif/>
                 </div>
             </div>
 
@@ -89,6 +70,22 @@
                     </div>
                 </div>
             @endif
+            <div class="row pb-2">
+                @if (isset($songs) && count($songs) > 0)
+                    <div class="col">
+                        Songs
+                        <ol id="songs" style="list-style-type:none">
+                            @foreach ($songs as $id => $song)
+                                @if ($id == 5)
+                                    <li>...</li>
+                                    @break
+                                @endif
+                                <li><a href="{{ url('/song') }}/{{ $song->id }}">{{ $song->title }}</a></li>
+                            @endforeach
+                        </ol>
+                    </div>
+                @endif
+            </div>
             @if (isset($albums))
                 <div class="row pb-2">
                     <div class="col">
@@ -101,18 +98,6 @@
                     </div>
                 </div>
             @endif
-            <div class="row pb-2">
-                <div class="col">
-                    <label for="notes" class="control-label">Notes</label>
-                    <textarea name="notes" id="artist-notes" class="form-control">@if (!empty($artist->notes)){{ $artist->notes }}@endif</textarea>
-                </div>
-            </div>
-            <div class="row pb-2">
-                <div class="col">
-                    <label for="photo" class="control-label">Photo</label>
-                    <input type="file" name="photo" id="photo" class="form-control">
-                </div>
-            </div>
             <div class="row pt-2">
                 @if (!empty($artist->id))
                     <div class="col-sm-offset-3 col-sm-6">
