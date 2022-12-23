@@ -64,66 +64,19 @@
                 </div>
 
                 <div class="col">
-                    <label for="track_no" class="control-label">Track No</label>
-                    <div class="pb-1">
-                        <input type="text" name="track_no" id="song-track_no" class="form-control" @if ( ! empty($song->track_no)) value="{{ $song->track_no }}" @endif>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <label for="file_type" class="control-label">File Type</label>
-                    <div class="pb-1">
-                         <select class="form-control" name="file_type">
-                            @foreach ($file_types as $file_type)
-                                <option value="{{ $file_type }}" @if ( ! empty($song->file_type) && ($song->file_type == $file_type)) selected @endif>{{ $file_type }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row">
-
-                <div class="col">
                     <label for="playtime" class="control-label">Playtime</label>
                     <div class="pb-1">
                         <input type="text" name="playtime" id="song-playtime" class="form-control" @if ( ! empty($song->playtime)) value="{{ $song->playtime }}" @endif>
                     </div>
                 </div>
-                <div class="col">
-                    <label for="filesize" class="control-label">Filesize</label>
-                    <div class="pb-1">
-                        <input type="text" name="filesize" id="song-filesize" class="form-control" @if ( ! empty($song->filesize)) value="{{ $song->filesize }}" @endif>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <label for="composer" class="control-label">Composer</label>
-                    <div class="pb-1">
-                        <input type="text" name="composer" id="song-composer" class="form-control" @if ( ! empty($song->composer)) value="{{ $song->composer }}" @endif>
-                    </div>
-                </div>
-
             </div>
 
             <div class="row">
 
                 <div class="col">
-                    <label for="location" class="control-label">Location</label>
-                    <div class="pb-1">
-                        <input type="text" name="location" id="song-location" class="form-control" @if ( ! empty($song->location)) value="{{ $song->location }}" @endif>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row">
-
-                <div class="col">
-                    <label for="notes" class="control-label">Notes</label>
+                    <label for="notes" class="control-label">Composer</label>
                     <div class="pb-2">
-                        <textarea name="notes" id="song-notes" class="form-control" rows="1">@if (!empty($song->notes)){{ $song->notes }}@endif</textarea>
+                        <textarea name="notes" id="composer" class="form-control" rows="1">@if (!empty($song->composer)){{ $song->composer }}@endif</textarea>
                     </div>
                 </div>
 
