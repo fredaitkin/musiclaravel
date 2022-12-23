@@ -83,7 +83,7 @@
                 </div>
 
             <form method="GET">
-                <div class="d-flex ml-2 mt-1 w-25">
+                <div class="d-flex ml-2 mt-1 w-50">
                 <input type="text" class="form-control" id="page" name="page" size=10>
                 <input type="submit" class="btn btn-primary" id="go" value="Go">
                 </div>
