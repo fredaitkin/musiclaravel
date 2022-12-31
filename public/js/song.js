@@ -224,7 +224,11 @@ function display_jukebox(title, songs, device_type) {
 
   jukebox_form += '<div>';
   for (i = 0; i < songs.length; i++) {
-      jukebox_form += '<span id="song-' + songs[i].id + '">' + songs[i].title + '</span><br>';
+      var artist = songs[i].artists[0].artist;
+      if (artist == 'Compilations' && songs[i].notes) {
+        artist = songs[i].notes;
+      }
+      jukebox_form += '<span id="song-' + songs[i].id + '">' + songs[i].title + ' - ' + artist + '</span><br>';
   }
   jukebox_form += '</div>';
   jukebox_form += '</div>';
