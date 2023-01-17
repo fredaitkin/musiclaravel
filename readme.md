@@ -21,7 +21,7 @@ I am currently using two different Word databases, both have words the other doe
 The first is Princeton University's WordNet database.  
 To install:  
 Unzip storage/backups/wordnet20-from-prolog-all-3.zip  
-Edit the sql file changing all ITEM=MyISAM to ENGINE=MyISAM  
+Edit the sql file changing all TYPE=MyISAM to ENGINE=MyISAM  
 Load the sql into your mysql database.  
 
 The second is sourced from a Source Forge project - https://sourceforge.net/projects/mysqlenglishdictionary/  
