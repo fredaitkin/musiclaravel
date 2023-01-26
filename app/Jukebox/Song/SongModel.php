@@ -136,4 +136,25 @@ class SongModel extends Model
         return $this->belongsToMany('App\Jukebox\Artist\ArtistModel', 'artist_song', 'song_id', 'artist_id');
     }
 
+    /**
+     * Get artist from notes.
+     *
+     * @return string
+     */
+    public function getNotesArtistAttribute() {
+        $pos = strpos($this['notes'], 'Artist=');
+        $artist = '';
+        if ($pos !== false) {
+            $start = $pos + 7;
+            $length = strlen($this['notes']);
+            for($i = $start; $i < $length; $i++) {
+                if ($this['notes'][$i] == ';') {
+                    break;
+                }
+                $artist .= $this['notes'][$i];
+            }
+        }
+        return $artist;
+    }
+
 }

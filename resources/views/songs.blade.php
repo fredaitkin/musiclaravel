@@ -73,7 +73,7 @@
                                     </td>
                                     <td class="table-text">
                                         <div>
-                                            <a href="/artist/{{ $song->artists[0]->id }}">{{ $song->artists[0]->artist }} @if($song->artists[0]->artist == 'Compilations') - {{ $song->notes}} @endif</a>
+                                            <a href="/artist/{{ $song->artists[0]->id }}">{{ $song->artists[0]->artist }} @if($song->artists[0]->artist == 'Compilations') - {{ $song->notes_artist}} @endif</a>
                                         </div>
                                     </td>
                                     <td class="table-text">
