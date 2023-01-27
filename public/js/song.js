@@ -228,10 +228,15 @@ function display_jukebox(title, songs, device_type) {
       if (songs[i].artists) {
         artist = songs[i].artists[0].artist;
         if (artist == 'Compilations' && songs[i].notes) {
-          artist = ' - ' + songs[i].notes;
+          artist = songs[i].notes;
+          artist = artist.replace('Artist=', '');
+          idx = artist.indexOf(';');
+          if (idx > -1) {
+            artist = artist.substring(0,idx);
+          }
         }
       }
-      jukebox_form += '<span id="song-' + songs[i].id + '">' + songs[i].title + artist + '</span><br>';
+      jukebox_form += '<span id="song-' + songs[i].id + '">' + songs[i].title + ' - ' + artist + '</span><br>';
   }
   jukebox_form += '</div>';
   jukebox_form += '</div>';
