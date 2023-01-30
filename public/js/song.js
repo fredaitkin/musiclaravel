@@ -267,7 +267,8 @@ function display_jukebox(title, songs, device_type) {
       let previous = $(this).find('button.previous').get(0);
 
       audio.addEventListener('ended',function() {
-        previous_id = next_song(audio, next, previous_id);
+        idx += 1;
+        previous_id = next_song(audio, next, previous_id, idx);
       });
 
       previous.addEventListener('click', function() {
