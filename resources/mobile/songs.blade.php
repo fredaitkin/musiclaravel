@@ -10,7 +10,7 @@
         @endif
 
         @if (isset($message))
-            <div class="alert alert-warning ml-3 w-25" role="alert">
+            <div class="alert alert-warning ml-3" role="alert">
                 {{ $message }}
             </div>
         @endif
