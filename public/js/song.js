@@ -259,6 +259,7 @@ function display_jukebox(title, songs, device_type) {
       // Add css styling
       let previous_id = song.id;
       $("#song-" + previous_id).addClass('font-weight-bold');
+      $("span.ui-dialog-title").html(song.title);
       // Play
       let audio = $(this).find('audio').get(0);
       let next = $(this).find('button.next').get(0);
@@ -300,6 +301,7 @@ function display_jukebox(title, songs, device_type) {
           $("#song-" + previous_id).removeClass('font-weight-bold');
           previous_id = song.id;
           $("#song-" + previous_id).addClass('font-weight-bold');
+          $("span.ui-dialog-title").html(song.title);
           audio.pause();
           audio.load();
           play(audio, next);
