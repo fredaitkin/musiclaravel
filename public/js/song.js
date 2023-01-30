@@ -220,7 +220,7 @@ function display_jukebox(title, songs, device_type) {
   jukebox_form += '<figure>';
   jukebox_form += '<audio controls src="' + song_url + songs[0].id + '">Your browser does not support the<code>audio</code> element.</audio>';
   jukebox_form += '</figure>';
-  jukebox_form += '<button class="next">Next</button>';
+  jukebox_form += '<button class="previous">Previous</button><button class="next">Next</button>';
 
   jukebox_form += '<div>';
   for (i = 0; i < songs.length; i++) {
@@ -254,8 +254,9 @@ function display_jukebox(title, songs, device_type) {
 
       $('div.ui-dialog').addClass('ui-dialog-jukebox');
 
-      // Remove song that is already set
-      song = songs.shift();
+      var idx = 0;
+      song = songs[0];
+
       // Add css styling
       let previous_id = song.id;
       $("#song-" + previous_id).addClass('font-weight-bold');
@@ -263,13 +264,20 @@ function display_jukebox(title, songs, device_type) {
       // Play
       let audio = $(this).find('audio').get(0);
       let next = $(this).find('button.next').get(0);
+      let previous = $(this).find('button.previous').get(0);
 
       audio.addEventListener('ended',function() {
         previous_id = next_song(audio, next, previous_id);
       });
 
+      previous.addEventListener('click', function() {
+        idx -= 1;
+        previous_id = next_song(audio, next, previous_id, idx);
+      });
+
       next.addEventListener('click', function() {
-        previous_id = next_song(audio, next, previous_id);
+        idx += 1;
+        previous_id = next_song(audio, next, previous_id, idx);
       });
 
       if (songs.length == 0) {
@@ -279,6 +287,11 @@ function display_jukebox(title, songs, device_type) {
       play(audio, next);
 
       function play(audio, next) {
+        if (idx == 0) {
+          $('button.previous').hide();
+        } else {
+          $('button.previous').show();
+        }
         var playPromise = audio.play();
         // In browsers that don’t yet support this functionality,
         // playPromise won’t be defined.
@@ -292,9 +305,9 @@ function display_jukebox(title, songs, device_type) {
         }
       }
 
-      function next_song(audio, next, previous_id) {
+      function next_song(audio, next, previous_id, idx) {
         // Get next song
-        song = songs.shift();
+        song = songs[idx];
         if (song !== undefined) {
           audio.src = song_url + song.id;
           $("#current-song").text(song.title);
