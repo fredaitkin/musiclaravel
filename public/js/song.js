@@ -266,48 +266,48 @@ function display_jukebox(title, songs, device_type) {
       let next = $(this).find('button.next').get(0);
       let previous = $(this).find('button.previous').get(0);
 
-      audio.addEventListener('ended',function() {
+      audio.addEventListener('ended',function(e) {
         idx += 1;
-        previous_id = next_song(audio, next, previous_id, idx);
+        previous_id = next_song(e, audio, previous_id, idx);
       });
 
-      previous.addEventListener('click', function() {
+      previous.addEventListener('click', function(e) {
         idx -= 1;
-        previous_id = next_song(audio, next, previous_id, idx);
+        previous_id = next_song(e, audio, previous_id, idx);
       });
 
-      next.addEventListener('click', function() {
+      next.addEventListener('click', function(e) {
         idx += 1;
-        previous_id = next_song(audio, next, previous_id, idx);
+        previous_id = next_song(e, audio, previous_id, idx);
       });
 
       if (songs.length == 0) {
         $('button.next').hide();
       }
 
-      play(audio, next);
+      play(null, audio);
 
-      function play(audio, next) {
+      function play(event, audio) {
+
         if (idx == 0) {
           $('button.previous').hide();
         } else {
           $('button.previous').show();
         }
         var playPromise = audio.play();
-        // In browsers that don’t yet support this functionality,
-        // playPromise won’t be defined.
-        if (playPromise !== undefined) {
           playPromise.then(function() {
             // Automatic playback started!
           }).catch(function(error) {
-            // Automatic playback failed, try next song.
-            next.click();
+            if (event.target.className == 'previous btn-jukebox') {
+              $('button.previous').click();
+            } else {
+             $('button.next').click();
+            }
           });
-        }
       }
 
-      function next_song(audio, next, previous_id, idx) {
-        next.disabled = false;
+      function next_song(event, audio, previous_id, idx) {
+        $('button.next').disabled = false;
         song = songs[idx];
         if (song !== undefined) {
           audio.src = song_url + song.id;
@@ -318,10 +318,10 @@ function display_jukebox(title, songs, device_type) {
           $("span.ui-dialog-title").html(song.title);
           audio.pause();
           audio.load();
-          play(audio, next);
+          play(event, audio);
           return previous_id;
         } else {
-          next.disabled = true;
+           $('button.next').disabled = true;
         }
       }
 
