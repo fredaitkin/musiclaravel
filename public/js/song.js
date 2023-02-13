@@ -220,7 +220,7 @@ function display_jukebox(title, songs, device_type) {
   jukebox_form += '<figure>';
   jukebox_form += '<audio controls src="' + song_url + songs[0].id + '">Your browser does not support the<code>audio</code> element.</audio>';
   jukebox_form += '</figure>';
-  jukebox_form += '<button class="previous">Previous</button><button class="next">Next</button>';
+  jukebox_form += '<button class="previous btn-jukebox">Previous</button><button class="next btn-jukebox">Next</button>';
 
   jukebox_form += '<div>';
   for (i = 0; i < songs.length; i++) {
