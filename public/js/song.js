@@ -307,7 +307,7 @@ function display_jukebox(title, songs, device_type) {
       }
 
       function next_song(audio, next, previous_id, idx) {
-        // Get next song
+        next.disabled = false;
         song = songs[idx];
         if (song !== undefined) {
           audio.src = song_url + song.id;
