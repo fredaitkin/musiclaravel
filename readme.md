@@ -24,7 +24,7 @@ Load the sql into your mysql database.
 mysql -u *user* -p*userpassword* jukebox < storage/backups/wordnet20-from-prolog-all-3.sql
 
 The second is sourced from a Source Forge project - https://sourceforge.net/projects/mysqlenglishdictionary/  
-Load the sql and create the database with storage/backups/englishdictionary.sql
+Load the sql and create the database with storage/backups/englishdictionary.sql  
 mysql -u *user* -p*userpassword* jukebox < storage/backups/englishdictionary.sql
 
 Run database migrate scripts - php artisan migrate
