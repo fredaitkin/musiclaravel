@@ -10,7 +10,7 @@ Then clone this repository, cd into the root directory, and run composer install
 
 Create a mysql database.
 
-Copy env.example to .env
+Copy env.example to .env  
 Run php artisan key:generate to populate the APP_KEY in the .env file.  
 Set DB credentials and other credentials in the .env file.
 
