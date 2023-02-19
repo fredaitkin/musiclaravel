@@ -95,6 +95,9 @@
                 @if (!empty($artist->id))
                     <div class="col-sm-offset-3 col-sm-6">
                         <input type="hidden" name="id" id="artist-id" value="{{ $artist->id }}">
+                        <input type="hidden" name="artist" id="artist" value="{{ $artist->artist }}">
+                        <input type="hidden" name="is_group" id="is_group" value="{{ $artist->is_group }}">
+                        <input type="hidden" name="notes" id="notes" value="{{ $artist->notes }}">
                         <button type="submit" class="btn btn-primary">Update</button>
                         <a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>
                     </div>

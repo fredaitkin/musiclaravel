@@ -12,7 +12,8 @@ $(document).ready(function() {
             return;
           }
           response.json().then(function(data) {
-            display_jukebox($(this).attr('playlist'), Object.values(JSON.parse(data[0].playlist)));
+            var songs = shuffle(Object.values(JSON.parse(data[0].playlist)));
+            display_jukebox($(this).attr('playlist'), songs);
           });
         }
       )

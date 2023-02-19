@@ -98,7 +98,6 @@ class SongResourceController extends Controller
     {
         $song = $this->song->get($id);
         $location = config('filesystems.media_directory') . $song->location;
-        // TODO what to do with wma files
         if (Storage::disk(config('filesystems.partition'))->has($location)):
             $song->last_played = date("Y-m-d");
             $song->played += 1;
@@ -113,6 +112,7 @@ class SongResourceController extends Controller
             endif;
             return $response;
         endif;
+        return false;
     }
 
 }

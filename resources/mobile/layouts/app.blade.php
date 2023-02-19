@@ -32,7 +32,7 @@
         <nav class="navbar navbar-expand-sm navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand {{ Request::is('songs') && Request::input('genres') != 'true' ? 'active' : '' }}" href="{{ url('/songs') }}">
-                    {{ __('Songs') }}   {{ Request::segment(2) }} 
+                    {{ __('Songs') }}
                 </a>
                 <a class="navbar-brand {{ Request::is('artists') ? 'active' : '' }}" href="{{ url('/artists') }}">
                      {{ __('Artists') }}
