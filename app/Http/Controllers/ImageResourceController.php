@@ -49,7 +49,7 @@ class ImageResourceController extends Controller
      */
     public function coverArt($id)
     {
-        if (! Cache::store('redis')->has('song_photo_' . $id)) :
+        if (! Cache::has('song_photo_' . $id)) :
             $song = $this->song->get($id);
             $location = explode('/', $song->location);
             // Handle MAC and Win directory structures.
@@ -63,13 +63,13 @@ class ImageResourceController extends Controller
                 foreach ($files as $file):
                     if (strpos($file, 'Large.jpg')) :
                         $path = config('filesystems.disks')[config('filesystems.partition')]['root'] . $file;
-                        Cache::store('redis')->put('song_photo_' . $id, $path, 86400);
+                        Cache::put('song_photo_' . $id, $path, 86400);
                         break;
                     endif;
                 endforeach;
             endif;
         else:
-            $path = Cache::store('redis')->get('song_photo_' . $id);
+            $path = Cache::get('song_photo_' . $id);
         endif;
 
         if (! $path) :

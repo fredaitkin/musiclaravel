@@ -31,7 +31,8 @@ class PerformDataFix extends Command
                             {--missing-songs : Report on missing songs}
                             {--mss : Mismatched song details by storage}
                             {--resave-artists : Copy artist ids to pivot table}
-                            {--fix-categories : Move category to pivot table}';
+                            {--fix-categories : Move category to pivot table}
+                            {--fix-images : Remove bad api images}';
 
     /**
      * The console command description.
@@ -108,6 +109,10 @@ class PerformDataFix extends Command
 
         if ($this->options['fix-categories']):
             $this->info('This function is obsolete');
+        endif;
+
+        if ($this->options['fix-images']):
+            $this->fixImages();
         endif;
     }
 
@@ -276,5 +281,28 @@ class PerformDataFix extends Command
                 $message->from(config('mail.admin_email'), 'MyMusic');
             }
         );
+    }
+
+    /**
+     * Fix images
+     *
+     * @return void
+     */
+    protected function fixImages()
+    {
+        $songs = $this->song->allByConstraints();
+        foreach ($songs as $song):
+            if (!empty($song->cover_art)):
+                $cover_art = unserialize($song->cover_art);
+                if (!empty($cover_art['api'])):
+                    $image = @file_get_contents($cover_art['api']);
+                    if (!$image):
+                        $this->info('File does not exist ' . $song->id);
+                        $song->cover_art = serialize(['api' => '']);
+                        $song->save();
+                    endif;
+                endif;
+            endif;
+        endforeach;
     }
 }
