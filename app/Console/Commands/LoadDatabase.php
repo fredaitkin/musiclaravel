@@ -9,6 +9,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jukebox\Song\SongInterface as Song;
 use Exception;
 use Illuminate\Console\Command;
 use Log;
@@ -35,10 +36,11 @@ class LoadDatabase extends Command
     /**
      * Create a new command instance.
      *
-     * @return void
+     * @param App\Jukebox\Song\SongInterface $song Song interface
      */
-    public function __construct()
+    public function __construct(Song $song)
     {
+        $this->song = $song;
         parent::__construct();
     }
 
@@ -50,6 +52,10 @@ class LoadDatabase extends Command
     public function handle()
     {
         try {
+
+            // Retain song stats for the device.
+            $stats = $this->song->allByConstraints([], ['id', 'played', 'last_played']);
+
             $command = sprintf(
                 'mysql -u%s -p%s --port=%s %s < %s',
                 config('database.connections.mysql.username'),
@@ -61,10 +67,29 @@ class LoadDatabase extends Command
 
             exec($command);
 
+            $this->updateSongStats($stats);
+
             $this->info('The database load has been processed successfully.');
         } catch (Exception $exception) {
             Log::info($exception);
             $this->error('The database load process has been failed.');
         }
+    }
+
+    /**
+     * Update song stats
+     *
+     * @return void
+     */
+    protected function updateSongStats($stats)
+    {
+        foreach ($stats as $stat):
+            if ($stat->played):
+                $song = $this->song->get($stat->id);
+                $song->played = $stat->played;
+                $song->last_played = $stat->last_played;
+                $song->save();
+            endif;
+        endforeach;
     }
 }

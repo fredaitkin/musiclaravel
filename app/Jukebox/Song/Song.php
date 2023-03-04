@@ -4,6 +4,8 @@ namespace App\Jukebox\Song;
 
 use Illuminate\Http\Request;
 
+use DB;
+
 class Song implements SongInterface
 {
 
@@ -38,9 +40,13 @@ class Song implements SongInterface
      *
      * @return array
      */
-    public function allByConstraints(array $constraints = [])
+    public function allByConstraints(array $constraints = [], $fields = [])
     {
-        $query = SongModel::select('songs.*')->with('artists:artist');
+        if ($fields):
+            $query = SongModel::select(DB::raw(implode(",", $fields)))->with('artists:artist');
+        else:
+            $query = SongModel::select('songs.*')->with('artists:artist');
+        endif;
 
         // Get songs for an album
         if (isset($constraints['id']) && isset($constraints['album']) && $constraints['album'] == 'true'):
