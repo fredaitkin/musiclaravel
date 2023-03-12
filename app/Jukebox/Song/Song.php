@@ -109,6 +109,10 @@ class Song implements SongInterface
             $query->whereNull('composer');
         endif;
 
+        if(isset($constraints['do_not_play'])):
+            $query->whereNull('do_not_play');
+        endif;
+
         return $query->get();
     }
 

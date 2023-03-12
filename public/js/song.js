@@ -164,7 +164,7 @@ $(document).ready(function() {
   });
 
   $("#shuffle").click(function() {
-    var url = APP_URL + '/songs?all';
+    var url = APP_URL + '/songs?all&do_not_play=true';
 
     fetch(url)
       .then(
