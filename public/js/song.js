@@ -226,17 +226,18 @@ function display_jukebox(title, songs, device_type) {
   for (i = 0; i < songs.length; i++) {
     var artist = '';
       if (songs[i].artists) {
-        artist = ' - ' + songs[i].artists[0].artist;
+        artist = songs[i].artists[0].artist;
         if (artist == 'Compilations' && songs[i].notes) {
           if (songs[i].notes.indexOf('Artist=') > -1) {
             artist = songs[i].notes;
             artist = artist.replace('Artist=', '');
             idx = artist.indexOf(';');
             if (idx > -1) {
-              artist = ' - ' + artist.substring(0,idx);
+              artist = artist.substring(0,idx);
             }
           }
         }
+        artist = ' - ' + artist;
       }
       jukebox_form += '<span id="song-' + songs[i].id + '">' + songs[i].title + artist + '</span><br>';
   }
