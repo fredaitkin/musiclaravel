@@ -222,7 +222,7 @@ function display_jukebox(title, songs, device_type) {
   jukebox_form += '</figure>';
   jukebox_form += '<button class="previous btn-jukebox">Previous</button><button class="next btn-jukebox">Next</button>';
 
-  jukebox_form += '<div>';
+  jukebox_form += '<div id=div-jukebox>';
   for (i = 0; i < songs.length; i++) {
     var artist = '';
       if (songs[i].artists) {
@@ -325,6 +325,10 @@ function display_jukebox(title, songs, device_type) {
            $('button.next').disabled = true;
         }
       }
+
+      $("#div-jukebox").click(function() {
+        $('button.next').click();
+      });
 
     }
 
