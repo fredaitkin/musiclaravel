@@ -10,7 +10,7 @@
     "require": {
         "php": "^7.2.5",
         "fideloper/proxy": "^4.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.4",
         "intervention/image": "^2.5",
         "james-heinrich/getid3": "^1.9",
         "jenssegers/agent": "^2.6",
