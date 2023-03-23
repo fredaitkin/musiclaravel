@@ -12,7 +12,10 @@ namespace App\Http\Controllers;
 use App\Jukebox\Song\SongInterface as Song;
 use App\Jukebox\Dictionary\WordCloudInterface as WordCloud;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Storage;
+use League\OAuth2\Client\Grant\RefreshToken;
+use Audeio\Spotify\Oauth2\Client\Provider\Spotify;
 
 /**
  * SongRestController handles song REST requests.
@@ -48,6 +51,21 @@ class SongRestController extends Controller
         $this->wordCloud = $wordCloud;
     }
 
+public function thing() {
+
+          $oauthProvider = new Spotify(array(
+            'clientId' => getenv('SPOTIFY_CLIENT_ID'),
+            'clientSecret' => getenv('SPOTIFY_CLIENT_SECRET'),
+            'redirectUri' => 'http://localhost:8000'
+        ));
+
+  self::$accessToken = $oauthProvider->getAccessToken();
+
+        // self::$accessToken = $oauthProvider->getAccessToken(new RefreshToken(), array(
+            // 'refresh_token' => getenv('SPOTIFY_REFRESH_TOKEN')
+        // ))->accessToken;
+
+}
     /**
      * Display songs
      *
@@ -56,7 +74,26 @@ class SongRestController extends Controller
      * @return mixed
      */
     public function index(Request $request)
-    {
+    {echo "GDAY";
+    $this->thing();
+      // public const API_URL = 'https://api.spotify.com';
+
+// $response = Http::withHeaders([
+    // 'Authorization' => 'Basic ' . base64_encode($client_id . ':' . $client_secret),
+// ])->post('https://accounts.spotify.com/api/token', [
+    // 'name' => 'Taylor',
+// ]);
+/*
+$response = Http::withBasicAuth($client_id, $client_secret)
+->accept('application/json')
+->post('https://accounts.spotify.com/api/token', [
+    'form' => [
+        'grant-type' => 'client_credentials',
+    ]
+]);
+var_dump($response->status());
+var_dump($response->body());
+*/
         $songs = $this->song->all($request);
         if (empty($request->all()) || ($request->has('page') && !isset($request->genres))):
             return view('songs', ['songs' => $songs]);
