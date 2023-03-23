@@ -160,11 +160,11 @@ $(document).ready(function() {
 
   $("button[name='reset']").click(function() {
     $(this).parent().parent().find('input').val('');
-    window.location.href = APP_URL + '/songs';
+    $(this).parent().parent().find('input').focus();
   });
 
   $("#shuffle").click(function() {
-    var url = APP_URL + '/songs?all';
+    var url = APP_URL + '/songs?all&do_not_play=true';
 
     fetch(url)
       .then(
@@ -220,11 +220,26 @@ function display_jukebox(title, songs, device_type) {
   jukebox_form += '<figure>';
   jukebox_form += '<audio controls src="' + song_url + songs[0].id + '">Your browser does not support the<code>audio</code> element.</audio>';
   jukebox_form += '</figure>';
-  jukebox_form += '<button class="next">Next</button>';
+  jukebox_form += '<button class="previous btn-jukebox">Previous</button><button class="next btn-jukebox">Next</button>';
 
-  jukebox_form += '<div>';
+  jukebox_form += '<div id=div-jukebox>';
   for (i = 0; i < songs.length; i++) {
-      jukebox_form += '<span id="song-' + songs[i].id + '">' + songs[i].title + '</span><br>';
+    var artist = '';
+      if (songs[i].artists) {
+        artist = songs[i].artists[0].artist;
+        if (artist == 'Compilations' && songs[i].notes) {
+          if (songs[i].notes.indexOf('Artist=') > -1) {
+            artist = songs[i].notes;
+            artist = artist.replace('Artist=', '');
+            idx = artist.indexOf(';');
+            if (idx > -1) {
+              artist = artist.substring(0,idx);
+            }
+          }
+        }
+        artist = ' - ' + artist;
+      }
+      jukebox_form += '<span id="song-' + songs[i].id + '">' + songs[i].title + artist + '</span><br>';
   }
   jukebox_form += '</div>';
   jukebox_form += '</div>';
@@ -240,60 +255,80 @@ function display_jukebox(title, songs, device_type) {
 
       $('div.ui-dialog').addClass('ui-dialog-jukebox');
 
-      // Remove song that is already set
-      song = songs.shift();
+      var idx = 0;
+      song = songs[0];
+
       // Add css styling
       let previous_id = song.id;
       $("#song-" + previous_id).addClass('font-weight-bold');
+      $("span.ui-dialog-title").html(song.title);
       // Play
       let audio = $(this).find('audio').get(0);
       let next = $(this).find('button.next').get(0);
+      let previous = $(this).find('button.previous').get(0);
 
-      audio.addEventListener('ended',function() {
-        previous_id = next_song(audio, next, previous_id);
+      audio.addEventListener('ended',function(e) {
+        idx += 1;
+        previous_id = next_song(e, audio, previous_id, idx);
       });
 
-      next.addEventListener('click', function() {
-        previous_id = next_song(audio, next, previous_id);
+      previous.addEventListener('click', function(e) {
+        idx -= 1;
+        previous_id = next_song(e, audio, previous_id, idx);
+      });
+
+      next.addEventListener('click', function(e) {
+        idx += 1;
+        previous_id = next_song(e, audio, previous_id, idx);
       });
 
       if (songs.length == 0) {
         $('button.next').hide();
       }
 
-      play(audio, next);
+      play(null, audio);
 
-      function play(audio, next) {
+      function play(event, audio) {
+
+        if (idx == 0) {
+          $('button.previous').hide();
+        } else {
+          $('button.previous').show();
+        }
         var playPromise = audio.play();
-        // In browsers that don’t yet support this functionality,
-        // playPromise won’t be defined.
-        if (playPromise !== undefined) {
           playPromise.then(function() {
             // Automatic playback started!
           }).catch(function(error) {
-            // Automatic playback failed, try next song.
-            next.click();
+            if (event.target.className == 'previous btn-jukebox') {
+              $('button.previous').click();
+            } else {
+             $('button.next').click();
+            }
           });
-        }
       }
 
-      function next_song(audio, next, previous_id) {
-        // Get next song
-        song = songs.shift();
+      function next_song(event, audio, previous_id, idx) {
+        $('button.next').disabled = false;
+        song = songs[idx];
         if (song !== undefined) {
           audio.src = song_url + song.id;
           $("#current-song").text(song.title);
           $("#song-" + previous_id).removeClass('font-weight-bold');
           previous_id = song.id;
           $("#song-" + previous_id).addClass('font-weight-bold');
+          $("span.ui-dialog-title").html(song.title);
           audio.pause();
           audio.load();
-          play(audio, next);
+          play(event, audio);
           return previous_id;
         } else {
-          next.disabled = true;
+           $('button.next').disabled = true;
         }
       }
+
+      $("#div-jukebox").click(function() {
+        $('button.next').click();
+      });
 
     }
 

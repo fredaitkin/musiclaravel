@@ -10,7 +10,7 @@
         @endif
 
         @if (isset($message))
-            <div class="alert alert-warning ml-3 w-25" role="alert">
+            <div class="alert alert-warning ml-3" role="alert">
                 {{ $message }}
             </div>
         @endif
@@ -21,7 +21,7 @@
             <form action="/songs/search" method="POST" role="search">
                 {{ csrf_field() }}
                 <div class="input-group col-sm-6 pb-2">
-                    <input type="text" class="form-control" name="q" placeholder="Search songs"  @if (!empty($q)) value="{{ $q }}" @endif>
+                    <input type="text" class="form-control" name="q" placeholder="Search"  @if (!empty($q)) value="{{ $q }}" @endif>
                     <span class="input-group-btn pl-1">
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-search"></i>
@@ -42,8 +42,7 @@
         </div>
 
         @if (isset($songs) && $songs->count() > 0)
-            <div class="panel-body">
-                <table class="table table-striped mysounds-table">
+                <table class="table table-striped mysounds-table mobile-table">
 
                     <thead>
                         <th>Title</th>
@@ -55,14 +54,14 @@
 
                     <tbody>
                         @foreach ($songs as $song)
-                            <tr class="mysounds-tr">
+                            <tr class="mobile-mysounds-tr">
                                 <td>
                                     {{ csrf_field() }}
                                     <a href="/song/{{ $song->id }}">{{ $song->title }}</a>
                                 </td>
                                 <td class="table-text">
                                     <div>
-                                        <a href="/artist/{{ $song->artists[0]->id }}">{{ $song->artists[0]->artist }} @if($song->artists[0]->artist == 'Compilations') - {{ $song->notes}} @endif</a>
+                                        <a href="/artist/{{ $song->artists[0]->id }}">{{ $song->artists[0]->artist }} @if($song->notes_artist) - {{ $song->notes_artist}} @endif</a>
                                     </div>
                                 </td>
                                 <td>
@@ -78,11 +77,17 @@
                         @endforeach
                     </tbody>
                 </table>
-            </div>
-    
-            <div class='ml-4'>
-                {{ $songs->onEachSide(0)->links() }}
-            </div>
+
+                <div class='mobile ml-2'>
+                    {{ $songs->onEachSide(1)->links() }}
+                </div>
+
+            <form method="GET">
+                <div class="d-flex ml-2 mt-1 w-50">
+                <input type="text" class="form-control" id="page" name="page" size=10>
+                <input type="submit" class="btn btn-primary" id="go" value="Go">
+                </div>
+            </form>
         @endif
 
 @endsection

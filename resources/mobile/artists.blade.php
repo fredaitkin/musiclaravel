@@ -9,7 +9,7 @@
     @endif
 
     @if (isset($message))
-        <div class="alert alert-warning ml-3 w-25" role="alert">
+        <div class="alert alert-warning ml-3" role="alert">
             {{ $message }}
         </div>
     @endif
@@ -30,7 +30,7 @@
 
     @if ($artists->count() > 0)
 
-        <table class="table table-striped mysounds-table">
+        <table class="table table-striped mysounds-table mobile-table">
 
             <thead>
                 <th>Artist</th>
@@ -39,21 +39,21 @@
 
             <tbody>
                 @foreach ($artists as $artist)
-                    <tr class="mysounds-tr">
+                    <tr class="mobile-mysounds-tr">
                         <td>
                             {{ csrf_field() }}
                             <a href="/artist/{{ $artist->id }}">{{ $artist->artist }}</a>
                         </td>
                         <td>
-                           <input type="button" class="btn btn-link btn-mysounds" name="play_songs" id="play-songs-{{ $artist->id }}" value="play songs">
+                           <input type="button" class="btn btn-link btn-mysounds btn-mobile" name="play_songs" id="play-songs-{{ $artist->id }}" value="play songs">
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
 
-        <div class='ml-4'>
-            {{ $artists->onEachSide(0)->links() }} 
+        <div class='mobile ml-2'>
+            {{ $artists->onEachSide(1)->links() }} 
         </div>
     @endif
 

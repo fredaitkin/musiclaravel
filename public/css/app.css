@@ -14620,6 +14620,11 @@ a.active {
   color: peru !important;
 }
 
+.btn {
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
 .btn-link {
   color: peru;
 }
@@ -14627,6 +14632,10 @@ a.active {
 .btn-primary {
   background-color: peru;
   border-color: peru;
+}
+
+.btn-mobile {
+  font-size: 10px !important;
 }
 
 .mysounds-table {
@@ -14649,6 +14658,14 @@ a.active {
 
 .mysounds-tr {
   font-size: 12px;
+}
+
+.mobile-table {
+  font-size: 10px;
+}
+
+.mobile-mysounds-tr {
+  font-size: 10px;
 }
 
 .btn-mysounds {
@@ -14702,7 +14719,7 @@ a.active {
   background-color: peru;
 }
 
-.next {
+.btn-jukebox {
   background-color: black;
   color: white;
   margin-bottom: 15px;
@@ -14769,4 +14786,12 @@ th.sortable a:hover {
 
 input[type=checkbox] {
   accent-color: peru;
+}
+
+#go {
+  margin-left: 10px;
+}
+
+div.mobile ul.pagination {
+  font-size: 9px;
 }

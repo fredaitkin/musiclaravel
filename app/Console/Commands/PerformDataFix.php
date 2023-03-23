@@ -14,6 +14,7 @@ use App\Jukebox\Dictionary\WordCloudInterface as WordCloud;
 use App\Jukebox\Song\SongInterface as Song;
 use DB;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Http;
 use Mail;
 use Storage;
 
@@ -31,7 +32,8 @@ class PerformDataFix extends Command
                             {--missing-songs : Report on missing songs}
                             {--mss : Mismatched song details by storage}
                             {--resave-artists : Copy artist ids to pivot table}
-                            {--fix-categories : Move category to pivot table}';
+                            {--fix-categories : Move category to pivot table}
+                            {--fix-images : Remove bad api images}';
 
     /**
      * The console command description.
@@ -108,6 +110,10 @@ class PerformDataFix extends Command
 
         if ($this->options['fix-categories']):
             $this->info('This function is obsolete');
+        endif;
+
+        if ($this->options['fix-images']):
+            $this->fixImages();
         endif;
     }
 
@@ -276,5 +282,36 @@ class PerformDataFix extends Command
                 $message->from(config('mail.admin_email'), 'MyMusic');
             }
         );
+    }
+
+    /**
+     * Fix images
+     *
+     * @return void
+     */
+    protected function fixImages()
+    {
+        $amazon_storage = 'http://ec1.images-amazon.com';
+        $songs = $this->song->allByConstraints();
+        foreach ($songs as $song):
+            if (!empty($song->cover_art)):
+                $cover_art = unserialize($song->cover_art);
+                if (!empty($cover_art['api'])):
+                    if (strpos($cover_art['api'], '/') === 0):
+                        $cover_art['api'] = $amazon_storage . $cover_art['api'];
+                    endif;
+                    if (strpos($cover_art['api'], 'images-eu.amazon.com') !== false):
+                        $cover_art['api'] = str_replace('images-eu.amazon.com', 'ec1.images-amazon.com', $cover_art['api']);
+                    endif;
+                    $response = Http::get($cover_art['api']);
+                    if ($response->status() > 403):
+                        $this->info($song->id . ' ' . $cover_art['api']);
+                        $this->info($response->status());
+                        $song->cover_art = serialize(['api' => '']);
+                        $song->save();
+                    endif;
+                endif;
+            endif;
+        endforeach;
     }
 }

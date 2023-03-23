@@ -19,29 +19,7 @@
                 <!-- first column -->
                 <div class="col">
                     <div class="row pb-2">
-                        <div class="col">
-                            <label for="artist" class="control-label">Artist</label>
-                            <input type="text" name="artist" id="artist-artist" class="form-control" @if ( ! empty($artist->artist)) value="{{ $artist->artist }}" @endif>
-                        </div>
-                    </div>
-                    <div class="row pb-2">
-                        <div class="col">
-                            <label for="country" class="control-label">Country</label>
-                            <select class="form-control" name="country">
-                                @foreach ($countries as $country)
-                                    <option value="{{ $country }}" @if ( ! empty($artist->country) && ($artist->country == $country)) selected @endif>{{ $country }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row pb-2">
-                        <div class="col">
-                            <label for="location" class="control-label"> @if (!empty($artist->is_group) && ($artist->is_group))Based @else Born @endif</label>
-                            <input name="location" id="location" class="form-control" @if (!empty($artist->location)) value="{{ $artist->location }}"@endif/>
-                        </div>
-                    </div>
-                    <div class="row pb-2">
-                        <div class="col-sm-2">
+                        <div class="col-sm-2 pb-3">
                             <label for="founded" class="control-label">@if (!empty($artist->is_group) && ($artist->is_group)) Founded @else Active From @endif</label>
                             <input type="text" name="founded" id="founded" class="form-control" value=@if (old('founded')) {{ old('founded') }} @elseif (!empty($artist->founded)) {{ $artist->founded }} @endif>
                         </div>
@@ -50,34 +28,30 @@
                             <input type="text" name="disbanded" id="disbanded" class="form-control" value=@if (old('disbanded')) {{ old('disbanded') }} @elseif (!empty($artist->disbanded)) {{ $artist->disbanded }} @endif>
                         </div>
                     </div>
-
                 </div>
 
                 <!-- second column -->
-                <div class="col pt-4 pl-5">
-                    <div class="row pl-5">
-                        <div class="col">
-                            @if (isset($artist->photo))
-                                <img src="{{ $artist->photo }}" class="img-thumbnail img-fluid artist-photo" alt="artist photo">
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row pt-5 pl-5">
-                        @if (isset($songs) && count($songs) > 0)
-                            <div class="col">
-                                Songs
-                                <ol id="songs" style="list-style-type:none">
-                                    @foreach ($songs as $id => $song)
-                                        @if ($id == 5)
-                                            <li>...</li>
-                                            @break
-                                        @endif
-                                        <li><a href="{{ url('/song') }}/{{ $song->id }}">{{ $song->title }}</a></li>
-                                    @endforeach
-                                </ol>
-                            </div>
-                        @endif
-                    </div>
+                <div class="col pt-4 pl-3">
+                    @if (isset($artist->photo))
+                        <img src="{{ $artist->photo }}" class="img-thumbnail img-fluid artist-photo" alt="artist photo">
+                    @endif
+                </div>
+            </div>
+
+            <div class="row pb-2">
+                <div class="col">
+                    <label for="country" class="control-label">Country</label>
+                    <select class="form-control" name="country">
+                        @foreach ($countries as $country)
+                            <option value="{{ $country }}" @if ( ! empty($artist->country) && ($artist->country == $country)) selected @endif>{{ $country }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="row pb-2">
+                <div class="col">
+                    <label for="location" class="control-label"> @if (!empty($artist->is_group) && ($artist->is_group))Based @else Born @endif</label>
+                    <input name="location" id="location" class="form-control" @if (!empty($artist->location)) value="{{ $artist->location }}"@endif/>
                 </div>
             </div>
 
@@ -89,6 +63,22 @@
                     </div>
                 </div>
             @endif
+            <div class="row pb-2">
+                @if (isset($songs) && count($songs) > 0)
+                    <div class="col">
+                        Songs
+                        <ol id="songs" style="list-style-type:none">
+                            @foreach ($songs as $id => $song)
+                                @if ($id == 5)
+                                    <li>...</li>
+                                    @break
+                                @endif
+                                <li><a href="{{ url('/song') }}/{{ $song->id }}">{{ $song->title }}</a></li>
+                            @endforeach
+                        </ol>
+                    </div>
+                @endif
+            </div>
             @if (isset($albums))
                 <div class="row pb-2">
                     <div class="col">
@@ -101,22 +91,13 @@
                     </div>
                 </div>
             @endif
-            <div class="row pb-2">
-                <div class="col">
-                    <label for="notes" class="control-label">Notes</label>
-                    <textarea name="notes" id="artist-notes" class="form-control">@if (!empty($artist->notes)){{ $artist->notes }}@endif</textarea>
-                </div>
-            </div>
-            <div class="row pb-2">
-                <div class="col">
-                    <label for="photo" class="control-label">Photo</label>
-                    <input type="file" name="photo" id="photo" class="form-control">
-                </div>
-            </div>
             <div class="row pt-2">
                 @if (!empty($artist->id))
                     <div class="col-sm-offset-3 col-sm-6">
                         <input type="hidden" name="id" id="artist-id" value="{{ $artist->id }}">
+                        <input type="hidden" name="artist" id="artist" value="{{ $artist->artist }}">
+                        <input type="hidden" name="is_group" id="is_group" value="{{ $artist->is_group }}">
+                        <input type="hidden" name="notes" id="notes" value="{{ $artist->notes }}">
                         <button type="submit" class="btn btn-primary">Update</button>
                         <a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>
                     </div>

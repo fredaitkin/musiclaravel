@@ -9,7 +9,7 @@
     @endif
 
     @if (isset($message))
-        <div class="alert alert-warning ml-3 w-25" role="alert">
+        <div class="alert alert-warning ml-3" role="alert">
             {{ $message }}
         </div>
     @endif
@@ -24,7 +24,7 @@
         </div>
     </form>
 
-    <table class="table table-striped mysounds-table">
+    <table class="table table-striped mysounds-table mobile-table">
 
         <thead>
             <th scope='col'>Word</th>
@@ -36,7 +36,7 @@
 
         <tbody>
             @foreach ($word_cloud as $word)
-                <tr class="mysounds-tr">
+                <tr class="mobile-mysounds-tr">
                     <td class="table-text">
                         <div>
                             {{ csrf_field() }}
@@ -51,11 +51,11 @@
                         <div>{{ $word->count }}</div>
                     </td>
                     <td>
-                       <input type="button" class="btn btn-link btn-mysounds" name="songs" id="songs-{{ $word->id }}" value="songs">
+                       <input type="button" class="btn btn-link btn-mysounds btn-mobile" name="songs" id="songs-{{ $word->id }}" value="songs">
                     </td>
                     <td>
                         @if ($word->is_word)
-                            <input type="button" class="btn btn-link btn-mysounds" name="dictionary" id="dictionary-{{ $word->word }}" value="dictionary">
+                            <input type="button" class="btn btn-link btn-mysounds btn-mobile" name="dictionary" id="dictionary-{{ $word->word }}" value="dictionary">
                         @endif
                     </td>
                 </tr>
@@ -63,17 +63,16 @@
         </tbody>
     </table>
 
-    <div class="ml-4">
-        {{ $word_cloud->appends(['filter' => $filter])->onEachSide(0)->links() }}
+    <div class="mobile ml-2">
+        {{ $word_cloud->appends(['filter' => $filter])->onEachSide(1)->links() }}
     </div>
 
-        <form method="GET">
-            <div class="d-flex ml-3 mt-1 w-50">
+    <form method="GET">
+        <div class="d-flex mt-1 w-50">
             <input type="text" class="form-control" id="page" name="page" size=10>
-            <input type="submit" class="btn btn-secondary" id="go" value="Go">
-            </div>
-        </form>
-    </div>
+            <input type="submit" class="btn btn-primary" id="go" value="Go">
+        </div>
+    </form>
 
 @endsection
 
