@@ -40,21 +40,21 @@
                         <select class="artists form-control" multiple="multiple" name="artists[]" id="artists"></select>
                     </div>
                     <label for="year" class="control-label">Year</label>
-                    <div class="pb-4">
+                    <div>
                         <input type="text" name="year" id="song-year" class="form-control" @if ( ! empty($song->year)) value="{{ $song->year }}" @endif>
                     </div>
 
                 </div>
 
-                <div class="col-md-7 w-75">
+                <div class="col-md-5 w-75">
                     @if ($cover_art)
-                        <img class="pt-4 ml-5" src="{{ $cover_art }}" class="css-class" alt="alt text" style="width:30%">
+                        <img class="pt-4 ml-5" src="{{ $cover_art }}" class="css-class" alt="alt text" style="width:40%">
                     @endif
                 </div>
 
             </div>
 
-            <div class="row w-75">
+            <div class="row w-50">
 
                 <div class="col">
                     <label for="genre" class="control-label">Genre</label>
@@ -62,6 +62,10 @@
                         <input type="text" name="genre" id="song-genre" class="form-control" @if ( ! empty($song->genre)) value="{{ $song->genre }}" @endif>
                     </div>
                 </div>
+
+            </div>
+
+            <div class="row w-50">
 
                 <div class="col">
                     <label for="track_no" class="control-label">Track No</label>
@@ -81,22 +85,15 @@
                     </div>
                 </div>
 
-            </div>
-
-            <div class="row w-75">
-
                 <div class="col">
                     <label for="playtime" class="control-label">Playtime</label>
                     <div class="pb-1">
                         <input type="text" name="playtime" id="song-playtime" class="form-control" @if ( ! empty($song->playtime)) value="{{ $song->playtime }}" @endif>
                     </div>
                 </div>
-                <div class="col">
-                    <label for="filesize" class="control-label">Filesize</label>
-                    <div class="pb-1">
-                        <input type="text" name="filesize" id="song-filesize" class="form-control" @if ( ! empty($song->filesize)) value="{{ $song->filesize }}" @endif>
-                    </div>
-                </div>
+            </div>
+
+            <div class="row w-50">
 
                 <div class="col">
                     <label for="composer" class="control-label">Composer</label>
@@ -107,7 +104,7 @@
 
             </div>
 
-            <div class="row w-75">
+            <div class="row w-50">
 
                 <div class="col">
                     <label for="location" class="control-label">Location</label>
@@ -129,7 +126,7 @@
 
             </div>
 
-            <div class="row w-75">
+            <div class="row w-25">
 
                 <div class="col">
                     <label for="rank" class="control-label">Rank</label>
@@ -159,7 +156,7 @@
 
             </div>
 
-            <div class="row">
+            <div class="row pt-2">
                 <div class="col">
                     @if ( ! empty($song->id))
                         <input type="hidden" name="id" id="song-id" value="{{ $song->id }}">
