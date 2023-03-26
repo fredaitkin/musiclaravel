@@ -126,7 +126,7 @@
 
             </div>
 
-            <div class="row w-25">
+            <div class="row w-50">
 
                 <div class="col">
                     <label for="rank" class="control-label">Rank</label>
@@ -144,6 +144,13 @@
                     <label for="last_played" class="control-label">Last Played</label>
                     <div class="pb-1">
                         <input type="text" name="last_played" id="last_played" class="form-control" @if ( ! empty($song->last_played)) value="{{ $song->last_played }}" @endif>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <label for="played" class="control-label">Played</label>
+                    <div class="pb-1">
+                        <input type="text" name="played" id="played" class="form-control" @if ( ! empty($song->played)) value="{{ $song->played }}" @endif>
                     </div>
                 </div>
 

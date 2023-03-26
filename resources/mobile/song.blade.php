@@ -99,6 +99,15 @@
                 </div>
 
                 <div class="col">
+                    <label for="played" class="control-label">Played</label>
+                    <div class="pb-1">
+                        <input type="text" name="played" id="played" class="form-control" @if ( ! empty($song->played)) value="{{ $song->played }}" @endif>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
                     <label for="do_not_play" class="control-label">Don't Play</label>
                     <div class="pb-1">
                         <input type="checkbox" name="do_not_play" id="do_not_play" @if (!empty($song->do_not_play) && ($song->do_not_play)) checked @endif>
