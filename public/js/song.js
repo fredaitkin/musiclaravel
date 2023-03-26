@@ -186,6 +186,22 @@ $(document).ready(function() {
 
   });
 
+  $("a[name='title']").mousedown(function(event) {
+    switch (event.which) {
+      case 3:
+        var title = $(this).text();
+        var artist  = $(this).parent().next().find('a').text();
+        url ='http://www.google.com/search?q=' + artist + ' ' + title + ' wikipedia';
+        window.open(url, title, 'toolbars=0,width=1200,height=800');
+        window.location.href = APP_URL + $(this).attr('href');
+        break;
+
+      default:
+        window.location.href = APP_URL + $(this).attr('href');
+    }
+
+  });
+
 });
 
 function shuffle(array) {

@@ -62,19 +62,17 @@
                             <th>&nbsp;</th>
                             <th>&nbsp;</th>
                             <th>&nbsp;</th>
-                            <th>&nbsp;</th>
                         </thead>
 
                         <tbody>
                             @foreach ($songs as $song)
                                 <tr class="mysounds-tr">
-                                    <td class="table-text">
-                                        <div>{{ $song->title }}</div>
+                                    <td>
+                                        {{ csrf_field() }}
+                                        <a name="title" href="/song/{{ $song->id }}">{{ $song->title }}</a>
                                     </td>
                                     <td class="table-text">
-                                        <div>
-                                            <a href="/artist/{{ $song->artists[0]->id }}">{{ $song->artists[0]->artist }} @if($song->notes_artist) - {{ $song->notes_artist}} @endif</a>
-                                        </div>
+                                        <a name="artist" href="/artist/{{ $song->artists[0]->id }}">{{ $song->artists[0]->artist }} @if($song->notes_artist) - {{ $song->notes_artist}} @endif</a>
                                     </td>
                                     <td class="table-text">
                                         <div>{{ $song->album }}</div>
@@ -87,10 +85,6 @@
                                     </td>
                                     <td class="table-text">
                                         <div>{{ $song->playtime }}</div>
-                                    </td>
-                                    <td>
-                                        {{ csrf_field() }}
-                                        <a href="/song/{{ $song->id }}">edit</a>
                                     </td>
                                     <td>
                                        <span name="play" id="play-{{ $song->id }}"><i class="fa fa-play"></i></span>
