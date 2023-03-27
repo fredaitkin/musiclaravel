@@ -14,12 +14,10 @@
             @if ($song_exists)
             <div class="form-group">
                 <div class="col-sm-3">
-                    <!--
                     <a href="/song/mobile/play/{{ $song->id }}" target="_blank">play</a>
                     <i class="fa fa-music" style="color:peru;"></i>
                     <i class="fa fa-music" style="color:peru;"></i>
                     <i class="fa fa-music" style="color:peru;"></i>
-                -->
                 </div>
             </div>
             @endif
