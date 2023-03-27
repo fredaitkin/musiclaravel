@@ -19,8 +19,6 @@ Route::get('404', function () {
     return abort(404);
 });
 
-Route::get('song/play/{id}', 'SongResourceController@play');
-
 $auth = (config('view.device') === 'mobile') ? 'guest' : 'auth';
 
 Route::middleware([$auth])->group(function () {
@@ -40,6 +38,8 @@ Route::middleware([$auth])->group(function () {
     Route::any('songs/search', 'SongResourceController@search');
 
     Route::get('song', 'SongResourceController@add');
+
+    Route::get('song/play/{id}', 'SongResourceController@play');
 
     // Artist Routes
 
