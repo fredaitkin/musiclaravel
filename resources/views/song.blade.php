@@ -10,6 +10,7 @@
 
         <form action="/song" method="POST" class="form-horizontal">
             {{ csrf_field() }}
+            {{  Form::hidden('url',URL::previous())  }}
 
             @if ($song_exists)
             <div class="form-group">
