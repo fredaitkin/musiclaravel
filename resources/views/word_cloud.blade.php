@@ -83,7 +83,7 @@
                     {{ $word_cloud->appends(['filter' => $filter])->links() }}
                      <form class="form-inline" method="GET">
                         <input type="text" class="form-control" id="page" name="page" size=10>
-                        <input type="submit" class="btn btn-secondary" id="go" value="Go">
+                        <input type="submit" class="btn btn-primary" id="go" value="Go">
                     </form>
                 </div>
             </div>
