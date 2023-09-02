@@ -8,7 +8,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "^7.2.5",
+        "php": "8.1.2",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^7.4",
         "intervention/image": "^2.5",
@@ -25,15 +25,14 @@
         "watson/rememberable": "^5.0"
     },
     "require-dev": {
-        "codeception/codeception": "^4.1",
-        "codeception/module-asserts": "^1.0.0",
-        "codeception/module-laravel5": "^1.1",
-        "codeception/module-phpbrowser": "^1.0.0",
-        "codeception/module-webdriver": "^1.0",
+        "codeception/codeception": "^5.0.8",
+        "codeception/module-asserts": "3.0",
+        "codeception/module-laravel": "3.1.1",
+        "codeception/module-phpbrowser": "3.0.0",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
-        "phpunit/phpunit": "^9.0",
+        "phpunit/phpunit": "^10.0",
         "squizlabs/php_codesniffer": "^3.7"
     },
     "autoload": {
