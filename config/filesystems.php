@@ -96,6 +96,11 @@ return [
             'driver' => 'local',
             'root'   => '/storage/emulated/0/',
         ],
+
+        'partitionLinux' => [
+            'driver' => 'local',
+            'root'   => '/home/',
+        ],
     ],
 
     /*
