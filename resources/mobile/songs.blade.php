@@ -49,7 +49,8 @@
                         <th>Artist</th>
                         <th>Play</th>
                         <th>Play Album</th>
-                        <th>Add to Playlist</th>
+                        <th>+ Playlist</th>
+                        <th>Lyrics</th>
                     </thead>
 
                     <tbody>
@@ -72,6 +73,9 @@
                                 </td>
                                 <td>
                                    <span name="playlist" id="playlist-{{ $song->id }}" data-title="{{ $song->title }}"><i class="fa fa-list"></i></span>
+                                </td>
+                                <td>
+                                    <a target="_blank" href="/songs?lyrics=true&id={{ $song->id }}"><i class="fa fa-book"></i></a>
                                 </td>
                             </tr>
                         @endforeach
