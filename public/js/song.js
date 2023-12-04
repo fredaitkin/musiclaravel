@@ -236,7 +236,7 @@ function display_jukebox(title, songs, device_type) {
   jukebox_form += '<figure>';
   jukebox_form += '<audio controls src="' + song_url + songs[0].id + '">Your browser does not support the<code>audio</code> element.</audio>';
   jukebox_form += '</figure>';
-  jukebox_form += '<button class="previous btn-jukebox">Previous</button><button class="next btn-jukebox">Next</button>';
+  jukebox_form += '<button class="previous btn-jukebox">Previous</button><button class="next btn-jukebox">Next</button><button class="restart btn-jukebox">Restart</button>';
 
   jukebox_form += '<div id=div-jukebox>';
   for (i = 0; i < songs.length; i++) {
@@ -278,10 +278,11 @@ function display_jukebox(title, songs, device_type) {
       let previous_id = song.id;
       $("#song-" + previous_id).addClass('font-weight-bold');
       $("span.ui-dialog-title").html(song.title);
-      // Play
+
       let audio = $(this).find('audio').get(0);
       let next = $(this).find('button.next').get(0);
       let previous = $(this).find('button.previous').get(0);
+      let restart = $(this).find('button.restart').get(0);
 
       audio.addEventListener('ended',function(e) {
         idx += 1;
@@ -298,8 +299,13 @@ function display_jukebox(title, songs, device_type) {
         previous_id = next_song(e, audio, previous_id, idx);
       });
 
+      restart.addEventListener('click', function(e) {
+        previous_id = next_song(e, audio, 0, 0);
+      });
+
       if (songs.length == 0) {
         $('button.next').hide();
+        $('button.restart').hide();
       }
 
       play(null, audio);
@@ -308,8 +314,10 @@ function display_jukebox(title, songs, device_type) {
 
         if (idx == 0) {
           $('button.previous').hide();
+          $('button.restart').hide();
         } else {
           $('button.previous').show();
+          $('button.restart').show();
         }
         var playPromise = audio.play();
           playPromise.then(function() {
