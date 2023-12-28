@@ -300,7 +300,8 @@ function display_jukebox(title, songs, device_type) {
       });
 
       restart.addEventListener('click', function(e) {
-        previous_id = next_song(e, audio, 0, 0);
+        idx = 0;
+        previous_id = next_song(e, audio, previous_id, idx);
       });
 
       if (songs.length == 0) {
