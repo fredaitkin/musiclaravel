@@ -12,7 +12,11 @@ $(document).ready(function() {
                 return;
               }
               response.json().then(function(data) {
-                $('#lyrics').val(htmlDecode(data));
+                if (data) {
+                  $('#lyrics').val(htmlDecode(data));
+                } else {
+                  alert('No lyrics were found');
+                }
               });
             }
           )
