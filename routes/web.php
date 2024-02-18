@@ -41,6 +41,8 @@ Route::middleware([$auth])->group(function () {
 
     Route::get('song/play/{id}', 'SongResourceController@play');
 
+    Route::get('songs/lyrics', 'SongResourceController@lyrics');
+
     // Artist Routes
 
     Route::get('artists', 'ArtistRestController@index');

@@ -94,8 +94,7 @@ class SongRestController extends Controller
         else:
             $this->song->createOrUpdate($request);
         endif;
-
-        return redirect($request->url);
+        return redirect(url()->previous());
     }
 
     /**

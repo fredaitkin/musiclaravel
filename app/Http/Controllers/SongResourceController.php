@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 
 use App\Jukebox\Song\SongInterface as Song;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Storage;
 
 /**
@@ -85,6 +86,35 @@ class SongResourceController extends Controller
         else:
             return view('songs')->withMessage('No songs found. Try to search again!');
         endif;
+    }
+
+
+    /**
+     * Retrieve song lyrics from Genius.
+     *
+     * Retrieve the song html page and strip out the lyrics div.
+     *
+     * @param Illuminate\Http\Request $request Request object
+     *
+     * @return Response
+     */
+    public function lyrics(Request $request)
+    {
+        $url = 'https://genius.com/';
+        $url .= str_replace(' ', '-', strtolower($request->artist));
+        $url .= '-';
+        $url .= str_replace(' ', '-', strtolower($request->song));
+        $url .= '-lyrics';
+        $response = Http::get($url);
+        $lyrics = '';
+        if ($response->getStatusCode() == 200):
+           $html = $response->body();
+           $pos = strpos($html, '<div data-lyrics-container');
+           $endpos = strpos($html, '</div>', $pos);
+            $lyrics = substr($html, $pos, $endpos - $pos);
+        endif;
+
+        return json_encode($lyrics);
     }
 
     /**
