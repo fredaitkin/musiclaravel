@@ -103,7 +103,7 @@ class SongResourceController extends Controller
         $url = 'https://genius.com/';
         $url .= str_replace(' ', '-', strtolower($request->artist));
         $url .= '-';
-        $url .= str_replace(' ', '-', strtolower($request->song));
+        $url .= str_replace([' ', "'"], ['-', ''], strtolower($request->song));
         $url .= '-lyrics';
         $response = Http::get($url);
         $lyrics = '';
