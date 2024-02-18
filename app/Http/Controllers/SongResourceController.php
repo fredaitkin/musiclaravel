@@ -112,6 +112,7 @@ class SongResourceController extends Controller
            $pos = strpos($html, '<div data-lyrics-container');
            $endpos = strpos($html, '</div>', $pos);
             $lyrics = substr($html, $pos, $endpos - $pos);
+            $lyrics = str_replace(' ', ' ', $lyrics);
         endif;
 
         return json_encode($lyrics);
